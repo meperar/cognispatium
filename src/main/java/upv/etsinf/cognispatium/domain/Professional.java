@@ -21,7 +21,7 @@ public class Professional implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 	
-	//Hola
+	
     @Column
 	private String name;
 	private String surname;
