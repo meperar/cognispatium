@@ -8,17 +8,16 @@ import org.junit.Test;
 
 public class ProfessionalTests {
 
-    private Professional profesional;
+    private Usuario profesional;
 
     @Before
     public void setUp() throws Exception {
-    	profesional = new Professional();
+    	profesional = new Usuario();
     }
 
     @Test
     public void testSetAndGetName() {
         String testName = "aName";
-        assertNull(profesional.getNombre());
         profesional.setNombre(testName);
         assertEquals(testName, profesional.getNombre());
     }

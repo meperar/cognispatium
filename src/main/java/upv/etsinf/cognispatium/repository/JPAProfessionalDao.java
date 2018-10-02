@@ -9,7 +9,7 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import upv.etsinf.cognispatium.domain.Professional;
+import upv.etsinf.cognispatium.domain.Usuario;
 
 @Repository(value = "productDao")
 public class JPAProfessionalDao implements ProfessionalDao {
@@ -26,12 +26,12 @@ public class JPAProfessionalDao implements ProfessionalDao {
 
     @Transactional(readOnly = true)
     @SuppressWarnings("unchecked")
-    public List<Professional> getProfessionalList() {
+    public List<Usuario> getProfessionalList() {
         return em.createQuery("select p from Professional p order by p.id").getResultList();
     }
 
     @Transactional(readOnly = false)
-    public void saveProfessional(Professional prof) {
+    public void saveProfessional(Usuario prof) {
         em.merge(prof);
     }
 

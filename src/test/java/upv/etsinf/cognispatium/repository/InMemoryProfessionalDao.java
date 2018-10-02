@@ -2,21 +2,21 @@ package upv.etsinf.cognispatium.repository;
 
 import java.util.List;
 
-import upv.etsinf.cognispatium.domain.Professional;
+import upv.etsinf.cognispatium.domain.Usuario;
 
 public class InMemoryProfessionalDao implements ProfessionalDao {
 
-    private List<Professional> professionalList;
+    private List<Usuario> professionalList;
 
-    public InMemoryProfessionalDao(List<Professional> professionalList) {
+    public InMemoryProfessionalDao(List<Usuario> professionalList) {
         this.professionalList = professionalList;
     }
 
-    public List<Professional> getProfessionalList() {
+    public List<Usuario> getProfessionalList() {
         return professionalList;
     }
 
-    public void saveProfessional(Professional prof) {
+    public void saveProfessional(Usuario prof) {
     }
 
 }

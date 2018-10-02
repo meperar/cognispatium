@@ -4,7 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import upv.etsinf.cognispatium.domain.Professional;
+import upv.etsinf.cognispatium.domain.Usuario;
 import upv.etsinf.cognispatium.repository.ProfessionalDao;
 
 @Component
@@ -21,15 +21,15 @@ public class SimpleProfessionalManager implements ProfessionalManager {
         this.professionalDao = professionalDao;
     }
 
-    public List<Professional> getProfessionals() {
+    public List<Usuario> getProfessionals() {
        return professionalDao.getProfessionalList();        
     }
     
 
 	public void increaseBenefits(int increase) {
-		 List<Professional> professionals = professionalDao.getProfessionalList();
+		 List<Usuario> professionals = professionalDao.getProfessionalList();
 		 if (professionals != null) {
-	            for (Professional professional : professionals) {
+	            for (Usuario professional : professionals) {
 	                int benefits = professional.getEmail() * 
 	                                    (100 + increase)/100;
 	                professional.setEmail(benefits);;
@@ -39,7 +39,7 @@ public class SimpleProfessionalManager implements ProfessionalManager {
 		
 	}
 
-	public void setProfessionals(List<Professional> professionals) {
+	public void setProfessionals(List<Usuario> professionals) {
 		// TODO Auto-generated method stub
 		
 	}

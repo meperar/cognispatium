@@ -2,12 +2,12 @@ package upv.etsinf.cognispatium.repository;
 
 import java.util.List;
 
-import upv.etsinf.cognispatium.domain.Professional;
+import upv.etsinf.cognispatium.domain.Usuario;
 
 public interface ProfessionalDao {
 
-    public List<Professional> getProfessionalList();
+    public List<Usuario> getProfessionalList();
 
-    public void saveProfessional(Professional prof);
+    public void saveProfessional(Usuario prof);
 
 }

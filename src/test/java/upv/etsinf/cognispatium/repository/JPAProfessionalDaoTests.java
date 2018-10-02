@@ -9,7 +9,7 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import upv.etsinf.cognispatium.domain.Professional;
+import upv.etsinf.cognispatium.domain.Usuario;
 
 
 public class JPAProfessionalDaoTests {
@@ -25,21 +25,21 @@ public class JPAProfessionalDaoTests {
 
     @Test
     public void testGetProfessionalList() {
-        List<Professional> professionals = professionalDao.getProfessionalList();
+        List<Usuario> professionals = professionalDao.getProfessionalList();
         assertEquals(professionals.size(), 3, 0);	   
     }
 
     @Test
     public void testSaveProfessional() {
-        List<Professional> professionals = professionalDao.getProfessionalList();
+        List<Usuario> professionals = professionalDao.getProfessionalList();
 
-        Professional p = professionals.get(0);
+        Usuario p = professionals.get(0);
         String surname = p.getApellidos();
         p.setApellidos("Teresa");
         professionalDao.saveProfessional(p);
 
-        List<Professional> updatedProfessinals = professionalDao.getProfessionalList();
-        Professional p2 = updatedProfessinals.get(0);
+        List<Usuario> updatedProfessinals = professionalDao.getProfessionalList();
+        Usuario p2 = updatedProfessinals.get(0);
         assertEquals(p2.getApellidos(), "Teresa", 0);
 
         p2.setApellidos("Marta");
