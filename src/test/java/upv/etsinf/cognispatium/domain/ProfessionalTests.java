@@ -18,17 +18,17 @@ public class ProfessionalTests {
     @Test
     public void testSetAndGetName() {
         String testName = "aName";
-        assertNull(profesional.getNombre());
-        profesional.setNombre(testName);
-        assertEquals(testName, profesional.getNombre());
+        assertNull(profesional.getName());
+        profesional.setName(testName);
+        assertEquals(testName, profesional.getName());
     }
     
     @Test
     public void testSetAndGetSurname() {
         String testSurname = "aSurname";
-        assertNull(profesional.getApellidos());
-        profesional.setApellidos(testSurname);
-        assertEquals(testSurname, profesional.getApellidos());
+        assertNull(profesional.getSurname());
+        profesional.setSurname(testSurname);
+        assertEquals(testSurname, profesional.getSurname());
     }
 
 
