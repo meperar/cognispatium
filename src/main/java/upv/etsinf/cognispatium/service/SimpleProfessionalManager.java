@@ -30,9 +30,9 @@ public class SimpleProfessionalManager implements ProfessionalManager {
 		 List<Professional> professionals = professionalDao.getProfessionalList();
 		 if (professionals != null) {
 	            for (Professional professional : professionals) {
-	                int benefits = professional.getBenefits() * 
+	                int benefits = professional.getEmail() * 
 	                                    (100 + increase)/100;
-	                professional.setBenefits(benefits);;
+	                professional.setEmail(benefits);;
 	                professionalDao.saveProfessional(professional);
 	            }
 	        }  

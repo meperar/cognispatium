@@ -34,15 +34,15 @@ public class JPAProfessionalDaoTests {
         List<Professional> professionals = professionalDao.getProfessionalList();
 
         Professional p = professionals.get(0);
-        String surname = p.getSurname();
-        p.setSurname("Teresa");
+        String surname = p.getApellidos();
+        p.setApellidos("Teresa");
         professionalDao.saveProfessional(p);
 
         List<Professional> updatedProfessinals = professionalDao.getProfessionalList();
         Professional p2 = updatedProfessinals.get(0);
-        assertEquals(p2.getSurname(), "Teresa", 0);
+        assertEquals(p2.getApellidos(), "Teresa", 0);
 
-        p2.setSurname("Marta");
+        p2.setApellidos("Marta");
         professionalDao.saveProfessional(p2);
     }
 }
