@@ -16,7 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import upv.etsinf.cognispatium.service.ProfessionalManager;
+import upv.etsinf.cognispatium.service.UsuarioManager;
 
 @Controller
 public class WebServiceController {
@@ -24,7 +24,7 @@ public class WebServiceController {
 	protected final Log logger = LogFactory.getLog(getClass());
 
 	@Autowired
-	private ProfessionalManager professionalManager;
+	private UsuarioManager usuarioManager;
 
 	@RequestMapping(value = "/hello.htm")
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
@@ -35,13 +35,13 @@ public class WebServiceController {
 
 		Map<String, Object> myModel = new HashMap<String, Object>();
 		myModel.put("now", now);
-		myModel.put("professionals", this.professionalManager.getProfessionals());
+		myModel.put("professionals", this.usuarioManager.getUsuarios());
 
 		return new ModelAndView("hello", "model", myModel);
 
 	}
 
-	public void setProfessionalManager(ProfessionalManager professionalManager) {
-		this.professionalManager = professionalManager;
+	public void setProfessionalManager(UsuarioManager usuarioManager) {
+		this.usuarioManager = usuarioManager;
 	}
 }

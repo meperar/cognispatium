@@ -5,9 +5,9 @@ import java.util.List;
 
 import upv.etsinf.cognispatium.domain.Usuario;
 
-public interface ProfessionalManager extends Serializable {
+public interface UsuarioManager extends Serializable {
     
-    public List<Usuario> getProfessionals();
+    public List<Usuario> getUsuarios();
     
     public void increaseBenefits (int increse);
     

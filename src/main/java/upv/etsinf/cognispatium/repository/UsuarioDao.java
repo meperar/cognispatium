@@ -8,6 +8,6 @@ public interface UsuarioDao {
 
     public List<Usuario> getUsuarioList();
 
-    public void saveUsuario(Usuario prof);
+    public void saveUsuario(Usuario usuario);
 
 }

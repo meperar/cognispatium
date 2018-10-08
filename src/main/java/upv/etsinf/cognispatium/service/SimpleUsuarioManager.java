@@ -8,7 +8,7 @@ import upv.etsinf.cognispatium.domain.Usuario;
 import upv.etsinf.cognispatium.repository.UsuarioDao;
 
 @Component
-public class SimpleProfessionalManager implements ProfessionalManager {
+public class SimpleUsuarioManager implements UsuarioManager {
 
     private static final long serialVersionUID = 1L;
     
@@ -17,11 +17,11 @@ public class SimpleProfessionalManager implements ProfessionalManager {
     @Autowired
     private UsuarioDao usuarioDao;
 
-    public void setProfessionalDao(UsuarioDao professionalDao) {
+    public void setUsuarioDao(UsuarioDao professionalDao) {
         this.usuarioDao = professionalDao;
     }
 
-    public List<Usuario> getProfessionals() {
+    public List<Usuario> getUsuarios() {
        return usuarioDao.getUsuarioList();        
     }
 

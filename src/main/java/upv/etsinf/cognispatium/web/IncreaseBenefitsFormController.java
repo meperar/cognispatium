@@ -15,7 +15,7 @@ import javax.validation.Valid;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import upv.etsinf.cognispatium.service.ProfessionalManager;;
+import upv.etsinf.cognispatium.service.UsuarioManager;;
 
 @Controller
 @RequestMapping(value="/viewincreasebenefits.htm")
@@ -25,7 +25,7 @@ public class IncreaseBenefitsFormController {
     protected final Log logger = LogFactory.getLog(getClass());
 
     @Autowired
-    private ProfessionalManager professionalManager;
+    private UsuarioManager usuarioManager;
 
 //    @RequestMapping(method = RequestMethod.POST)
 //    public String onSubmit(@Valid IncreaseBenefits increaseBenefits, BindingResult result)
@@ -49,13 +49,13 @@ public class IncreaseBenefitsFormController {
 //        return increaseBenefits;
 //    }
 
-    public void setProductManager(ProfessionalManager professionalManager) {
-        this.professionalManager = professionalManager;
+    public void setProductManager(UsuarioManager usuarioManager) {
+        this.usuarioManager = usuarioManager;
     }
     
     @ModelAttribute("IncreaseBenefits")
-    public ProfessionalManager getProfessionalManager() {
-        return professionalManager;
+    public UsuarioManager getUsuarioManager() {
+        return usuarioManager;
     }
 
 }

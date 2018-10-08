@@ -14,7 +14,7 @@ import upv.etsinf.cognispatium.domain.Usuario;
 
 public class SimpleProfessionalManagerTests {
 
-    private SimpleProfessionalManager professionalManager;
+    private SimpleUsuarioManager usuarioManager;
     
     
     
@@ -30,7 +30,7 @@ public class SimpleProfessionalManagerTests {
     
     @Before
     public void setUp() throws Exception {
-    	professionalManager = new SimpleProfessionalManager();
+    	usuarioManager = new SimpleUsuarioManager();
     	professionals = new ArrayList<Usuario>();
         
         // stub up a list of products
@@ -45,7 +45,7 @@ public class SimpleProfessionalManagerTests {
     	professionals.add(professional);
         
     	UsuarioDao usuarioDao = new InMemoryUsuarioDao(professionals);
-    	professionalManager.setProfessionalDao(usuarioDao);
+    	usuarioManager.setUsuarioDao(usuarioDao);
         //productManager.setProducts(products);
 
     }
@@ -53,15 +53,15 @@ public class SimpleProfessionalManagerTests {
    
     @Test
     public void testGetProductsWithNoProducts() {
-    	professionalManager = new SimpleProfessionalManager();
-    	professionalManager.setProfessionalDao(new InMemoryUsuarioDao(null));
-        assertNull(professionalManager.getProfessionals());
+    	usuarioManager = new SimpleUsuarioManager();
+    	usuarioManager.setUsuarioDao(new InMemoryUsuarioDao(null));
+        assertNull(usuarioManager.getUsuarios());
     }
     @Test
     public void testGetProducts() {
-        List<Usuario> professionals = professionalManager.getProfessionals();
+        List<Usuario> professionals = usuarioManager.getUsuarios();
         assertNotNull(professionals);        
-        assertEquals(PROFESSIONAL_COUNT, professionalManager.getProfessionals().size());
+        assertEquals(PROFESSIONAL_COUNT, usuarioManager.getUsuarios().size());
     
         Usuario professional = professionals.get(0);
         assertEquals(HELEN_NAME, professional.getNombre());

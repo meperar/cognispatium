@@ -11,16 +11,16 @@ import upv.etsinf.cognispatium.repository.InMemoryUsuarioDao;
 import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;
 
-import upv.etsinf.cognispatium.service.SimpleProfessionalManager;
+import upv.etsinf.cognispatium.service.SimpleUsuarioManager;
 
 public class WebServiceControllerTests {
     @Test
     public void testHandleRequestView() throws Exception{		
         WebServiceController controller = new WebServiceController();
         
-        SimpleProfessionalManager spm = new SimpleProfessionalManager();
-        spm.setProfessionalDao(new InMemoryUsuarioDao(new ArrayList<Usuario>()));
-        controller.setProfessionalManager(spm);
+        SimpleUsuarioManager spu = new SimpleUsuarioManager();
+        spu.setUsuarioDao(new InMemoryUsuarioDao(new ArrayList<Usuario>()));
+        controller.setProfessionalManager(spu);
         ModelAndView modelAndView = controller.handleRequest(null, null);		
         assertEquals("hello", modelAndView.getViewName());
         assertNotNull(modelAndView.getModel());
