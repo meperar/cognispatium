@@ -35,13 +35,13 @@ public class SimpleProfessionalManagerTests {
         
         // stub up a list of products
     	Professional professional = new Professional();
-    	professional.setSurname("Chair");
-    	professional.setName(HELEN_NAME);
+    	professional.setApellidos("Chair");
+    	professional.setNombre(HELEN_NAME);
     	professionals.add(professional);
         
     	professional = new Professional();
-    	professional.setSurname("Table");
-    	professional.setName(PAUL_NAME);
+    	professional.setApellidos("Table");
+    	professional.setNombre(PAUL_NAME);
     	professionals.add(professional);
         
     	ProfessionalDao professionalDao = new InMemoryProfessionalDao(professionals);
@@ -64,12 +64,12 @@ public class SimpleProfessionalManagerTests {
         assertEquals(PROFESSIONAL_COUNT, professionalManager.getProfessionals().size());
     
         Professional professional = professionals.get(0);
-        assertEquals(HELEN_NAME, professional.getName());
-        assertEquals(HELEN_SURNAME, professional.getSurname());
+        assertEquals(HELEN_NAME, professional.getNombre());
+        assertEquals(HELEN_SURNAME, professional.getApellidos());
         
         professional = professionals.get(1);
-        assertEquals(PAUL_NAME, professional.getName());
-        assertEquals(PAUL_SURNAME, professional.getSurname());     
+        assertEquals(PAUL_NAME, professional.getNombre());
+        assertEquals(PAUL_SURNAME, professional.getApellidos());     
     }
     
 }

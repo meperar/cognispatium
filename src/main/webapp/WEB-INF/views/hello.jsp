@@ -12,16 +12,14 @@
 		<fmt:message key="greeting" />
 		<c:out value="${model.now}" />
 	</p>
-	<h3>Products</h3>
+	<h3>Usuarios</h3>
 	<c:forEach items="${model.professionals}" var="prof">
-		<c:out value="${prof.name}" />
-		<i> <c:out value="${prof.surname}" /></i>
-		<i> <c:out value="${prof.benefits}" /></i>
+		<c:out value="${prof.nombre}" />
+		<i> <c:out value="${prof.apellidos}" /></i>
+		<i> <c:out value="${prof.email}" /></i>
 		<br>
 		<br>
 	</c:forEach>
-	<br>
-	<a href="<c:url value="viewincreasebenefits.htm"/>">Increase Prices</a>
 	<br>
 </body>
 </html>

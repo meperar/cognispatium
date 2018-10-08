@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="professionals")
+@Table(name="usuario")
 public class Professional implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -23,10 +23,10 @@ public class Professional implements Serializable {
 	
 	
     @Column
-	private String name;
-	private String surname;
-	private Date birthDate;
-	private int benefits;
+	private String nombre;
+	private String apellidos;
+	private String email;
+	private String dni;
 	
 	
 
@@ -38,42 +38,44 @@ public class Professional implements Serializable {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+
+
+	public String getNombre() {
+		return nombre;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
-	public String getSurname() {
-		return surname;
+	public String getApellidos() {
+		return apellidos;
 	}
 
-	public void setSurname(String surname) {
-		this.surname = surname;
+	public void setApellidos(String apellidos) {
+		this.apellidos = apellidos;
 	}
 
-	public Date getBirthDate() {
-		return birthDate;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setBirthDate(Date birthDate) {
-		this.birthDate = birthDate;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
-	public int getBenefits() {
-		return benefits;
+	public String getDni() {
+		return dni;
 	}
 
-	public void setBenefits(int benefits) {
-		this.benefits = benefits;
+	public void setDni(String dni) {
+		this.dni = dni;
 	}
 
 	public String toString() {
 		StringBuffer buffer = new StringBuffer();
-		buffer.append("Name: " + name + ";");
-		buffer.append("Surname: " + surname);
+		buffer.append("Name: " + nombre + ";");
+		buffer.append("Surname: " + apellidos);
 		return buffer.toString();
 	}
 }

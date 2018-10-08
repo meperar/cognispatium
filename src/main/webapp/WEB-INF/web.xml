@@ -14,7 +14,7 @@
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 
-	<display-name>CogniSpatium</display-name>
+	<display-name>cognisptium</display-name>
 
 	<servlet>
 		<servlet-name>cognispatium</servlet-name>
