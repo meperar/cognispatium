@@ -15,7 +15,6 @@ import javax.validation.Valid;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import upv.etsinf.cognispatium.service.IncreaseBenefits;
 import upv.etsinf.cognispatium.service.ProfessionalManager;;
 
 @Controller
@@ -28,27 +27,27 @@ public class IncreaseBenefitsFormController {
     @Autowired
     private ProfessionalManager professionalManager;
 
-    @RequestMapping(method = RequestMethod.POST)
-    public String onSubmit(@Valid IncreaseBenefits increaseBenefits, BindingResult result)
-    {
-        if (result.hasErrors()) {
-            return "viewincreasebenefits";
-        }
-		
-        int increase = increaseBenefits.getBenefits();
-        logger.info("Increasing prices by " + increase + "%.");
+//    @RequestMapping(method = RequestMethod.POST)
+//    public String onSubmit(@Valid IncreaseBenefits increaseBenefits, BindingResult result)
+//    {
+//        if (result.hasErrors()) {
+//            return "viewincreasebenefits";
+//        }
+//		
+//        int increase = increaseBenefits.getBenefits();
+//        logger.info("Increasing prices by " + increase + "%.");
+//
+//        professionalManager.increaseBenefits(increase);;
+//
+//        return "redirect:/hello.htm";
+//    }
 
-        professionalManager.increaseBenefits(increase);;
-
-        return "redirect:/hello.htm";
-    }
-
-    @RequestMapping(method = RequestMethod.GET)
-    protected IncreaseBenefits formBackingObject(HttpServletRequest request) throws ServletException {
-    	IncreaseBenefits increaseBenefits = new IncreaseBenefits();
-    	increaseBenefits.setBenefits(15);
-        return increaseBenefits;
-    }
+//    @RequestMapping(method = RequestMethod.GET)
+//    protected IncreaseBenefits formBackingObject(HttpServletRequest request) throws ServletException {
+//    	IncreaseBenefits increaseBenefits = new IncreaseBenefits();
+//    	increaseBenefits.setBenefits(15);
+//        return increaseBenefits;
+//    }
 
     public void setProductManager(ProfessionalManager professionalManager) {
         this.professionalManager = professionalManager;

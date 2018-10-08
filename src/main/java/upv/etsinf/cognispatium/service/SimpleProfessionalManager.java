@@ -24,21 +24,27 @@ public class SimpleProfessionalManager implements ProfessionalManager {
     public List<Usuario> getProfessionals() {
        return professionalDao.getProfessionalList();        
     }
+
+	@Override
+	public void increaseBenefits(int increse) {
+		// TODO Auto-generated method stub
+		
+	}
     
 
-	public void increaseBenefits(int increase) {
-<<<<<<< HEAD
-		 List<Usuario> professionals = professionalDao.getProfessionalList();
-		 if (professionals != null) {
-	            for (Usuario professional : professionals) {
-	                int benefits = professional.getEmail() * 
-	                                    (100 + increase)/100;
-	                professional.setEmail(benefits);;
-	                professionalDao.saveProfessional(professional);
-	            }
-	        }  
-		
-=======
+//	public void increaseBenefits(int increase) {
+//<<<<<<< HEAD
+//		 List<Usuario> professionals = professionalDao.getProfessionalList();
+//		 if (professionals != null) {
+//	            for (Usuario professional : professionals) {
+//	                int benefits = professional.getEmail() * 
+//	                                    (100 + increase)/100;
+//	                professional.setEmail(benefits);;
+//	                professionalDao.saveProfessional(professional);
+//	            }
+//	        }  
+//		
+//=======
 //		 List<Professional> professionals = professionalDao.getProfessionalList();
 //		 if (professionals != null) {
 //	            for (Professional professional : professionals) {
@@ -49,11 +55,11 @@ public class SimpleProfessionalManager implements ProfessionalManager {
 //	            }
 //	        }  
 //		
->>>>>>> DEV
-	}
-
-	public void setProfessionals(List<Usuario> professionals) {
-		// TODO Auto-generated method stub
-		
-	}
+//>>>>>>> DEV
+//	}
+//
+//	public void setProfessionals(List<Usuario> professionals) {
+//		// TODO Auto-generated method stub
+//		
+//	}
 }

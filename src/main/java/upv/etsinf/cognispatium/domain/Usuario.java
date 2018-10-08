@@ -11,13 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-<<<<<<< HEAD:src/main/java/upv/etsinf/cognispatium/domain/Usuario.java
-@Table(name="Usuario")
-public class Usuario implements Serializable {
-=======
 @Table(name="usuario")
-public class Professional implements Serializable {
->>>>>>> DEV:src/main/java/upv/etsinf/cognispatium/domain/Professional.java
+public class Usuario implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	

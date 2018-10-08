@@ -27,7 +27,7 @@ public class JPAProfessionalDao implements ProfessionalDao {
     @Transactional(readOnly = true)
     @SuppressWarnings("unchecked")
     public List<Usuario> getProfessionalList() {
-        return em.createQuery("select p from Professional p order by p.id").getResultList();
+        return em.createQuery("select p from Usuario p order by p.id").getResultList();
     }
 
     @Transactional(readOnly = false)
