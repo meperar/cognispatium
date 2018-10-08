@@ -2,7 +2,7 @@ package upv.etsinf.cognispatium.service;
 
 import static org.junit.Assert.*;
 
-import upv.etsinf.cognispatium.repository.InMemoryProfessionalDao;
+import upv.etsinf.cognispatium.repository.InMemoryUsuarioDao;
 import upv.etsinf.cognispatium.repository.UsuarioDao;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +44,7 @@ public class SimpleProfessionalManagerTests {
     	professional.setNombre(PAUL_NAME);
     	professionals.add(professional);
         
-    	UsuarioDao usuarioDao = new InMemoryProfessionalDao(professionals);
+    	UsuarioDao usuarioDao = new InMemoryUsuarioDao(professionals);
     	professionalManager.setProfessionalDao(usuarioDao);
         //productManager.setProducts(products);
 
@@ -54,7 +54,7 @@ public class SimpleProfessionalManagerTests {
     @Test
     public void testGetProductsWithNoProducts() {
     	professionalManager = new SimpleProfessionalManager();
-    	professionalManager.setProfessionalDao(new InMemoryProfessionalDao(null));
+    	professionalManager.setProfessionalDao(new InMemoryUsuarioDao(null));
         assertNull(professionalManager.getProfessionals());
     }
     @Test

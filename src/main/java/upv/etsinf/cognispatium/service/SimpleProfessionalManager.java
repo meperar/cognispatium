@@ -22,7 +22,7 @@ public class SimpleProfessionalManager implements ProfessionalManager {
     }
 
     public List<Usuario> getProfessionals() {
-       return usuarioDao.getProfessionalList();        
+       return usuarioDao.getUsuarioList();        
     }
 
 	@Override

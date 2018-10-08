@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import upv.etsinf.cognispatium.domain.Usuario;
 
 @Repository(value = "productDao")
-public class JPAProfessionalDao implements UsuarioDao {
+public class JPAUsuarioDao implements UsuarioDao {
 
     private EntityManager em = null;
 
@@ -26,12 +26,12 @@ public class JPAProfessionalDao implements UsuarioDao {
 
     @Transactional(readOnly = true)
     @SuppressWarnings("unchecked")
-    public List<Usuario> getProfessionalList() {
+    public List<Usuario> getUsuarioList() {
         return em.createQuery("select p from Usuario p order by p.id").getResultList();
     }
 
     @Transactional(readOnly = false)
-    public void saveProfessional(Usuario prof) {
+    public void saveUsuario(Usuario prof) {
         em.merge(prof);
     }
 

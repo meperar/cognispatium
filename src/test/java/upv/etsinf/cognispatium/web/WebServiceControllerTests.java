@@ -6,7 +6,7 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 
 import upv.etsinf.cognispatium.domain.Usuario;
-import upv.etsinf.cognispatium.repository.InMemoryProfessionalDao;
+import upv.etsinf.cognispatium.repository.InMemoryUsuarioDao;
 
 import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,7 +19,7 @@ public class WebServiceControllerTests {
         WebServiceController controller = new WebServiceController();
         
         SimpleProfessionalManager spm = new SimpleProfessionalManager();
-        spm.setProfessionalDao(new InMemoryProfessionalDao(new ArrayList<Usuario>()));
+        spm.setProfessionalDao(new InMemoryUsuarioDao(new ArrayList<Usuario>()));
         controller.setProfessionalManager(spm);
         ModelAndView modelAndView = controller.handleRequest(null, null);		
         assertEquals("hello", modelAndView.getViewName());

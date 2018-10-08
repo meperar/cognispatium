@@ -25,24 +25,24 @@ public class JPAProfessionalDaoTests {
 
     @Test
     public void testGetProfessionalList() {
-        List<Usuario> professionals = usuarioDao.getProfessionalList();
+        List<Usuario> professionals = usuarioDao.getUsuarioList();
         assertEquals(professionals.size(), 3, 0);	   
     }
 
     @Test
     public void testSaveProfessional() {
-        List<Usuario> professionals = usuarioDao.getProfessionalList();
+        List<Usuario> professionals = usuarioDao.getUsuarioList();
 
         Usuario p = professionals.get(0);
         String surname = p.getApellidos();
         p.setApellidos("Teresa");
-        usuarioDao.saveProfessional(p);
+        usuarioDao.saveUsuario(p);
 
-        List<Usuario> updatedProfessinals = usuarioDao.getProfessionalList();
+        List<Usuario> updatedProfessinals = usuarioDao.getUsuarioList();
         Usuario p2 = updatedProfessinals.get(0);
         assertEquals(p2.getApellidos(), "Teresa", 0);
 
         p2.setApellidos("Marta");
-        usuarioDao.saveProfessional(p2);
+        usuarioDao.saveUsuario(p2);
     }
 }

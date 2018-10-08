@@ -6,8 +6,8 @@ import upv.etsinf.cognispatium.domain.Usuario;
 
 public interface UsuarioDao {
 
-    public List<Usuario> getProfessionalList();
+    public List<Usuario> getUsuarioList();
 
-    public void saveProfessional(Usuario prof);
+    public void saveUsuario(Usuario prof);
 
 }
