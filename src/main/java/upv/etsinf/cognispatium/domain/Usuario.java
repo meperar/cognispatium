@@ -11,8 +11,13 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
+<<<<<<< HEAD:src/main/java/upv/etsinf/cognispatium/domain/Usuario.java
 @Table(name="Usuario")
 public class Usuario implements Serializable {
+=======
+@Table(name="usuario")
+public class Professional implements Serializable {
+>>>>>>> DEV:src/main/java/upv/etsinf/cognispatium/domain/Professional.java
 
 	private static final long serialVersionUID = 1L;
 	
@@ -25,8 +30,8 @@ public class Usuario implements Serializable {
     @Column
 	private String nombre;
 	private String apellidos;
-	private Date dni;
-	private int email;
+	private String email;
+	private String dni;
 	
 	
 
@@ -37,15 +42,15 @@ public class Usuario implements Serializable {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
-	
+
+
 
 	public String getNombre() {
 		return nombre;
 	}
 
 	public void setNombre(String nombre) {
-		nombre = nombre;
+		this.nombre = nombre;
 	}
 
 	public String getApellidos() {
@@ -56,20 +61,20 @@ public class Usuario implements Serializable {
 		this.apellidos = apellidos;
 	}
 
-	public Date getDni() {
-		return dni;
-	}
-
-	public void setDni(Date dni) {
-		this.dni = dni;
-	}
-
-	public int getEmail() {
+	public String getEmail() {
 		return email;
 	}
 
-	public void setEmail(int email) {
+	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getDni() {
+		return dni;
+	}
+
+	public void setDni(String dni) {
+		this.dni = dni;
 	}
 
 	public String toString() {
