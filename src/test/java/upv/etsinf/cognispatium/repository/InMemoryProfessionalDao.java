@@ -4,7 +4,7 @@ import java.util.List;
 
 import upv.etsinf.cognispatium.domain.Usuario;
 
-public class InMemoryProfessionalDao implements ProfessionalDao {
+public class InMemoryProfessionalDao implements UsuarioDao {
 
     private List<Usuario> professionalList;
 

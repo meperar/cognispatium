@@ -15,34 +15,34 @@ import upv.etsinf.cognispatium.domain.Usuario;
 public class JPAProfessionalDaoTests {
 
     private ApplicationContext context;
-    private ProfessionalDao professionalDao;
+    private UsuarioDao usuarioDao;
 
     @Before
     public void setUp() throws Exception {
         context = new ClassPathXmlApplicationContext("classpath:test-context.xml");
-        professionalDao = (ProfessionalDao) context.getBean("professionalDao");
+        usuarioDao = (UsuarioDao) context.getBean("usuarioDao");
     }
 
     @Test
     public void testGetProfessionalList() {
-        List<Usuario> professionals = professionalDao.getProfessionalList();
+        List<Usuario> professionals = usuarioDao.getProfessionalList();
         assertEquals(professionals.size(), 3, 0);	   
     }
 
     @Test
     public void testSaveProfessional() {
-        List<Usuario> professionals = professionalDao.getProfessionalList();
+        List<Usuario> professionals = usuarioDao.getProfessionalList();
 
         Usuario p = professionals.get(0);
         String surname = p.getApellidos();
         p.setApellidos("Teresa");
-        professionalDao.saveProfessional(p);
+        usuarioDao.saveProfessional(p);
 
-        List<Usuario> updatedProfessinals = professionalDao.getProfessionalList();
+        List<Usuario> updatedProfessinals = usuarioDao.getProfessionalList();
         Usuario p2 = updatedProfessinals.get(0);
         assertEquals(p2.getApellidos(), "Teresa", 0);
 
         p2.setApellidos("Marta");
-        professionalDao.saveProfessional(p2);
+        usuarioDao.saveProfessional(p2);
     }
 }

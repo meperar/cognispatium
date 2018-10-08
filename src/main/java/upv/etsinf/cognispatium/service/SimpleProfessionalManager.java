@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import upv.etsinf.cognispatium.domain.Usuario;
-import upv.etsinf.cognispatium.repository.ProfessionalDao;
+import upv.etsinf.cognispatium.repository.UsuarioDao;
 
 @Component
 public class SimpleProfessionalManager implements ProfessionalManager {
@@ -15,14 +15,14 @@ public class SimpleProfessionalManager implements ProfessionalManager {
     
 
     @Autowired
-    private ProfessionalDao professionalDao;
+    private UsuarioDao usuarioDao;
 
-    public void setProfessionalDao(ProfessionalDao professionalDao) {
-        this.professionalDao = professionalDao;
+    public void setProfessionalDao(UsuarioDao professionalDao) {
+        this.usuarioDao = professionalDao;
     }
 
     public List<Usuario> getProfessionals() {
-       return professionalDao.getProfessionalList();        
+       return usuarioDao.getProfessionalList();        
     }
 
 	@Override
@@ -31,35 +31,4 @@ public class SimpleProfessionalManager implements ProfessionalManager {
 		
 	}
     
-
-//	public void increaseBenefits(int increase) {
-//<<<<<<< HEAD
-//		 List<Usuario> professionals = professionalDao.getProfessionalList();
-//		 if (professionals != null) {
-//	            for (Usuario professional : professionals) {
-//	                int benefits = professional.getEmail() * 
-//	                                    (100 + increase)/100;
-//	                professional.setEmail(benefits);;
-//	                professionalDao.saveProfessional(professional);
-//	            }
-//	        }  
-//		
-//=======
-//		 List<Professional> professionals = professionalDao.getProfessionalList();
-//		 if (professionals != null) {
-//	            for (Professional professional : professionals) {
-//	                int benefits = professional.getBenefits() * 
-//	                                    (100 + increase)/100;
-//	                professional.setBenefits(benefits);;
-//	                professionalDao.saveProfessional(professional);
-//	            }
-//	        }  
-//		
-//>>>>>>> DEV
-//	}
-//
-//	public void setProfessionals(List<Usuario> professionals) {
-//		// TODO Auto-generated method stub
-//		
-//	}
 }

@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import upv.etsinf.cognispatium.domain.Usuario;
 
 @Repository(value = "productDao")
-public class JPAProfessionalDao implements ProfessionalDao {
+public class JPAProfessionalDao implements UsuarioDao {
 
     private EntityManager em = null;
 

@@ -4,7 +4,7 @@ import java.util.List;
 
 import upv.etsinf.cognispatium.domain.Usuario;
 
-public interface ProfessionalDao {
+public interface UsuarioDao {
 
     public List<Usuario> getProfessionalList();
 
