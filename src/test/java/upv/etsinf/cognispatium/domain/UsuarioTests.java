@@ -6,28 +6,28 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-public class ProfessionalTests {
+public class UsuarioTests {
 
-    private Usuario profesional;
+    private Usuario usuario;
 
     @Before
     public void setUp() throws Exception {
-    	profesional = new Usuario();
+    	usuario = new Usuario();
     }
 
     @Test
     public void testSetAndGetName() {
         String testName = "aName";
-        profesional.setNombre(testName);
-        assertEquals(testName, profesional.getNombre());
+        usuario.setNombre(testName);
+        assertEquals(testName, usuario.getNombre());
     }
     
     @Test
     public void testSetAndGetSurname() {
         String testSurname = "aSurname";
-        assertNull(profesional.getApellidos());
-        profesional.setApellidos(testSurname);
-        assertEquals(testSurname, profesional.getApellidos());
+        assertNull(usuario.getApellidos());
+        usuario.setApellidos(testSurname);
+        assertEquals(testSurname, usuario.getApellidos());
     }
 
 

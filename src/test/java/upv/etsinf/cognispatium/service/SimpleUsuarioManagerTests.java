@@ -12,15 +12,15 @@ import org.junit.Test;
 
 import upv.etsinf.cognispatium.domain.Usuario;
 
-public class SimpleProfessionalManagerTests {
+public class SimpleUsuarioManagerTests {
 
     private SimpleUsuarioManager usuarioManager;
     
     
     
-    private List<Usuario> professionals;
+    private List<Usuario> usuarios;
     
-    private static int PROFESSIONAL_COUNT = 2;
+    private static int USUARIOS_COUNT = 2;
     
     private static String HELEN_NAME = "Helen";
     private static String HELEN_SURNAME = "Chair";
@@ -31,20 +31,20 @@ public class SimpleProfessionalManagerTests {
     @Before
     public void setUp() throws Exception {
     	usuarioManager = new SimpleUsuarioManager();
-    	professionals = new ArrayList<Usuario>();
+    	usuarios = new ArrayList<Usuario>();
         
         // stub up a list of products
-    	Usuario professional = new Usuario();
-    	professional.setApellidos("Chair");
-    	professional.setNombre(HELEN_NAME);
-    	professionals.add(professional);
+    	Usuario usuario = new Usuario();
+    	usuario.setApellidos("Chair");
+    	usuario.setNombre(HELEN_NAME);
+    	usuarios.add(usuario);
         
-    	professional = new Usuario();
-    	professional.setApellidos("Table");
-    	professional.setNombre(PAUL_NAME);
-    	professionals.add(professional);
+    	usuario = new Usuario();
+    	usuario.setApellidos("Table");
+    	usuario.setNombre(PAUL_NAME);
+    	usuarios.add(usuario);
         
-    	UsuarioDao usuarioDao = new InMemoryUsuarioDao(professionals);
+    	UsuarioDao usuarioDao = new InMemoryUsuarioDao(usuarios);
     	usuarioManager.setUsuarioDao(usuarioDao);
         //productManager.setProducts(products);
 
@@ -59,17 +59,17 @@ public class SimpleProfessionalManagerTests {
     }
     @Test
     public void testGetProducts() {
-        List<Usuario> professionals = usuarioManager.getUsuarios();
-        assertNotNull(professionals);        
-        assertEquals(PROFESSIONAL_COUNT, usuarioManager.getUsuarios().size());
+        List<Usuario> usuarios = usuarioManager.getUsuarios();
+        assertNotNull(usuarios);        
+        assertEquals(USUARIOS_COUNT, usuarioManager.getUsuarios().size());
     
-        Usuario professional = professionals.get(0);
-        assertEquals(HELEN_NAME, professional.getNombre());
-        assertEquals(HELEN_SURNAME, professional.getApellidos());
+        Usuario usuario = usuarios.get(0);
+        assertEquals(HELEN_NAME, usuario.getNombre());
+        assertEquals(HELEN_SURNAME, usuario.getApellidos());
         
-        professional = professionals.get(1);
-        assertEquals(PAUL_NAME, professional.getNombre());
-        assertEquals(PAUL_SURNAME, professional.getApellidos());     
+        usuario = usuarios.get(1);
+        assertEquals(PAUL_NAME, usuario.getNombre());
+        assertEquals(PAUL_SURNAME, usuario.getApellidos());     
     }
     
 }

@@ -13,10 +13,10 @@
 		<c:out value="${model.now}" />
 	</p>
 	<h3>Usuarios</h3>
-	<c:forEach items="${model.professionals}" var="prof">
-		<c:out value="${prof.nombre}" />
-		<i> <c:out value="${prof.apellidos}" /></i>
-		<i> <c:out value="${prof.email}" /></i>
+	<c:forEach items="${model.usuarios}" var="usuario">
+		<c:out value="${usuario.nombre}" />
+		<i> <c:out value="${usuario.apellidos}" /></i>
+		<i> <c:out value="${usuario.email}" /></i>
 		<br>
 		<br>
 	</c:forEach>

@@ -37,7 +37,7 @@ public class IncreaseBenefitsFormController {
 //        int increase = increaseBenefits.getBenefits();
 //        logger.info("Increasing prices by " + increase + "%.");
 //
-//        professionalManager.increaseBenefits(increase);;
+//        usuarioManager.increaseBenefits(increase);;
 //
 //        return "redirect:/hello.htm";
 //    }

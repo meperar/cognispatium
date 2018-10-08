@@ -35,13 +35,13 @@ public class WebServiceController {
 
 		Map<String, Object> myModel = new HashMap<String, Object>();
 		myModel.put("now", now);
-		myModel.put("professionals", this.usuarioManager.getUsuarios());
+		myModel.put("usuarios", this.usuarioManager.getUsuarios());
 
 		return new ModelAndView("hello", "model", myModel);
 
 	}
 
-	public void setProfessionalManager(UsuarioManager usuarioManager) {
+	public void setUsuarioManager(UsuarioManager usuarioManager) {
 		this.usuarioManager = usuarioManager;
 	}
 }

@@ -20,7 +20,7 @@ public class WebServiceControllerTests {
         
         SimpleUsuarioManager spu = new SimpleUsuarioManager();
         spu.setUsuarioDao(new InMemoryUsuarioDao(new ArrayList<Usuario>()));
-        controller.setProfessionalManager(spu);
+        controller.setUsuarioManager(spu);
         ModelAndView modelAndView = controller.handleRequest(null, null);		
         assertEquals("hello", modelAndView.getViewName());
         assertNotNull(modelAndView.getModel());

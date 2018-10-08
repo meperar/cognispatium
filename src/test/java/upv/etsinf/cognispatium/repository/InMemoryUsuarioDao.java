@@ -16,7 +16,7 @@ public class InMemoryUsuarioDao implements UsuarioDao {
         return usuarioList;
     }
 
-    public void saveUsuario(Usuario prof) {
+    public void saveUsuario(Usuario user) {
     }
 
 }

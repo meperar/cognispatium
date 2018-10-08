@@ -17,8 +17,8 @@ public class SimpleUsuarioManager implements UsuarioManager {
     @Autowired
     private UsuarioDao usuarioDao;
 
-    public void setUsuarioDao(UsuarioDao professionalDao) {
-        this.usuarioDao = professionalDao;
+    public void setUsuarioDao(UsuarioDao usuarioDao) {
+        this.usuarioDao = usuarioDao;
     }
 
     public List<Usuario> getUsuarios() {
