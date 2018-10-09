@@ -7,7 +7,7 @@ import javax.persistence.PrimaryKeyJoinColumn;
 
 @Entity
 @PrimaryKeyJoinColumn(name="id")
-public class Cliente extends Usuario implements Serializable {
+public class Admin extends Usuario implements Serializable {
 
 	/**
 	 * 

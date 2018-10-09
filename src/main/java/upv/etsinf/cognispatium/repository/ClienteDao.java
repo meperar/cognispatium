@@ -9,5 +9,7 @@ public interface ClienteDao {
     public List<Cliente> getClienteList();
 
     public void saveCliente(Cliente cliente);
+    
+    //GetClientby??
 
 }

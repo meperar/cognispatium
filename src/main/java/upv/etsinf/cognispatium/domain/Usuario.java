@@ -30,6 +30,8 @@ public class Usuario implements Serializable {
 	private String apellidos;
 	private String email;
 	private String dni;
+	private String DTYPE;
+	private int telefono;
 	
 	
 
@@ -73,6 +75,22 @@ public class Usuario implements Serializable {
 
 	public void setDni(String dni) {
 		this.dni = dni;
+	}
+
+	public String getDTYPE() {
+		return DTYPE;
+	}
+
+	public void setDTYPE(String dTYPE) {
+		DTYPE = dTYPE;
+	}
+
+	public int getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(int telefono) {
+		this.telefono = telefono;
 	}
 
 	public String toString() {
