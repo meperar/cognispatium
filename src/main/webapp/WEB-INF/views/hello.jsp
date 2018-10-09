@@ -54,6 +54,10 @@
 		<br>
 	</c:forEach>
 	<br>
+	
+	<br>
+    <a href="<c:url value="/responderconsultaurgente.htm"/>">Respoder a consulta urgente</a>
+    <br>
 </body>
 
 </html>
