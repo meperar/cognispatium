@@ -18,6 +18,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import upv.etsinf.cognispatium.service.UsuarioManager;
 
+import upv.etsinf.cognispatium.service.ClienteManager;
+
+
 @Controller
 public class WebServiceController {
 
@@ -25,6 +28,9 @@ public class WebServiceController {
 
 	@Autowired
 	private UsuarioManager usuarioManager;
+	
+	@Autowired
+	private ClienteManager clienteManager;
 
 	@RequestMapping(value = "/hello.htm")
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
@@ -35,7 +41,7 @@ public class WebServiceController {
 
 		Map<String, Object> myModel = new HashMap<String, Object>();
 		myModel.put("now", now);
-		myModel.put("usuarios", this.usuarioManager.getUsuarios());
+		myModel.put("usuarios", this.clienteManager.getClientes());
 
 		return new ModelAndView("hello", "model", myModel);
 
@@ -43,5 +49,9 @@ public class WebServiceController {
 
 	public void setUsuarioManager(UsuarioManager usuarioManager) {
 		this.usuarioManager = usuarioManager;
+	}
+	
+	public void setClienteManager(ClienteManager clienteManager) {
+		this.clienteManager = clienteManager;
 	}
 }
