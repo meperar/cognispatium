@@ -13,8 +13,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbar13"> <a class="navbar-brand d-none d-md-block" href="hello.htm">
-          <i class="fa d-inline fa-lg fa-stop-circle-o"></i>
-          <b> CogniSpatium&nbsp; &nbsp;</b></a>
+        <a href="https://imgur.com/xmZULKf"><img src="https://i.imgur.com/xmZULKf.png" width = 200 title="source: imgur.com" /></a>
         <div class="btn-group"> <button class="btn btn-primary dropdown-toggle" id="profesional" data-toggle="dropdown" > Profesionales</button>
           <div class="dropdown-menu">
       <table id="gh-sbc">
