@@ -22,6 +22,8 @@ import upv.etsinf.cognispatium.service.ClienteManager;
 
 import upv.etsinf.cognispatium.service.AdminManager;
 
+import upv.etsinf.cognispatium.service.ProfesionalManager;
+
 @Controller
 public class WebServiceController {
 
@@ -35,6 +37,9 @@ public class WebServiceController {
 	
 	@Autowired
 	private AdminManager adminManager;
+	
+	@Autowired
+	private ProfesionalManager profesionalManager;
 
 	@RequestMapping(value = "/hello.htm")
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
@@ -45,7 +50,7 @@ public class WebServiceController {
 
 		Map<String, Object> myModel = new HashMap<String, Object>();
 		myModel.put("now", now);
-		myModel.put("usuarios", this.adminManager.getAdmins());
+		myModel.put("usuarios", this.profesionalManager.getProfesionales());
 
 		return new ModelAndView("hello", "model", myModel);
 
