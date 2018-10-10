@@ -24,6 +24,8 @@ public class RCUrgenteController {
     @RequestMapping("/responderconsultaurgente.htm")
     public String RespuestaCUForm(Model model) {
        // model.addAttribute("product", new Product());
-        return "responderconsultaurgente";
+        return "ResponderConsultaUrgente";
     }
+    
+    
 }

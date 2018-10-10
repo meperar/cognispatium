@@ -56,10 +56,10 @@
 	<br>
 	
 	<br>
-    <a href="<c:url value="/crearconsultaurgente.htm"/>">Respoder a consulta urgente</a>
+    <a href="<c:url value="/crearconsultaurgente.htm"/>">Responder a consulta urgente</a>
     <br>
     <br>
-    <a href="<c:url value="/responderconsultaurgente.htm"/>">Respoder a consulta urgente</a>
+    <a href="<c:url value="/responderconsultaurgente.htm"/>">Responder a consulta urgente</a>
     <br>
 </body>
 

@@ -43,7 +43,7 @@
       <div class="row" style="">
         <div class="mx-auto col-lg-6 col-10">
           <h1>Crear una consulta urgente</h1>
-          <p class="mb-3">En esta pantalla podr√° introducir los datos para crear su consulta urgente.</p>
+          <p class="mb-3">En esta pantalla podr· introducir los datos para crear su consulta urgente.</p>
           <form class="text-left">
             <div class="form-group"> <label for="form16">Servicio</label>
               <br>
