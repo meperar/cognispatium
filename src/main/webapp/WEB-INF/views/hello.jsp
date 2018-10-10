@@ -197,32 +197,8 @@
   </div>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<<<<<<< HEAD
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-		<p>
-		<fmt:message key="greeting" />
-		<c:out value="${model.now}" />
-	</p>
-	<h3>Usuarios</h3>
-	<c:forEach items="${model.usuarios}" var="usuario">
-		<c:out value="${usuario.nombre}" />
-		<i> <c:out value="${usuario.apellidos}" /></i>
-		<i> <c:out value="${usuario.email}" /></i>
-		<br>
-		<br>
-	</c:forEach>
-	<br>
-	
-	<br>
-    <a href="<c:url value="/crearconsultaurgente.htm"/>">Responder a consulta urgente</a>
-    <br>
-    <br>
-    <a href="<c:url value="/responderconsultaurgente.htm"/>">Responder a consulta urgente</a>
-    <br>
-=======
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous" style=""></script>
   
->>>>>>> branch 'DEV' of https://github.com/meperar/cognispatium.git
 </body>
 
 </html>
