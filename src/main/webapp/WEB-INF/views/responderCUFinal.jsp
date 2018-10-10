@@ -15,13 +15,9 @@
     <div class="container"> <button class="navbar-toggler navbar-toggler-right border-0" type="button" data-toggle="collapse" data-target="#navbar13">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbar13"> <a class="navbar-brand d-none d-md-block" href="#">
-          <i class="fa d-inline fa-lg fa-stop-circle-o" ></i>
-          
-          <b> CogniSpatium</b>
-        </a>
+      <div class="collapse navbar-collapse" id="navbar13"> 
+       <a href="hello.htm"><img src="https://i.imgur.com/xmZULKf.png" width = 200 title="source: imgur.com" /></a>
         <ul class="navbar-nav mx-auto">
-        <li class="nav-item"> <a class="nav-link" href="<c:url value="/hello.htm"/>">Home</a> </li>
           <li class="nav-item"> <a class="nav-link" href="#">Consultas Urgentes</a> </li>         
           <li class="nav-item"> <a class="nav-link" href="#">Solicitudes</a> </li>
         </ul>
@@ -31,32 +27,67 @@
       </div>
     </div>
   </nav>
-  <div class="py-3">
+   <div class="py-3" >
     <div class="container">
       <div class="row">
         <div class="col-md-8 p-4">
-          <h1>Contestar a la consulta urgente&nbsp;</h1>
+          <h1 class="text-right">¡Muchas gracias!</h1>
         </div>
       </div>
       <div class="row">
-        <div class="col-md-5 p-4">
-          <h3>Datos de la consulta</h3>
-          <p>A continuación aparecerán los datos de la consulta que va a responder:</p>
-          <p class="lead mt-3"> <b>Tema</b></p>
-          <p> <a href="#">support@hello.com</a> </p>
-          <p class="lead mt-3"> <b>Fecha de creación</b></p>
-          <p> <a href="#">+1 234 567 89</a> </p>
-          <p class="lead mt-3"> <b>Autor</b></p>
-          <p> <a href="#">sales@hello.com</a> </p>
-          <p class="lead mt-3"> <b>Descripción</b></p>
-          <p> <a href="#">info@hello.com</a> </p>
+        <div class="col-md-12">
+          <p class="lead text-center">La respuesta está de camino al cliente, ¡buen trabajo! En breves sabremos si tu respuesta ha sido de ayuda y recibirás tu recompensa. A continuación te dejamos un resumen de tu respuesta. ¡No dudes en responder más consultas!</p>
         </div>
-        <div class="col-md-7 p-4">
-          <h3 class="mb-3">Respuesta</h3>
-          <form>
-            
-            <div class="form-group"> <textarea class="form-control" id="form43" rows="3" placeholder="Tu respuesta a la consulta" style="margin-top: 0px; margin-bottom: 0px; height: 141px;"></textarea> </div> <button type="submit" class="btn btn-primary">Send</button>
-          </form>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <p class="lead text-center">Me duele mucho la muela del juicio, ¿que debería tomarme?</p>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-12">
+                  <p class="text-center"><b>Fecha Límite</b></p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <p class="text-center">10/09/2018 21:00</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-12 text-center">
+                  <p class=""><b>Autor</b></p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12 text-center">
+                  <p class="">Pedro Martínez Rosal - prueba12@server.com</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <p class="text-center"><b>Descripción</b></p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 text-center">
+              <ul class="list-inline">Me duele mucho la muela del juicio desde hace 3 días, he pensado en acudir al dentista pero ahora mismo me viene mal, ¿hay algo que pueda tomarme para soportar el dolor antes de acudir al dentista?</ul>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 text-center">
+              <p class=""><b>Tu respuesta</b></p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 text-center">
+              <p class="">Tómate un paracetamol y verás como se pasa muy rápido el dolor, pero aun así te recomiendo que vayas cuanto antes al dentista.</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>

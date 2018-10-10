@@ -11,17 +11,14 @@
 </head>
 
 <body>
+
   <nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <div class="container"> <button class="navbar-toggler navbar-toggler-right border-0" type="button" data-toggle="collapse" data-target="#navbar13">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbar13"> <a class="navbar-brand d-none d-md-block" href="#">
-          <i class="fa d-inline fa-lg fa-stop-circle-o" ></i>
-          
-          <b> CogniSpatium</b>
-        </a>
+      <div class="collapse navbar-collapse" id="navbar13">
+       <a href="hello.htm"><img src="https://i.imgur.com/xmZULKf.png" width = 200 title="source: imgur.com" /></a>    
         <ul class="navbar-nav mx-auto">
-        <li class="nav-item"> <a class="nav-link" href="<c:url value="/hello.htm"/>">Home</a> </li>
           <li class="nav-item"> <a class="nav-link" href="#">Consultas Urgentes</a> </li>         
           <li class="nav-item"> <a class="nav-link" href="#">Solicitudes</a> </li>
         </ul>
@@ -44,7 +41,7 @@
           <p>A continuación aparecerán los datos de la consulta que va a responder:</p>
           <p class="lead mt-3"> <b>Tema</b></p>
           <p> <a href="#">support@hello.com</a> </p>
-          <p class="lead mt-3"> <b>Fecha de creación</b></p>
+          <p class="lead mt-3"> <b>Fecha límite</b></p>
           <p> <a href="#">+1 234 567 89</a> </p>
           <p class="lead mt-3"> <b>Autor</b></p>
           <p> <a href="#">sales@hello.com</a> </p>
@@ -57,7 +54,7 @@
             
             <div class="form-group"> <textarea class="form-control" id="form43" rows="3" placeholder="Tu respuesta a la consulta" style="margin-top: 0px; margin-bottom: 0px; height: 141px;"></textarea> </div> 
             
-          <a class="btn btn-primary" href="<c:url value="/hello.htm"/>">Send</a>
+          <a class="btn btn-primary" href="<c:url value="/responderconsultaurgentefinal.htm"/>">Send</a>
           </form>
         </div>
       </div>
