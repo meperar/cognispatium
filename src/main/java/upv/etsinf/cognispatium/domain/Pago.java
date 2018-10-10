@@ -29,7 +29,6 @@ public class Pago implements Serializable {
 	@Column
 	private String descripcion;
 	private Integer precio;
-	@ManyToOne
 	private Integer cliente;
 	
 	

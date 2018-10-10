@@ -20,9 +20,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="presupuesto")
+@Table(name="servicio")
 
-public class Presupuesto implements Serializable {
+public class Servicio implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -31,25 +31,12 @@ public class Presupuesto implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 	
-	
     @Column
-	private String descripcion;
-	private Integer precio;
-
-	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="solicitud")
-	private Solicitud solicitudOrigen;
-	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="profesional")
-	private Profesional profesionalOrigen;
-	
-	@OneToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="presupuesto")
-	private Factura facturaOrigen;
-	
-	
+	private String ambito;
+    private String nombre;
+    
+    
+    
 	public Integer getId() {
 		return id;
 	}
@@ -58,22 +45,22 @@ public class Presupuesto implements Serializable {
 	}
 	
 	
-	public String getDescripcion() {
-		return descripcion;
+	public String getAmbito() {
+		return ambito;
 	}
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
-	
-	
-	public Integer getPrecio() {
-		return precio;
-	}
-	public void setPrecio(Integer precio) {
-		this.precio = precio;
+	public void setAmbito(String ambito) {
+		this.ambito = ambito;
 	}
 	
-
+	
+	public String getNombre() {
+		return nombre;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	
+ 
 	
 	
 	

@@ -20,7 +20,7 @@ public class Profesional extends Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 
-	@OneToMany(mappedBy = "presupuestoOrigen")
+	@OneToMany(mappedBy = "profesionalOrigen")
 	private List<Presupuesto> presupuestos;
 
 }

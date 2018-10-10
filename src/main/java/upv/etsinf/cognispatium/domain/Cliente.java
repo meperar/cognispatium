@@ -23,4 +23,10 @@ public class Cliente extends Usuario implements Serializable {
 	  @OneToMany(mappedBy="creadoConsulta")
 	  private List<Consulta> consultas;
 
+
+		@OneToMany(mappedBy ="clienteOrigen")
+		private List<Solicitud> solicitudes;
+		
 }
+	
+	
