@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -41,6 +42,8 @@ public class Servicio implements Serializable {
 	@OneToMany(mappedBy ="servicioOrigen")
 	private List<Consulta> consultas;
     
+	@ManyToMany(mappedBy="servicios")
+	private List<Profesional> profesionales;
     
 	public Integer getId() {
 		return id;
@@ -75,6 +78,12 @@ public class Servicio implements Serializable {
 	}
 	public void setConsultas(List<Consulta> consultas) {
 		this.consultas = consultas;
+	}
+	public List<Profesional> getProfesionales() {
+		return profesionales;
+	}
+	public void setProfesionales(List<Profesional> profesionales) {
+		this.profesionales = profesionales;
 	}
 	
  

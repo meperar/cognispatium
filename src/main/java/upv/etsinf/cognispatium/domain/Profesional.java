@@ -6,6 +6,8 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
@@ -28,6 +30,14 @@ public class Profesional extends Usuario implements Serializable {
 	
 	@OneToMany(mappedBy = "profesionalOrigen")
 	private List<Cobro> cobros ;
+	
+	@ManyToMany
+	@JoinTable(
+	name="servicio_profesional",
+	joinColumns=@JoinColumn(name="profesional",referencedColumnName="id"),
+	inverseJoinColumns=@JoinColumn(name="servicio",referencedColumnName="id"))
+	private List<Servicio> servicios;
+			
 
 	public List<Presupuesto> getPresupuestos() {
 		return presupuestos;
@@ -51,6 +61,14 @@ public class Profesional extends Usuario implements Serializable {
 
 	public void setCobros(List<Cobro> cobros) {
 		this.cobros = cobros;
+	}
+
+	public List<Servicio> getServicios() {
+		return servicios;
+	}
+
+	public void setServicios(List<Servicio> servicios) {
+		this.servicios = servicios;
 	}
 	
 }

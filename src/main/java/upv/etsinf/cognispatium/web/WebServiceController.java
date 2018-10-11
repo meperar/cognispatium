@@ -53,7 +53,7 @@ public class WebServiceController {
 		myModel.put("usuarios", this.profesionalManager.getProfesionales());
 
 		return new ModelAndView("hello", "model", myModel);
-
+		
 	}
 
 	public void setUsuarioManager(UsuarioManager usuarioManager) {
