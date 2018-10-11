@@ -66,21 +66,21 @@
         <tbody>
           <tr>
             <td>
-              <h3 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Medicina<i class="gh-sbc-h3i gh-sprRetina"></i></a></h3>
+              <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Medicina<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
               <ul>
                 <li><a class="scnd" href=#>Odontología</a></li>
                 <li><a class="scnd" href=#>Pediatría</a></li>
                 <li><a class="scnd" href=#>Medicina Familiar</a></li>
                 <li><a class="scnd" href=#>Oftalmología</a></li>
               </ul>
-              <h3 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Deporte<i class="gh-sbc-h3i gh-sprRetina"></i></a></h3>
+              <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Deporte<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
               <ul>
                 <li><a class="scnd" href=#>Waterpolo</a></li>
                 <li><a class="scnd" href=#>Fútbol</a></li>
                 <li><a class="scnd" href=#>Bulletball</a></li>
                 <li><a class="scnd" href=#>Baloncesto</a></li>
               </ul>
-              <h3 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Ciencia</h3>
+              <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Ciencia</h4>
               <ul>
                 <li><a class="scnd" href=#>Física</a></li>
                 <li><a class="scnd" href=#>Química</a></li>
@@ -89,71 +89,69 @@
               </ul>
             </td>
             <td>
-              <h3 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Técnicos<i class="gh-sbc-h3i gh-sprRetina"></i></a></h3>
+              <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Técnicos<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
               <ul>
                 <li><a class="scnd" href=#>Electricista</a></li>
                 <li><a class="scnd" href=#>Fontanero</a></li>
               </ul>
-              <h3 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Legislación<i class="gh-sbc-h3i gh-sprRetina"></i></a></h3>
+              <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Legislación<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
               <ul>
                 <li><a class="scnd" href=#>Abogacía</a></li>
               </ul>
-              <h3 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Artes Marciales<i class="gh-sbc-h3i gh-sprRetina"></i></a></h3>
+              <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Artes Marciales<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
               <ul>
                 <li><a class="scnd" href=#>Taekwondo</a></li>
                 <li><a class="scnd" href=#>Aikido</a></li>
               </ul>
-              <h3 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Cuidados del Hogar<i class="gh-sbc-h3i gh-sprRetina"></i></a></h3>
+              <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Cuidados del Hogar<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
               <ul>
                 <li><a class="scnd" href=#>Limpieza</a></li>
                 <li><a class="scnd" href=#>Cuidado de niños</a></li>
               </ul>
             </td>
             <td>
-              <h3 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Arte<i class="gh-sbc-h3i gh-sprRetina"></i></a></h3>
+              <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Arte<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
               <ul>
                 <li><a class="scnd" href=#>Música</a></li>
                 <li><a class="scnd" href=#>Pintura</a></li>
               </ul>
-              <h3 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Idiomas<i class="gh-sbc-h3i gh-sprRetina"></i></a></h3>
+              <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Idiomas<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
               <ul>
                 <li><a class="scnd" href=#>Inglés</a></li>
                 <li><a class="scnd" href=#>Español</a></li>
               </ul>
-              <h3 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Estética<i class="gh-sbc-h3i gh-sprRetina"></i></a></h3>
+              <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Estética<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
               <ul>
                 <li><a class="scnd" href=#>Peluquería</a></li>
                 <li><a class="scnd" href=#>Barbería</a></li>
               </ul>
-             
             </td>
           </tr>
         </tbody>
       </table>
           </div>
         </div>
-        <li class="nav-item" > <a class="nav-link" href="#" contenteditable="true">&nbsp;</a> </li>
         <div class="btn-group"> <button class="desplegableMenu" data-toggle="dropdown"> Consultas</button>
           <div class="dropdown-menu">  
        <table class="tablaFiltros" id="gh-sbc">
         <tbody>
           <tr>
             <td>
-              <h3 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Medicina<i class="gh-sbc-h3i gh-sprRetina"></i></a></h3>
+              <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Medicina<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
               <ul>
                 <li><a class="scnd" href=#>Odontología</a></li>
                 <li><a class="scnd" href=#>Pediatría</a></li>
                 <li><a class="scnd" href=#>Medicina Familiar</a></li>
                 <li><a class="scnd" href=#>Oftalmología</a></li>
               </ul>
-              <h3 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Deporte<i class="gh-sbc-h3i gh-sprRetina"></i></a></h3>
+              <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Deporte<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
               <ul>
                 <li><a class="scnd" href=#>Waterpolo</a></li>
                 <li><a class="scnd" href=#>Fútbol</a></li>
                 <li><a class="scnd" href=#>Bulletball</a></li>
                 <li><a class="scnd" href=#>Baloncesto</a></li>
               </ul>
-              <h3 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Ciencia</h3>
+              <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Ciencia</h4>
               <ul>
                 <li><a class="scnd" href=#>Física</a></li>
                 <li><a class="scnd" href=#>Química</a></li>
@@ -162,38 +160,38 @@
               </ul>
             </td>
             <td>
-              <h3 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Técnicos<i class="gh-sbc-h3i gh-sprRetina"></i></a></h3>
+              <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Técnicos<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
               <ul>
                 <li><a class="scnd" href=#>Electricista</a></li>
                 <li><a class="scnd" href=#>Fontanero</a></li>
               </ul>
-              <h3 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Legislación<i class="gh-sbc-h3i gh-sprRetina"></i></a></h3>
+              <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Legislación<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
               <ul>
                 <li><a class="scnd" href=#>Abogacía</a></li>
               </ul>
-              <h3 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Artes Marciales<i class="gh-sbc-h3i gh-sprRetina"></i></a></h3>
+              <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Artes Marciales<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
               <ul>
                 <li><a class="scnd" href=#>Taekwondo</a></li>
                 <li><a class="scnd" href=#>Aikido</a></li>
               </ul>
-              <h3 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Cuidados del Hogar<i class="gh-sbc-h3i gh-sprRetina"></i></a></h3>
+              <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Cuidados del Hogar<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
               <ul>
                 <li><a class="scnd" href=#>Limpieza</a></li>
                 <li><a class="scnd" href=#>Cuidado de niños</a></li>
               </ul>
             </td>
             <td>
-              <h3 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Arte<i class="gh-sbc-h3i gh-sprRetina"></i></a></h3>
+              <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Arte<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
               <ul>
                 <li><a class="scnd" href=#>Música</a></li>
                 <li><a class="scnd" href=#>Pintura</a></li>
               </ul>
-              <h3 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Idiomas<i class="gh-sbc-h3i gh-sprRetina"></i></a></h3>
+              <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Idiomas<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
               <ul>
                 <li><a class="scnd" href=#>Inglés</a></li>
                 <li><a class="scnd" href=#>Español</a></li>
               </ul>
-              <h3 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Estética<i class="gh-sbc-h3i gh-sprRetina"></i></a></h3>
+              <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Estética<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
               <ul>
                 <li><a class="scnd" href=#>Peluquería</a></li>
                 <li><a class="scnd" href=#>Barbería</a></li>
@@ -234,8 +232,8 @@
       <div class="row">
         <div class="col-md-12">
           <ul class="nav nav-tabs" >
-            <li class="nav-item"> <a class="nav-link" href="responderconsultaurgente.htm">responder</a> </li>
-            <li class="nav-item"> <a href="include.htm" class="nav-link">include</a> </li>
+            <li class="nav-item"> <a style="color:black;" class="nav-link" href="responderconsultaurgente.htm">responder</a> </li>
+            <li class="nav-item"> <a style="color:black;" href="include.htm" class="nav-link">include</a> </li>
             
           </ul>
         </div>
