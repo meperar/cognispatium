@@ -41,7 +41,8 @@
       </div>
       <div class="row">
         <div class="col-md-12">
-          <p class="lead text-center">Me duele mucho la muela del juicio, ¿que debería tomarme?</p>
+        <p> </p>
+          <p class="lead text-center"><b>Me duele mucho la muela del juicio, ¿que debería tomarme?</b></p>
           <div class="row">
             <div class="col-md-6">
               <div class="row">
@@ -96,9 +97,9 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12 text-center"> <i class="d-block fa fa-stop-circle mb-3 text-muted fa-3x"></i>
-          <p> <a href="https://goo.gl/maps/AUq7b9W7yYJ2" target="_blank"> Fake street, 100 <br>NYC - 20179, USA</a> </p>
-          <p> <a href="tel:+246 - 542 550 5462">+1 - 256 845 87 86</a> </p>
-          <p class="mb-0"> <a href="mailto:info@pingendo.com">info@cognispatium.com</a> </p>
+          <p> <a href="https://goo.gl/maps/AUq7b9W7yYJ2" target="_blank" style = "color : black"> Fake street, 100 <br>NYC - 20179, USA</a> </p>
+          <p> <a href="tel:+246 - 542 550 5462" style = "color : black">+1 - 256 845 87 86</a> </p>
+          <p class="mb-0"> <a href="mailto:info@pingendo.com" style = "color : black">info@cognispatium.com</a> </p>
         </div>
       </div>
       <div class="row">
@@ -118,7 +119,7 @@
       </div>
       <div class="row">
         <div class="col-md-12 text-center">
-          <p class="mb-0">© 2018-2018 CogniSpatium. All rights reserved</p>
+          <p class="mb-0" style = "color : black">© 2018-2018 CogniSpatium. All rights reserved</p>
         </div>
       </div>
     </div>
