@@ -16,9 +16,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="pago")
+@Table(name="respuesta")
 
-public class Pago implements Serializable {
+public class Respuesta implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -30,18 +30,25 @@ public class Pago implements Serializable {
 	
 	@Column
 	private String descripcion;
-	private Integer precio;
-
+	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="cliente")
-	private Cliente clienteOrigen;
+	@JoinColumn(name="profesional")
+	private Profesional profesionalOrigen;
 	
 	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="consulta")
+	private Consulta consultaOrigen;
+	
+	
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	public Integer getId() {
 		return id;
 	}
 
-	
 	
 	public String getDescripcion() {
 		return descripcion;
@@ -49,37 +56,27 @@ public class Pago implements Serializable {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	
-	
-	public int getPrecio() {
-		return precio;
+
+	public Profesional getProfesionalOrigen() {
+		return profesionalOrigen;
 	}
 
+	public void setProfesionalOrigen(Profesional profesionalOrigen) {
+		this.profesionalOrigen = profesionalOrigen;
+	}
+
+	public Consulta getConsultaOrigen() {
+		return consultaOrigen;
+	}
+
+	public void setConsultaOrigen(Consulta consultaOrigen) {
+		this.consultaOrigen = consultaOrigen;
+	}
 	
 	
 	
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 
 
-	public void setPrecio(Integer precio) {
-		this.precio = precio;
-	}
-
-
-
-	public Cliente getClienteOrigen() {
-		return clienteOrigen;
-	}
-
-
-
-	public void setClienteOrigen(Cliente clienteOrigen) {
-		this.clienteOrigen = clienteOrigen;
-	}
-
-
-
+	
 }

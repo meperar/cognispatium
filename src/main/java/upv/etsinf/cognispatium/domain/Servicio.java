@@ -35,6 +35,11 @@ public class Servicio implements Serializable {
 	private String ambito;
     private String nombre;
     
+	@OneToMany(mappedBy ="servicioOrigen")
+	private List<Solicitud> solicitudes;
+	
+	@OneToMany(mappedBy ="servicioOrigen")
+	private List<Consulta> consultas;
     
     
 	public Integer getId() {
@@ -58,6 +63,18 @@ public class Servicio implements Serializable {
 	}
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+	public List<Solicitud> getSolicitudes() {
+		return solicitudes;
+	}
+	public void setSolicitudes(List<Solicitud> solicitudes) {
+		this.solicitudes = solicitudes;
+	}
+	public List<Consulta> getConsultas() {
+		return consultas;
+	}
+	public void setConsultas(List<Consulta> consultas) {
+		this.consultas = consultas;
 	}
 	
  

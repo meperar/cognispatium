@@ -72,6 +72,24 @@ public class Presupuesto implements Serializable {
 	public void setPrecio(Integer precio) {
 		this.precio = precio;
 	}
+	public Solicitud getSolicitudOrigen() {
+		return solicitudOrigen;
+	}
+	public void setSolicitudOrigen(Solicitud solicitudOrigen) {
+		this.solicitudOrigen = solicitudOrigen;
+	}
+	public Profesional getProfesionalOrigen() {
+		return profesionalOrigen;
+	}
+	public void setProfesionalOrigen(Profesional profesionalOrigen) {
+		this.profesionalOrigen = profesionalOrigen;
+	}
+	public Factura getFacturaOrigen() {
+		return facturaOrigen;
+	}
+	public void setFacturaOrigen(Factura facturaOrigen) {
+		this.facturaOrigen = facturaOrigen;
+	}
 	
 
 	

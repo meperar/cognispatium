@@ -23,4 +23,34 @@ public class Profesional extends Usuario implements Serializable {
 	@OneToMany(mappedBy = "profesionalOrigen")
 	private List<Presupuesto> presupuestos;
 
+	@OneToMany(mappedBy = "profesionalOrigen")
+	private List<Respuesta> respuestas;
+	
+	@OneToMany(mappedBy = "profesionalOrigen")
+	private List<Cobro> cobros ;
+
+	public List<Presupuesto> getPresupuestos() {
+		return presupuestos;
+	}
+
+	public void setPresupuestos(List<Presupuesto> presupuestos) {
+		this.presupuestos = presupuestos;
+	}
+
+	public List<Respuesta> getRespuestas() {
+		return respuestas;
+	}
+
+	public void setRespuestas(List<Respuesta> respuestas) {
+		this.respuestas = respuestas;
+	}
+
+	public List<Cobro> getCobros() {
+		return cobros;
+	}
+
+	public void setCobros(List<Cobro> cobros) {
+		this.cobros = cobros;
+	}
+	
 }

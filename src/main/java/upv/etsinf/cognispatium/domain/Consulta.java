@@ -3,6 +3,8 @@ package upv.etsinf.cognispatium.domain;
 import java.io.Serializable;
 
 import java.util.Date;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -15,6 +17,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -31,20 +34,28 @@ public class Consulta implements Serializable {
 	
     @Column
 	private String descripcion;
-    
+    private String titulo;
     
     @Column(name="estado", nullable = false, length = 20 )
     @Enumerated(value = EnumType.STRING)
     private EstadoConsulta estado;
     
-	private String titulo;
+	
 	
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	  @JoinColumn(name="cliente")
 	  private Cliente creadoConsulta;
 	
+	@OneToMany(mappedBy = "consultaOrigen")
+	private List<Respuesta> respuestas;
 
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="servicio")
+	private Servicio servicioOrigen;
+	
+	
 	public Integer getId() {
 		return id;
 	}

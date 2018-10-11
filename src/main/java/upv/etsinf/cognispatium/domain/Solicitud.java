@@ -50,9 +50,9 @@ public class Solicitud implements Serializable {
 	@JoinColumn(name="pago")
 	private Pago pagoOrigen ;
 	
-	@OneToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="servicio")
-	private Servicio servicioOrigen ;
+	private Servicio servicioOrigen;
 	
 	
 	@OneToMany(mappedBy = "solicitudOrigen")
