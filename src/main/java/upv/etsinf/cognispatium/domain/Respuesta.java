@@ -3,11 +3,7 @@ package upv.etsinf.cognispatium.domain;
 import java.io.Serializable;
 
 import java.util.Date;
-<<<<<<< HEAD
 import java.util.List;
-
-=======
->>>>>>> DEV
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,11 +14,9 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-<<<<<<< HEAD
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-=======
->>>>>>> DEV
+
 import javax.persistence.Table;
 
 @Entity
@@ -36,26 +30,7 @@ public class Respuesta implements Serializable {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-	
-<<<<<<< HEAD
-    @Column
-	private String descripcion;
-    
-    @ManyToOne(fetch=FetchType.LAZY)
-	  @JoinColumn(name="cliente")
-	  private Consulta consultaOrigen;
-	
-    
-	
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
-	
-=======
-	
+
 	@Column
 	private String descripcion;
 	
@@ -77,7 +52,6 @@ public class Respuesta implements Serializable {
 		return id;
 	}
 
->>>>>>> DEV
 	
 	public String getDescripcion() {
 		return descripcion;
@@ -85,14 +59,7 @@ public class Respuesta implements Serializable {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-<<<<<<< HEAD
-	
-	
-	
-	
-}
 
-=======
 
 	public Profesional getProfesionalOrigen() {
 		return profesionalOrigen;
@@ -109,16 +76,8 @@ public class Respuesta implements Serializable {
 	public void setConsultaOrigen(Consulta consultaOrigen) {
 		this.consultaOrigen = consultaOrigen;
 	}
->>>>>>> DEV
-	
-	
-	
 
-<<<<<<< HEAD
-	
-=======
 
 
 	
 }
->>>>>>> DEV
