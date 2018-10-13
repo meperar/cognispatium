@@ -3,10 +3,10 @@ package upv.etsinf.cognispatium.domain;
 import java.io.Serializable;
 
 import java.util.Date;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,12 +15,14 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="consulta")
-@Inheritance(strategy=InheritanceType.JOINED)
-public class Consulta implements Serializable {
+@Table(name="respuesta")
+
+public class Respuesta implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -29,56 +31,37 @@ public class Consulta implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 	
-	
     @Column
 	private String descripcion;
     
-    
-    @Column(name="estado", nullable = false, length = 20 )
-    @Enumerated(value = EnumType.STRING)
-    private EstadoConsulta estado;
-    
-	private String titulo;
-	
-	
-	@ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch=FetchType.LAZY)
 	  @JoinColumn(name="cliente")
-	  private Cliente creadoConsulta;
+	  private Consulta consultaOrigen;
 	
-
+    
+	
 	public Integer getId() {
 		return id;
 	}
-
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
+	
+	
 	public String getDescripcion() {
 		return descripcion;
 	}
-
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-
-
-	public String getTitulo() {
-		return titulo;
-	}
-
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
-	}
-
-	public EstadoConsulta getEstado() {
-		return estado;
-	}
-
-	public void setEstado(EstadoConsulta estado) {
-		this.estado = estado;
-	}
+	
 	
 	
 	
 }
+
+	
+	
+	
+
+	
