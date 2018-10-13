@@ -35,7 +35,7 @@ public class Presupuesto implements Serializable {
     @Column
 	private String descripcion;
 	private Integer precio;
-	private Integer profesional;
+
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="solicitud")
@@ -43,7 +43,7 @@ public class Presupuesto implements Serializable {
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="profesional")
-	private Solicitud profesionalOrigen;
+	private Profesional profesionalOrigen;
 	
 	@OneToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="presupuesto")
@@ -72,15 +72,26 @@ public class Presupuesto implements Serializable {
 	public void setPrecio(Integer precio) {
 		this.precio = precio;
 	}
-	
-	
-	public Integer getProfesional() {
-		return profesional;
+	public Solicitud getSolicitudOrigen() {
+		return solicitudOrigen;
 	}
-	public void setProfesional(Integer profesional) {
-		this.profesional = profesional;
+	public void setSolicitudOrigen(Solicitud solicitudOrigen) {
+		this.solicitudOrigen = solicitudOrigen;
+	}
+	public Profesional getProfesionalOrigen() {
+		return profesionalOrigen;
+	}
+	public void setProfesionalOrigen(Profesional profesionalOrigen) {
+		this.profesionalOrigen = profesionalOrigen;
+	}
+	public Factura getFacturaOrigen() {
+		return facturaOrigen;
+	}
+	public void setFacturaOrigen(Factura facturaOrigen) {
+		this.facturaOrigen = facturaOrigen;
 	}
 	
+
 	
 	
 	

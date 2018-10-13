@@ -11,30 +11,20 @@
 </head>
 
 <body>
+
   <nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <div class="container"> <button class="navbar-toggler navbar-toggler-right border-0" type="button" data-toggle="collapse" data-target="#navbar13">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbar13"> <a class="navbar-brand d-none d-md-block" href="#">
-          <i class="fa d-inline fa-lg fa-stop-circle-o"></i>
-          <b> CogniSpatium</b>
-        </a>
+      <div class="collapse navbar-collapse" id="navbar13">
+       <a href="hello.htm"><img src="https://i.imgur.com/xmZULKf.png" width = 200 title="source: imgur.com" /></a>    
         <ul class="navbar-nav mx-auto">
-          <li class="nav-item"> <a class="nav-link" href="hello.jsp">Features</a> </li>
-          <li class="nav-item"> <a class="nav-link" href="#">Pricing</a> </li>
-          <li class="nav-item"> <a class="nav-link" href="#">About</a> </li>
+          <li class="nav-item"> <a class="nav-link" href="#">Consultas Urgentes</a> </li>         
+          <li class="nav-item"> <a class="nav-link" href="#">Solicitudes</a> </li>
         </ul>
         <ul class="navbar-nav">
-          <li class="nav-item"> <a class="nav-link" href="#">
-              <i class="fa fa-twitter fa-fw"></i>
-            </a> </li>
-          <li class="nav-item"> <a class="nav-link" href="#">
-              <i class="fa fa-facebook fa-fw"></i>
-            </a> </li>
-          <li class="nav-item"> <a class="nav-link" href="#">
-              <i class="fa fa-slack fa-fw"></i>
-            </a> </li>
-        </ul>
+          <li class="nav-item"> <a class="nav-link" href="#">Log Out</a> </li>  
+        </ul> 
       </div>
     </div>
   </nav>
@@ -51,7 +41,7 @@
           <p>A continuación aparecerán los datos de la consulta que va a responder:</p>
           <p class="lead mt-3"> <b>Tema</b></p>
           <p> <a href="#">support@hello.com</a> </p>
-          <p class="lead mt-3"> <b>Fecha de creación</b></p>
+          <p class="lead mt-3"> <b>Fecha límite</b></p>
           <p> <a href="#">+1 234 567 89</a> </p>
           <p class="lead mt-3"> <b>Autor</b></p>
           <p> <a href="#">sales@hello.com</a> </p>
@@ -61,8 +51,10 @@
         <div class="col-md-7 p-4">
           <h3 class="mb-3">Respuesta</h3>
           <form>
-            <div class="form-group"> <input type="text" class="form-control" id="form38" placeholder="Company"> </div>
-            <div class="form-group"> <textarea class="form-control" id="form43" rows="3" placeholder="Tu respuesta a la consulta" style="margin-top: 0px; margin-bottom: 0px; height: 141px;"></textarea> </div> <button type="submit" class="btn btn-primary">Send</button>
+            
+            <div class="form-group"> <textarea class="form-control" id="form43" rows="3" placeholder="Tu respuesta a la consulta" style="margin-top: 0px; margin-bottom: 0px; height: 141px;"></textarea> </div> 
+            
+          <a class="btn btn-primary" style = "background-color: black; border-color : #333333" href="<c:url value="/responderconsultaurgentefinal.htm"/>">Send</a>
           </form>
         </div>
       </div>
@@ -72,9 +64,9 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12 text-center"> <i class="d-block fa fa-stop-circle mb-3 text-muted fa-3x"></i>
-          <p> <a href="https://goo.gl/maps/AUq7b9W7yYJ2" target="_blank"> Fake street, 100 <br>NYC - 20179, USA</a> </p>
-          <p> <a href="tel:+246 - 542 550 5462">+1 - 256 845 87 86</a> </p>
-          <p class="mb-0"> <a href="mailto:info@pingendo.com">info@pingendo.com</a> </p>
+          <p> <a href="https://goo.gl/maps/AUq7b9W7yYJ2" target="_blank" style = "color : black"> Fake street, 100 <br>NYC - 20179, USA</a> </p>
+          <p> <a href="tel:+246 - 542 550 5462" style = "color : black">+1 - 256 845 87 86</a> </p>
+          <p class="mb-0"> <a href="mailto:info@pingendo.com" style = "color : black">info@cognispatium.com</a> </p>
         </div>
       </div>
       <div class="row">
@@ -94,7 +86,7 @@
       </div>
       <div class="row">
         <div class="col-md-12 text-center">
-          <p class="mb-0">© 2014-2018 Pingendo. All rights reserved</p>
+          <p class="mb-0" style = "color : black">© 2018-2018 CogniSpatium. All rights reserved</p>
         </div>
       </div>
     </div>

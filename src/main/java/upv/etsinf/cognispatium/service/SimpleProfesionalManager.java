@@ -25,5 +25,7 @@ public class SimpleProfesionalManager implements ProfesionalManager {
        return profesionalDao.getProfesionalList();        
     }
 
-    
+    public void addProfesional(Profesional profesional) {
+    profesionalDao.saveProfesional(profesional);
+	}
 }

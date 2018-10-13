@@ -16,15 +16,15 @@ import org.apache.commons.logging.LogFactory;
 
 
 @Controller
-public class RCUrgenteController {
+public class RCUFinalController {
 
     /** Logger for this class and subclasses */
     protected final Log logger = LogFactory.getLog(getClass());
 
-    @RequestMapping("/responderconsultaurgente.htm")
+    @RequestMapping("/responderconsultaurgentefinal.htm")
     public String RespuestaCUForm(Model model) {
        // model.addAttribute("product", new Product());
-        return "ResponderConsultaUrgente";
+        return "responderCUFinal";
     }
     
     

@@ -7,12 +7,16 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -30,13 +34,28 @@ public class Solicitud implements Serializable {
 	
     @Column
 	private String descripcion;
-	private Integer cliente;
-	private Integer cobro;
-	private Integer pago;
-	private Integer servicio;
 	private String titulo;
 	
-	@OneToMany(mappedBy = "presupuestoOrigen")
+	
+	@OneToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="cobro")
+	private Cobro cobroOrigen;
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="cliente")
+	private Cliente clienteOrigen;
+	
+	
+	@OneToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="pago")
+	private Pago pagoOrigen ;
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="servicio")
+	private Servicio servicioOrigen;
+	
+	
+	@OneToMany(mappedBy = "solicitudOrigen")
 	private List<Presupuesto> presupuestos;
 
 	public Integer getId() {
@@ -55,37 +74,8 @@ public class Solicitud implements Serializable {
 		this.descripcion = descripcion;
 	}
 
-	public Integer getCliente() {
-		return cliente;
-	}
 
-	public void setCliente(Integer cliente) {
-		this.cliente = cliente;
-	}
-
-	public Integer getCobro() {
-		return cobro;
-	}
-
-	public void setCobro(Integer cobro) {
-		this.cobro = cobro;
-	}
-
-	public Integer getPago() {
-		return pago;
-	}
-
-	public void setPago(Integer pago) {
-		this.pago = pago;
-	}
-
-	public Integer getServicio() {
-		return servicio;
-	}
-
-	public void setServicio(Integer servicio) {
-		this.servicio = servicio;
-	}
+	
 
 	public String getTitulo() {
 		return titulo;
@@ -102,6 +92,39 @@ public class Solicitud implements Serializable {
 	public void setPresupuestos(List<Presupuesto> presupuestos) {
 		this.presupuestos = presupuestos;
 	}
+
+	public Cobro getCobroOrigen() {
+		return cobroOrigen;
+	}
+
+	public void setCobroOrigen(Cobro cobroOrigen) {
+		this.cobroOrigen = cobroOrigen;
+	}
+
+	public Cliente getClienteOrigen() {
+		return clienteOrigen;
+	}
+
+	public void setClienteOrigen(Cliente clienteOrigen) {
+		this.clienteOrigen = clienteOrigen;
+	}
+
+	public Pago getPagoOrigen() {
+		return pagoOrigen;
+	}
+
+	public void setPagoOrigen(Pago pagoOrigen) {
+		this.pagoOrigen = pagoOrigen;
+	}
+
+	public Servicio getServicioOrigen() {
+		return servicioOrigen;
+	}
+
+	public void setServicioOrigen(Servicio servicioOrigen) {
+		this.servicioOrigen = servicioOrigen;
+	}
+	
 }
 	
 

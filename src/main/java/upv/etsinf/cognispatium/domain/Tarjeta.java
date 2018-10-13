@@ -15,10 +15,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-@Entity
-@Table(name="pago")
+import org.joda.time.DateTime;
 
-public class Pago implements Serializable {
+@Entity
+@Table(name="tarjeta")
+
+public class Tarjeta implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -29,43 +31,75 @@ public class Pago implements Serializable {
 	
 	
 	@Column
-	private String descripcion;
-	private Integer precio;
-
+	private Integer numero;
+	private Date fechaCaducidad;
+	private String titular;
+	private Integer codigoSeguridad;
+	
+	
+	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="cliente")
 	private Cliente clienteOrigen;
-	
-	
+
+
+
 	public Integer getId() {
 		return id;
 	}
 
-	
-	
-	public String getDescripcion() {
-		return descripcion;
-	}
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
-	
-	
-	public int getPrecio() {
-		return precio;
-	}
 
-	
-	
-	
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
 
 
 
-	public void setPrecio(Integer precio) {
-		this.precio = precio;
+	public Integer getNumero() {
+		return numero;
+	}
+
+
+
+	public void setNumero(Integer numero) {
+		this.numero = numero;
+	}
+
+
+
+	public Date getFechaCaducidad() {
+		return fechaCaducidad;
+	}
+
+
+
+	public void setFechaCaducidad(Date fechaCaducidad) {
+		this.fechaCaducidad = fechaCaducidad;
+	}
+
+
+
+	public String getTitular() {
+		return titular;
+	}
+
+
+
+	public void setTitular(String titular) {
+		this.titular = titular;
+	}
+
+
+
+	public Integer getCodigoSeguridad() {
+		return codigoSeguridad;
+	}
+
+
+
+	public void setCodigoSeguridad(Integer codigoSeguridad) {
+		this.codigoSeguridad = codigoSeguridad;
 	}
 
 
@@ -79,7 +113,10 @@ public class Pago implements Serializable {
 	public void setClienteOrigen(Cliente clienteOrigen) {
 		this.clienteOrigen = clienteOrigen;
 	}
+	
 
 
 
+	
+	
 }
