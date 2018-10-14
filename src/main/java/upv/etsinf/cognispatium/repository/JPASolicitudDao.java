@@ -44,6 +44,7 @@ public class JPASolicitudDao implements SolicitudDao {
 			    .setParameter("custServicio", servicioConsulta)
 			    .getResultList();	}
 
+	
 	@Override
 	public Solicitud getSolicitudById(int solicitudId) {
 		return em.find(Solicitud.class, solicitudId);

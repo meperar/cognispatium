@@ -58,6 +58,7 @@ public class Solicitud implements Serializable {
 	@OneToMany(mappedBy = "solicitudOrigen")
 	private List<Presupuesto> presupuestos;
 
+	
 	public Integer getId() {
 		return id;
 	}
