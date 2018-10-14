@@ -34,6 +34,9 @@ public class Factura implements Serializable {
     @Column
 	private String descripcion;
 	
+    @OneToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="pago")
+	private Pago pagoOrigen;
     
 	
 	public Integer getId() {
@@ -49,6 +52,12 @@ public class Factura implements Serializable {
 	}
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+	public Pago getPagoOrigen() {
+		return pagoOrigen;
+	}
+	public void setPagoOrigen(Pago pagoOrigen) {
+		this.pagoOrigen = pagoOrigen;
 	}
 	
 	

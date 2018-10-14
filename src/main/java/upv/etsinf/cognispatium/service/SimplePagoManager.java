@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import upv.etsinf.cognispatium.domain.Cliente;
 import upv.etsinf.cognispatium.domain.Pago;
+import upv.etsinf.cognispatium.domain.Usuario;
 import upv.etsinf.cognispatium.repository.PagoDao;
 
 @Component
@@ -17,16 +19,30 @@ public class SimplePagoManager implements PagoManager{
 	@Autowired
 	private PagoDao pagoDao;
 	
-	@Override
+	
 	public List<Pago> getPagos() {
 		
 		return pagoDao.getPagoList();
 	}
 
-	@Override
+	
 	public void addPago(Pago pago) {
 		
 		pagoDao.savePago(pago);
 	}
+	
+	
+	public Cliente getCliente(Integer idPago) {
+		List<Pago> pagos = this.getPagos();
+		for (Pago p : pagos) {
+			if (p.getId() == idPago) {
+				return p.getClienteOrigen();
+			}
+			
+		}
+		return null;
+	}
+	
+	
 
 }
