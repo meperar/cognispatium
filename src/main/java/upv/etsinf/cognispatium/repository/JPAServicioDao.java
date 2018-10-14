@@ -23,7 +23,7 @@ public class JPAServicioDao implements ServicioDao {
 	@Transactional(readOnly = true)
 	@SuppressWarnings("unchecked")
 	public List<Servicio> getServicioList() {
-		return em.createQuery("select s from Servicio order by s.id").getResultList();
+		return em.createQuery("select s from Servicio s order by s.id").getResultList();
 	}
 
 	@Override
@@ -31,6 +31,13 @@ public class JPAServicioDao implements ServicioDao {
 	public void saveServicio(Servicio servicio) {
 		em.merge(servicio);
 
+	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	@SuppressWarnings("unchecked")
+	public Servicio getServicioById(Integer serviceId) {
+		return em.find(Servicio.class, serviceId);
 	}
 
 }

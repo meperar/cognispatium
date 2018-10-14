@@ -12,7 +12,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 
+
+import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
+
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.joda.ser.DateTimeSerializer;
 
 @Entity
 @PrimaryKeyJoinColumn(name="id")
@@ -21,7 +26,10 @@ public class ConsultaUrgente extends Consulta implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
 	@Column
+	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+	@JsonSerialize(using = DateTimeSerializer.class)
 	private DateTime fechaFin;	
 	
 	@OneToOne(fetch=FetchType.LAZY)

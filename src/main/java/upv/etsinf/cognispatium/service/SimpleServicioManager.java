@@ -33,4 +33,9 @@ public class SimpleServicioManager implements Serializable {
 		servicioDao.saveServicio(servicio);
 	}
 
+	public Servicio getServiciobyId(Integer serviceId) {
+		
+		return  servicioDao.getServicioById(serviceId);
+	}
+
 }
