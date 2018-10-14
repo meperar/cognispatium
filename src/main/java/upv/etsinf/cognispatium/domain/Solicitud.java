@@ -41,7 +41,7 @@ public class Solicitud implements Serializable {
 	@JoinColumn(name="cobro")
 	private Cobro cobroOrigen;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="cliente")
 	private Cliente clienteOrigen;
 	
@@ -50,7 +50,7 @@ public class Solicitud implements Serializable {
 	@JoinColumn(name="pago")
 	private Pago pagoOrigen ;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="servicio")
 	private Servicio servicioOrigen;
 	
