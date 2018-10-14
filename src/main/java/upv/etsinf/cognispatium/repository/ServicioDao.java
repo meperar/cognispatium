@@ -11,4 +11,6 @@ public interface ServicioDao {
 
     public void saveServicio(Servicio servicio);
 
+	public Servicio getServicioById(Integer serviceId);
+
 }

@@ -1,8 +1,8 @@
 package upv.etsinf.cognispatium.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,20 +12,25 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 
+
+import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
+
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.joda.ser.DateTimeSerializer;
 
 @Entity
 @PrimaryKeyJoinColumn(name="id")
 public class ConsultaUrgente extends Consulta implements Serializable {
-
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
-	@Column
-	private DateTime fechaFin;
 	
+	@Column
+	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+	@JsonSerialize(using = DateTimeSerializer.class)
+	private DateTime fechaFin;	
 	
 	@OneToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="cobro")

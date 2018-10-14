@@ -3,6 +3,7 @@ package upv.etsinf.cognispatium.domain;
 import java.io.Serializable;
 
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,6 +14,9 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
 import javax.persistence.Table;
 
 @Entity
@@ -26,8 +30,7 @@ public class Respuesta implements Serializable {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-	
-	
+
 	@Column
 	private String descripcion;
 	
@@ -57,6 +60,7 @@ public class Respuesta implements Serializable {
 		this.descripcion = descripcion;
 	}
 
+
 	public Profesional getProfesionalOrigen() {
 		return profesionalOrigen;
 	}
@@ -72,9 +76,6 @@ public class Respuesta implements Serializable {
 	public void setConsultaOrigen(Consulta consultaOrigen) {
 		this.consultaOrigen = consultaOrigen;
 	}
-	
-	
-	
 
 
 

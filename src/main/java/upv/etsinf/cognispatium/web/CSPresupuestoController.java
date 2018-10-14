@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import upv.etsinf.cognispatium.domain.Cliente;
-import upv.etsinf.cognispatium.domain.ConsultaUrgente;
+import upv.etsinf.cognispatium.domain.Solicitud;
 import upv.etsinf.cognispatium.domain.EstadoConsulta;
 import upv.etsinf.cognispatium.domain.Servicio;
 import upv.etsinf.cognispatium.service.SimpleServicioManager;
-import upv.etsinf.cognispatium.service.SimpleConsultaUrgenteManager;
+import upv.etsinf.cognispatium.service.SimpleSolicitudManager;
 import upv.etsinf.cognispatium.service.SimpleClienteManager;
 
 import java.io.Console;
@@ -38,7 +38,7 @@ import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
 
 @Controller
-public class CCUrgenteController {
+public class CSPresupuestoController {
 	
 	
 
@@ -46,7 +46,7 @@ public class CCUrgenteController {
 	private SimpleServicioManager servicioManager;
 
 	@Autowired
-	private SimpleConsultaUrgenteManager servicioCUManager;
+	private SimpleSolicitudManager servicioSolicitudManager;
 	
 	
 	@Autowired
@@ -56,12 +56,12 @@ public class CCUrgenteController {
 	/** Logger for this class and subclasses */
 	protected final Log logger = LogFactory.getLog(getClass());
 	
-	@RequestMapping("/crearconsultaurgente.htm")
-	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response,@ModelAttribute ConsultaUrgente consultaUrgente)
+	@RequestMapping("/crearsolicitudpresupuesto.htm")
+	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
 		Map<String, Object> myModel = new HashMap<String, Object>();
-		ModelAndView mav = new ModelAndView("crearconsultaurgente", "model", myModel);
+		ModelAndView mav = new ModelAndView("crearsolicitudpresupuesto", "model", myModel);
 		 Map< String, Object > servicios = new HashMap<String, Object>();
 		List<Servicio> listaServicios = servicioManager.getServicios();
 		
@@ -81,28 +81,20 @@ public class CCUrgenteController {
 		return referenceData;
 	}
 	
-	@PostMapping("/crearconsultaurgente.htm")
+	@PostMapping("/crearsolicitudpresupuesto.htm")
 	protected ModelAndView onSubmit(@RequestParam Map<String,String> reqPar) throws Exception {	
 		
-		
-		DateTime fechaFinal = DateTime.now();
-		LocalTime tiempoEspera = LocalTime.parse(reqPar.get("tiempoEspera"));
-		fechaFinal = fechaFinal.plusMinutes(tiempoEspera.getMinute());
-		fechaFinal = fechaFinal.plusHours(tiempoEspera.getHour());
 		String titulo = reqPar.get("titulo");
 		String descripcion = reqPar.get("descripcion");
 		Integer ServiceId = Integer.parseInt(reqPar.get("servicio"));
 		Servicio servicioConsulta = servicioManager.getServiciobyId(ServiceId);
-		ConsultaUrgente consultaUrgente = new ConsultaUrgente();
+		Solicitud solicitud = new Solicitud();
 		Cliente cliente = simpleClienteManager.getClientes().get(0);
-		consultaUrgente.setDescripcion(descripcion);
-		consultaUrgente.setTitulo(titulo);
-		consultaUrgente.setFechaFin(fechaFinal);
-		consultaUrgente.setServicioOrigen(servicioConsulta);
-		consultaUrgente.setCreadoConsulta(null);
-		consultaUrgente.setCreadoConsulta(cliente);
-		consultaUrgente.setEstado(EstadoConsulta.CREADA);
-		servicioCUManager.addConsultaUrgente(consultaUrgente);
+		solicitud.setDescripcion(descripcion);
+		solicitud.setTitulo(titulo);
+		solicitud.setServicioOrigen(servicioConsulta);
+		solicitud.setClienteOrigen(cliente);
+		servicioSolicitudManager.addSolicitud(solicitud);
 
 		return new ModelAndView("hello");
 	}

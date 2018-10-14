@@ -22,6 +22,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="consulta")
+@Inheritance(strategy=InheritanceType.JOINED)
 public class Consulta implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -88,6 +89,32 @@ public class Consulta implements Serializable {
 	public void setEstado(EstadoConsulta estado) {
 		this.estado = estado;
 	}
+
+	public Cliente getCreadoConsulta() {
+		return creadoConsulta;
+	}
+
+	public void setCreadoConsulta(Cliente creadoConsulta) {
+		this.creadoConsulta = creadoConsulta;
+	}
+
+	public List<Respuesta> getRespuestas() {
+		return respuestas;
+	}
+
+	public void setRespuestas(List<Respuesta> respuestas) {
+		this.respuestas = respuestas;
+	}
+
+	public Servicio getServicioOrigen() {
+		return servicioOrigen;
+	}
+
+	public void setServicioOrigen(Servicio servicioOrigen) {
+		this.servicioOrigen = servicioOrigen;
+	}
+	
+	
 	
 	
 	
