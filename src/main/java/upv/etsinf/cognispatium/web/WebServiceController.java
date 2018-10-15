@@ -24,6 +24,7 @@ import upv.etsinf.cognispatium.service.AdminManager;
 
 import upv.etsinf.cognispatium.service.ProfesionalManager;
 
+
 @Controller
 public class WebServiceController {
 
@@ -40,19 +41,22 @@ public class WebServiceController {
 	
 	@Autowired
 	private ProfesionalManager profesionalManager;
+	
 
 	@RequestMapping(value = "/hello.htm")
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		
 		String now = (new Date()).toString();
 		logger.info("Returning hello view with " + now);
 
 		Map<String, Object> myModel = new HashMap<String, Object>();
 		myModel.put("now", now);
 		myModel.put("usuarios", this.profesionalManager.getProfesionales());
-
+		
 		return new ModelAndView("hello", "model", myModel);
+	
 		
 	}
 
@@ -63,4 +67,6 @@ public class WebServiceController {
 	public void setClienteManager(ClienteManager clienteManager) {
 		this.clienteManager = clienteManager;
 	}
+	
+	
 }

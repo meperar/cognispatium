@@ -22,6 +22,7 @@ public class SimpleProfesionalManager implements ProfesionalManager {
     }
 
     public List<Profesional> getProfesionales() {
+    	
        return profesionalDao.getProfesionalList();        
     }
 

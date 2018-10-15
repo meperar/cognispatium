@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import upv.etsinf.cognispatium.domain.Cliente;
 import upv.etsinf.cognispatium.domain.Pago;
+import upv.etsinf.cognispatium.domain.Servicio;
 import upv.etsinf.cognispatium.domain.Usuario;
 import upv.etsinf.cognispatium.repository.PagoDao;
 
@@ -30,6 +31,9 @@ public class SimplePagoManager implements PagoManager{
 		
 		pagoDao.savePago(pago);
 	}
+	
+	
+	
 	
 	
 	public Cliente getCliente(Integer idPago) {
