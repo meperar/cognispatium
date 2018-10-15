@@ -23,7 +23,7 @@ public class JPAFacturaDao implements FacturaDao {
 	@Transactional(readOnly = true)
 	@SuppressWarnings("unchecked")
 	public List<Factura> getFacturaList() {
-		return em.createQuery("select f from Factura order by f.id").getResultList();
+		return em.createQuery("select f from Factura f order by f.id").getResultList();
 	}
 
 	@Override

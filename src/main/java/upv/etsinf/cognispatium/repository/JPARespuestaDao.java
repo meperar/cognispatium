@@ -23,7 +23,7 @@ public class JPARespuestaDao implements RespuestaDao {
 	@Transactional(readOnly = true)
 	@SuppressWarnings("unchecked")
 	public List<Respuesta> getRespuestaList() {
-		return em.createQuery("select r from Respuesta order by r.id").getResultList();
+		return em.createQuery("select r from Respuesta r order by r.id").getResultList();
 	}
 
 	@Override

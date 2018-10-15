@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import upv.etsinf.cognispatium.domain.Cliente;
 import upv.etsinf.cognispatium.domain.Factura;
 import upv.etsinf.cognispatium.domain.Pago;
 import upv.etsinf.cognispatium.repository.FacturaDao;
@@ -32,12 +33,5 @@ public class SimpleFacturaManager implements Serializable {
     	facturaDao.saveFactura(factura);
 	}
     
-    public Factura getFactura(Pago pago) {
-    	for (Factura f : this.getFacturas()) {
-    		if(f.getPagoOrigen() == pago)
-    			return f;
-    	}
-    	return null;
-    	
-    }
+  
 }

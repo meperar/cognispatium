@@ -11,4 +11,6 @@ public interface PagoDao {
 
     public void savePago(Pago pago);
 
+	public Pago getPagoById(Integer pagoId);
+
 }

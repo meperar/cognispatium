@@ -23,7 +23,7 @@ public class JPAConsultaUrgenteDao implements ConsultaUrgenteDao {
 	@Transactional(readOnly = true)
 	@SuppressWarnings("unchecked")
 	public List<ConsultaUrgente> getConsultaUrgenteList() {
-		return em.createQuery("select c from ConsultaUrgente order by c.id").getResultList();
+		return em.createQuery("select c from ConsultaUrgente c order by c.id").getResultList();
 	}
 
 	@Override

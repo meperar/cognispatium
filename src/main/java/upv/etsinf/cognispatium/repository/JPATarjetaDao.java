@@ -23,7 +23,7 @@ public class JPATarjetaDao implements TarjetaDao {
 	@Transactional(readOnly = true)
 	@SuppressWarnings("unchecked")
 	public List<Tarjeta> getTarjetaList() {
-		return em.createQuery("select t from Tarjeta order by t.id").getResultList();
+		return em.createQuery("select t from Tarjeta t order by t.id").getResultList();
 	}
 
 	@Override
