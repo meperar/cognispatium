@@ -23,7 +23,7 @@ public class JPAConsultaDao implements ConsultaDao {
 	@Transactional(readOnly = true)
 	@SuppressWarnings("unchecked")
 	public List<Consulta> getConsultaList() {
-		return em.createQuery("select c from Consulta order by c.id").getResultList();
+		return em.createQuery("select c from Consulta c order by c.id").getResultList();
 	}
 
 	@Override

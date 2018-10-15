@@ -51,7 +51,7 @@ public class WebServiceController {
 		Map<String, Object> myModel = new HashMap<String, Object>();
 		myModel.put("now", now);
 		myModel.put("usuarios", this.profesionalManager.getProfesionales());
-
+		
 		return new ModelAndView("hello", "model", myModel);
 		
 	}
