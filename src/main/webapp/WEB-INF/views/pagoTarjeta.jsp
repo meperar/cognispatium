@@ -29,52 +29,43 @@
         <b>Pagos</b>
       </a> </div>
   </nav>
+  <form action="#" method="post">
   <div class="py-0">
     <div class="container">
       <div class="row">
-        <div class="p-5 col-md-6" style="">
-          <h3 class="mb-3">Información Cliente<br></h3>
-          <form>
-            <div class="form-group"><label>Nombre Completo:</label> <input class="form-control" placeholder="Type here"> </div>
-            <div class="form-group"><label>Dirección 1 :</label> <input class="form-control" placeholder="Type here"> </div>
-            <div class="form-group"><label>Ciudad :</label> <input class="form-control" placeholder="Type here"> </div>
-            <div class="form-group"><label>País :</label> <input class="form-control" placeholder="Type here"> </div>
-            <div class="form-group"><label>Codigo Postal :</label> <input class="form-control" placeholder="Type here"> </div>
-          </form>
-        </div>
         <div class="col-md-6 p-5" style="">
           <h3 class="mb-3">Informacion Tarjeta</h3>
-          <form>
             <a class="btn btn-primary p-1 w-50" href="#">Tarjeta Credito</a><a class="btn btn-light w-50" href="#">PayPal<br></a>
-            <div class="form-group"><label>Numero de Tarjeta :&nbsp;</label> <input class="form-control" placeholder="Type here" type=""> </div>
-            <div class="form-group"><label>CVV (?) :</label> <input class="form-control" placeholder="Type here"> </div>
+            <div class="form-group"><label>Titular :&nbsp;</label> <input name="titular" type="text"  class="form-control" placeholder="Introduza el titular" required ="required"> </div>   
+            <div class="form-group"><label>Numero de Tarjeta :&nbsp;</label> <input type="number" name="numTarjeta"  min="1000000000000000" max="9999999999999999"  class="form-control" placeholder="Introduza el numero de la tarjeta" required ="required"> </div>
+            <div class="form-group"><label>CVV (?) :</label> <input name="cvv" type="number" min="100" max="999" class="form-control" placeholder="Introduzca el código de seguridad" required ="required"> </div>
             <div class="form-group"><label>Fecha de caducidad :</label> </div>
             <div class="row">
               <div class="col-md-2 text-right" style=""><label>Mes :</label></div>
               <div class="col-md-4" style="">
                 <div class="btn-group">
-                  <select name="mes">
+                  <select name="mes" required ="required">
                     <option value="-" selected="selected">-</option>
-                    <option value="Enero">Enero</option>
-                    <option value="Febrero">Febrero</option>
-                    <option value="Marzo">Marzo</option>
-                    <option value="Abril">Abril</option>
-                    <option value="Mayo">Mayo</option>
-                    <option value="Junio">Junio</option>
-                    <option value="Julio">Julio</option>
-                    <option value="Agosto">Agosto</option>
-                    <option value="Septiembre">Septiembre</option>
-                    <option value="Octubre">Octubre</option>
-                    <option value="Noviembre">Noviembre</option>
-                    <option value="Diciembre">Diciembre</option>
+                    <option value="01">Enero</option>
+                    <option value="02">Febrero</option>
+                    <option value="03">Marzo</option>
+                    <option value="04">Abril</option>
+                    <option value="05">Mayo</option>
+                    <option value="06">Junio</option>
+                    <option value="07">Julio</option>
+                    <option value="08">Agosto</option>
+                    <option value="09">Septiembre</option>
+                    <option value="10">Octubre</option>
+                    <option value="11">Noviembre</option>
+                    <option value="12">Diciembre</option>
                   </select>
                 </div>
               </div>
               <div class="col-md-2 text-right" style=""><label>Año :</label></div>
               <div class="col-md-3" style="">
                 <div class="btn-group">
-                  <select name="Año">
-                    <option value="-" selected="selected">-</option>
+                  <select name="anyo">
+                    <option value="-" selected="selected" required ="required">-</option>
                     <option value="2018">2018</option>
                     <option value="2019">2019</option>
                     <option value="2018">2020</option>
@@ -91,7 +82,7 @@
                 </div>
               </div>
             </div>
-          </form>
+         
           <div class="row align-items-center">
             <div class="col-md-3 col-lg-3 m-0 d-inline-flex align-items-end flex-row-reverse justify-content-start text-right" style=""><input class="form-control w-25" placeholder="Type here" type="checkbox"></div>
             <div class="col-md-9 px-1" style=""><label class="text-left" style="">Guardar Información para operaciones futuras</label></div>
@@ -105,7 +96,7 @@
       <div class="row" >
         <div class="col-md-7 mx-auto">
           <div class="row">
-            <div class="col-md-6"><button type="submit" class="btn mt-4 btn-block btn-outline-dark p-2"><b>CANCELAR</b></button></div>
+            <div class="col-md-6"><button type="reset" class="btn mt-4 btn-block btn-outline-dark p-2"><b>CANCELAR</b></button></div>
             <div class="col-md-6"><button type="submit" class="btn mt-4 btn-block btn-outline-dark p-2"><b>CONFIRMAR PAGO</b></button></div>
           </div>
           <h3 class="m-2">You are in good company</h3>
@@ -117,17 +108,7 @@
       </div>
     </div>
   </div>
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
-		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-		crossorigin="anonymous"></script>
+  </form>
 
 	<div class="py-3">
 		<div class="container">
