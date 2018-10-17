@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -45,7 +46,7 @@ public class Tarjeta implements Serializable {
 	@JoinColumn(name="cliente")
 	private Cliente clienteOrigen;
 
-	@OneToMany(mappedBy = "tarjetaOrigen")
+	@OneToMany(mappedBy = "tarjetaOrigen", cascade = {CascadeType.ALL})
 	private List<Pago> pagos ;
 
 	public Integer getId() {

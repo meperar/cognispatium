@@ -43,6 +43,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
 
+import java.io.*; 
+import com.lowagie.text.DocumentException; 
+import org.xhtmlrenderer.pdf.ITextRenderer;
+
 @Controller
 public class PagoController {
 
@@ -125,6 +129,7 @@ public class PagoController {
 
 		return mav;
 	}
-
+	
+	
 
 }
