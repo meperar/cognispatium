@@ -32,7 +32,7 @@ public class Pago implements Serializable {
 	private String descripcion;
 	private Integer precio;
 
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="cliente")
 	private Cliente clienteOrigen;
 	

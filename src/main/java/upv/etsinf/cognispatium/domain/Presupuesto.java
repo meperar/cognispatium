@@ -41,11 +41,11 @@ public class Presupuesto implements Serializable {
 	@JoinColumn(name="solicitud")
 	private Solicitud solicitudOrigen;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="profesional")
 	private Profesional profesionalOrigen;
 	
-	@OneToOne(fetch=FetchType.LAZY)
+	@OneToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="presupuesto")
 	private Factura facturaOrigen;
 	
