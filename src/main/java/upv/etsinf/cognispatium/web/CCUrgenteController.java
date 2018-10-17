@@ -101,7 +101,7 @@ public class CCUrgenteController {
 		consultaUrgente.setServicioOrigen(servicioConsulta);
 		consultaUrgente.setCreadoConsulta(null);
 		consultaUrgente.setCreadoConsulta(cliente);
-		consultaUrgente.setEstado(EstadoConsulta.CREADA);
+		consultaUrgente.setEstado(EstadoConsulta.creada);
 		servicioCUManager.addConsultaUrgente(consultaUrgente);
 		//System.out.println("Hola CCUrgenteController");
 

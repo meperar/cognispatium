@@ -13,7 +13,9 @@ import org.springframework.web.servlet.ModelAndView;
 import upv.etsinf.cognispatium.domain.Consulta;
 //import net.bytebuddy.agent.builder.AgentBuilder.Default.Transformation.Simple;  /*Si quitas el comentario da error*/
 import upv.etsinf.cognispatium.domain.Respuesta;
+import upv.etsinf.cognispatium.service.SimpleAdminManager;
 import upv.etsinf.cognispatium.service.SimpleConsultaManager;
+import upv.etsinf.cognispatium.service.SimpleConsultaUrgenteManager;
 import upv.etsinf.cognispatium.service.SimpleProfesionalManager;
 
 import java.util.List;
@@ -33,8 +35,14 @@ public class RCUrgenteController {
     /** Logger for this class and subclasses */
     protected final Log logger = LogFactory.getLog(getClass());
     
-    @Autowired
+   @Autowired
     private SimpleConsultaManager simpleConsultaManager;
+    
+    @Autowired
+    private SimpleConsultaUrgenteManager simpleConsultaUrgenteManager;
+    
+    @Autowired
+    private SimpleAdminManager simpleAdminManager;
     
     @Autowired
     private SimpleProfesionalManager simpleProfesionalManager;
@@ -58,9 +66,17 @@ public class RCUrgenteController {
 		Respuesta respuesta = new Respuesta();
 		respuesta.setDescripcion("descripción");
 		//System.out.println("1");
-		simpleConsultaManager.getConsultas();
+		/*for(int i = 0; i < 5; i++) {System.out.println();}
+		System.out.println("Va a ejecutar simpleConsultaManager.getConsultas()");
+		System.out.println("Esta en el print        " + simpleConsultaManager.getConsultas());
+		//System.out.println(simpleConsultaUrgenteManager.getConsultaUrgentes());
+		//System.out.println(simpleAdminManager.getAdmins());
+		System.out.println("simpleConsultaManager.getConsultas() se ha ejeuctado ");
+		for(int i = 0; i < 5; i++) {System.out.println();}*/
+		/*simpleConsultaManager.getConsultas();*/
+		
 		//System.out.println(listCons.toString());
-		//respuesta.setConsultaOrigen(simpleConsultaManager.getConsultas().get(2));
+		respuesta.setConsultaOrigen(simpleConsultaManager.getConsultas().get(2));
 		//System.out.println("2");
 		respuesta.setProfesionalOrigen(simpleProfesionalManager.getProfesionales().get(1));
 		//System.out.println("3");
