@@ -82,7 +82,7 @@ public class RCUrgenteController {
 		respuesta.setConsultaOrigen(simpleConsultaManager.getConsultas().get(2));
 		respuesta.setProfesionalOrigen(simpleProfesionalManager.getProfesionales().get(1));
 		respuestaManager.addRespuesta(respuesta);
-		return null;
+		return new ModelAndView("hello");
 
 	}
 	
