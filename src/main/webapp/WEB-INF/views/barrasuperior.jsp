@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html>
+<%@ include file="/WEB-INF/views/include.jsp"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <head>
 <style>
@@ -47,7 +49,23 @@
   	border: 0;
 }
 </style>
+
+
+
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+	type="text/css">
+<link rel="stylesheet" href="theme.css" type="text/css">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+	integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+	crossorigin="anonymous">
 </head>
+
 
 <body>
   <meta charset="utf-8">
@@ -62,73 +80,23 @@
         <a href="hello.htm"><img src="https://i.imgur.com/xmZULKf.png" width = 200 title="source: imgur.com" /></a>
         <div class="btn-group"> <button class="desplegableMenu" id="profesional" data-toggle="dropdown" > Profesionales</button>
           <div class="dropdown-menu">
-      <table class="tablaFiltros" id="gh-sbc">
-        <tbody>
-          <tr>
-            <td>
-              <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Medicina<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
-              <ul>
-                <li><a class="scnd" href=#>Odontología</a></li>
-                <li><a class="scnd" href=#>Pediatría</a></li>
-                <li><a class="scnd" href=#>Medicina Familiar</a></li>
-                <li><a class="scnd" href=#>Oftalmología</a></li>
-              </ul>
-              <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Deporte<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
-              <ul>
-                <li><a class="scnd" href=#>Waterpolo</a></li>
-                <li><a class="scnd" href=#>Fútbol</a></li>
-                <li><a class="scnd" href=#>Bulletball</a></li>
-                <li><a class="scnd" href=#>Baloncesto</a></li>
-              </ul>
-              <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Ciencia</h4>
-              <ul>
-                <li><a class="scnd" href=#>Física</a></li>
-                <li><a class="scnd" href=#>Química</a></li>
-                <li><a class="scnd" href=#>Bioquimica</a></li>
-                <li><a class="scnd" href=#>Biotecnología</a></li>
-              </ul>
-            </td>
-            <td>
-              <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Técnicos<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
-              <ul>
-                <li><a class="scnd" href=#>Electricista</a></li>
-                <li><a class="scnd" href=#>Fontanero</a></li>
-              </ul>
-              <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Legislación<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
-              <ul>
-                <li><a class="scnd" href=#>Abogacía</a></li>
-              </ul>
-              <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Artes Marciales<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
-              <ul>
-                <li><a class="scnd" href=#>Taekwondo</a></li>
-                <li><a class="scnd" href=#>Aikido</a></li>
-              </ul>
-              <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Cuidados del Hogar<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
-              <ul>
-                <li><a class="scnd" href=#>Limpieza</a></li>
-                <li><a class="scnd" href=#>Cuidado de niños</a></li>
-              </ul>
-            </td>
-            <td>
-              <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Arte<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
-              <ul>
-                <li><a class="scnd" href=#>Música</a></li>
-                <li><a class="scnd" href=#>Pintura</a></li>
-              </ul>
-              <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Idiomas<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
-              <ul>
-                <li><a class="scnd" href=#>Inglés</a></li>
-                <li><a class="scnd" href=#>Español</a></li>
-              </ul>
-              <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Estética<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
-              <ul>
-                <li><a class="scnd" href=#>Peluquería</a></li>
-                <li><a class="scnd" href=#>Barbería</a></li>
-              </ul>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+         	 <table class="tablaFiltros" id="gh-sbc">
+         		 <tbody>
+         	 		<tr>
+         	 		 <td>
+         	 		 <ul>
+         	 		 <li><a class="scnd" href=#>hola</a></li>
+         	 		 <li><c:out value="${model.hi}" /> </li>
+         	 		 <c:forEach items="${model.serviMed}" var="serviM">
+         	 		 <li><c:out value="${serviM.nombre}"/></li>
+         	 		 </c:forEach>
+         	 		 </ul>
+         	 		 </td>
+         	 		</tr>
+         		 </tbody>
+         	 </table>
+          	
+     			 
           </div>
         </div>
         <div class="btn-group"> <button class="desplegableMenu" data-toggle="dropdown"> Consultas</button>

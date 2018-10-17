@@ -25,6 +25,13 @@ public class JPAServicioDao implements ServicioDao {
 	public List<Servicio> getServicioList() {
 		return em.createQuery("select s from Servicio s order by s.id").getResultList();
 	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	@SuppressWarnings("unchecked")
+	public List<Servicio> getServiciobyAmbito(String ambitoId) {
+		return em.createQuery("select s from Servicio where s.ambito = ambitoId order by s.id").getResultList();
+	}
 
 	@Override
 	@Transactional(readOnly = false)
