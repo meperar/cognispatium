@@ -68,7 +68,7 @@
             <td>
               <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Medicina<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
               <ul>
-                <li><a class="scnd" href=#>Odontología</a></li>
+                <li><a class="scnd" href="listaprofesionales.htm">Odontología</a></li>
                 <li><a class="scnd" href=#>Pediatría</a></li>
                 <li><a class="scnd" href=#>Medicina Familiar</a></li>
                 <li><a class="scnd" href=#>Oftalmología</a></li>
