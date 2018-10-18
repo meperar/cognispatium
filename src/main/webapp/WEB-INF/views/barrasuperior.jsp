@@ -88,7 +88,7 @@
          	 		 <ul>
          	 		 <li><a class="scnd" href=#>hola</a></li>
          	 		 <c:forEach items="${med.serviMed}" var="serviM">
-         	 		 <li><c:out value="${serviM.nombre}"/></li>
+         	 		 <li><a class="scnd" href=#><c:out value="${serviM.nombre}"/></a></li>
          	 		 </c:forEach>
          	 		 </ul>
          	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Deporte<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
