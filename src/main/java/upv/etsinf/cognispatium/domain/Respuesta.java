@@ -34,12 +34,12 @@ public class Respuesta implements Serializable {
 	@Column
 	private String descripcion;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="profesional")
 	private Profesional profesionalOrigen;
 	
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="consulta")
 	private Consulta consultaOrigen;
 	

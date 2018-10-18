@@ -40,21 +40,23 @@
           <h3>Datos de la consulta</h3>
           <p>A continuación aparecerán los datos de la consulta que va a responder:</p>
           <p class="lead mt-3"> <b>Tema</b></p>
-          <p> <a href="#">support@hello.com</a> </p>
+          <p> ${model.consultas.getServicioOrigen().nombre} </p>
           <p class="lead mt-3"> <b>Fecha límite</b></p>
-          <p> <a href="#">+1 234 567 89</a> </p>
+          <p> ${model.consultas.getFechaFin()}</p>
           <p class="lead mt-3"> <b>Autor</b></p>
-          <p> <a href="#">sales@hello.com</a> </p>
+          <p> ${model.consultas.getCreadoConsulta().getNombre()} </p>
           <p class="lead mt-3"> <b>Descripción</b></p>
-          <p> <a href="#">info@hello.com</a> </p>
+          <p> ${model.consultas.getDescripcion()} </p>
         </div>
         <div class="col-md-7 p-4">
           <h3 class="mb-3">Respuesta</h3>
-          <form>
+          <form action="#"  method="post" class="text-left">
             
-            <div class="form-group"> <textarea class="form-control" id="form43" rows="3" placeholder="Tu respuesta a la consulta" style="margin-top: 0px; margin-bottom: 0px; height: 141px;"></textarea> </div> 
+            <div class="form-group"> <textarea name="respuesta" rows="3" cols="50" placeholder="Tu respuesta a la consulta" required= "required" style="margin-top: 0px; margin-bottom: 0px; height: 141px;" ></textarea> </div> 
             
-          <a class="btn btn-primary" style = "background-color: black; border-color : #333333" href="<c:url value="/responderconsultaurgentefinal.htm"/>">Send</a>
+          <button type="submit" class="btn btn-primary">
+								Send<br>
+							</button>
           </form>
         </div>
       </div>
