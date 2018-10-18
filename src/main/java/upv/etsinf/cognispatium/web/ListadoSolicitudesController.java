@@ -86,16 +86,18 @@ public class ListadoSolicitudesController {
 	protected ModelAndView onSubmit(@RequestParam Map<String, String> reqPar) throws Exception {
 
 		List<Solicitud> listaSolicitudes = new ArrayList<Solicitud>();
+		Map<String, Object> servicios = new HashMap<String, Object>();
 		if (reqPar.get("servicio") != null) {
 			Integer ServiceId = Integer.parseInt(reqPar.get("servicio"));
 			Servicio servicioConsulta = servicioManager.getServiciobyId(ServiceId);
 			listaSolicitudes = servicioSolicitudManager.getSolicitudsbyService(servicioConsulta);
+			servicios.put("serviciId", ServiceId);
+
 		} else {
 			listaSolicitudes = servicioSolicitudManager.getSolicituds();
 		}
 		Map<String, Object> myModel = new HashMap<String, Object>();
 		ModelAndView mav = new ModelAndView("listadosolicitudes", "model", myModel);
-		Map<String, Object> servicios = new HashMap<String, Object>();
 		List<Servicio> listaServicios = servicioManager.getServicios();
 		servicios.put("servicios", listaServicios);
 		mav.addObject("servicios", servicios);

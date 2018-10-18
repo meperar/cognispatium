@@ -38,12 +38,12 @@
 							<div class="form-group">
 								<label for="form16">Resumen</label> <input type="text" name="titulo"
 										class="form-control" id="form16"
-										placeholder="Resumen de la consulta" required="required"/>
+										placeholder="Resumen de la consulta" required="required" maxlength="80"/>
 							</div>
 							<div class="form-group">
 								<label for="form18">Descripcion</label> <input type="text"
 										class="form-control" id="form18" name="descripcion" style=""
-										placeholder="Introduzca una descripcion de la consulta" required="required"/> 
+										placeholder="Introduzca una descripcion de la consulta" required="required" maxlength="500"/> 
 							</div>
 							<button type="submit" class="btn btn-primary">
 								Crear consulta<br>

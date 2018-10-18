@@ -38,6 +38,10 @@ public class Factura implements Serializable {
 	@JoinColumn(name="pago")
 	private Pago pagoOrigen;
     
+    
+    @OneToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="presupuesto")
+	private Presupuesto presupuestoOrigen;
 	
 	public Integer getId() {
 		return id;
@@ -58,6 +62,12 @@ public class Factura implements Serializable {
 	}
 	public void setPagoOrigen(Pago pagoOrigen) {
 		this.pagoOrigen = pagoOrigen;
+	}
+	public Presupuesto getPresupuestoOrigen() {
+		return presupuestoOrigen;
+	}
+	public void setPresupuestoOrigen(Presupuesto presupuestoOrigen) {
+		this.presupuestoOrigen = presupuestoOrigen;
 	}
 	
 	

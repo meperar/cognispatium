@@ -25,8 +25,27 @@
 					method="GET">
 					<label for="form16">Servicio</label> <br> <select
 						name='servicio'>
+						<c:set var="servId" value="${servicios.serviciId}" />
+						<c:if test="${servId == null}" >
+						<option disabled selected value> -- Seleccione un servicio -- </option>
+						</c:if>
 						<c:forEach items="${servicios.servicios}" var="servicio">
-							<option value="${servicio.id}" label="${servicio.nombre}"></option>
+							<c:choose>
+								<c:when test="${servId == null}">
+								<option value="${servicio.id}" label="${servicio.nombre}"></option>
+								</c:when>
+								<c:otherwise>
+									<c:choose>
+										<c:when test="${servId == servicio.id}">
+										<option value="${servicio.id}" label="${servicio.nombre}"
+										selected></option>
+										</c:when>
+										<c:otherwise>
+										<option value="${servicio.id}" label="${servicio.nombre}"></option>
+										</c:otherwise>
+									</c:choose>
+								</c:otherwise>
+							</c:choose>
 						</c:forEach>
 					</select> <input class="btn btn-primary" type="submit" name="action"
 						value="Filtrar" />
@@ -47,17 +66,17 @@
 						<tbody>
 							<c:forEach items="${solicitudes.solicitudes}" var="solicitud">
 								<form action="#" method="post" class="text-left">
-								<tr>
-									<td><input type="hidden" id="solicitudId"
-										name="solicitudId" value="${solicitud.id}">
-										${solicitud.titulo}</td>
-									<td>${solicitud.descripcion}</td>
-									<td>${solicitud.clienteOrigen.nombre}
-										${solicitud.clienteOrigen.apellidos}</td>
-									<td><button class="bg-primary">
-											<i class="fas fa-plus-square"></i>
-										</button></td>
-								</tr>
+									<tr>
+										<td><input type="hidden" id="solicitudId"
+											name="solicitudId" value="${solicitud.id}">
+											${solicitud.titulo}</td>
+										<td>${solicitud.descripcion}</td>
+										<td>${solicitud.clienteOrigen.nombre}
+											${solicitud.clienteOrigen.apellidos}</td>
+										<td><button class="bg-primary">
+												<i class="fas fa-plus-square"></i>
+											</button></td>
+									</tr>
 								</form>
 							</c:forEach>
 						</tbody>
