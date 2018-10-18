@@ -57,6 +57,9 @@
           <button type="submit" class="btn btn-primary">
 								Send<br>
 							</button>
+		  <button type="reset" onclick="location.href='hello.htm'" class="btn btn-primary">
+								Cancelar<br>
+							</button>
           </form>
         </div>
       </div>

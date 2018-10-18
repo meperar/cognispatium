@@ -76,7 +76,6 @@ public class RCUrgenteController {
 
    @PostMapping("/responderconsultaurgente.htm")
    protected ModelAndView onSubmit(@RequestParam Map<String,String> reqPar) throws Exception {
-	    System.out.println("onSubmit()");
 		Respuesta respuesta = new Respuesta();
 		respuesta.setDescripcion(reqPar.get("respuesta"));	
 		respuesta.setConsultaOrigen(simpleConsultaManager.getConsultas().get(2));
@@ -85,6 +84,8 @@ public class RCUrgenteController {
 		return new ModelAndView("hello");
 
 	}
+   
+   
 	
 	
     

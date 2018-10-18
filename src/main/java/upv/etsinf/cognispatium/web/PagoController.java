@@ -81,7 +81,6 @@ public class PagoController {
 	
 	@PostMapping("/pagoTarjeta.htm")
 	protected ModelAndView onSubmit(@RequestParam Map<String,String> reqPar) throws Exception {	
-		
 		Cliente cliente = clienteManager.getClientes().get(0);
 		Solicitud solicitud = solicitudManager.getSolicituds().get(0);
 		

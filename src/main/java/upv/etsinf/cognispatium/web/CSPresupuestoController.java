@@ -83,7 +83,6 @@ public class CSPresupuestoController {
 	
 	@PostMapping("/crearsolicitudpresupuesto.htm")
 	protected ModelAndView onSubmit(@RequestParam Map<String,String> reqPar) throws Exception {	
-		
 		String titulo = reqPar.get("titulo");
 		String descripcion = reqPar.get("descripcion");
 		Integer ServiceId = Integer.parseInt(reqPar.get("servicio"));
