@@ -84,91 +84,152 @@
          		 <tbody>
          	 		<tr>
          	 		 <td>
+         	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Medicina<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
          	 		 <ul>
          	 		 <li><a class="scnd" href=#>hola</a></li>
-         	 		 <li><c:out value="${model.hi}" /> </li>
-         	 		 <c:forEach items="${model.serviMed}" var="serviM">
+         	 		 <c:forEach items="${med.serviMed}" var="serviM">
          	 		 <li><c:out value="${serviM.nombre}"/></li>
          	 		 </c:forEach>
          	 		 </ul>
+         	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Deporte<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
+         	 		 <ul>
+         	 		 <c:forEach items="${dep.serviDep}" var="serviD">
+         	 		 <li><c:out value="${serviD.nombre}"/></li>
+         	 		 </c:forEach>
+         	 		 </ul>
+         	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Ciencia<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
+         	 		 <ul>
+         	 		 <c:forEach items="${cien.serviCien}" var="serviC">
+         	 		 <li><c:out value="${serviC.nombre}"/></li>
+         	 		 </c:forEach>
+         	 		 </ul>    	 		 
+         	 		 </td>
+         	 		 <td>
+         	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Técnicos<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
+         	 		 <ul>
+         	 		 <c:forEach items="${tec.serviTec}" var="serviT">
+         	 		 <li><c:out value="${serviT.nombre}"/></li>
+         	 		 </c:forEach>
+         	 		 </ul> 
+         	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Legislación<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
+         	 		 <ul>
+         	 		 <c:forEach items="${leg.serviLeg}" var="serviL">
+         	 		 <li><c:out value="${serviL.nombre}"/></li>
+         	 		 </c:forEach>
+         	 		 </ul> 
+         	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Artes Marciales<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
+         	 		 <ul>
+         	 		 <c:forEach items="${artm.serviArtM}" var="serviAM">
+         	 		 <li><c:out value="${serviAM.nombre}"/></li>
+         	 		 </c:forEach>
+         	 		 </ul> 
+         	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Cuidados del Hogar<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
+         	 		 <ul>
+         	 		 <c:forEach items="${cuiho.serviCuiHo}" var="serviCH">
+         	 		 <li><c:out value="${serviCH.nombre}"/></li>
+         	 		 </c:forEach>
+         	 		 </ul> 
+         	 		 </td>
+         	 		 <td>
+         	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Arte<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
+         	 		 <ul>
+         	 		 <c:forEach items="${art.serviArt}" var="serviA">
+         	 		 <li><c:out value="${serviA.nombre}"/></li>
+         	 		 </c:forEach>
+         	 		 </ul> 
+         	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Idiomas<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
+         	 		 <ul>
+         	 		 <c:forEach items="${idio.serviIdio}" var="serviI">
+         	 		 <li><c:out value="${serviI.nombre}"/></li>
+         	 		 </c:forEach>
+         	 		 </ul> 
+         	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Estética<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
+         	 		 <ul>
+         	 		 <c:forEach items="${est.serviEst}" var="serviE">
+         	 		 <li><c:out value="${serviE.nombre}"/></li>
+         	 		 </c:forEach>
+         	 		 </ul> 
          	 		 </td>
          	 		</tr>
          		 </tbody>
-         	 </table>
-          	
-     			 
+         	 </table>	 
           </div>
         </div>
         <div class="btn-group"> <button class="desplegableMenu" data-toggle="dropdown"> Consultas</button>
           <div class="dropdown-menu">  
-       <table class="tablaFiltros" id="gh-sbc">
-        <tbody>
-          <tr>
-            <td>
-              <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Medicina<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
-              <ul>
-                <li><a class="scnd" href=#>Odontología</a></li>
-                <li><a class="scnd" href=#>Pediatría</a></li>
-                <li><a class="scnd" href=#>Medicina Familiar</a></li>
-                <li><a class="scnd" href=#>Oftalmología</a></li>
-              </ul>
-              <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Deporte<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
-              <ul>
-                <li><a class="scnd" href=#>Waterpolo</a></li>
-                <li><a class="scnd" href=#>Fútbol</a></li>
-                <li><a class="scnd" href=#>Bulletball</a></li>
-                <li><a class="scnd" href=#>Baloncesto</a></li>
-              </ul>
-              <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Ciencia</h4>
-              <ul>
-                <li><a class="scnd" href=#>Física</a></li>
-                <li><a class="scnd" href=#>Química</a></li>
-                <li><a class="scnd" href=#>Bioquimica</a></li>
-                <li><a class="scnd" href=#>Biotecnología</a></li>
-              </ul>
-            </td>
-            <td>
-              <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Técnicos<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
-              <ul>
-                <li><a class="scnd" href=#>Electricista</a></li>
-                <li><a class="scnd" href=#>Fontanero</a></li>
-              </ul>
-              <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Legislación<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
-              <ul>
-                <li><a class="scnd" href=#>Abogacía</a></li>
-              </ul>
-              <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Artes Marciales<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
-              <ul>
-                <li><a class="scnd" href=#>Taekwondo</a></li>
-                <li><a class="scnd" href=#>Aikido</a></li>
-              </ul>
-              <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Cuidados del Hogar<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
-              <ul>
-                <li><a class="scnd" href=#>Limpieza</a></li>
-                <li><a class="scnd" href=#>Cuidado de niños</a></li>
-              </ul>
-            </td>
-            <td>
-              <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Arte<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
-              <ul>
-                <li><a class="scnd" href=#>Música</a></li>
-                <li><a class="scnd" href=#>Pintura</a></li>
-              </ul>
-              <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Idiomas<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
-              <ul>
-                <li><a class="scnd" href=#>Inglés</a></li>
-                <li><a class="scnd" href=#>Español</a></li>
-              </ul>
-              <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Estética<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
-              <ul>
-                <li><a class="scnd" href=#>Peluquería</a></li>
-                <li><a class="scnd" href=#>Barbería</a></li>
-              </ul>
-             
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <table class="tablaFiltros" id="gh-sbc">
+         		 <tbody>
+         	 		<tr>
+         	 		 <td>
+         	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Medicina<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
+         	 		 <ul>
+         	 		 <li><a class="scnd" href=#>hola</a></li>
+         	 		 <c:forEach items="${med.serviMed}" var="serviM">
+         	 		 <li><c:out value="${serviM.nombre}"/></li>
+         	 		 </c:forEach>
+         	 		 </ul>
+         	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Deporte<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
+         	 		 <ul>
+         	 		 <c:forEach items="${dep.serviDep}" var="serviD">
+         	 		 <li><c:out value="${serviD.nombre}"/></li>
+         	 		 </c:forEach>
+         	 		 </ul>
+         	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Ciencia<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
+         	 		 <ul>
+         	 		 <c:forEach items="${cien.serviCien}" var="serviC">
+         	 		 <li><c:out value="${serviC.nombre}"/></li>
+         	 		 </c:forEach>
+         	 		 </ul>    	 		 
+         	 		 </td>
+         	 		 <td>
+         	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Técnicos<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
+         	 		 <ul>
+         	 		 <c:forEach items="${tec.serviTec}" var="serviT">
+         	 		 <li><c:out value="${serviT.nombre}"/></li>
+         	 		 </c:forEach>
+         	 		 </ul> 
+         	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Legislación<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
+         	 		 <ul>
+         	 		 <c:forEach items="${leg.serviLeg}" var="serviL">
+         	 		 <li><c:out value="${serviL.nombre}"/></li>
+         	 		 </c:forEach>
+         	 		 </ul> 
+         	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Artes Marciales<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
+         	 		 <ul>
+         	 		 <c:forEach items="${artm.serviArtM}" var="serviAM">
+         	 		 <li><c:out value="${serviAM.nombre}"/></li>
+         	 		 </c:forEach>
+         	 		 </ul> 
+         	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Cuidados del Hogar<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
+         	 		 <ul>
+         	 		 <c:forEach items="${cuiho.serviCuiHo}" var="serviCH">
+         	 		 <li><c:out value="${serviCH.nombre}"/></li>
+         	 		 </c:forEach>
+         	 		 </ul> 
+         	 		 </td>
+         	 		 <td>
+         	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Arte<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
+         	 		 <ul>
+         	 		 <c:forEach items="${art.serviArt}" var="serviA">
+         	 		 <li><c:out value="${serviA.nombre}"/></li>
+         	 		 </c:forEach>
+         	 		 </ul> 
+         	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Idiomas<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
+         	 		 <ul>
+         	 		 <c:forEach items="${idio.serviIdio}" var="serviI">
+         	 		 <li><c:out value="${serviI.nombre}"/></li>
+         	 		 </c:forEach>
+         	 		 </ul> 
+         	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Estética<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
+         	 		 <ul>
+         	 		 <c:forEach items="${est.serviEst}" var="serviE">
+         	 		 <li><c:out value="${serviE.nombre}"/></li>
+         	 		 </c:forEach>
+         	 		 </ul> 
+         	 		 </td>
+         	 		</tr>
+         		 </tbody>
+         	 </table>
           </div>
         </div>
         <ul class="navbar-nav">

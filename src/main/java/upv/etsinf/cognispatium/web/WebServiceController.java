@@ -23,6 +23,7 @@ import upv.etsinf.cognispatium.service.ClienteManager;
 import upv.etsinf.cognispatium.service.AdminManager;
 
 import upv.etsinf.cognispatium.service.ProfesionalManager;
+import upv.etsinf.cognispatium.service.SimpleServicioManager;
 
 
 @Controller
@@ -42,6 +43,9 @@ public class WebServiceController {
 	@Autowired
 	private ProfesionalManager profesionalManager;
 	
+	@Autowired
+	private SimpleServicioManager servicioManager;
+	
 
 	@RequestMapping(value = "/hello.htm")
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
@@ -51,11 +55,47 @@ public class WebServiceController {
 		String now = (new Date()).toString();
 		logger.info("Returning hello view with " + now);
 
-		Map<String, Object> myModel = new HashMap<String, Object>();
-		myModel.put("now", now);
-		myModel.put("usuarios", this.profesionalManager.getProfesionales());
+		Map<String, Object> med = new HashMap<String, Object>();
+		med.put("serviMed", this.servicioManager.getServiciosbyAmbito("Medicina"));
 		
-		return new ModelAndView("hello", "model", myModel);
+		Map<String, Object> dep = new HashMap<String, Object>();
+		dep.put("serviDep", this.servicioManager.getServiciosbyAmbito("Deporte"));
+		
+		Map<String, Object> cien = new HashMap<String, Object>();
+		cien.put("serviCien", this.servicioManager.getServiciosbyAmbito("Ciencia"));
+		
+		Map<String, Object> tec = new HashMap<String, Object>();
+		tec.put("serviTec", this.servicioManager.getServiciosbyAmbito("Técnicos"));
+		
+		Map<String, Object> leg = new HashMap<String, Object>();
+		leg.put("serviLeg", this.servicioManager.getServiciosbyAmbito("Legislación"));
+		
+		Map<String, Object> artm = new HashMap<String, Object>();
+		artm.put("serviArtM", this.servicioManager.getServiciosbyAmbito("Artes Marciales"));
+		
+		Map<String, Object> cuiho = new HashMap<String, Object>();
+		cuiho.put("serviCuiHo", this.servicioManager.getServiciosbyAmbito("Cuidados del Hogar"));
+		
+		Map<String, Object> art = new HashMap<String, Object>();
+		art.put("serviArt", this.servicioManager.getServiciosbyAmbito("Arte"));
+		
+		Map<String, Object> idio = new HashMap<String, Object>();
+		idio.put("serviIdio", this.servicioManager.getServiciosbyAmbito("Idiomas"));
+		
+		Map<String, Object> est = new HashMap<String, Object>();
+		est.put("serviEst", this.servicioManager.getServiciosbyAmbito("Estética"));
+		
+		ModelAndView mav = new ModelAndView("hello", "med", med);
+		mav.addObject("dep", dep);
+		mav.addObject("cien", cien);
+		mav.addObject("tec", tec);
+		mav.addObject("leg", leg);
+		mav.addObject("artm", artm);
+		mav.addObject("cuiho", cuiho);
+		mav.addObject("art", art);
+		mav.addObject("idio", idio);
+		mav.addObject("est", est);
+		return mav;
 	
 		
 	}

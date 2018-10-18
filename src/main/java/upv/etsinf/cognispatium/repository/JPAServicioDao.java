@@ -30,7 +30,9 @@ public class JPAServicioDao implements ServicioDao {
 	@Transactional(readOnly = true)
 	@SuppressWarnings("unchecked")
 	public List<Servicio> getServiciobyAmbito(String ambitoId) {
-		return em.createQuery("select s from Servicio where s.ambito = ambitoId order by s.id").getResultList();
+		return em.createQuery("SELECT s FROM Servicio s WHERE s.ambito LIKE :ambt")
+				.setParameter("ambt", ambitoId)
+				.getResultList();
 	}
 
 	@Override
