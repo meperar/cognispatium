@@ -67,7 +67,8 @@ public class Mensaje implements Serializable {
 	public Cliente getCliente() {
 		return cliente;
 	}
-	public void setPagoOrigen(Cliente cliente) {
+	
+	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
 	

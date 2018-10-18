@@ -36,7 +36,7 @@
 								<form action="#" method="post" class="text-left">
 								<tr>
 									<td><input type="hidden" id="mensajeId"
-										name="mensajesId" value="${mensaje.id}">
+										name="mensajeId" value="${mensaje.id}">
 										${mensaje.asunto}</td>
 									<td>${mensaje.descripcion}</td>
 									<td>${mensaje.cliente.nombre}

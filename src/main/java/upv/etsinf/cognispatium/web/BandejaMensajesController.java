@@ -26,6 +26,9 @@ import upv.etsinf.cognispatium.service.SimpleProfesionalManager;
 import upv.etsinf.cognispatium.service.SimplePresupuestoManager;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -74,7 +77,6 @@ public class BandejaMensajesController {
 		List<Mensaje> listaMensajes = mensajeManager.getMensajes();
 		mensajes.put("mensajes", listaMensajes);
 		mav.addObject("mensajes", mensajes);
-		System.out.println("Holaaaaaaaaaaaaaaaa");
 		return mav;
 
 	}
@@ -96,38 +98,39 @@ public class BandejaMensajesController {
 		return mav;
 	}
 
-	/**
-	@PostMapping("/listadosolicitudes.htm")
-	protected ModelAndView crearPresupueusto(@RequestParam Map<String, String> reqPar) throws Exception {
+	
+	@PostMapping("/bandejamensajes.htm")
+	protected ModelAndView crearMensaje(@RequestParam Map<String, String> reqPar) throws Exception {
 
 		Map<String, Object> myModel = new HashMap<String, Object>();
 		
-		Solicitud miSolicitud = servicioSolicitudManager.getSolicitudbyId(Integer.parseInt(reqPar.get("solicitudId")));
+		Mensaje miMensaje = mensajeManager.getMensajebyId(Integer.parseInt(reqPar.get("mensajeId")));
 		
-		ModelAndView mav = new ModelAndView("crearpresupuestoaSolicitud", "model", myModel);
+		ModelAndView mav = new ModelAndView("respondermensajes", "model", myModel);
 		
 		
-		myModel.put("solicitud", miSolicitud);
+		myModel.put("mensaje", miMensaje);
 
 		return mav;
 	}
 	
-	@PostMapping("/crearpresupuestoaSolicitud.htm")
-	protected ModelAndView guardarPresupueusto(@RequestParam Map<String, String> reqPar) throws Exception {
+	@PostMapping("/respondermensajes.htm")
+	protected ModelAndView guardarMensaje(@RequestParam Map<String, String> reqPar) throws Exception {
 
-		Presupuesto presupuesto = new Presupuesto();
-		presupuesto.setDescripcion(reqPar.get("descripcion"));
-		presupuesto.setPrecio(Integer.parseInt(reqPar.get("precio")));
-		
-		
-		presupuesto.setSolicitudOrigen(servicioSolicitudManager.getSolicitudbyId(Integer.parseInt(reqPar.get("solicitudId"))));
-		
-		presupuesto.setProfesionalOrigen(simpleProfesionalManager.getProfesionales().get(0));
-		
-		simplePresupuestoManager.addPresupuesto(presupuesto);
+		Mensaje mensaje = new Mensaje();
+		mensaje.setDescripcion(reqPar.get("descripcion"));
+		mensaje.setAsunto("RE:"+mensajeManager.getMensajebyId(Integer.parseInt(reqPar.get("mensajeId"))).getAsunto());
+		mensaje.setProfesional(mensajeManager.getMensajebyId(Integer.parseInt(reqPar.get("mensajeId"))).getProfesional());
+		mensaje.setCliente(mensajeManager.getMensajebyId(Integer.parseInt(reqPar.get("mensajeId"))).getCliente());
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		long millis=System.currentTimeMillis();
+		java.util.Date date=new java.util.Date(millis);
+		dateFormat.format(date);
+		mensaje.setFecha(date);
+		mensajeManager.addMensaje(mensaje);
 				
 		return new ModelAndView("hello");
 
 		
-	}**/
+	}
 }
