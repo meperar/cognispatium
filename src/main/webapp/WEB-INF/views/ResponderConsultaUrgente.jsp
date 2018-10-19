@@ -19,7 +19,7 @@
       <div class="collapse navbar-collapse" id="navbar13">
        <a href="hello.htm"><img src="https://i.imgur.com/xmZULKf.png" width = 200 title="source: imgur.com" /></a>    
         <ul class="navbar-nav mx-auto">
-          <li class="nav-item"> <a class="nav-link" href="#">Consultas Urgentes</a> </li>         
+          <li class="nav-item"> <a class="nav-link" href="listadoconsultasurgentes.htm">Consultas Urgentes</a> </li>         
           <li class="nav-item"> <a class="nav-link" href="#">Solicitudes</a> </li>
         </ul>
         <ul class="navbar-nav">
