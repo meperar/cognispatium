@@ -54,7 +54,7 @@ public class BarraSuperiorController {
 		String hello = "hola";
 		myModel.put("hi", hello);
 		
-		ModelAndView mav = new ModelAndView("servicios","model",myModel);
+		ModelAndView mav = new ModelAndView("barrasuperior","model",myModel);
 		
 		return mav;
 

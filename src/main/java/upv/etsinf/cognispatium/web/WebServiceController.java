@@ -1,8 +1,10 @@
 package upv.etsinf.cognispatium.web;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -13,13 +15,17 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import upv.etsinf.cognispatium.service.UsuarioManager;
 
 import upv.etsinf.cognispatium.service.ClienteManager;
-
+import upv.etsinf.cognispatium.domain.Mensaje;
+import upv.etsinf.cognispatium.domain.Servicio;
 import upv.etsinf.cognispatium.service.AdminManager;
 
 import upv.etsinf.cognispatium.service.ProfesionalManager;
@@ -99,6 +105,22 @@ public class WebServiceController {
 	
 		
 	}
+	
+	@PostMapping("/hello.htm")
+	protected ModelAndView listarProf(@RequestParam Map<String, String> reqPar) throws Exception {
+
+		Map<String, Object> myModel = new HashMap<String, Object>();
+		
+		Servicio miServicio = servicioManager.getServiciobyId(1);
+		
+		ModelAndView mav = new ModelAndView("listaprofesionales", "model", myModel);
+		
+		
+		myModel.put("servicio", miServicio);
+
+		return mav;
+	}
+	
 
 	public void setUsuarioManager(UsuarioManager usuarioManager) {
 		this.usuarioManager = usuarioManager;

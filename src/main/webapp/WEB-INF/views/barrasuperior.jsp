@@ -23,6 +23,17 @@
 	font-weight: 500;
 }
 
+.spbutton{
+     background:none!important;
+     color:inherit;
+     border:none; 
+     padding:0!important;
+     font: inherit;
+     /*border is optional*/
+     border-bottom:1px solid #444; 
+     cursor: pointer;
+}
+
 .titulosFiltros:hover{
 	color: black;
 }
@@ -88,7 +99,10 @@
          	 		 <ul>
          	 		 <li><a class="scnd" href=#>hola</a></li>
          	 		 <c:forEach items="${med.serviMed}" var="serviM">
-         	 		 <li><a class="scnd" href=#><c:out value="${serviM.nombre}"/></a></li>
+         	 		 <form action="#" method="post" class="text-left">
+         	 		 <input type="hidden" id="serviceId" name="serviceId" value="${serviM.id}">
+         	 		 <li><button class="spbutton"><c:out value="${serviM.nombre}"/></button></li>
+         	 		 </form> 
          	 		 </c:forEach>
          	 		 </ul>
          	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Deporte<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
