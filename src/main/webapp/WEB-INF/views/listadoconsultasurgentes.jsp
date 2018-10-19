@@ -45,18 +45,13 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach items="${solicitudes.solicitudes}" var="solicitud">
+							<c:forEach items="${consultasUrgentes.consultasUrgentes}" var="consultaUrgente">
 								<form action="#" method="post" class="text-left">
 								<tr>
-									<td><input type="hidden" id="solicitudId"
-										name="solicitudId" value="${solicitud.id}">
-										${solicitud.titulo}</td>
-									<td>${solicitud.descripcion}</td>
-									<td>${solicitud.clienteOrigen.nombre}
-										${solicitud.clienteOrigen.apellidos}</td>
-									<td><button class="bg-primary">
-											<i class="fas fa-plus-square"></i>
-										</button></td>
+									<td>a</td>
+									<td>a</td>
+									<td>a</td>
+									<td>a</td>
 								</tr>
 								</form>
 							</c:forEach>
