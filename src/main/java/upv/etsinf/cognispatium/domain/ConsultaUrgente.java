@@ -1,20 +1,18 @@
 package upv.etsinf.cognispatium.domain;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 
 
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.joda.ser.DateTimeSerializer;
@@ -67,5 +65,9 @@ public class ConsultaUrgente extends Consulta implements Serializable {
 		this.pagoOrigen = pagoOrigen;
 	}
 	
-	
+	public String getFechaFinFormateada(String format) {
+		DateTime dt = new DateTime();
+		DateTimeFormatter fmt = DateTimeFormat.forPattern(format);
+		return fmt.print(dt);
+	}
 }

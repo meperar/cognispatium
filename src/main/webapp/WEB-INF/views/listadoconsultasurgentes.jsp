@@ -38,20 +38,25 @@
 					<table class="table">
 						<thead>
 							<tr>
+								<th>Título</th>
 								<th>Descripción</th>
 								<th>Cliente</th>
-								<th>Servicio</th>
-								<th>Titulo</th>
+								<th>Fecha límite</th>
+								<th>Acción</th>
 							</tr>
 						</thead>
 						<tbody>
 							<c:forEach items="${consultasUrgentes.consultasUrgentes}" var="consultaUrgente">
 								<form action="#" method="post" class="text-left">
 								<tr>
-									<td>a</td>
-									<td>a</td>
-									<td>a</td>
-									<td>a</td>
+									<td><input type="hidden" id="consultaUrgenteId"
+										name="consultaUrgenteId" value="${consultaUrgente.id}">
+										${consultaUrgente.titulo}</td>
+									<td>${consultaUrgente.descripcion}</td>
+									<td>${consultaUrgente.creadoConsulta.nombre}
+										${consultaUrgente.creadoConsulta.apellidos}</td>
+									<td>${consultaUrgente.getFechaFinFormateada("dd/MMM/yyyy hh:mm")}</td>
+									<td>pepe</td>
 								</tr>
 								</form>
 							</c:forEach>
