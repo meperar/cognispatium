@@ -75,7 +75,6 @@
       <div class="row">
         <div class="col-md-12">
           <ul class="nav nav-tabs" >
-            <li class="nav-item"> <a style="color:black;" class="nav-link" href="responderconsultaurgente.htm">responder</a> </li>
             <li class="nav-item"> <a style="color:black;" href="include.htm" class="nav-link">include</a> </li>
             
           </ul>

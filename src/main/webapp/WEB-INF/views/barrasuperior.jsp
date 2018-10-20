@@ -210,6 +210,7 @@
           <li class="nav-item" ><a class="nav-link" href="crearconsultaurgente.htm">Publicar CU</a></li>
           <li class="nav-item" ><a class="nav-link" href="crearsolicitudpresupuesto.htm">Pedir Presupuesto</a></li>
           <li class="nav-item" ><a class="nav-link" href="listadosolicitudes.htm">Solicitudes</a></li>
+          <li class="nav-item" ><a class="nav-link" href="listadoconsultasurgentes.htm">Consultas Urgentes</a></li>
 		  <li class="nav-item" ><a class="nav-link" href="pagoTarjeta.htm">Pagar</a></li>
 		  <li class="nav-item" ><a class="nav-link" href="bandejamensajes.htm">Bandeja de Mensajes</a></li>
         </ul>
