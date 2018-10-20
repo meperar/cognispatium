@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import upv.etsinf.cognispatium.domain.ConsultaUrgente;
+import upv.etsinf.cognispatium.domain.Solicitud;
 import upv.etsinf.cognispatium.repository.ConsultaUrgenteDao;
 
 @Component
@@ -29,5 +30,11 @@ public class SimpleConsultaUrgenteManager implements Serializable {
     public void addConsultaUrgente(ConsultaUrgente consultaUrgente) {
 		
 		consultaUrgenteDao.saveConsultaUrgente(consultaUrgente);
+	}
+    
+	public ConsultaUrgente getConsultaUrgentebyId(int consultaUrgenteId) {
+		
+		return consultaUrgenteDao.getConsultaUrgenteById(consultaUrgenteId);
+	
 	}
 }

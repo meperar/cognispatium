@@ -39,14 +39,17 @@
         <div class="col-md-5 p-4">
           <h3>Datos de la consulta</h3>
           <p>A continuación aparecerán los datos de la consulta que va a responder:</p>
+          <p class="lead mt-3"> <b>Título</b></p>
+          <p> ${model.consultaUrgente.getTitulo()} </p>
           <p class="lead mt-3"> <b>Tema</b></p>
-          <p> ${model.consultas.getServicioOrigen().nombre} </p>
+          <p> ${model.consultaUrgente.getServicioOrigen().nombre} </p>
           <p class="lead mt-3"> <b>Fecha límite</b></p>
-          <p> ${model.consultas.getFechaFin()}</p>
-          <p class="lead mt-3"> <b>Autor</b></p>
-          <p> ${model.consultas.getCreadoConsulta().getNombre()} </p>
+          <p> ${model.consultaUrgente.getFechaFinFormateada("dd/MMM/yyyy hh:mm")} </p>
+          <p class="lead mt-3"> <b>Cliente</b></p>
+          <p> ${model.consultaUrgente.getCreadoConsulta().getNombre()}
+          	  ${model.consultaUrgente.getCreadoConsulta().getApellidos()}</p>
           <p class="lead mt-3"> <b>Descripción</b></p>
-          <p> ${model.consultas.getDescripcion()} </p>
+          <p> ${model.consultaUrgente.getDescripcion()} </p>
         </div>
         <div class="col-md-7 p-4">
           <h3 class="mb-3">Respuesta</h3>

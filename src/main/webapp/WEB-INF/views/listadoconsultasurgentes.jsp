@@ -56,7 +56,9 @@
 									<td>${consultaUrgente.creadoConsulta.nombre}
 										${consultaUrgente.creadoConsulta.apellidos}</td>
 									<td>${consultaUrgente.getFechaFinFormateada("dd/MMM/yyyy hh:mm")}</td>
-									<td>pepe</td>
+									<td><td><button class="bg-primary">
+											<i class="fas fa-plus-square"></i>
+										</button></td></td>
 								</tr>
 								</form>
 							</c:forEach>

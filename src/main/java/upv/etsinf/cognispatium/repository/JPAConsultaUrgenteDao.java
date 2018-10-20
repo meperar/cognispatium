@@ -8,6 +8,7 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import upv.etsinf.cognispatium.domain.ConsultaUrgente;
+import upv.etsinf.cognispatium.domain.Solicitud;
 
 @Repository(value = "ConsultaUrgenteDao")
 public class JPAConsultaUrgenteDao implements ConsultaUrgenteDao {
@@ -33,4 +34,9 @@ public class JPAConsultaUrgenteDao implements ConsultaUrgenteDao {
 
 	}
 
+	
+	@Override
+	public ConsultaUrgente getConsultaUrgenteById(int consultaUrgenteId) {
+		return em.find(ConsultaUrgente.class, consultaUrgenteId);
+	}
 }

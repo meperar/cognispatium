@@ -10,4 +10,5 @@ public interface ConsultaDao {
 
     public void saveConsulta(Consulta consulta);
 
+    public Consulta getConsultaById(int consultaId);
 }
