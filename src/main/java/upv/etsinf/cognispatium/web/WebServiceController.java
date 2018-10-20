@@ -121,7 +121,7 @@ public class WebServiceController {
 		
 		Map<String, Object> myModel = new HashMap<String, Object>();
 		if(reqPar.get("serviceId") != null) {
-			miProfesional = profesionalManager.getProfesionalesbyServicio(Integer.parseInt(reqPar.get("serviceId")));
+			miProfesional = servicioManager.getServiciobyId(Integer.parseInt(reqPar.get("serviceId"))).getProfesionales();
 			myModel.put("profesional", miProfesional);
 			mav = new ModelAndView("listaprofesionales", "model", myModel);
 		} else if (reqPar.get("serviceIdC") != null) {

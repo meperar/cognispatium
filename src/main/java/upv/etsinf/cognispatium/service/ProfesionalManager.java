@@ -8,6 +8,6 @@ import upv.etsinf.cognispatium.domain.Profesional;
 public interface ProfesionalManager extends Serializable {
     
     public List<Profesional> getProfesionales(); 
-    public List<Profesional> getProfesionalesbyServicio(Integer serviceId); 
+   /* public List<Profesional> getProfesionalesbyServicio(Integer serviceId); */
 
 }

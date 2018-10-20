@@ -7,6 +7,8 @@ import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import upv.etsinf.cognispatium.domain.Profesional;
 import upv.etsinf.cognispatium.domain.Servicio;
 
 @Repository(value = "ServicioDao")
@@ -32,6 +34,15 @@ public class JPAServicioDao implements ServicioDao {
 	public List<Servicio> getServiciobyAmbito(String ambitoId) {
 		return em.createQuery("SELECT s FROM Servicio s WHERE s.ambito LIKE :ambt")
 				.setParameter("ambt", ambitoId)
+				.getResultList();
+	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	@SuppressWarnings("unchecked")
+	public List<Profesional> getProfsbyServicio(Integer serviceId) {
+		return em.createQuery("SELECT p FROM Servicio s WHERE p.servicio LIKE :serviceId")
+				.setParameter("serviceId", serviceId)
 				.getResultList();
 	}
 

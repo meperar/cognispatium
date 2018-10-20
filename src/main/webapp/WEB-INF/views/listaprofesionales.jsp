@@ -29,13 +29,15 @@
 					<table class="table">
 						<thead>
 							<tr>
-								<th>Titulo</th>
+								<th>Nombre</th>
+								<th>Apellidos</th>
 							</tr>
 						</thead>
 						<tbody>
 							<c:forEach items="${model.profesional}" var="profs">	
 								<tr>
 									<td>${profs.nombre}</td>
+									<td>${profs.apellidos}</td>
 								</tr>
 							</c:forEach>
 						</tbody>

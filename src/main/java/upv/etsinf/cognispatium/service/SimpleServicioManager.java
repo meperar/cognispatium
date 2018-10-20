@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import upv.etsinf.cognispatium.domain.Profesional;
 import upv.etsinf.cognispatium.domain.Servicio;
 import upv.etsinf.cognispatium.repository.ServicioDao;
 
@@ -36,6 +37,11 @@ public class SimpleServicioManager implements Serializable {
 	public Servicio getServiciobyId(Integer serviceId) {
 		
 		return  servicioDao.getServicioById(serviceId);
+	}
+	
+	public List<Profesional> getProfsbyServicio(Integer serviceId){
+		return servicioDao.getProfsbyServicio(serviceId);
+		
 	}
 	
 	public List<Servicio> getServiciosbyAmbito(String ambitoId) {
