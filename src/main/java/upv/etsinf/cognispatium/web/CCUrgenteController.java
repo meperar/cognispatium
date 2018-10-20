@@ -22,6 +22,7 @@ import upv.etsinf.cognispatium.service.SimpleClienteManager;
 import java.io.Console;
 import java.io.IOException;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -62,11 +63,24 @@ public class CCUrgenteController {
 		
 		Map<String, Object> myModel = new HashMap<String, Object>();
 		ModelAndView mav = new ModelAndView("crearconsultaurgente", "model", myModel);
-		 Map< String, Object > servicios = new HashMap<String, Object>();
+		Map< String, Object > servicios = new HashMap<String, Object>();
+		 Map< String, Object > serviciosPorAmbito = new HashMap<String, Object>();
+		 List<String> listaAmbitos = servicioManager.getAmbitos();
 		List<Servicio> listaServicios = servicioManager.getServicios();
 		
-		servicios.put("servicios", listaServicios);
-         
+		listaAmbitos.forEach(ambito-> {
+			String amb = ambito;
+			List<Servicio> lista = new ArrayList<Servicio>();
+			listaServicios.forEach(serv->{
+				if(serv.getAmbito().equals(amb)) {
+					lista.add(serv);
+				}
+			});
+			serviciosPorAmbito.put(ambito, lista);
+		});
+		
+		servicios.put("ambitos", listaAmbitos);
+		servicios.put("serviciosxambitos", serviciosPorAmbito);
         mav.addObject("servicios", servicios);
 		return mav;
 		

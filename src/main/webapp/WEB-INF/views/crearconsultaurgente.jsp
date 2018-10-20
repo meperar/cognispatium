@@ -28,22 +28,30 @@
 						<div class="form-group">
 							<label for="form16">Servicio</label> <br> <select
 								name='servicio' required="required">
-								<option disabled selected value> -- </option>
-								<c:forEach items="${servicios.servicios}" var="servicio">
-									<option value="${servicio.id}" label="${servicio.nombre}"></option>
+								<option disabled selected value>--</option>
+								<c:forEach items="${servicios.ambitos}" var="ambito">
+									<optgroup label="${ambito}">
+										<c:forEach items="${servicios.serviciosxambitos.get(ambito)}"
+											var="servicio">
+											<option value="${servicio.id}" label="${servicio.nombre}"></option>
+										</c:forEach>
+									</optgroup>
 								</c:forEach>
 							</select>
 						</div>
 						<div class="form-group">
 							<label for="form16">Tiempo maximo de espera</label> <input
-								name="tiempoEspera" type="time" class="form-control" id="form16"
-								placeholder="Tiempo de espera" required="required" />
+								name="tiempoEspera" type="text" class="form-control" id="form16"
+								value="--:--"
+								placeholder="Tiempo de espera"
+								pattern="([0-1])([1-9]):([0-5])([0-9])|(2)([0-3]):([0-5])([0-9])"
+								required
+								title="Introduzca una duración con un formato(HH:MM) con un minimo de una hora (01:00)" />
 						</div>
 						<div class="form-group">
 							<label for="form16">Resumen</label> <input type="text"
 								name="titulo" class="form-control" id="form16"
-								placeholder="Resumen de la consulta" required="required"
-								maxlength="80" />
+								placeholder="Resumen de la consulta" required maxlength="80" />
 						</div>
 						<div class="form-group">
 							<label for="form18">Descripcion</label>

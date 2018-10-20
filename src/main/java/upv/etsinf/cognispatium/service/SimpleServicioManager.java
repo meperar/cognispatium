@@ -37,5 +37,9 @@ public class SimpleServicioManager implements Serializable {
 		
 		return  servicioDao.getServicioById(serviceId);
 	}
-
+    public List<String> getAmbitos() {
+		
+		return servicioDao.getAmbitos();
+	}
+	
 }
