@@ -79,6 +79,7 @@
 
 
 <body>
+
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
@@ -108,13 +109,19 @@
          	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Deporte<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
          	 		 <ul>
          	 		 <c:forEach items="${dep.serviDep}" var="serviD">
-         	 		 <li><c:out value="${serviD.nombre}"/></li>
+         	 		 <form action="#" method="post" class="text-left">
+         	 		 <input type="hidden" id="serviceId" name="serviceId" value="${serviD.id}">
+         	 		 <li><button class="spbutton"><c:out value="${serviD.nombre}"/></button></li>
+         	 		 </form>
          	 		 </c:forEach>
          	 		 </ul>
          	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Ciencia<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
          	 		 <ul>
          	 		 <c:forEach items="${cien.serviCien}" var="serviC">
-         	 		 <li><c:out value="${serviC.nombre}"/></li>
+         	 		 <form action="#" method="post" class="text-left">
+         	 		 <input type="hidden" id="serviceId" name="serviceId" value="${serviC.id}">
+         	 		 <li><button class="spbutton"><c:out value="${serviC.nombre}"/></button></li>
+         	 		 </form>
          	 		 </c:forEach>
          	 		 </ul>    	 		 
          	 		 </td>
@@ -122,25 +129,37 @@
          	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Técnicos<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
          	 		 <ul>
          	 		 <c:forEach items="${tec.serviTec}" var="serviT">
-         	 		 <li><c:out value="${serviT.nombre}"/></li>
+         	 		 <form action="#" method="post" class="text-left">
+         	 		 <input type="hidden" id="serviceId" name="serviceId" value="${serviT.id}">
+         	 		 <li><button class="spbutton"><c:out value="${serviT.nombre}"/></button></li>
+         	 		 </form>
          	 		 </c:forEach>
          	 		 </ul> 
          	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Legislación<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
          	 		 <ul>
          	 		 <c:forEach items="${leg.serviLeg}" var="serviL">
-         	 		 <li><c:out value="${serviL.nombre}"/></li>
+         	 		 <form action="#" method="post" class="text-left">
+         	 		 <input type="hidden" id="serviceId" name="serviceId" value="${serviL.id}">
+         	 		 <li><button class="spbutton"><c:out value="${serviL.nombre}"/></button></li>
+         	 		 </form>
          	 		 </c:forEach>
          	 		 </ul> 
          	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Artes Marciales<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
          	 		 <ul>
          	 		 <c:forEach items="${artm.serviArtM}" var="serviAM">
-         	 		 <li><c:out value="${serviAM.nombre}"/></li>
+         	 		 <form action="#" method="post" class="text-left">
+         	 		 <input type="hidden" id="serviceId" name="serviceId" value="${serviAM.id}">
+         	 		 <li><button class="spbutton"><c:out value="${serviAM.nombre}"/></button></li>
+         	 		 </form>
          	 		 </c:forEach>
          	 		 </ul> 
          	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Cuidados del Hogar<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
          	 		 <ul>
          	 		 <c:forEach items="${cuiho.serviCuiHo}" var="serviCH">
-         	 		 <li><c:out value="${serviCH.nombre}"/></li>
+         	 		 <form action="#" method="post" class="text-left">
+         	 		 <input type="hidden" id="serviceId" name="serviceId" value="${serviCH.id}">
+         	 		 <li><button class="spbutton"><c:out value="${serviCH.nombre}"/></button></li>
+         	 		 </form>
          	 		 </c:forEach>
          	 		 </ul> 
          	 		 </td>
@@ -148,19 +167,28 @@
          	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Arte<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
          	 		 <ul>
          	 		 <c:forEach items="${art.serviArt}" var="serviA">
-         	 		 <li><c:out value="${serviA.nombre}"/></li>
+         	 		 <form action="#" method="post" class="text-left">
+         	 		 <input type="hidden" id="serviceId" name="serviceId" value="${serviA.id}">
+         	 		 <li><button class="spbutton"><c:out value="${serviA.nombre}"/></button></li>
+         	 		 </form>
          	 		 </c:forEach>
          	 		 </ul> 
          	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Idiomas<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
          	 		 <ul>
          	 		 <c:forEach items="${idio.serviIdio}" var="serviI">
-         	 		 <li><c:out value="${serviI.nombre}"/></li>
+         	 		 <form action="#" method="post" class="text-left">
+         	 		 <input type="hidden" id="serviceId" name="serviceId" value="${serviI.id}">
+         	 		 <li><button class="spbutton"><c:out value="${serviI.nombre}"/></button></li>
+         	 		 </form>
          	 		 </c:forEach>
          	 		 </ul> 
          	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Estética<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
          	 		 <ul>
          	 		 <c:forEach items="${est.serviEst}" var="serviE">
-         	 		 <li><c:out value="${serviE.nombre}"/></li>
+         	 		 <form action="#" method="post" class="text-left">
+         	 		 <input type="hidden" id="serviceId" name="serviceId" value="${serviE.id}">
+         	 		 <li><button class="spbutton"><c:out value="${serviE.nombre}"/></button></li>
+         	 		 </form>
          	 		 </c:forEach>
          	 		 </ul> 
          	 		 </td>
@@ -172,26 +200,35 @@
         <div class="btn-group"> <button class="desplegableMenu" data-toggle="dropdown"> Consultas</button>
           <div class="dropdown-menu">  
       <table class="tablaFiltros" id="gh-sbc">
-         		 <tbody>
+         		<tbody>
          	 		<tr>
          	 		 <td>
          	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Medicina<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
          	 		 <ul>
          	 		 <li><a class="scnd" href=#>hola</a></li>
          	 		 <c:forEach items="${med.serviMed}" var="serviM">
-         	 		 <li><c:out value="${serviM.nombre}"/></li>
+         	 		 <form action="#" method="post" class="text-left">
+         	 		 <input type="hidden" id="serviceIdC" name="serviceIdC" value="${serviM.id}">
+         	 		 <li><button class="spbutton"><c:out value="${serviM.nombre}"/></button></li>
+         	 		 </form> 
          	 		 </c:forEach>
          	 		 </ul>
          	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Deporte<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
          	 		 <ul>
          	 		 <c:forEach items="${dep.serviDep}" var="serviD">
-         	 		 <li><c:out value="${serviD.nombre}"/></li>
+         	 		 <form action="#" method="post" class="text-left">
+         	 		 <input type="hidden" id="serviceIdC" name="serviceIdC" value="${serviD.id}">
+         	 		 <li><button class="spbutton"><c:out value="${serviD.nombre}"/></button></li>
+         	 		 </form>
          	 		 </c:forEach>
          	 		 </ul>
          	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Ciencia<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
          	 		 <ul>
          	 		 <c:forEach items="${cien.serviCien}" var="serviC">
-         	 		 <li><c:out value="${serviC.nombre}"/></li>
+         	 		 <form action="#" method="post" class="text-left">
+         	 		 <input type="hidden" id="serviceIdC" name="serviceIdC" value="${serviC.id}">
+         	 		 <li><button class="spbutton"><c:out value="${serviC.nombre}"/></button></li>
+         	 		 </form>
          	 		 </c:forEach>
          	 		 </ul>    	 		 
          	 		 </td>
@@ -199,25 +236,37 @@
          	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Técnicos<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
          	 		 <ul>
          	 		 <c:forEach items="${tec.serviTec}" var="serviT">
-         	 		 <li><c:out value="${serviT.nombre}"/></li>
+         	 		 <form action="#" method="post" class="text-left">
+         	 		 <input type="hidden" id="serviceIdC" name="serviceIdC" value="${serviT.id}">
+         	 		 <li><button class="spbutton"><c:out value="${serviT.nombre}"/></button></li>
+         	 		 </form>
          	 		 </c:forEach>
          	 		 </ul> 
          	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Legislación<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
          	 		 <ul>
          	 		 <c:forEach items="${leg.serviLeg}" var="serviL">
-         	 		 <li><c:out value="${serviL.nombre}"/></li>
+         	 		 <form action="#" method="post" class="text-left">
+         	 		 <input type="hidden" id="serviceIdC" name="serviceIdC" value="${serviL.id}">
+         	 		 <li><button class="spbutton"><c:out value="${serviL.nombre}"/></button></li>
+         	 		 </form>
          	 		 </c:forEach>
          	 		 </ul> 
          	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Artes Marciales<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
          	 		 <ul>
          	 		 <c:forEach items="${artm.serviArtM}" var="serviAM">
-         	 		 <li><c:out value="${serviAM.nombre}"/></li>
+         	 		 <form action="#" method="post" class="text-left">
+         	 		 <input type="hidden" id="serviceIdC" name="serviceIdC" value="${serviAM.id}">
+         	 		 <li><button class="spbutton"><c:out value="${serviAM.nombre}"/></button></li>
+         	 		 </form>
          	 		 </c:forEach>
          	 		 </ul> 
          	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Cuidados del Hogar<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
          	 		 <ul>
          	 		 <c:forEach items="${cuiho.serviCuiHo}" var="serviCH">
-         	 		 <li><c:out value="${serviCH.nombre}"/></li>
+         	 		 <form action="#" method="post" class="text-left">
+         	 		 <input type="hidden" id="serviceIdC" name="serviceIdC" value="${serviCH.id}">
+         	 		 <li><button class="spbutton"><c:out value="${serviCH.nombre}"/></button></li>
+         	 		 </form>
          	 		 </c:forEach>
          	 		 </ul> 
          	 		 </td>
@@ -225,19 +274,28 @@
          	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Arte<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
          	 		 <ul>
          	 		 <c:forEach items="${art.serviArt}" var="serviA">
-         	 		 <li><c:out value="${serviA.nombre}"/></li>
+         	 		 <form action="#" method="post" class="text-left">
+         	 		 <input type="hidden" id="serviceIdC" name="serviceIdC" value="${serviA.id}">
+         	 		 <li><button class="spbutton"><c:out value="${serviA.nombre}"/></button></li>
+         	 		 </form>
          	 		 </c:forEach>
          	 		 </ul> 
          	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Idiomas<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
          	 		 <ul>
          	 		 <c:forEach items="${idio.serviIdio}" var="serviI">
-         	 		 <li><c:out value="${serviI.nombre}"/></li>
+         	 		 <form action="#" method="post" class="text-left">
+         	 		 <input type="hidden" id="serviceIdC" name="serviceIdC" value="${serviI.id}">
+         	 		 <li><button class="spbutton"><c:out value="${serviI.nombre}"/></button></li>
+         	 		 </form>
          	 		 </c:forEach>
          	 		 </ul> 
          	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Estética<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
          	 		 <ul>
          	 		 <c:forEach items="${est.serviEst}" var="serviE">
-         	 		 <li><c:out value="${serviE.nombre}"/></li>
+         	 		 <form action="#" method="post" class="text-left">
+         	 		 <input type="hidden" id="serviceIdC" name="serviceIdC" value="${serviE.id}">
+         	 		 <li><button class="spbutton"><c:out value="${serviE.nombre}"/></button></li>
+         	 		 </form>
          	 		 </c:forEach>
          	 		 </ul> 
          	 		 </td>

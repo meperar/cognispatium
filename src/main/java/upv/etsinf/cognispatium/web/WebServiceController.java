@@ -24,11 +24,14 @@ import org.springframework.web.servlet.ModelAndView;
 import upv.etsinf.cognispatium.service.UsuarioManager;
 
 import upv.etsinf.cognispatium.service.ClienteManager;
+import upv.etsinf.cognispatium.domain.Consulta;
 import upv.etsinf.cognispatium.domain.Mensaje;
+import upv.etsinf.cognispatium.domain.Profesional;
 import upv.etsinf.cognispatium.domain.Servicio;
 import upv.etsinf.cognispatium.service.AdminManager;
 
 import upv.etsinf.cognispatium.service.ProfesionalManager;
+import upv.etsinf.cognispatium.service.SimpleConsultaManager;
 import upv.etsinf.cognispatium.service.SimpleServicioManager;
 
 
@@ -51,6 +54,9 @@ public class WebServiceController {
 	
 	@Autowired
 	private SimpleServicioManager servicioManager;
+	
+	@Autowired
+	private SimpleConsultaManager consultaManager;
 	
 
 	@RequestMapping(value = "/hello.htm")
@@ -109,14 +115,23 @@ public class WebServiceController {
 	@PostMapping("/hello.htm")
 	protected ModelAndView listarProf(@RequestParam Map<String, String> reqPar) throws Exception {
 
+		List<Profesional> miProfesional = null;	
+		List<Consulta> miConsulta = null;
+		ModelAndView mav = null;
+		
 		Map<String, Object> myModel = new HashMap<String, Object>();
+		if(reqPar.get("serviceId") != null) {
+			miProfesional = profesionalManager.getProfesionalesbyServicio(Integer.parseInt(reqPar.get("serviceId")));
+			myModel.put("profesional", miProfesional);
+			mav = new ModelAndView("listaprofesionales", "model", myModel);
+		} else if (reqPar.get("serviceIdC") != null) {
+			miConsulta = consultaManager.getConsultasbyServicio(Integer.parseInt(reqPar.get("serviceIdC")));
+			myModel.put("consulta", miConsulta);
+			mav = new ModelAndView("listaconsultas", "model", myModel);
+			
+		}
 		
-		Servicio miServicio = servicioManager.getServiciobyId(1);
 		
-		ModelAndView mav = new ModelAndView("listaprofesionales", "model", myModel);
-		
-		
-		myModel.put("servicio", miServicio);
 
 		return mav;
 	}

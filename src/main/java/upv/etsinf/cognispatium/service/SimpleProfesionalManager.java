@@ -25,7 +25,12 @@ public class SimpleProfesionalManager implements ProfesionalManager {
     	
        return profesionalDao.getProfesionalList();        
     }
-
+    
+    public List<Profesional> getProfesionalesbyServicio(Integer serviceId) {
+    	
+        return profesionalDao.getProfesionalesbyServicio(serviceId);        
+     }
+    
     public void addProfesional(Profesional profesional) {
     profesionalDao.saveProfesional(profesional);
 	}

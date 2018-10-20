@@ -33,9 +33,9 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach items="${model.profesional}" var="profs">	
+							<c:forEach items="${model.consulta}" var="cons">	
 								<tr>
-									<td>${profs.nombre}</td>
+									<td>${cons.titulo}</td>
 								</tr>
 							</c:forEach>
 						</tbody>
