@@ -55,7 +55,7 @@
           <form action="#"  method="post" class="text-left">
           
             
-            <div class="form-group"> <textarea name="respuesta" rows="3" cols="50" placeholder="Tu respuesta a la consulta" required= "required" style="margin-top: 0px; margin-bottom: 0px; height: 141px;" ></textarea> </div> 
+            <div class="form-group"> <textarea name="respuesta" maxlength="1000" rows="3" cols="50" placeholder="Tu respuesta a la consulta" required= "required" style="margin-top: 0px; margin-bottom: 0px; height: 141px;" ></textarea> </div> 
             
           <button type="submit" class="btn btn-primary">
 								Send<br>

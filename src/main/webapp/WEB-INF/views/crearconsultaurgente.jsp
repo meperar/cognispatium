@@ -57,9 +57,7 @@
 							<label for="form18">Descripcion</label>
 							<textarea class="form-control" id="form18" name="descripcion"
 								style="" placeholder="Introduzca una descripcion de la consulta"
-								required="required" maxlength="500"> 
-								
-										</textarea>
+								required="required" maxlength="500"></textarea>
 						</div>
 						<button type="submit" class="btn btn-primary">
 							Crear consulta<br>
