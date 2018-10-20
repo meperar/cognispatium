@@ -22,27 +22,27 @@
 	<div class="py-5">
 		<div class="container">
 			<div class="row">
-				<form action="<c:url value="/listadosolicitudes.htm" />"
-					method="GET">
+				<form action="<c:url value="/listadoconsultas.htm" />" method="GET">
 					<label for="form16">Servicio</label> <br> <select
 						name='servicio'>
-						<c:set var="servId" value="${servicios.serviciId}" />
-						<c:if test="${servId == null}" >
-						<option disabled selected value> -- Seleccione un servicio -- </option>
+						<c:set var="servId" value="${model.serviciId}" />
+						<c:if test="${servId == null}">
+							<option disabled selected value>-- Seleccione un
+								servicio --</option>
 						</c:if>
-						<c:forEach items="${servicios.servicios}" var="servicio">
+						<c:forEach items="${model.servicios}" var="servicio">
 							<c:choose>
 								<c:when test="${servId == null}">
-								<option value="${servicio.id}" label="${servicio.nombre}"></option>
+									<option value="${servicio.id}" label="${servicio.nombre}"></option>
 								</c:when>
 								<c:otherwise>
 									<c:choose>
 										<c:when test="${servId == servicio.id}">
-										<option value="${servicio.id}" label="${servicio.nombre}"
-										selected></option>
+											<option value="${servicio.id}" label="${servicio.nombre}"
+												selected></option>
 										</c:when>
 										<c:otherwise>
-										<option value="${servicio.id}" label="${servicio.nombre}"></option>
+											<option value="${servicio.id}" label="${servicio.nombre}"></option>
 										</c:otherwise>
 									</c:choose>
 								</c:otherwise>
@@ -65,17 +65,18 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach items="${solicitudes.solicitudes}" var="solicitud">
-								<form action="#" method="post" class="text-left">
+							<c:forEach items="${model.consultas}" var="consulta">
+								<form action="<c:url value="/responderconsultaurgente.htm" />"
+									method="get" class="text-left">
 									<tr>
-										<td style="max-width: 500px;word-wrap:break-word;"><input type="hidden" id="solicitudId"
-											name="solicitudId" value="${solicitud.id}">
-											${solicitud.titulo}</td>
-										<td style="max-width: 500px;word-wrap:break-word;">${solicitud.descripcion}</td>
-										<td>${solicitud.clienteOrigen.nombre}
-											${solicitud.clienteOrigen.apellidos}</td>
+										<td style="max-width: 500px;word-wrap:break-word;"><input type="hidden"
+											id="consultaId" name="consultaId" value="${consulta.id}">
+											<p>${consulta.titulo}</p></td>
+										<td style="max-width: 500px;word-wrap:break-word;"><p>${consulta.descripcion}</p></td>
+										<td>${consulta.clienteOrigen.nombre}
+											${consulta.clienteOrigen.apellidos}</td>
 										<td><button class="bg-primary">
-												<i class="fas fa-plus-square"></i>
+												<i class="fas fa-pen-alt"></i>
 											</button></td>
 									</tr>
 								</form>

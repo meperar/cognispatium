@@ -23,6 +23,7 @@ import upv.etsinf.cognispatium.service.SimpleServicioManager;
 import upv.etsinf.cognispatium.service.SimpleSolicitudManager;
 import upv.etsinf.cognispatium.service.SimpleTarjetaManager;
 import upv.etsinf.cognispatium.service.SimpleClienteManager;
+import upv.etsinf.cognispatium.service.SimpleConsultaUrgenteManager;
 import upv.etsinf.cognispatium.service.SimplePagoManager;
 
 import java.io.Console;
@@ -43,93 +44,108 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
 
-import java.io.*; 
-import com.lowagie.text.DocumentException; 
+import java.io.*;
+import com.lowagie.text.DocumentException;
 import org.xhtmlrenderer.pdf.ITextRenderer;
 
 @Controller
 public class PagoController {
 
-	
 	@Autowired
 	private SimplePagoManager pagoManager;
-	
+
 	@Autowired
 	private SimpleClienteManager clienteManager;
-	
+
 	@Autowired
 	private SimpleSolicitudManager solicitudManager;
-	
+
 	@Autowired
 	private SimpleTarjetaManager tarjetaManager;
+
+	@Autowired
+	private SimpleServicioManager servicioManager;
+
+	@Autowired
+	private SimpleConsultaUrgenteManager servicioCUManager;
 	
 	
-	
-	
+	Map<String, Object> myModel;
+
 	/** Logger for this class and subclasses */
 	protected final Log logger = LogFactory.getLog(getClass());
-	
+
 	@RequestMapping(value = "/pagoTarjeta.htm")
-	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam Map<String, String> reqPar) throws ServletException, IOException {
+
+		String titulo = reqPar.get("titulo");
+		String descripcion = reqPar.get("descripcion");
+		Integer ServiceId = Integer.parseInt(reqPar.get("servicio"));
+		Servicio servicioConsulta = servicioManager.getServiciobyId(ServiceId);
+		ConsultaUrgente consultaUrgente = new ConsultaUrgente();
+		Cliente cliente = clienteManager.getClientes().get(0);
+		consultaUrgente.setDescripcion(descripcion);
+		consultaUrgente.setTitulo(titulo);
+
+		consultaUrgente.setServicioOrigen(servicioConsulta);
+		consultaUrgente.setClienteOrigen(cliente);
+		consultaUrgente.setEstado(EstadoConsulta.creada);
+		
+		DateTime fechaFinal = DateTime.now();
+		LocalTime tiempoEspera = LocalTime.parse(reqPar.get("tiempoEspera"));
+		fechaFinal = fechaFinal.plusMinutes(tiempoEspera.getMinute());
+		fechaFinal = fechaFinal.plusHours(tiempoEspera.getHour());
+		consultaUrgente.setFechaFin(fechaFinal);
 
 		Map<String, Object> myModel = new HashMap<String, Object>();
+		myModel.put("consultaUrgente", consultaUrgente);
+		this.myModel = myModel;
 		ModelAndView mav = new ModelAndView("pagoTarjeta", "model", myModel);
 
 		return mav;
 	}
-	
-	@PostMapping("/pagoTarjeta.htm")
-	protected ModelAndView onSubmit(@RequestParam Map<String,String> reqPar) throws Exception {	
-		
-		Cliente cliente = clienteManager.getClientes().get(0);
-		Solicitud solicitud = solicitudManager.getSolicituds().get(0);
-		
-			String Stringnumero = reqPar.get("numTarjeta");
-			String titular =reqPar.get("titular");
-			long numero = Long.parseLong(Stringnumero);
-			String Stringcvv = reqPar.get("cvv");
-			int cvv = Integer.valueOf(Stringcvv);
-			Integer mes = Integer.parseInt(reqPar.get("mes"));
-			Integer anyo = Integer.parseInt(reqPar.get("anyo"));
-			Date fecha = new Date(anyo, mes, 01);     
-			Tarjeta tarjeta = new Tarjeta();
-			tarjeta.setClienteOrigen(cliente);
-			tarjeta.setCodigoSeguridad(cvv);
-			tarjeta.setFechaCaducidad(fecha);
-			tarjeta.setNumero(numero);
-			tarjeta.setTitular(titular);
-			tarjetaManager.addTarjeta(tarjeta);
-	
-		
-		
-		Pago pago = new Pago();
-		
-		//el cliente asociado al pago no es real.
-		pago.setClienteOrigen(cliente);
-		System.out.println(cliente.getNombre());
-		//la solicitud asociada al pago no es real.
-		pago.setDescripcion(solicitud.getDescripcion());
-		System.out.println(solicitud.getDescripcion());
-		//pongo un pago generico.
-		pago.setPrecio(50);
-		System.out.println(pago.getPrecio());
-		
-		//añado la tarjeta al pago
-		pago.setTarjetaOrigen(tarjeta);
-		pagoManager.addPago(pago);
-		
-		
-		Map<String, Object> myModel = new HashMap<String, Object>();
-		
-		ModelAndView mav = new ModelAndView("factura", "model", myModel);
-		
-		
-		myModel.put("pago", pago);
 
+	@PostMapping("/pagoTarjeta.htm")
+	protected ModelAndView onSubmit(@RequestParam Map<String, String> reqPar, ModelAndView modelAndView)
+			throws Exception {
+		@SuppressWarnings("unchecked")
+		ConsultaUrgente consultaUrgente =(ConsultaUrgente)this.myModel.get("consultaUrgente");
+		Cliente cliente = consultaUrgente.getClienteOrigen();		
+		Tarjeta tarjeta = addTarjeta(reqPar,cliente);
+		Pago pago = new Pago();	
+		pago.setClienteOrigen(cliente);
+		pago.setDescripcion(consultaUrgente.getTitulo());
+		pago.setPrecio(2);
+		pago.setTarjetaOrigen(tarjeta);
+		consultaUrgente.setPago(pago);
+		servicioCUManager.addConsultaUrgente(consultaUrgente);
+
+		Map<String, Object> myModel = new HashMap<String, Object>();
+
+		ModelAndView mav = new ModelAndView("factura", "model", myModel);
+
+		myModel.put("pago", pago);
 		return mav;
 	}
+
 	
-	
+	private Tarjeta addTarjeta(Map<String, String> reqPar,Cliente cliente) {
+		String Stringnumero = reqPar.get("numTarjeta");
+		String titular = reqPar.get("titular");
+		long numero = Long.parseLong(Stringnumero);
+		String Stringcvv = reqPar.get("cvv");
+		int cvv = Integer.valueOf(Stringcvv);
+		Integer mes = Integer.parseInt(reqPar.get("mes"));
+		Integer anyo = Integer.parseInt(reqPar.get("anyo"));
+		Date fecha = new Date(anyo, mes, 01);
+		Tarjeta tarjeta = new Tarjeta();
+		tarjeta.setClienteOrigen(cliente);
+		tarjeta.setCodigoSeguridad(cvv);
+		tarjeta.setFechaCaducidad(fecha);
+		tarjeta.setNumero(numero);
+		tarjeta.setTitular(titular);
+		return tarjeta;
+	}
 
 }

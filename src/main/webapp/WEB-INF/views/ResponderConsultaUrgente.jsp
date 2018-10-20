@@ -4,6 +4,7 @@
 <html>
 
 <head>
+<link rel="icon" href="https://i.imgur.com/CjvIMZT.png">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
@@ -38,19 +39,21 @@
       <div class="row">
         <div class="col-md-5 p-4">
           <h3>Datos de la consulta</h3>
-          <p>A continuación aparecerán los datos de la consulta que va a responder:</p>
           <p class="lead mt-3"> <b>Tema</b></p>
           <p> ${model.consultas.getServicioOrigen().nombre} </p>
           <p class="lead mt-3"> <b>Fecha límite</b></p>
           <p> ${model.consultas.getFechaFin()}</p>
           <p class="lead mt-3"> <b>Autor</b></p>
-          <p> ${model.consultas.getCreadoConsulta().getNombre()} </p>
-          <p class="lead mt-3"> <b>Descripción</b></p>
+          <p> ${model.consultas.getClienteOrigen().getNombre()} </p>
+          <p class="lead mt-3"> <b>Titulo</b></p>
+          <p> ${model.consultas.getTitulo()} </p>
+                    <p class="lead mt-3"> <b>Descripción</b></p>
           <p> ${model.consultas.getDescripcion()} </p>
         </div>
         <div class="col-md-7 p-4">
           <h3 class="mb-3">Respuesta</h3>
           <form action="#"  method="post" class="text-left">
+          
             
             <div class="form-group"> <textarea name="respuesta" rows="3" cols="50" placeholder="Tu respuesta a la consulta" required= "required" style="margin-top: 0px; margin-bottom: 0px; height: 141px;" ></textarea> </div> 
             

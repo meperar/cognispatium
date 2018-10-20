@@ -4,6 +4,7 @@
 <html>
 
 <head>
+<link rel="icon" href="https://i.imgur.com/CjvIMZT.png">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
@@ -16,8 +17,8 @@
 	crossorigin="anonymous">
 </head>
 <body>
-<jsp:include page="barrasuperior.jsp" flush="true" />
-<div class="py-5">
+	<jsp:include page="barrasuperior.jsp" flush="true" />
+	<div class="py-5">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
@@ -34,18 +35,17 @@
 						<tbody>
 							<c:forEach items="${mensajes.mensajes}" var="mensaje">
 								<form action="#" method="post" class="text-left">
-								<tr>
-									<td><input type="hidden" id="mensajeId"
-										name="mensajeId" value="${mensaje.id}">
-										${mensaje.asunto}</td>
-									<td>${mensaje.descripcion}</td>
-									<td>${mensaje.cliente.nombre}
-										${mensaje.profesional.apellidos}</td>
-									<td>${mensaje.fecha}</td>	
-									<td><button class="bg-primary">
-											<i class="fas fa-plus-square"></i>
-										</button></td>
-								</tr>
+									<tr>
+										<td style="max-width: 500px;word-wrap:break-word;"><input type="hidden" id="mensajeId" name="mensajeId"
+											value="${mensaje.id}"> ${mensaje.asunto}</td>
+										<td style="max-width: 500px;word-wrap:break-word;">${mensaje.descripcion}</td>
+										<td>${mensaje.cliente.nombre}
+											${mensaje.profesional.apellidos}</td>
+										<td>${mensaje.fecha}</td>
+										<td><button class="bg-primary">
+												<i class="far fa-comments"></i>
+											</button></td>
+									</tr>
 								</form>
 							</c:forEach>
 						</tbody>

@@ -4,6 +4,7 @@
 <html>
 
 <head>
+<link rel="icon" href="https://i.imgur.com/CjvIMZT.png">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
@@ -33,7 +34,7 @@
         </div>
         <div class="col-md-7 p-4">
           <h3 class="mb-3">Presupuesto</h3>
-          <form action="<c:url value="/crearpresupuestoaSolicitud.htm" />" method="post" >
+          <form action="<c:url value="/crearpresupuestoaSolicitud.htm" />" method="get" >
           <input type="hidden" id="solicitudId" name="solicitudId" value="${model.solicitud.id}">
             <div class="form-row">
               <div class="form-group col-md-12"> <input type="number" class="form-control" id="form36" placeholder="Precio total estimado (€)" required="required" name="precio"> </div>

@@ -2,6 +2,7 @@
 <html>
 
 <head>
+<link rel="icon" href="https://i.imgur.com/CjvIMZT.png">
 <style>
 .tablaFiltros {
   	border-spacing: 20px 5px;
@@ -210,7 +211,7 @@
           <li class="nav-item" ><a class="nav-link" href="crearconsultaurgente.htm">Publicar CU</a></li>
           <li class="nav-item" ><a class="nav-link" href="crearsolicitudpresupuesto.htm">Pedir Presupuesto</a></li>
           <li class="nav-item" ><a class="nav-link" href="listadosolicitudes.htm">Solicitudes</a></li>
-		  <li class="nav-item" ><a class="nav-link" href="pagoTarjeta.htm">Pagar</a></li>
+          <li class="nav-item" ><a class="nav-link" href="listadoconsultas.htm">Consultas</a></li>
 		  <li class="nav-item" ><a class="nav-link" href="bandejamensajes.htm">Bandeja de Mensajes</a></li>
         </ul>
       </div>

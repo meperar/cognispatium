@@ -52,9 +52,7 @@ public class WebServiceController {
 		logger.info("Returning hello view with " + now);
 
 		Map<String, Object> myModel = new HashMap<String, Object>();
-		myModel.put("now", now);
-		myModel.put("usuarios", this.profesionalManager.getProfesionales());
-		
+		myModel.put("now", now);		
 		return new ModelAndView("hello", "model", myModel);
 	
 		

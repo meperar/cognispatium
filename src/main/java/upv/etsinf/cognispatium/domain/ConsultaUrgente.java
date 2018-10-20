@@ -3,6 +3,8 @@ package upv.etsinf.cognispatium.domain;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -36,9 +38,9 @@ public class ConsultaUrgente extends Consulta implements Serializable {
 	@JoinColumn(name="cobro")
 	private Cobro cobroOrigen;
 	
-	@OneToOne(fetch=FetchType.EAGER)
+	@OneToOne(fetch=FetchType.EAGER, cascade = {CascadeType.ALL})
 	@JoinColumn(name="pago")
-	private Pago pagoOrigen;
+	private Pago pago;
 
 	
 	
@@ -59,12 +61,12 @@ public class ConsultaUrgente extends Consulta implements Serializable {
 		this.cobroOrigen = cobroOrigen;
 	}
 
-	public Pago getPagoOrigen() {
-		return pagoOrigen;
+	public Pago getPago() {
+		return pago;
 	}
 
-	public void setPagoOrigen(Pago pagoOrigen) {
-		this.pagoOrigen = pagoOrigen;
+	public void setPago(Pago pago) {
+		this.pago = pago;
 	}
 	
 	

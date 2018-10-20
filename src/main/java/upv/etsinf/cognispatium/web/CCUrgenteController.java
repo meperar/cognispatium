@@ -84,7 +84,7 @@ public class CCUrgenteController {
 	@PostMapping("/crearconsultaurgente.htm")
 	protected ModelAndView onSubmit(@RequestParam Map<String,String> reqPar) throws Exception {	
 		
-		
+		//*Crear consulta urgente
 		DateTime fechaFinal = DateTime.now();
 		LocalTime tiempoEspera = LocalTime.parse(reqPar.get("tiempoEspera"));
 		fechaFinal = fechaFinal.plusMinutes(tiempoEspera.getMinute());
@@ -99,13 +99,14 @@ public class CCUrgenteController {
 		consultaUrgente.setTitulo(titulo);
 		consultaUrgente.setFechaFin(fechaFinal);
 		consultaUrgente.setServicioOrigen(servicioConsulta);
-		consultaUrgente.setCreadoConsulta(null);
-		consultaUrgente.setCreadoConsulta(cliente);
+		consultaUrgente.setClienteOrigen(cliente);
 		consultaUrgente.setEstado(EstadoConsulta.creada);
 		servicioCUManager.addConsultaUrgente(consultaUrgente);
-		//System.out.println("Hola CCUrgenteController");
+		Map<String, Object> myModel = new HashMap<String, Object>();
+		myModel.put("consultaUrgente", consultaUrgente);
+		//
 
-		return new ModelAndView("hello");
+		return new ModelAndView("pagoTarjeta","model",myModel);
 	}
 	
 	
