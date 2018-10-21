@@ -25,6 +25,10 @@ public class SimpleConsultaManager implements Serializable {
     public List<Consulta> getConsultas() {
        return consultaDao.getConsultaList();        
     }
+    
+    public List<Consulta> getConsultasbyServicio(Integer serviceId) {
+        return consultaDao.getConsultasbyServicio(serviceId);        
+     }
 
     public void addConsulta(Consulta consulta) {
     	consultaDao.saveConsulta(consulta);
