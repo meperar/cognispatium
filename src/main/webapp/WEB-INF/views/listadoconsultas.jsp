@@ -23,7 +23,7 @@
 		<div class="container">
 			<div class="row">
 				<form action="<c:url value="/listadoconsultas.htm" />" method="GET">
-					<label for="form16">Serv0icio</label> <br> <select
+					<label for="form16">Servicio</label> <br> <select
 						name='servicio'>
 						<c:set var="servId" value="${model.serviciId}" />
 						<c:if test="${servId == null}">
