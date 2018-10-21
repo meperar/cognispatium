@@ -8,6 +8,7 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import upv.etsinf.cognispatium.domain.Consulta;
+import upv.etsinf.cognispatium.domain.Servicio;
 
 @Repository(value = "ConsultaDao")
 public class JPAConsultaDao implements ConsultaDao {
@@ -25,7 +26,17 @@ public class JPAConsultaDao implements ConsultaDao {
 	public List<Consulta> getConsultaList() {
 		return em.createQuery("select c from Consulta c order by c.id").getResultList();
 	}
-
+	
+	@Override
+	@Transactional(readOnly = true)
+	@SuppressWarnings("unchecked")
+	public List<Consulta> getConsultasbyServicio(Integer serviceId) {
+        return em.createQuery("SELECT c FROM Consulta c WHERE servicio = :serviceId ")
+        .setParameter("serviceId", serviceId)
+        .getResultList();
+     }
+	
+	
 	@Override
 	@Transactional(readOnly = false)
 	public void saveConsulta(Consulta consulta) {

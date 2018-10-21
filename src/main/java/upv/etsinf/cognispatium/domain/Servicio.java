@@ -42,7 +42,7 @@ public class Servicio implements Serializable {
 	@OneToMany(mappedBy ="servicioOrigen")
 	private List<Consulta> consultas;
     
-	@ManyToMany(mappedBy="servicios")
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy="servicios")
 	private List<Profesional> profesionales;
     
 	public Integer getId() {
