@@ -22,6 +22,7 @@ import upv.etsinf.cognispatium.service.SimpleClienteManager;
 import java.io.Console;
 import java.io.IOException;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -62,11 +63,24 @@ public class CCUrgenteController {
 		
 		Map<String, Object> myModel = new HashMap<String, Object>();
 		ModelAndView mav = new ModelAndView("crearconsultaurgente", "model", myModel);
-		 Map< String, Object > servicios = new HashMap<String, Object>();
+		Map< String, Object > servicios = new HashMap<String, Object>();
+		 Map< String, Object > serviciosPorAmbito = new HashMap<String, Object>();
+		 List<String> listaAmbitos = servicioManager.getAmbitos();
 		List<Servicio> listaServicios = servicioManager.getServicios();
 		
-		servicios.put("servicios", listaServicios);
-         
+		listaAmbitos.forEach(ambito-> {
+			String amb = ambito;
+			List<Servicio> lista = new ArrayList<Servicio>();
+			listaServicios.forEach(serv->{
+				if(serv.getAmbito().equals(amb)) {
+					lista.add(serv);
+				}
+			});
+			serviciosPorAmbito.put(ambito, lista);
+		});
+		
+		servicios.put("ambitos", listaAmbitos);
+		servicios.put("serviciosxambitos", serviciosPorAmbito);
         mav.addObject("servicios", servicios);
 		return mav;
 		
@@ -84,7 +98,7 @@ public class CCUrgenteController {
 	@PostMapping("/crearconsultaurgente.htm")
 	protected ModelAndView onSubmit(@RequestParam Map<String,String> reqPar) throws Exception {	
 		
-		
+		//*Crear consulta urgente
 		DateTime fechaFinal = DateTime.now();
 		LocalTime tiempoEspera = LocalTime.parse(reqPar.get("tiempoEspera"));
 		fechaFinal = fechaFinal.plusMinutes(tiempoEspera.getMinute());
@@ -99,13 +113,14 @@ public class CCUrgenteController {
 		consultaUrgente.setTitulo(titulo);
 		consultaUrgente.setFechaFin(fechaFinal);
 		consultaUrgente.setServicioOrigen(servicioConsulta);
-		consultaUrgente.setCreadoConsulta(null);
-		consultaUrgente.setCreadoConsulta(cliente);
+		consultaUrgente.setClienteOrigen(cliente);
 		consultaUrgente.setEstado(EstadoConsulta.creada);
 		servicioCUManager.addConsultaUrgente(consultaUrgente);
-		//System.out.println("Hola CCUrgenteController");
+		Map<String, Object> myModel = new HashMap<String, Object>();
+		myModel.put("consultaUrgente", consultaUrgente);
+		//
 
-		return new ModelAndView("hello");
+		return new ModelAndView("pagoTarjeta","model",myModel);
 	}
 	
 	

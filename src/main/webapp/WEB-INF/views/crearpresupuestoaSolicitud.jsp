@@ -4,6 +4,7 @@
 <html>
 
 <head>
+<link rel="icon" href="https://i.imgur.com/CjvIMZT.png">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
@@ -33,12 +34,12 @@
         </div>
         <div class="col-md-7 p-4">
           <h3 class="mb-3">Presupuesto</h3>
-          <form action="/crearpresupuestoaSolicitud" method="post" >
+          <form action="<c:url value="/crearpresupuestoaSolicitud.htm" />" method="get" >
           <input type="hidden" id="solicitudId" name="solicitudId" value="${model.solicitud.id}">
             <div class="form-row">
-              <div class="form-group col-md-12"> <input type="number" class="form-control" id="form36" placeholder="Precio total estimado" required="required" name="precio"> </div>
+              <div class="form-group col-md-12"> <input type="number" class="form-control" id="form36" placeholder="Precio total estimado (â‚¬)" required="required" name="precio"> </div>
             </div>
-            <div class="form-group"> <textarea class="form-control" id="form43" rows="3" placeholder="Descripciónn del presupuesto"  required="required" name="descripcion"></textarea> </div> <button type="submit" class="btn btn-primary">Send</button>
+            <div class="form-group"> <textarea maxlength="500" class="form-control" id="form43" rows="3" placeholder="DescripciÃ³nn del presupuesto"  required="required" name="descripcion"></textarea> </div> <button type="submit" class="btn btn-primary">Send</button>
           </form>
         </div>
       </div>
@@ -85,7 +86,7 @@
 			</div>
 			<div class="row">
 				<div class="col-md-12 text-center">
-					<p class="mb-0">© 2018 CogniSpatium. All rights reserved</p>
+					<p class="mb-0">Â© 2018 CogniSpatium. All rights reserved</p>
 				</div>
 			</div>
 		</div>

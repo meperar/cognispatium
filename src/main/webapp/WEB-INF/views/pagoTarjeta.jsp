@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="icon" href="https://i.imgur.com/CjvIMZT.png">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
@@ -37,15 +38,15 @@
           <h3 class="mb-3">Informacion Tarjeta</h3>
             <a class="btn btn-primary p-1 w-50" href="#">Tarjeta Credito</a><a class="btn btn-light w-50" href="#">PayPal<br></a>
             <div class="form-group"><label>Titular :&nbsp;</label> <input name="titular" type="text"  class="form-control" placeholder="Introduza el titular" required ="required"> </div>   
-            <div class="form-group"><label>Numero de Tarjeta :&nbsp;</label> <input type="number" name="numTarjeta"  min="1000000000000000" max="9999999999999999"  class="form-control" placeholder="Introduza el numero de la tarjeta" required ="required"> </div>
-            <div class="form-group"><label>CVV (?) :</label> <input name="cvv" type="number" min="100" max="999" class="form-control" placeholder="Introduzca el código de seguridad" required ="required"> </div>
+            <div class="form-group"><label>Numero de Tarjeta :&nbsp;</label> <input type="text" name="numTarjeta"  pattern="[0-9]{16,}"   required title="Introduzca 16 digitos" maxlength="16"  class="form-control" placeholder="Introduza el numero de la tarjeta" required ="required"> </div>
+            <div class="form-group"><label>CVV (?) :</label> <input name="cvv" type="text" pattern="[0-9]{3,}"   required title="Introduzca 3 digitos" maxlength="3" class="form-control" placeholder="Introduzca el código de seguridad" required ="required"> </div>
             <div class="form-group"><label>Fecha de caducidad :</label> </div>
             <div class="row">
               <div class="col-md-2 text-right" style=""><label>Mes :</label></div>
               <div class="col-md-4" style="">
                 <div class="btn-group">
                   <select name="mes" required ="required">
-                    <option value="-" selected="selected">-</option>
+                    <option disabled selected value> -- </option>
                     <option value="01">Enero</option>
                     <option value="02">Febrero</option>
                     <option value="03">Marzo</option>
@@ -64,8 +65,8 @@
               <div class="col-md-2 text-right" style=""><label>Año :</label></div>
               <div class="col-md-3" style="">
                 <div class="btn-group">
-                  <select name="anyo">
-                    <option value="-" selected="selected" required ="required">-</option>
+                  <select name="anyo"  required ="required">
+                    <option disabled selected value> -- </option>
                     <option value="2018">2018</option>
                     <option value="2019">2019</option>
                     <option value="2018">2020</option>

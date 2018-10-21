@@ -15,12 +15,14 @@ import org.springframework.web.servlet.ModelAndView;
 import upv.etsinf.cognispatium.domain.Cliente;
 import upv.etsinf.cognispatium.domain.Solicitud;
 import upv.etsinf.cognispatium.domain.EstadoConsulta;
+import upv.etsinf.cognispatium.domain.ConsultaUrgente;
 import upv.etsinf.cognispatium.domain.Mensaje;
 import upv.etsinf.cognispatium.domain.Presupuesto;
 import upv.etsinf.cognispatium.domain.Servicio;
 import upv.etsinf.cognispatium.service.SimpleServicioManager;
 import upv.etsinf.cognispatium.service.SimpleSolicitudManager;
 import upv.etsinf.cognispatium.service.SimpleClienteManager;
+import upv.etsinf.cognispatium.service.SimpleConsultaUrgenteManager;
 import upv.etsinf.cognispatium.service.SimpleMensajeManager;
 import upv.etsinf.cognispatium.service.SimpleProfesionalManager;
 import upv.etsinf.cognispatium.service.SimplePresupuestoManager;
@@ -28,7 +30,6 @@ import upv.etsinf.cognispatium.service.SimplePresupuestoManager;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -47,10 +48,10 @@ import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
 
 @Controller
-public class BandejaMensajesController {
+public class ListadoConsultasController {
 
 	@Autowired
-	private SimpleMensajeManager mensajeManager;
+	private SimpleServicioManager servicioManager;
 
 	@Autowired
 	private SimpleSolicitudManager servicioSolicitudManager;
@@ -63,74 +64,55 @@ public class BandejaMensajesController {
 	
 	@Autowired
 	private SimplePresupuestoManager simplePresupuestoManager;
+	
+	@Autowired
+	private SimpleMensajeManager mensajeManager;
+	
+	@Autowired
+	private SimpleConsultaUrgenteManager consultaUManager;
+	
 
 	/** Logger for this class and subclasses */
 	protected final Log logger = LogFactory.getLog(getClass());
 
-	@RequestMapping("/bandejamensajes.htm")
-	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
-		Map<String, Object> myModel = new HashMap<String, Object>();
-		ModelAndView mav = new ModelAndView("bandejaMensajes", "model", myModel);
-		Map<String, Object> mensajes = new HashMap<String, Object>();
-		List<Mensaje> listaMensajes = mensajeManager.getMensajes();
-		mensajes.put("mensajes", listaMensajes);
-		mav.addObject("mensajes", mensajes);
-		return mav;
-
-	}
-	
-	@GetMapping("/bandejamensajes.htm")
+	@GetMapping("/listadoconsultas.htm")
 	protected ModelAndView onSubmit(@RequestParam Map<String, String> reqPar) throws Exception {
 
-		List<Mensaje> listaMensajes = new ArrayList<Mensaje>();
-		
-			listaMensajes = mensajeManager.getMensajes();
+		List<ConsultaUrgente> listaConsultas = new ArrayList<ConsultaUrgente>();
+		Map<String, Object> Mymodel = new HashMap<String, Object>();
+		if (reqPar.get("servicio") != null) {
+			Integer ServiceId = Integer.parseInt(reqPar.get("servicio"));
+			Servicio servicioConsulta = servicioManager.getServiciobyId(ServiceId);
+			listaConsultas = consultaUManager.getConsultasbyService(servicioConsulta);
+			Mymodel.put("serviciId", ServiceId);
 
+		} else {
+			listaConsultas = consultaUManager.getConsultaUrgentes();
+		}
 		Map<String, Object> myModel = new HashMap<String, Object>();
-		ModelAndView mav = new ModelAndView("bandejaMensajes", "model", myModel);
-		Map<String, Object> mensajes = new HashMap<String, Object>();
-		
-		mensajes.put("mensajes", listaMensajes);
-		mav.addObject("mensajes", mensajes);
+		ModelAndView mav = new ModelAndView("listadoconsultas", "model", myModel);
+		List<Servicio> listaServicios = servicioManager.getServicios();
+		Mymodel.put("consultas", listaConsultas);
+		Mymodel.put("servicios", listaServicios);
+		mav.addObject("model", Mymodel);
 
 		return mav;
 	}
 
 	
-	@PostMapping("/bandejamensajes.htm")
-	protected ModelAndView crearMensaje(@RequestParam Map<String, String> reqPar) throws Exception {
+	@PostMapping("/listadoconsultas.htm")
+	protected ModelAndView crearPresupueusto(@RequestParam Map<String, String> reqPar) throws Exception {
 
 		Map<String, Object> myModel = new HashMap<String, Object>();
 		
-		Mensaje miMensaje = mensajeManager.getMensajebyId(Integer.parseInt(reqPar.get("mensajeId")));
+		ConsultaUrgente miconsultaUrgente = consultaUManager.getConsultaUrgentebyId(Integer.parseInt(reqPar.get("consultaId")));
 		
-		ModelAndView mav = new ModelAndView("respondermensajes", "model", myModel);
+		ModelAndView mav = new ModelAndView("crearrespuestaaSolicitud", "model", myModel);
 		
 		
-		myModel.put("mensaje", miMensaje);
+		myModel.put("consulta", miconsultaUrgente);
 
 		return mav;
 	}
-	
-	@PostMapping("/respondermensajes.htm")
-	protected ModelAndView guardarMensaje(@RequestParam Map<String, String> reqPar) throws Exception {
 
-		Mensaje mensaje = new Mensaje();
-		mensaje.setDescripcion(reqPar.get("descripcion"));
-		mensaje.setAsunto("RE:"+mensajeManager.getMensajebyId(Integer.parseInt(reqPar.get("mensajeId"))).getAsunto());
-		mensaje.setProfesional(mensajeManager.getMensajebyId(Integer.parseInt(reqPar.get("mensajeId"))).getProfesional());
-		mensaje.setCliente(mensajeManager.getMensajebyId(Integer.parseInt(reqPar.get("mensajeId"))).getCliente());
-		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-		long millis=System.currentTimeMillis();
-		java.util.Date date=new java.util.Date(millis);
-		dateFormat.format(date);
-		mensaje.setFecha(date);
-		mensajeManager.addMensaje(mensaje);
-				
-		return new ModelAndView("hello");
-
-		
-	}
 }

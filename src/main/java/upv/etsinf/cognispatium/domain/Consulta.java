@@ -21,42 +21,36 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="consulta")
-@Inheritance(strategy=InheritanceType.JOINED)
+@Table(name = "consulta")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Consulta implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
-	
-	
-    @Column
+	@Column(name = "id")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer id;
+
+	@Column
 	private String descripcion;
-    private String titulo;
-    
-    @Column(name="estado", nullable = false, length = 20 )
-    @Enumerated(value = EnumType.STRING)
-    private EstadoConsulta estado;
-    
-	
-	
-	
-	@ManyToOne(fetch=FetchType.EAGER)
-	  @JoinColumn(name="cliente")
-	  private Cliente creadoConsulta;
-	
+	private String titulo;
+
+	@Column(name = "estado", nullable = false, length = 20)
+	@Enumerated(value = EnumType.STRING)
+	private EstadoConsulta estado;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "cliente")
+	private Cliente clienteOrigen;
+
 	@OneToMany(mappedBy = "consultaOrigen")
 	private List<Respuesta> respuestas;
 
-	
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="servicio")
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "servicio")
 	private Servicio servicioOrigen;
-	
-	
+
 	public Integer getId() {
 		return id;
 	}
@@ -72,7 +66,6 @@ public class Consulta implements Serializable {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-
 
 	public String getTitulo() {
 		return titulo;
@@ -90,12 +83,12 @@ public class Consulta implements Serializable {
 		this.estado = estado;
 	}
 
-	public Cliente getCreadoConsulta() {
-		return creadoConsulta;
+	public Cliente getClienteOrigen() {
+		return clienteOrigen;
 	}
 
-	public void setCreadoConsulta(Cliente creadoConsulta) {
-		this.creadoConsulta = creadoConsulta;
+	public void setClienteOrigen(Cliente clienteOrigen) {
+		this.clienteOrigen = clienteOrigen;
 	}
 
 	public List<Respuesta> getRespuestas() {
@@ -113,9 +106,5 @@ public class Consulta implements Serializable {
 	public void setServicioOrigen(Servicio servicioOrigen) {
 		this.servicioOrigen = servicioOrigen;
 	}
-	
-	
-	
-	
-	
+
 }

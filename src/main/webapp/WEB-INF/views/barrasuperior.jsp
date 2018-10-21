@@ -4,6 +4,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <head>
+<link rel="icon" href="https://i.imgur.com/CjvIMZT.png">
 <style>
 .tablaFiltros {
   	border-spacing: 20px 5px;
@@ -99,7 +100,7 @@
          		 <tbody>
          	 		<tr>
          	 		 <td>
-         	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Medicina<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
+         	 		 <h4 class="gh-sbc-parent"><a title="" class="titulosFiltros">Medicina<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
          	 		 <ul>
          	 		 <c:forEach items="${med.serviMed}" var="serviM">
          	 		 <form action="#" method="post" class="text-left">
@@ -108,7 +109,7 @@
          	 		 </form> 
          	 		 </c:forEach>
          	 		 </ul>
-         	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Deporte<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
+         	 		 <h4 class="gh-sbc-parent"><a title="" class="titulosFiltros">Deporte<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
          	 		 <ul>
          	 		 <c:forEach items="${dep.serviDep}" var="serviD">
          	 		 <form action="#" method="post" class="text-left">
@@ -117,7 +118,7 @@
          	 		 </form>
          	 		 </c:forEach>
          	 		 </ul>
-         	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Ciencia<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
+         	 		 <h4 class="gh-sbc-parent"><a title="" class="titulosFiltros">Ciencia<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
          	 		 <ul>
          	 		 <c:forEach items="${cien.serviCien}" var="serviC">
          	 		 <form action="#" method="post" class="text-left">
@@ -128,7 +129,7 @@
          	 		 </ul>    	 		 
          	 		 </td>
          	 		 <td>
-         	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Técnicos<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
+         	 		 <h4 class="gh-sbc-parent"><a title="" class="titulosFiltros">Técnicos<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
          	 		 <ul>
          	 		 <c:forEach items="${tec.serviTec}" var="serviT">
          	 		 <form action="#" method="post" class="text-left">
@@ -137,7 +138,7 @@
          	 		 </form>
          	 		 </c:forEach>
          	 		 </ul> 
-         	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Legislación<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
+         	 		 <h4 class="gh-sbc-parent"><a title="" class="titulosFiltros">Legislación<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
          	 		 <ul>
          	 		 <c:forEach items="${leg.serviLeg}" var="serviL">
          	 		 <form action="#" method="post" class="text-left">
@@ -146,7 +147,7 @@
          	 		 </form>
          	 		 </c:forEach>
          	 		 </ul> 
-         	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Artes Marciales<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
+         	 		 <h4 class="gh-sbc-parent"><a title="" class="titulosFiltros">Artes Marciales<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
          	 		 <ul>
          	 		 <c:forEach items="${artm.serviArtM}" var="serviAM">
          	 		 <form action="#" method="post" class="text-left">
@@ -155,7 +156,7 @@
          	 		 </form>
          	 		 </c:forEach>
          	 		 </ul> 
-         	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Cuidados del Hogar<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
+         	 		 <h4 class="gh-sbc-parent"><a title="" class="titulosFiltros">Cuidados del Hogar<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
          	 		 <ul>
          	 		 <c:forEach items="${cuiho.serviCuiHo}" var="serviCH">
          	 		 <form action="#" method="post" class="text-left">
@@ -166,7 +167,7 @@
          	 		 </ul> 
          	 		 </td>
          	 		 <td>
-         	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Arte<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
+         	 		 <h4 class="gh-sbc-parent"><a title="" class="titulosFiltros">Arte<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
          	 		 <ul>
          	 		 <c:forEach items="${art.serviArt}" var="serviA">
          	 		 <form action="#" method="post" class="text-left">
@@ -175,7 +176,7 @@
          	 		 </form>
          	 		 </c:forEach>
          	 		 </ul> 
-         	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Idiomas<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
+         	 		 <h4 class="gh-sbc-parent"><a title="" class="titulosFiltros">Idiomas<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
          	 		 <ul>
          	 		 <c:forEach items="${idio.serviIdio}" var="serviI">
          	 		 <form action="#" method="post" class="text-left">
@@ -184,7 +185,7 @@
          	 		 </form>
          	 		 </c:forEach>
          	 		 </ul> 
-         	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Estética<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
+         	 		 <h4 class="gh-sbc-parent"><a title="" class="titulosFiltros">Estética<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
          	 		 <ul>
          	 		 <c:forEach items="${est.serviEst}" var="serviE">
          	 		 <form action="#" method="post" class="text-left">
@@ -205,7 +206,7 @@
          		<tbody>
          	 		<tr>
          	 		 <td>
-         	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Medicina<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
+         	 		 <h4 class="gh-sbc-parent"><a title="" class="titulosFiltros">Medicina<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
          	 		 <ul>
          	 		 <c:forEach items="${med.serviMed}" var="serviM">
          	 		 <form action="#" method="post" class="text-left">
@@ -214,7 +215,7 @@
          	 		 </form> 
          	 		 </c:forEach>
          	 		 </ul>
-         	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Deporte<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
+         	 		 <h4 class="gh-sbc-parent"><a title="" class="titulosFiltros">Deporte<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
          	 		 <ul>
          	 		 <c:forEach items="${dep.serviDep}" var="serviD">
          	 		 <form action="#" method="post" class="text-left">
@@ -223,7 +224,7 @@
          	 		 </form>
          	 		 </c:forEach>
          	 		 </ul>
-         	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Ciencia<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
+         	 		 <h4 class="gh-sbc-parent"><a title="" class="titulosFiltros">Ciencia<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
          	 		 <ul>
          	 		 <c:forEach items="${cien.serviCien}" var="serviC">
          	 		 <form action="#" method="post" class="text-left">
@@ -234,7 +235,7 @@
          	 		 </ul>    	 		 
          	 		 </td>
          	 		 <td>
-         	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Técnicos<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
+         	 		 <h4 class="gh-sbc-parent"><a title="" class="titulosFiltros">Técnicos<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
          	 		 <ul>
          	 		 <c:forEach items="${tec.serviTec}" var="serviT">
          	 		 <form action="#" method="post" class="text-left">
@@ -243,7 +244,7 @@
          	 		 </form>
          	 		 </c:forEach>
          	 		 </ul> 
-         	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Legislación<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
+         	 		 <h4 class="gh-sbc-parent"><a title="" class="titulosFiltros">Legislación<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
          	 		 <ul>
          	 		 <c:forEach items="${leg.serviLeg}" var="serviL">
          	 		 <form action="#" method="post" class="text-left">
@@ -252,7 +253,7 @@
          	 		 </form>
          	 		 </c:forEach>
          	 		 </ul> 
-         	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Artes Marciales<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
+         	 		 <h4 class="gh-sbc-parent"><a title="" class="titulosFiltros">Artes Marciales<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
          	 		 <ul>
          	 		 <c:forEach items="${artm.serviArtM}" var="serviAM">
          	 		 <form action="#" method="post" class="text-left">
@@ -261,7 +262,7 @@
          	 		 </form>
          	 		 </c:forEach>
          	 		 </ul> 
-         	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Cuidados del Hogar<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
+         	 		 <h4 class="gh-sbc-parent"><a title="" class="titulosFiltros">Cuidados del Hogar<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
          	 		 <ul>
          	 		 <c:forEach items="${cuiho.serviCuiHo}" var="serviCH">
          	 		 <form action="#" method="post" class="text-left">
@@ -272,7 +273,7 @@
          	 		 </ul> 
          	 		 </td>
          	 		 <td>
-         	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Arte<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
+         	 		 <h4 class="gh-sbc-parent"><a title="" class="titulosFiltros">Arte<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
          	 		 <ul>
          	 		 <c:forEach items="${art.serviArt}" var="serviA">
          	 		 <form action="#" method="post" class="text-left">
@@ -281,7 +282,7 @@
          	 		 </form>
          	 		 </c:forEach>
          	 		 </ul> 
-         	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Idiomas<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
+         	 		 <h4 class="gh-sbc-parent"><a title="" class="titulosFiltros">Idiomas<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
          	 		 <ul>
          	 		 <c:forEach items="${idio.serviIdio}" var="serviI">
          	 		 <form action="#" method="post" class="text-left">
@@ -290,7 +291,7 @@
          	 		 </form>
          	 		 </c:forEach>
          	 		 </ul> 
-         	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Estética<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
+         	 		 <h4 class="gh-sbc-parent"><a title="" class="titulosFiltros">Estética<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
          	 		 <ul>
          	 		 <c:forEach items="${est.serviEst}" var="serviE">
          	 		 <form action="#" method="post" class="text-left">
@@ -312,7 +313,7 @@
           <li class="nav-item" ><a class="nav-link" href="crearconsultaurgente.htm">Publicar CU</a></li>
           <li class="nav-item" ><a class="nav-link" href="crearsolicitudpresupuesto.htm">Pedir Presupuesto</a></li>
           <li class="nav-item" ><a class="nav-link" href="listadosolicitudes.htm">Solicitudes</a></li>
-		  <li class="nav-item" ><a class="nav-link" href="pagoTarjeta.htm">Pagar</a></li>
+          <li class="nav-item" ><a class="nav-link" href="listadoconsultas.htm">Consultas</a></li>
 		  <li class="nav-item" ><a class="nav-link" href="bandejamensajes.htm">Bandeja de Mensajes</a></li>
         </ul>
       </div>

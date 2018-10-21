@@ -4,16 +4,18 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="icon" href="https://i.imgur.com/CjvIMZT.png">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
 	type="text/css" integrity="">
 <link rel="stylesheet"
-	href="https://static.pingendo.com/bootstrap/bootstrap-4.1.3.css" integrity="">
+	href="https://static.pingendo.com/bootstrap/bootstrap-4.1.3.css"
+	integrity="">
 </head>
 <body>
-<jsp:include page="barrasuperior.jsp" flush="true" />
+	<jsp:include page="barrasuperior.jsp" flush="true" />
 	<div class="py-5 text-center" style="">
 		<div class="container">
 			<div class="row" style="">
@@ -21,33 +23,45 @@
 					<h1>Crear una consulta urgente</h1>
 					<p class="mb-3">En esta pantalla podra introducir los datos
 						para crear su consulta urgente.</p>
-						<form action="#"  method="post" class="text-left">
+					<form action="<c:url value="/pagoTarjeta.htm" />" method="GET"
+						class="text-left">
 						<div class="form-group">
-							<label for="form16">Servicio</label> <br>
-							 <select name='servicio' >
-							 <c:forEach items = "${servicios.servicios}" var = "servicio" >
-							 	<option value="${servicio.id}" label ="${servicio.nombre}" ></option>
-							 </c:forEach>
-							 </select>
-							</div>
-							<div class="form-group">
-									<label for="form16">Tiempo maximo de espera</label> <input name="tiempoEspera"
- 										type="time" class="form-control" id="form16" 
- 										placeholder="Tiempo de espera" required="required"/> 
-							</div>
-							<div class="form-group">
-								<label for="form16">Resumen</label> <input type="text" name="titulo"
-										class="form-control" id="form16"
-										placeholder="Resumen de la consulta" required="required"/>
-							</div>
-							<div class="form-group">
-								<label for="form18">Descripcion</label> <input type="text"
-										class="form-control" id="form18" name="descripcion" style=""
-										placeholder="Introduzca una descripcion de la consulta" required="required"/> 
-							</div>
-							<button type="submit" class="btn btn-primary">
-								Crear consulta<br>
-							</button>
+							<label for="form16">Servicio</label> <br> <select
+								name='servicio' required="required">
+								<option disabled selected value>--</option>
+								<c:forEach items="${servicios.ambitos}" var="ambito">
+									<optgroup label="${ambito}">
+										<c:forEach items="${servicios.serviciosxambitos.get(ambito)}"
+											var="servicio">
+											<option value="${servicio.id}" label="${servicio.nombre}"></option>
+										</c:forEach>
+									</optgroup>
+								</c:forEach>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="form16">Tiempo maximo de espera</label> <input
+								name="tiempoEspera" type="text" class="form-control" id="form16"
+								value="--:--"
+								placeholder="Tiempo de espera"
+								pattern="([0-1])([1-9]):([0-5])([0-9])|(2)([0-3]):([0-5])([0-9])"
+								required
+								title="Introduzca una duración con un formato(HH:MM) con un minimo de una hora (01:00)" />
+						</div>
+						<div class="form-group">
+							<label for="form16">Resumen</label> <input type="text"
+								name="titulo" class="form-control" id="form16"
+								placeholder="Resumen de la consulta" required maxlength="80" />
+						</div>
+						<div class="form-group">
+							<label for="form18">Descripcion</label>
+							<textarea class="form-control" id="form18" name="descripcion"
+								style="" placeholder="Introduzca una descripcion de la consulta"
+								required="required" maxlength="500"></textarea>
+						</div>
+						<button type="submit" class="btn btn-primary">
+							Crear consulta<br>
+						</button>
 					</form>
 				</div>
 			</div>

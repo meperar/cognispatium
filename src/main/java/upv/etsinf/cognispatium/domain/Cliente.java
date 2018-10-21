@@ -21,7 +21,7 @@ public class Cliente extends Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	
-	@OneToMany(mappedBy="creadoConsulta")
+	@OneToMany(mappedBy="clienteOrigen")
 	private List<Consulta> consultas;
 
 	@OneToMany(mappedBy ="clienteOrigen")

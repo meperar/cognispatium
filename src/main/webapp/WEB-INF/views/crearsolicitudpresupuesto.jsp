@@ -4,6 +4,7 @@
 <html>
 
 <head>
+<link rel="icon" href="https://i.imgur.com/CjvIMZT.png">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
@@ -34,12 +35,12 @@
 						<div class="form-group">
 								<label for="form16">Titulo</label> <input type="text" name="titulo"
 										class="form-control" id="form16"
-										placeholder="Resumen de la consulta" required="required"/>
+										placeholder="Resumen de la consulta" required="required" maxlength="80"/>
 							</div>
 						<div class="form-group">
 							<label for="form18">Descripcionn</label>
 							<textarea class="form-control" id="form26" rows="3"
-								placeholder="Your message" required ="required" name = "descripcion"></textarea>
+								placeholder="Your message" required ="required" name = "descripcion" maxlength="500"></textarea>
 						</div>
 						<button type="submit" class="btn btn-primary">
 							Crear solicitud<br>

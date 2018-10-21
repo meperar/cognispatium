@@ -60,4 +60,10 @@ public class JPAServicioDao implements ServicioDao {
 		return em.find(Servicio.class, serviceId);
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<String> getAmbitos() {
+		return em.createQuery("select DISTINCT s.ambito from Servicio s order by s.ambito").getResultList();
+	}
+
 }

@@ -45,9 +45,6 @@ public class Presupuesto implements Serializable {
 	@JoinColumn(name="profesional")
 	private Profesional profesionalOrigen;
 	
-	@OneToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="presupuesto")
-	private Factura facturaOrigen;
 	
 	
 	public Integer getId() {
@@ -84,14 +81,6 @@ public class Presupuesto implements Serializable {
 	public void setProfesionalOrigen(Profesional profesionalOrigen) {
 		this.profesionalOrigen = profesionalOrigen;
 	}
-	public Factura getFacturaOrigen() {
-		return facturaOrigen;
-	}
-	public void setFacturaOrigen(Factura facturaOrigen) {
-		this.facturaOrigen = facturaOrigen;
-	}
-	
-
 	
 	
 	

@@ -3,6 +3,8 @@ package upv.etsinf.cognispatium.domain;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,6 +17,8 @@ import javax.persistence.PrimaryKeyJoinColumn;
 
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.joda.ser.DateTimeSerializer;
@@ -36,9 +40,9 @@ public class ConsultaUrgente extends Consulta implements Serializable {
 	@JoinColumn(name="cobro")
 	private Cobro cobroOrigen;
 	
-	@OneToOne(fetch=FetchType.EAGER)
+	@OneToOne(fetch=FetchType.EAGER, cascade = {CascadeType.ALL})
 	@JoinColumn(name="pago")
-	private Pago pagoOrigen;
+	private Pago pago;
 
 	
 	
@@ -59,13 +63,17 @@ public class ConsultaUrgente extends Consulta implements Serializable {
 		this.cobroOrigen = cobroOrigen;
 	}
 
-	public Pago getPagoOrigen() {
-		return pagoOrigen;
+	public Pago getPago() {
+		return pago;
 	}
 
-	public void setPagoOrigen(Pago pagoOrigen) {
-		this.pagoOrigen = pagoOrigen;
+	public void setPago(Pago pago) {
+		this.pago = pago;
 	}
 	
-	
+	public String getFechaFinFormateada(String format) {
+		DateTime dt = new DateTime();
+		DateTimeFormatter fmt = DateTimeFormat.forPattern(format);
+		return fmt.print(dt);
+	}
 }
