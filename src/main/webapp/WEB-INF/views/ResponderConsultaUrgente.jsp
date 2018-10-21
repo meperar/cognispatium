@@ -12,23 +12,7 @@
 </head>
 
 <body>
-
-  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-    <div class="container"> <button class="navbar-toggler navbar-toggler-right border-0" type="button" data-toggle="collapse" data-target="#navbar13">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbar13">
-       <a href="hello.htm"><img src="https://i.imgur.com/xmZULKf.png" width = 200 title="source: imgur.com" /></a>    
-        <ul class="navbar-nav mx-auto">
-          <li class="nav-item"> <a class="nav-link" href="#">Consultas Urgentes</a> </li>         
-          <li class="nav-item"> <a class="nav-link" href="#">Solicitudes</a> </li>
-        </ul>
-        <ul class="navbar-nav">
-          <li class="nav-item"> <a class="nav-link" href="#">Log Out</a> </li>  
-        </ul> 
-      </div>
-    </div>
-  </nav>
+  <jsp:include page="barrasuperior.jsp" flush="true" />
   <div class="py-3">
     <div class="container">
       <div class="row">
@@ -39,15 +23,16 @@
       <div class="row">
         <div class="col-md-5 p-4">
           <h3>Datos de la consulta</h3>
+          <p class="lead mt-3"> <b>Titulo</b></p>
+          <p> ${model.consultas.getTitulo()} </p>
           <p class="lead mt-3"> <b>Tema</b></p>
           <p> ${model.consultas.getServicioOrigen().nombre} </p>
           <p class="lead mt-3"> <b>Fecha límite</b></p>
-          <p> ${model.consultas.getFechaFin()}</p>
-          <p class="lead mt-3"> <b>Autor</b></p>
-          <p> ${model.consultas.getClienteOrigen().getNombre()} </p>
-          <p class="lead mt-3"> <b>Titulo</b></p>
-          <p> ${model.consultas.getTitulo()} </p>
-                    <p class="lead mt-3"> <b>Descripción</b></p>
+          <p> ${model.consultas.getFechaFinFormateada("dd/MMM/yyyy hh:mm")}</p>
+          <p class="lead mt-3"> <b>Cliente</b></p>
+          <p> ${model.consultas.getClienteOrigen().getNombre()}
+          	  ${model.consultas.getClienteOrigen().getApellidos()}</p>
+          <p class="lead mt-3"> <b>Descripción</b></p>
           <p> ${model.consultas.getDescripcion()} </p>
         </div>
         <div class="col-md-7 p-4">
@@ -58,7 +43,10 @@
             <div class="form-group"> <textarea name="respuesta" maxlength="1000" rows="3" cols="50" placeholder="Tu respuesta a la consulta" required= "required" style="margin-top: 0px; margin-bottom: 0px; height: 141px;" ></textarea> </div> 
             
           <button type="submit" class="btn btn-primary">
-								Send<br>
+								Enviar<br>
+							</button>
+		  <button type="reset" onclick="location.href='hello.htm'" class="btn btn-primary">
+								Cancelar<br>
 							</button>
           </form>
         </div>
