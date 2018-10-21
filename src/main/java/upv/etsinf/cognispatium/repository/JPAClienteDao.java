@@ -35,4 +35,13 @@ public class JPAClienteDao implements ClienteDao {
         em.merge(cliente);
     }
 
+	@Override
+	@Transactional(readOnly = true)
+	@SuppressWarnings("unchecked")
+	public Cliente getClienteById(Integer clienteId) {
+			return em.find(Cliente.class, clienteId);
+
+	}
+	
+
 }

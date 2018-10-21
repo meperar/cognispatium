@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import upv.etsinf.cognispatium.domain.Cliente;
+import upv.etsinf.cognispatium.domain.Servicio;
 import upv.etsinf.cognispatium.repository.ClienteDao;
 
 @Component
@@ -25,5 +26,9 @@ public class SimpleClienteManager implements ClienteManager {
        return clienteDao.getClienteList();        
     }
 
+    
+    public Cliente getClientebyId(Integer clienteId) {
+    	return  clienteDao.getClienteById(clienteId);
+	}
     
 }

@@ -19,4 +19,10 @@ public class InMemoryClienteDao implements ClienteDao {
     public void saveCliente(Cliente cliente) {
     }
 
+	@Override
+	public Cliente getClienteById(Integer clienteId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

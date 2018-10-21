@@ -44,7 +44,7 @@ public class Consulta implements Serializable {
 	
 	
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	  @JoinColumn(name="cliente")
 	  private Cliente creadoConsulta;
 	
@@ -52,7 +52,7 @@ public class Consulta implements Serializable {
 	private List<Respuesta> respuestas;
 
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="servicio")
 	private Servicio servicioOrigen;
 	

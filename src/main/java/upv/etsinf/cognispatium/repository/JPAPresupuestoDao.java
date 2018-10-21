@@ -23,7 +23,7 @@ public class JPAPresupuestoDao implements PresupuestoDao {
 	@Transactional(readOnly = true)
 	@SuppressWarnings("unchecked")
 	public List<Presupuesto> getPresupuestoList() {
-		return em.createQuery("select p from Presupuesto order by p.id").getResultList();
+		return em.createQuery("select p from Presupuesto p order by p.id").getResultList();
 	}
 
 	@Override

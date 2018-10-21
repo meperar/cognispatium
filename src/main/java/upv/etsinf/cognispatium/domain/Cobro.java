@@ -32,7 +32,7 @@ public class Cobro implements Serializable {
 	private String descripcion;
 	
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="profesional")
 	private Profesional profesionalOrigen;
 	

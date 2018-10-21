@@ -37,7 +37,7 @@ public class Solicitud implements Serializable {
 	private String titulo;
 	
 	
-	@OneToOne(fetch=FetchType.LAZY)
+	@OneToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="cobro")
 	private Cobro cobroOrigen;
 	
@@ -46,7 +46,7 @@ public class Solicitud implements Serializable {
 	private Cliente clienteOrigen;
 	
 	
-	@OneToOne(fetch=FetchType.LAZY)
+	@OneToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="pago")
 	private Pago pagoOrigen ;
 	

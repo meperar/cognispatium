@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import upv.etsinf.cognispatium.domain.Pago;
+import upv.etsinf.cognispatium.domain.Pago;
+import upv.etsinf.cognispatium.domain.Servicio;
+import upv.etsinf.cognispatium.domain.Usuario;
 import upv.etsinf.cognispatium.repository.PagoDao;
 
 @Component
@@ -17,16 +20,26 @@ public class SimplePagoManager implements PagoManager{
 	@Autowired
 	private PagoDao pagoDao;
 	
-	@Override
+	
 	public List<Pago> getPagos() {
 		
 		return pagoDao.getPagoList();
 	}
 
-	@Override
+	
 	public void addPago(Pago pago) {
 		
 		pagoDao.savePago(pago);
 	}
+	
+	 public Pago getPagobyId(Integer pagoId) {
+	    	return  pagoDao.getPagoById(pagoId);
+		}
+	
+
+	
+	
+	
+	
 
 }

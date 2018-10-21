@@ -3,6 +3,8 @@ package upv.etsinf.cognispatium.domain;
 import java.io.Serializable;
 
 import java.util.Date;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -32,9 +34,13 @@ public class Pago implements Serializable {
 	private String descripcion;
 	private Integer precio;
 
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="cliente")
 	private Cliente clienteOrigen;
+	
+	@ManyToOne(fetch=FetchType.EAGER, cascade = {CascadeType.ALL})
+	@JoinColumn(name="tarjeta")
+	private Tarjeta tarjetaOrigen;
 	
 	
 	public Integer getId() {
@@ -78,6 +84,18 @@ public class Pago implements Serializable {
 
 	public void setClienteOrigen(Cliente clienteOrigen) {
 		this.clienteOrigen = clienteOrigen;
+	}
+
+
+
+	public Tarjeta getTarjetaOrigen() {
+		return tarjetaOrigen;
+	}
+
+
+
+	public void setTarjetaOrigen(Tarjeta tarjetaOrigen) {
+		this.tarjetaOrigen = tarjetaOrigen;
 	}
 
 

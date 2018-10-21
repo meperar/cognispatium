@@ -23,7 +23,7 @@ public class JPACobroDao implements CobroDao {
 	@Transactional(readOnly = true)
 	@SuppressWarnings("unchecked")
 	public List<Cobro> getCobroList() {
-		return em.createQuery("select c from Cobro order by c.id").getResultList();
+		return em.createQuery("select c from Cobro c order by c.id").getResultList();
 	}
 
 	@Override

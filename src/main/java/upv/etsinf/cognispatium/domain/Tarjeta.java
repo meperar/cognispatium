@@ -3,6 +3,9 @@ package upv.etsinf.cognispatium.domain;
 import java.io.Serializable;
 
 import java.util.Date;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,6 +16,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.joda.time.DateTime;
@@ -31,18 +35,19 @@ public class Tarjeta implements Serializable {
 	
 	
 	@Column
-	private Integer numero;
+	private Long numero;
 	private Date fechaCaducidad;
 	private String titular;
 	private Integer codigoSeguridad;
 	
 	
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="cliente")
 	private Cliente clienteOrigen;
 
-
+	@OneToMany(mappedBy = "tarjetaOrigen", cascade = {CascadeType.ALL})
+	private List<Pago> pagos ;
 
 	public Integer getId() {
 		return id;
@@ -56,13 +61,13 @@ public class Tarjeta implements Serializable {
 
 
 
-	public Integer getNumero() {
+	public Long getNumero() {
 		return numero;
 	}
 
 
 
-	public void setNumero(Integer numero) {
+	public void setNumero(Long numero) {
 		this.numero = numero;
 	}
 
@@ -112,6 +117,18 @@ public class Tarjeta implements Serializable {
 
 	public void setClienteOrigen(Cliente clienteOrigen) {
 		this.clienteOrigen = clienteOrigen;
+	}
+
+
+
+	public List<Pago> getPagos() {
+		return pagos;
+	}
+
+
+
+	public void setPagos(List<Pago> pagos) {
+		this.pagos = pagos;
 	}
 	
 
