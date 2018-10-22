@@ -315,6 +315,8 @@
           <li class="nav-item" ><a class="nav-link" href="listadosolicitudes.htm">Solicitudes</a></li>
           <li class="nav-item" ><a class="nav-link" href="listadoconsultas.htm">Consultas</a></li>
 		  <li class="nav-item" ><a class="nav-link" href="bandejamensajes.htm">Bandeja de Mensajes</a></li>
+		   <li class="nav-item" ><a class="nav-link" href="misSolicitudes.htm">Mis Solicitudes</a></li>
+		  
         </ul>
       </div>
     </div>
