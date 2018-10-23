@@ -23,17 +23,17 @@
       <div class="row">
         <div class="col-md-5 p-4">
           <h3>Datos de la consulta</h3>
-          <p class="lead mt-3"> <b>Titulo</b></p>
-          <p> ${model.consultas.getTitulo()} </p>
+          <p class="lead mt-3"> <b>Título</b></p>
+          <p> ${model.consultas.titulo} </p>
           <p class="lead mt-3"> <b>Tema</b></p>
-          <p> ${model.consultas.getServicioOrigen().nombre} </p>
+          <p> ${model.consultas.servicioOrigen.nombre} </p>
           <p class="lead mt-3"> <b>Fecha límite</b></p>
-          <p> ${model.consultas.getFechaFinFormateada("dd/MMM/yyyy hh:mm")}</p>
+          <p> ${model.consultas.getFechaFinFormateada("dd/MMM/yyyy hh:mm")} </p>
           <p class="lead mt-3"> <b>Cliente</b></p>
-          <p> ${model.consultas.getClienteOrigen().getNombre()}
-          	  ${model.consultas.getClienteOrigen().getApellidos()}</p>
+          <p> ${model.consultas.clienteOrigen.nombre}
+          	  ${model.consultas.clienteOrigen.apellidos}</p>
           <p class="lead mt-3"> <b>Descripción</b></p>
-          <p> ${model.consultas.getDescripcion()} </p>
+          <p> ${model.consultas.descripcion} </p>
         </div>
         <div class="col-md-7 p-4">
           <h3 class="mb-3">Respuesta</h3>
