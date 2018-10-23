@@ -27,9 +27,15 @@
 						<div class="form-group">
 							<label for="form16">Servicio</label> <br>
 							 <select name='servicio' >
-							 <c:forEach items = "${servicios.servicios}" var = "servicio" >
-							 	<option value="${servicio.id}" label ="${servicio.nombre}" ></option>
-							 </c:forEach>
+							<option disabled selected value>--</option>
+								<c:forEach items="${servicios.ambitos}" var="ambito">
+									<optgroup label="${ambito}">
+										<c:forEach items="${servicios.serviciosxambitos.get(ambito)}"
+											var="servicio">
+											<option value="${servicio.id}" label="${servicio.nombre}"></option>
+										</c:forEach>
+									</optgroup>
+								</c:forEach>
 							 </select>
 						</div>
 						<div class="form-group">
