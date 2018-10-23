@@ -17,6 +17,8 @@ import javax.persistence.PrimaryKeyJoinColumn;
 
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.joda.ser.DateTimeSerializer;
@@ -69,5 +71,9 @@ public class ConsultaUrgente extends Consulta implements Serializable {
 		this.pago = pago;
 	}
 	
-	
+	public String getFechaFinFormateada(String format) {
+		DateTime dt = new DateTime();
+		DateTimeFormatter fmt = DateTimeFormat.forPattern(format);
+		return fmt.print(dt);
+	}
 }
