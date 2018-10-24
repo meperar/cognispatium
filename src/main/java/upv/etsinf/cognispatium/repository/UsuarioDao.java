@@ -9,5 +9,7 @@ public interface UsuarioDao {
     public List<Usuario> getUsuarioList();
 
     public void saveUsuario(Usuario usuario);
+    
+    public Usuario getUsuariobyId(Integer usuarioId);
 
 }

@@ -28,6 +28,7 @@ import upv.etsinf.cognispatium.domain.Consulta;
 import upv.etsinf.cognispatium.domain.Mensaje;
 import upv.etsinf.cognispatium.domain.Profesional;
 import upv.etsinf.cognispatium.domain.Servicio;
+import upv.etsinf.cognispatium.domain.Usuario;
 import upv.etsinf.cognispatium.service.AdminManager;
 
 import upv.etsinf.cognispatium.service.ProfesionalManager;
@@ -99,6 +100,8 @@ public class WebServiceController {
 
 		
 		ModelAndView mav = new ModelAndView("hello", "med", med);
+		
+		
 		mav.addObject("dep", dep);
 		mav.addObject("cien", cien);
 		mav.addObject("tec", tec);
@@ -113,6 +116,69 @@ public class WebServiceController {
 		
 	}
 	
+	@RequestMapping(value = "/helloLogged.htm")
+	public ModelAndView logearUsuario(@RequestParam Map<String, String> reqPar) throws Exception{
+		
+
+		String now = (new Date()).toString();
+		logger.info("Returning hello view with " + now);
+
+		Map<String, Object> med = new HashMap<String, Object>();
+		med.put("serviMed", this.servicioManager.getServiciosbyAmbito("Medicina"));
+		
+		Map<String, Object> dep = new HashMap<String, Object>();
+		dep.put("serviDep", this.servicioManager.getServiciosbyAmbito("Deporte"));
+		
+		Map<String, Object> cien = new HashMap<String, Object>();
+		cien.put("serviCien", this.servicioManager.getServiciosbyAmbito("Ciencia"));
+		
+		Map<String, Object> tec = new HashMap<String, Object>();
+		tec.put("serviTec", this.servicioManager.getServiciosbyAmbito("Técnicos"));
+		
+		Map<String, Object> leg = new HashMap<String, Object>();
+		leg.put("serviLeg", this.servicioManager.getServiciosbyAmbito("Legislación"));
+		
+		Map<String, Object> artm = new HashMap<String, Object>();
+		artm.put("serviArtM", this.servicioManager.getServiciosbyAmbito("Artes Marciales"));
+		
+		Map<String, Object> cuiho = new HashMap<String, Object>();
+		cuiho.put("serviCuiHo", this.servicioManager.getServiciosbyAmbito("Cuidados del Hogar"));
+		
+		Map<String, Object> art = new HashMap<String, Object>();
+		art.put("serviArt", this.servicioManager.getServiciosbyAmbito("Arte"));
+		
+		Map<String, Object> idio = new HashMap<String, Object>();
+		idio.put("serviIdio", this.servicioManager.getServiciosbyAmbito("Idiomas"));
+		
+		Map<String, Object> est = new HashMap<String, Object>();
+		est.put("serviEst", this.servicioManager.getServiciosbyAmbito("Estética"));
+
+		
+		ModelAndView mav = new ModelAndView("hello", "med", med);
+		
+		
+		mav.addObject("dep", dep);
+		mav.addObject("cien", cien);
+		mav.addObject("tec", tec);
+		mav.addObject("leg", leg);
+		mav.addObject("artm", artm);
+		mav.addObject("cuiho", cuiho);
+		mav.addObject("art", art);
+		mav.addObject("idio", idio);
+		mav.addObject("est", est);
+		
+		Map<String, Object> usuarioReg = new HashMap<String, Object>();
+		Usuario usuarioRegistrado = null;
+		if(reqPar.get("usuarioRegistrado") != null ) {
+			usuarioRegistrado = usuarioManager.getUsuariobyId(Integer.parseInt(reqPar.get("usuarioRegistrado")));
+			usuarioReg.put("usuarioRegistrado", usuarioRegistrado);
+			mav.addObject("usuarioRegistrado",usuarioReg);
+			
+		}
+		
+		return mav;
+		
+	}
 	@PostMapping("/hello.htm")
 	protected ModelAndView listarProf(@RequestParam Map<String, String> reqPar) throws Exception {
 
@@ -147,12 +213,12 @@ public class WebServiceController {
 			mav = new ModelAndView("listaconsultas", "model", myModel);
 			mav.addObject("servicio", servicio);
 			
-		}
-		
+		} 
 		
 
 		return mav;
 	}
+	
 	
 
 	public void setUsuarioManager(UsuarioManager usuarioManager) {

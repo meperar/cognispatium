@@ -35,6 +35,12 @@ public class SimpleUsuarioManager implements UsuarioManager {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public Usuario getUsuariobyId(Integer usuarioId) {
+		
+		return usuarioDao.getUsuariobyId(usuarioId);
+		
+	}
 
 	
 	
