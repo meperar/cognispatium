@@ -33,4 +33,9 @@ public class JPAPresupuestoDao implements PresupuestoDao {
 
 	}
 
+	@Override
+	public Presupuesto getPresupuestoById(Integer presupuestoId) {
+		return em.find(Presupuesto.class,presupuestoId);
+	}
+
 }

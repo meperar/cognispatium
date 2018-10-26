@@ -10,4 +10,6 @@ public interface PresupuestoDao {
 
     public void savePresupuesto(Presupuesto presupuesto);
 
+	public Presupuesto getPresupuestoById(Integer presupuestoId);
+
 }

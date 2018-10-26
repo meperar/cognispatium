@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,6 +20,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 @Table(name="solicitud")
@@ -36,6 +41,10 @@ public class Solicitud implements Serializable {
 	private String descripcion;
 	private String titulo;
 	
+	@Column(name = "estado", nullable = false, length = 20)
+	@Enumerated(value = EnumType.STRING)
+	private EstadoSolicitud estado;
+	
 	
 	@OneToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="cobro")
@@ -48,7 +57,7 @@ public class Solicitud implements Serializable {
 	
 	@OneToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="pago")
-	private Pago pagoOrigen ;
+	private Pago pago ;
 	
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="servicio")
@@ -56,6 +65,7 @@ public class Solicitud implements Serializable {
 	
 	
 	@OneToMany(mappedBy = "solicitudOrigen")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Presupuesto> presupuestos;
 
 	
@@ -110,12 +120,12 @@ public class Solicitud implements Serializable {
 		this.clienteOrigen = clienteOrigen;
 	}
 
-	public Pago getPagoOrigen() {
-		return pagoOrigen;
+	public Pago getPago() {
+		return pago;
 	}
 
-	public void setPagoOrigen(Pago pagoOrigen) {
-		this.pagoOrigen = pagoOrigen;
+	public void setPago(Pago pago) {
+		this.pago = pago;
 	}
 
 	public Servicio getServicioOrigen() {
@@ -125,6 +135,18 @@ public class Solicitud implements Serializable {
 	public void setServicioOrigen(Servicio servicioOrigen) {
 		this.servicioOrigen = servicioOrigen;
 	}
+
+	public EstadoSolicitud getEstado() {
+		return estado;
+	}
+
+	public void setEstado(EstadoSolicitud estado) {
+		this.estado = estado;
+	}
+
+
+	
+	
 	
 }
 	

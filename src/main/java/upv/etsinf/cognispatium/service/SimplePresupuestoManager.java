@@ -30,5 +30,10 @@ public class SimplePresupuestoManager implements Serializable {
 		
     	presupuestoDao.savePresupuesto(presupuesto);
 	}
+
+	public Presupuesto getPresupuestobyId(Integer presupuestoId) {
+		
+		return  presupuestoDao.getPresupuestoById(presupuestoId);
+	}
     
 }

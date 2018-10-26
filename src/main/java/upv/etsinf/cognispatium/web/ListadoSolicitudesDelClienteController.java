@@ -74,33 +74,61 @@ public class ListadoSolicitudesDelClienteController {
 			throws ServletException, IOException {
 
 		ModelAndView mav = new ModelAndView("misSolicitudes");
-		Map<String, Object> servicios = new HashMap<String, Object>();
-		List<Servicio> listaServicios = servicioManager.getServicios();
-		servicios.put("servicios", listaServicios);
-		mav.addObject("servicios", servicios);
-
-		Map<String, Object> solicitudes = new HashMap<String, Object>();
-		List<Solicitud> listaSolicitudes = servicioSolicitudManager.getSolicituds();
-		solicitudes.put("solicitudes", listaSolicitudes);
-		mav.addObject("solicitudes", solicitudes);
+		Map<String, Object> myModel = new HashMap<String, Object>();
+		
+		Cliente clienteSimulado = simpleClienteManager.getClientes().get(0);
+		
+		List<Solicitud> listaSolicitudes = clienteSimulado.getSolicitudes();
+		myModel.put("solicitudes", listaSolicitudes);
+		
+		mav.addObject("model", myModel);
+		
 
 		return mav;
 
 	}
 	
+	
 	@PostMapping("/misSolicitudes.htm")
-	protected ModelAndView crearPresupueusto(@RequestParam Map<String, String> reqPar) throws Exception {
+	protected ModelAndView verSolicitud(@RequestParam Map<String, String> reqPar) throws Exception {
+		
+		
 
 		Map<String, Object> myModel = new HashMap<String, Object>();
 		
 		Solicitud miSolicitud = servicioSolicitudManager.getSolicitudbyId(Integer.parseInt(reqPar.get("solicitudId")));
 		
-		ModelAndView mav = new ModelAndView("crearpresupuestoaSolicitud", "model", myModel);
-		
+		List<Presupuesto> presupuestos = miSolicitud.getPresupuestos();
 		
 		myModel.put("solicitud", miSolicitud);
+		myModel.put("presupuestos", presupuestos);
+
+		ModelAndView mav = new ModelAndView("diferentesPresupuestos", "model", myModel);
+		
+		
 
 		return mav;
 	}
+	
+	
+	
+	@PostMapping("/validarPresupuesto.htm")
+	protected ModelAndView validaPresupuesto(@RequestParam Map<String, String> reqPar) throws Exception {
+		
+		
+
+		Map<String, Object> myModel = new HashMap<String, Object>();
+		
+		Presupuesto presupuesto = simplePresupuestoManager.getPresupuestobyId(Integer.parseInt(reqPar.get("presupuestoId")));
+		
+		myModel.put("presupuesto", presupuesto);
+
+		ModelAndView mav = new ModelAndView("presupuesto", "model", myModel);
+		
+
+		return mav;
+	}
+	
+
 	
 }

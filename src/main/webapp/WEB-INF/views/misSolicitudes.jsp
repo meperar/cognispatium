@@ -15,15 +15,17 @@
 
 <body>
 	<jsp:include page="barrasuperior.jsp" flush="true" />
-	<nav class="navbar navbar-light border-dark" >
-    <div class="container d-flex justify-content-center"> <a class="navbar-brand text-primary" href="#">
-        <i class="fa d-inline fa-lg fa-circle-o text-dark"></i>
-        <b class="text-dark"> MIS SOLICITUDES</b>
-      </a> </div>
-  </nav>
-  <nav class="navbar navbar-dark bg-dark border-light" >
-      <div class="container"> </div>
-    </nav>
+	<nav class="navbar navbar-light border-dark">
+		<div class="container d-flex justify-content-center">
+			<a class="navbar-brand text-primary" href="#"> <i
+				class="fa d-inline fa-lg fa-circle-o text-dark"></i> <b
+				class="text-dark"> MIS SOLICITUDES</b>
+			</a>
+		</div>
+	</nav>
+	<nav class="navbar navbar-dark bg-dark border-light">
+		<div class="container"></div>
+	</nav>
 	<div class="row">
 		<div class="col-md-12">
 			<div class="form-group"></div>
@@ -36,64 +38,24 @@
 						<th>Accion</th>
 					</tr>
 				</thead>
+
 				<tbody>
-					<tr>
-						<td style="max-width: 500px; word-wrap: break-word;"><label>Label</label></td>
-						<td style="max-width: 500px; word-wrap: break-word;"><label>Label</label></td>
-						<td style="max-width: 500px; word-wrap: break-word;"><label>Label</label></td>
-						<td><button class="bg-primary">
-								<img src="https://image.flaticon.com/icons/svg/1/1176.svg"
-									alt="Information button free icon"
-									title="Information button free icon" height="20" width="20">
+					<c:forEach items="${model.solicitudes}" var="solicitud">
+						<form action="#" method="post" class="text-left">
+							<tr>
+								<td style="max-width: 500px; word-wrap: break-word;"><input
+									type="hidden" id="solicitudId" name="solicitudId"
+									value="${solicitud.id}"> ${solicitud.titulo}</td>
+								<td style="max-width: 500px; word-wrap: break-word;">${solicitud.descripcion}</td>
+								<td>${solicitud.estado}</td>
+								<td><button class="bg-primary">
+										<img src="https://image.flaticon.com/icons/svg/1/1176.svg"
+											alt="Information button free icon"
+											title="Ver datos de mi solicitud" height="20" width="20">
 									</button></td>
-					</tr>
-				</tbody>
-				<tbody>
-					<tr>
-						<td style="max-width: 500px; word-wrap: break-word;"><label>Label</label></td>
-						<td style="max-width: 500px; word-wrap: break-word;"><label>Label</label></td>
-						<td style="max-width: 500px; word-wrap: break-word;"><label>Label</label></td>
-						<td><button class="bg-primary">
-								<img src="https://image.flaticon.com/icons/svg/1/1176.svg"
-									alt="Information button free icon"
-									title="Information button free icon" height="20" width="20">
-							</button></td>
-					</tr>
-				</tbody>
-				<tbody>
-					<tr>
-						<td style="max-width: 500px; word-wrap: break-word;"><label>Label</label></td>
-						<td style="max-width: 500px; word-wrap: break-word;"><label>Label</label></td>
-						<td style="max-width: 500px; word-wrap: break-word;"><label>Label</label></td>
-						<td><button class="bg-primary">
-								<img src="https://image.flaticon.com/icons/svg/1/1176.svg"
-									alt="Information button free icon"
-									title="Information button free icon" height="20" width="20">
-							</button></td>
-					</tr>
-				</tbody>
-				<tbody>
-					<tr>
-						<td style="max-width: 500px; word-wrap: break-word;"><label>Label</label></td>
-						<td style="max-width: 500px; word-wrap: break-word;"><label>Label</label></td>
-						<td style="max-width: 500px; word-wrap: break-word;"><label>Label</label></td>
-						<td><button class="bg-primary"><img src="https://image.flaticon.com/icons/svg/1/1176.svg"
-									alt="Information button free icon"
-									title="Information button free icon" height="20" width="20"><i class="fas fa-plus-square"></i>
-							</button></td>
-					</tr>
-				</tbody>
-				<tbody>
-					<tr>
-						<td style="max-width: 500px; word-wrap: break-word;"><label>Label</label></td>
-						<td style="max-width: 500px; word-wrap: break-word;"><label>Label</label></td>
-						<td style="max-width: 500px; word-wrap: break-word;"><label>Label</label></td>
-						<td><button class="bg-primary">
-								<img src="https://image.flaticon.com/icons/svg/1/1176.svg"
-									alt="Information button free icon"
-									title="Information button free icon" height="20" width="20">
-								</button></td>
-					</tr>
+							</tr>
+						</form>
+					</c:forEach>
 				</tbody>
 			</table>
 		</div>
