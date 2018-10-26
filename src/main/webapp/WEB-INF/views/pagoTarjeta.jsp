@@ -46,7 +46,6 @@
               <div class="col-md-4" style="">
                 <div class="btn-group">
                   <select name="mes" required ="required">
-                    <option disabled selected value> -- </option>
                     <option value="01">Enero</option>
                     <option value="02">Febrero</option>
                     <option value="03">Marzo</option>
@@ -66,8 +65,6 @@
               <div class="col-md-3" style="">
                 <div class="btn-group">
                   <select name="anyo"  required ="required">
-                    <option disabled selected value> -- </option>
-                    <option value="2018">2018</option>
                     <option value="2019">2019</option>
                     <option value="2018">2020</option>
                     <option value="2019">2021</option>

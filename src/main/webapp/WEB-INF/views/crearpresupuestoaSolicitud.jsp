@@ -34,7 +34,7 @@
         </div>
         <div class="col-md-7 p-4">
           <h3 class="mb-3">Presupuesto</h3>
-          <form action="<c:url value="/crearpresupuestoaSolicitud.htm" />" method="get" >
+          <form action="<c:url value="/crearpresupuestoaSolicitud.htm" />" method="post" >
           <input type="hidden" id="solicitudId" name="solicitudId" value="${model.solicitud.id}">
             <div class="form-row">
               <div class="form-group col-md-12"> <input type="number" class="form-control" id="form36" placeholder="Precio total estimado (€)" required="required" name="precio"> </div>

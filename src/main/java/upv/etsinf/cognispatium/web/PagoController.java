@@ -18,13 +18,16 @@ import upv.etsinf.cognispatium.domain.Solicitud;
 import upv.etsinf.cognispatium.domain.Tarjeta;
 import upv.etsinf.cognispatium.domain.EstadoConsulta;
 import upv.etsinf.cognispatium.domain.Pago;
+import upv.etsinf.cognispatium.domain.Presupuesto;
 import upv.etsinf.cognispatium.domain.Servicio;
 import upv.etsinf.cognispatium.service.SimpleServicioManager;
 import upv.etsinf.cognispatium.service.SimpleSolicitudManager;
 import upv.etsinf.cognispatium.service.SimpleTarjetaManager;
+import upv.etsinf.cognispatium.service.PDFgenerator;
 import upv.etsinf.cognispatium.service.SimpleClienteManager;
 import upv.etsinf.cognispatium.service.SimpleConsultaUrgenteManager;
 import upv.etsinf.cognispatium.service.SimplePagoManager;
+import upv.etsinf.cognispatium.service.SimplePresupuestoManager;
 
 import java.io.Console;
 import java.io.IOException;
@@ -45,8 +48,7 @@ import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
 
 import java.io.*;
-import com.lowagie.text.DocumentException;
-import org.xhtmlrenderer.pdf.ITextRenderer;
+
 
 @Controller
 public class PagoController {
@@ -69,6 +71,10 @@ public class PagoController {
 	@Autowired
 	private SimpleConsultaUrgenteManager servicioCUManager;
 	
+	@Autowired
+	private SimplePresupuestoManager simplePresupuestoManager;
+	
+	
 	
 	Map<String, Object> myModel;
 
@@ -77,8 +83,7 @@ public class PagoController {
 
 	@RequestMapping(value = "/pagoTarjeta.htm")
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response,
-			@RequestParam Map<String, String> reqPar) throws ServletException, IOException {
-
+			@RequestParam Map<String, String> reqPar) throws ServletException, IOException {	
 		String titulo = reqPar.get("titulo");
 		String descripcion = reqPar.get("descripcion");
 		Integer ServiceId = Integer.parseInt(reqPar.get("servicio"));
@@ -120,7 +125,11 @@ public class PagoController {
 		pago.setTarjetaOrigen(tarjeta);
 		consultaUrgente.setPago(pago);
 		servicioCUManager.addConsultaUrgente(consultaUrgente);
-
+	
+		try {
+			new PDFgenerator("\\CreoPDF.pdf");
+			}
+			catch(Exception e) {System.out.println("No se ha creado el pdf");}
 		Map<String, Object> myModel = new HashMap<String, Object>();
 
 		ModelAndView mav = new ModelAndView("factura", "model", myModel);
@@ -147,5 +156,46 @@ public class PagoController {
 		tarjeta.setTitular(titular);
 		return tarjeta;
 	}
+	
+	
+	@GetMapping(value = "/pagoTarjetaSolicitud.htm")
+	public ModelAndView handleRequestSolicitud(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam Map<String, String> reqPar) throws ServletException, IOException {
+
+		Presupuesto presupuesto = simplePresupuestoManager.getPresupuestobyId(Integer.parseInt(reqPar.get("presupuestoId")));
+
+		Map<String, Object> myModel = new HashMap<String, Object>();
+		myModel.put("presupuesto", presupuesto);
+		this.myModel = myModel;
+		ModelAndView mav = new ModelAndView("pagoTarjeta", "model", myModel);
+
+		return mav;
+	}
+
+	@PostMapping("/pagoTarjetaSolicitud.htm")
+	protected ModelAndView onSubmitSolicitud(@RequestParam Map<String, String> reqPar, ModelAndView modelAndView)
+			throws Exception {
+		@SuppressWarnings("unchecked")
+		Presupuesto presupuesto =(Presupuesto)this.myModel.get("presupuesto");
+		Cliente cliente = presupuesto.getSolicitudOrigen().getClienteOrigen();	
+		Tarjeta tarjeta = addTarjeta(reqPar,cliente);
+		Pago pago = new Pago();	
+		pago.setClienteOrigen(cliente);
+		pago.setDescripcion(presupuesto.getDescripcion());
+		pago.setPrecio(presupuesto.getPrecio());
+		pago.setTarjetaOrigen(tarjeta);
+		presupuesto.getSolicitudOrigen().setPago(pago);
+		
+		simplePresupuestoManager.addPresupuesto(presupuesto);
+		
+		Map<String, Object> myModel = new HashMap<String, Object>();
+
+		ModelAndView mav = new ModelAndView("factura", "model", myModel);
+
+		myModel.put("pago", pago);
+		return mav;
+	}
+
+
 
 }

@@ -11,6 +11,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 @Entity
 @PrimaryKeyJoinColumn(name="id")
 public class Cliente extends Usuario implements Serializable {
@@ -25,6 +28,7 @@ public class Cliente extends Usuario implements Serializable {
 	private List<Consulta> consultas;
 
 	@OneToMany(mappedBy ="clienteOrigen")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Solicitud> solicitudes;
 	
 	@OneToMany(mappedBy ="clienteOrigen")
