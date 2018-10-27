@@ -84,7 +84,7 @@
 								name="dninif" class="form-control" id="dninif"
 								placeholder="Introduzca su DNI/NIF" 
 								pattern="(([X-Z]{1})([-]?)(\d{7})([-]?)([A-Z]{1}))|((\d{8})([-]?)([A-Z]{1}))"
-								title = "12345678A, o X-12345678-B si tiene NIE"
+								title = "12345678A, o X-1234567-B si tiene NIE"
 								maxlength="13"
 								required />
 						</div>		

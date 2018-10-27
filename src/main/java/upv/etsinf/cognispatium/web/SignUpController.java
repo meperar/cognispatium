@@ -21,8 +21,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import upv.etsinf.cognispatium.domain.Cliente;
+import upv.etsinf.cognispatium.domain.Profesional;
 import upv.etsinf.cognispatium.domain.Registro;
 import upv.etsinf.cognispatium.domain.Usuario;
+import upv.etsinf.cognispatium.service.SimpleClienteManager;
+import upv.etsinf.cognispatium.service.SimpleProfesionalManager;
 import upv.etsinf.cognispatium.service.SimpleRegistroManager;
 import upv.etsinf.cognispatium.service.SimpleUsuarioManager;
 
@@ -31,10 +35,9 @@ import upv.etsinf.cognispatium.service.SimpleUsuarioManager;
 @Controller
 public class SignUpController {
 	
-	
+	private Cliente nuevoCliente;
+	private Profesional nuevoProf;
 	private Usuario nuevoUsuario;
-	
-	
 	private Registro nuevoRegistro;
 	
 	@Autowired
@@ -42,6 +45,12 @@ public class SignUpController {
 	
 	@Autowired
 	private SimpleRegistroManager regMng;
+	
+	@Autowired
+	private SimpleClienteManager cliMng;
+	
+	@Autowired
+	private SimpleProfesionalManager profMng;
 
 	protected final Log logger = LogFactory.getLog(getClass());
 
@@ -61,25 +70,37 @@ public class SignUpController {
 	
 	@PostMapping("/usersignup.htm")
 	protected ModelAndView Registrarse(@RequestParam Map<String, String> reqPar) throws Exception {
-		nuevoUsuario = new Usuario();
-		
-		nuevoUsuario.setNombre(reqPar.get("nombre"));
-		nuevoUsuario.setEmail(reqPar.get("email"));
-		nuevoUsuario.setApellidos(reqPar.get("apellido"));
-		nuevoUsuario.setDni(reqPar.get("dninif"));
-		nuevoUsuario.setTelefono(Integer.parseInt(reqPar.get("tlf")));
-		nuevoUsuario.setDTYPE(reqPar.get("rol"));
-		
+		nuevoCliente = new Cliente();
+		nuevoProf = new Profesional();
 		nuevoRegistro = new Registro();
+		
+		String cli = "cliente";
+		String prof = "profesional";
+		
+		if(reqPar.get("rol").equals(cli)) {
+			nuevoCliente.setNombre(reqPar.get("nombre"));
+			nuevoCliente.setEmail(reqPar.get("email"));
+			nuevoCliente.setApellidos(reqPar.get("apellido"));
+			nuevoCliente.setDni(reqPar.get("dninif"));
+			nuevoCliente.setTelefono(Integer.parseInt(reqPar.get("tlf")));
+			nuevoCliente.setDTYPE(reqPar.get("rol"));
+			
+			nuevoRegistro.setUsuario(nuevoCliente);
+		} else if (reqPar.get("rol").equals(prof)) {
+			nuevoProf.setNombre(reqPar.get("nombre"));
+			nuevoProf.setEmail(reqPar.get("email"));
+			nuevoProf.setApellidos(reqPar.get("apellido"));
+			nuevoProf.setDni(reqPar.get("dninif"));
+			nuevoProf.setTelefono(Integer.parseInt(reqPar.get("tlf")));
+			nuevoProf.setDTYPE(reqPar.get("rol"));
+			
+			nuevoRegistro.setUsuario(nuevoProf);
+		}
 		
 		nuevoRegistro.setContraseña(reqPar.get("password"));
 		nuevoRegistro.setUsername(reqPar.get("username"));
-		nuevoRegistro.setUsuario(nuevoUsuario);
-		
-		
 		
 		regMng.addRegistro(nuevoRegistro);
-		
 		
 		return new ModelAndView("hello");
 	}
