@@ -15,28 +15,33 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import upv.etsinf.cognispatium.service.UsuarioManager;
+import upv.etsinf.cognispatium.domain.Registro;
+import upv.etsinf.cognispatium.domain.Usuario;
+import upv.etsinf.cognispatium.service.SimpleRegistroManager;
+import upv.etsinf.cognispatium.service.SimpleUsuarioManager;
 
-import upv.etsinf.cognispatium.service.ClienteManager;
-import upv.etsinf.cognispatium.domain.Consulta;
-import upv.etsinf.cognispatium.domain.Mensaje;
-import upv.etsinf.cognispatium.domain.Profesional;
-import upv.etsinf.cognispatium.domain.Servicio;
-import upv.etsinf.cognispatium.service.AdminManager;
-
-import upv.etsinf.cognispatium.service.ProfesionalManager;
-import upv.etsinf.cognispatium.service.SimpleConsultaManager;
-import upv.etsinf.cognispatium.service.SimpleServicioManager;
 
 
 @Controller
 public class SignUpController {
+	
+	
+	private Usuario nuevoUsuario;
+	
+	
+	private Registro nuevoRegistro;
+	
+	@Autowired
+	private SimpleUsuarioManager usrMng;
+	
+	@Autowired
+	private SimpleRegistroManager regMng;
 
 	protected final Log logger = LogFactory.getLog(getClass());
 
@@ -52,6 +57,31 @@ public class SignUpController {
 		ModelAndView mav = new ModelAndView("usersignup", "myString", myMap);
 		
 		return mav;
+	}
+	
+	@PostMapping("/usersignup.htm")
+	protected ModelAndView Registrarse(@RequestParam Map<String, String> reqPar) throws Exception {
+		nuevoUsuario = new Usuario();
+		
+		nuevoUsuario.setNombre(reqPar.get("nombre"));
+		nuevoUsuario.setEmail(reqPar.get("email"));
+		nuevoUsuario.setApellidos(reqPar.get("apellido"));
+		nuevoUsuario.setDni(reqPar.get("dninif"));
+		nuevoUsuario.setTelefono(Integer.parseInt(reqPar.get("tlf")));
+		nuevoUsuario.setDTYPE(reqPar.get("rol"));
+		
+		nuevoRegistro = new Registro();
+		
+		nuevoRegistro.setContraseña(reqPar.get("password"));
+		nuevoRegistro.setUsername(reqPar.get("username"));
+		nuevoRegistro.setUsuario(nuevoUsuario);
+		
+		
+		
+		regMng.addRegistro(nuevoRegistro);
+		
+		
+		return new ModelAndView("hello");
 	}
 	
 	

@@ -29,7 +29,7 @@
 		<div class="container">		
 		 <div class="col-md-6">
           <h2 style="text-align: center;">Introduzca sus datos</h2>
-          <form>
+          <form action="#" method="post" class="text-center">
            <div class="form-group">
 							<label for="form16">Nombre de usuario</label> <input type="text"
 								name="username" class="form-control" id="UN"
@@ -72,9 +72,11 @@
 			<div class="form-group">
 							<label for="form16">Teléfono</label> <input type="text"
 								name="tlf" class="form-control" id="tlf"
-								placeholder="Introduzca su número de teléfono móvil"
-								 maxlength="9"
-								 required  />
+								placeholder="Introduzca su número de teléfono móvil/fijo)"
+								pattern = "[69][0-9]{8}"
+								title = "número de teléfono móvil o fijo de 9 cifras"
+								maxlength="9"
+								required  />
 						</div>
 						
 			<div class="form-group">
@@ -82,26 +84,27 @@
 								name="dninif" class="form-control" id="dninif"
 								placeholder="Introduzca su DNI/NIF" 
 								pattern="(([X-Z]{1})([-]?)(\d{7})([-]?)([A-Z]{1}))|((\d{8})([-]?)([A-Z]{1}))"
-								 maxlength="9"
-								 required />
+								title = "12345678A, o X-12345678-B si tiene NIE"
+								maxlength="13"
+								required />
 						</div>		
-			</form>	
-						
-			<input type="radio" name="rol" value="Cliente" checked>   Cuenta Cliente &nbsp; &nbsp;  
-			<input type="radio" name="rol" value="Profesional">   Cuenta Profesional<br> 	
+			
+			<input type="radio" name="rol" value="cliente" checked>   Cuenta Cliente &nbsp; &nbsp;  
+			<input type="radio" name="rol" value="profesional">   Cuenta Profesional<br> 
 			
 			<div class="row">
-			<div class="col-md-6"> 
-			<form action="hello.htm">
-			<button type="submit" class="btn btn-primary m-2">Cancelar</button>	
-			</form>
-		    </div>
-            <div class="col-md-6">
-            <button type="submit" class="btn btn-primary m-2">Registrarse</button>
-            </div>
+				<div class="col-md-6"> 
+					<a class="nav-link" href="hello.htm">Cancelar</a>
+		    	</div>
+		    	
+				<div class="col-md-6">
+           			<button type="submit" class="btn btn-primary m-2">Registrarse</button>
+            	</div>
+			</div>
+			</form>	
+           
             </div>
         </div>
       </div>
-    </div>
 </body>
 </html>

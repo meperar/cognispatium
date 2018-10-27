@@ -9,6 +9,7 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import upv.etsinf.cognispatium.domain.Mensaje;
 import upv.etsinf.cognispatium.domain.Usuario;
 
 @Repository(value = "UsuarioDao")
@@ -34,5 +35,13 @@ public class JPAUsuarioDao implements UsuarioDao {
     public void saveUsuario(Usuario usuario) {
         em.merge(usuario);
     }
+    
+    @Override
+	@Transactional(readOnly = true)
+	@SuppressWarnings("unchecked")
+	public Usuario getUsuariobyId(Integer usuarioId) {
+		return em.find(Usuario.class, usuarioId);
+	}
 
+    
 }

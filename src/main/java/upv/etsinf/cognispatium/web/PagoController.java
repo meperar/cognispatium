@@ -23,6 +23,7 @@ import upv.etsinf.cognispatium.domain.Servicio;
 import upv.etsinf.cognispatium.service.SimpleServicioManager;
 import upv.etsinf.cognispatium.service.SimpleSolicitudManager;
 import upv.etsinf.cognispatium.service.SimpleTarjetaManager;
+import upv.etsinf.cognispatium.service.PDFgenerator;
 import upv.etsinf.cognispatium.service.SimpleClienteManager;
 import upv.etsinf.cognispatium.service.SimpleConsultaUrgenteManager;
 import upv.etsinf.cognispatium.service.SimplePagoManager;
@@ -47,8 +48,7 @@ import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
 
 import java.io.*;
-import com.lowagie.text.DocumentException;
-import org.xhtmlrenderer.pdf.ITextRenderer;
+
 
 @Controller
 public class PagoController {
@@ -83,8 +83,7 @@ public class PagoController {
 
 	@RequestMapping(value = "/pagoTarjeta.htm")
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response,
-			@RequestParam Map<String, String> reqPar) throws ServletException, IOException {
-
+			@RequestParam Map<String, String> reqPar) throws ServletException, IOException {	
 		String titulo = reqPar.get("titulo");
 		String descripcion = reqPar.get("descripcion");
 		Integer ServiceId = Integer.parseInt(reqPar.get("servicio"));
@@ -126,7 +125,11 @@ public class PagoController {
 		pago.setTarjetaOrigen(tarjeta);
 		consultaUrgente.setPago(pago);
 		servicioCUManager.addConsultaUrgente(consultaUrgente);
-
+	
+		try {
+			new PDFgenerator("\\CreoPDF.pdf");
+			}
+			catch(Exception e) {System.out.println("No se ha creado el pdf");}
 		Map<String, Object> myModel = new HashMap<String, Object>();
 
 		ModelAndView mav = new ModelAndView("factura", "model", myModel);
