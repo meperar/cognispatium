@@ -45,7 +45,7 @@ public class JPARegistroDao implements RegistroDao {
 	@Transactional(readOnly = true)
 	@SuppressWarnings("unchecked")
 	public List<Registro> getRegistrobyInfo(String username, String contraseña) {
-		return em.createQuery("SELECT r FROM Registro r WHERE r.username LIKE :username").setParameter("username", username).getResultList();
+		return em.createQuery("SELECT r FROM Registro r WHERE r.username LIKE '"+ username + "' AND r.contraseña LIKE '" + contraseña + "'").getResultList();
 		//.setParameter("prbUsername", username).setParameter("prbContraseña", contraseña).
 	}
 
