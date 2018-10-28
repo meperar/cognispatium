@@ -18,5 +18,10 @@ public class InMemoryUsuarioDao implements UsuarioDao {
 
     public void saveUsuario(Usuario user) {
     }
+    
+    public Usuario getUsuariobyId(Integer usuarioId) {
+    	return null;
+    	
+    };
 
 }
