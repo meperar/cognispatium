@@ -15,6 +15,8 @@ import org.springframework.web.servlet.ModelAndView;
 import upv.etsinf.cognispatium.domain.Cliente;
 import upv.etsinf.cognispatium.domain.Solicitud;
 import upv.etsinf.cognispatium.domain.EstadoConsulta;
+import upv.etsinf.cognispatium.domain.EstadoPresupuesto;
+import upv.etsinf.cognispatium.domain.EstadoSolicitud;
 import upv.etsinf.cognispatium.domain.Mensaje;
 import upv.etsinf.cognispatium.domain.Presupuesto;
 import upv.etsinf.cognispatium.domain.Servicio;
@@ -35,6 +37,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -97,11 +100,17 @@ public class ListadoSolicitudesController {
 		if (reqPar.get("servicio") != null) {
 			Integer ServiceId = Integer.parseInt(reqPar.get("servicio"));
 			Servicio servicioConsulta = servicioManager.getServiciobyId(ServiceId);
-			listaSolicitudes = servicioSolicitudManager.getSolicitudsbyService(servicioConsulta);
+			listaSolicitudes = servicioSolicitudManager.getSolicitudsbyService(servicioConsulta)
+					.stream()
+				    .filter(sol -> !(sol.getEstado()==EstadoSolicitud.eliminada))
+				    .collect(Collectors.toList());;;
 			servicios.put("serviciId", ServiceId);
 
 		} else {
-			listaSolicitudes = servicioSolicitudManager.getSolicituds();
+			listaSolicitudes = servicioSolicitudManager.getSolicituds()
+					.stream()
+				    .filter(sol -> !(sol.getEstado()==EstadoSolicitud.eliminada))
+				    .collect(Collectors.toList());;;
 		}
 		Map<String, Object> myModel = new HashMap<String, Object>();
 		ModelAndView mav = new ModelAndView("listadosolicitudes", "model", myModel);
@@ -138,6 +147,7 @@ public class ListadoSolicitudesController {
 		Presupuesto presupuesto = new Presupuesto();
 		presupuesto.setDescripcion(reqPar.get("descripcion"));
 		presupuesto.setPrecio(Integer.parseInt(reqPar.get("precio")));
+		presupuesto.setEstado(EstadoPresupuesto.propuesto);
 		
 		Solicitud solicitud = servicioSolicitudManager.getSolicitudbyId(Integer.parseInt(reqPar.get("solicitudId")));
 		presupuesto.setSolicitudOrigen(solicitud);
