@@ -12,6 +12,6 @@ public interface UsuarioManager extends Serializable {
     
     public void increaseBenefits (int increse);
     
-
+    public Usuario getUsuariobyId(Integer usuarioId);
 
 }

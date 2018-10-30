@@ -22,10 +22,10 @@
               <h2> <b>Cliente:</b></h2>
               <p>${model.pago.clienteOrigen.getNombre()} ${model.pago.clienteOrigen.getApellidos()}</p>
               <h2> <b>Importe:</b></h2>
-              <p> ${model.pago.getPrecio()} </p>
+              <p> ${model.pago.getPrecio()} EUROS. </p>
               <h2> <b>Servicio:</b></h2>
               <p> </p>
-              <h2 > <b>Descripción:</b></h2>
+              <h2 > <b>Descripcion:</b></h2>
               <p> ${model.pago.getDescripcion()}</p>
             </div>
           </form>

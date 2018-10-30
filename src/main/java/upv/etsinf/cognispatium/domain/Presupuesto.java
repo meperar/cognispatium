@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -45,6 +47,10 @@ public class Presupuesto implements Serializable {
 	@JoinColumn(name="profesional")
 	private Profesional profesionalOrigen;
 	
+	@Column(name = "estado", nullable = false, length = 20)
+	@Enumerated(value = EnumType.STRING)
+	private EstadoPresupuesto estado;
+	
 	
 	
 	public Integer getId() {
@@ -80,6 +86,12 @@ public class Presupuesto implements Serializable {
 	}
 	public void setProfesionalOrigen(Profesional profesionalOrigen) {
 		this.profesionalOrigen = profesionalOrigen;
+	}
+	public EstadoPresupuesto getEstado() {
+		return estado;
+	}
+	public void setEstado(EstadoPresupuesto estado) {
+		this.estado = estado;
 	}
 	
 	

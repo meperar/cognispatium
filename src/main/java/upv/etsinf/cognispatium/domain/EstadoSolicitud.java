@@ -6,5 +6,6 @@ public enum EstadoSolicitud {
     respondida,
     resuelta,
     no_respondida,
-    cerrada
+    cerrada,
+    eliminada
 }

@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import upv.etsinf.cognispatium.domain.Cliente;
 import upv.etsinf.cognispatium.domain.Solicitud;
 import upv.etsinf.cognispatium.domain.EstadoConsulta;
+import upv.etsinf.cognispatium.domain.EstadoSolicitud;
 import upv.etsinf.cognispatium.domain.Servicio;
 import upv.etsinf.cognispatium.service.SimpleServicioManager;
 import upv.etsinf.cognispatium.service.SimpleSolicitudManager;
@@ -109,6 +110,7 @@ public class CSPresupuestoController {
 		solicitud.setTitulo(titulo);
 		solicitud.setServicioOrigen(servicioConsulta);
 		solicitud.setClienteOrigen(cliente);
+		solicitud.setEstado(EstadoSolicitud.creada);
 		servicioSolicitudManager.addSolicitud(solicitud);
 
 		return new ModelAndView("hello");

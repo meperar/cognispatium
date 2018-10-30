@@ -39,15 +39,19 @@
 								</c:forEach>
 							</select>
 						</div>
-						<div class="form-group">
-							<label for="form16">Tiempo maximo de espera</label> <input
-								name="tiempoEspera" type="text" class="form-control" id="form16"
-								value="--:--"
-								placeholder="Tiempo de espera"
-								pattern="([0-1])([1-9]):([0-5])([0-9])|(2)([0-3]):([0-5])([0-9])"
-								required
-								title="Introduzca una duraci�n con un formato(HH:MM) con un minimo de una hora (01:00)" />
-						</div>
+						
+						 <div class="form-group" >
+						    <label for="form16">Tiempo maximo de espera (HH:MM)</label> <br>             				
+                  				<select name="tiempoEspera"  required ="required">
+                  					<option disabled selected value>--</option>
+                    				<option value="01:00">01:00</option>
+                    				<option value="01:30">01:30</option>      
+                    				<option value="02:00">02:00</option>
+                    				<option value="02:30">02:30</option>
+                    				<option value="03:00">03:00</option>                   
+                  				</select>
+              			 </div>
+              			 
 						<div class="form-group">
 							<label for="form16">Resumen</label> <input type="text"
 								name="titulo" class="form-control" id="form16"
@@ -59,6 +63,10 @@
 								style="" placeholder="Introduzca una descripcion de la consulta"
 								required="required" maxlength="500"></textarea>
 						</div>
+						<div class="form-group">
+							<label for="form18">El precio a pagar por la consulta es de 2.00 EUROS. </label>
+						</div>
+						
 						<button type="submit" class="btn btn-primary">
 							Crear consulta<br>
 						</button>
@@ -117,7 +125,7 @@
 			</div>
 			<div class="row">
 				<div class="col-md-12 text-center">
-					<p class="mb-0">© 2018 CogniSpatium. All rights reserved</p>
+					<p class="mb-0">Â© 2018 CogniSpatium. All rights reserved</p>
 				</div>
 			</div>
 		</div>

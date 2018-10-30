@@ -12,7 +12,12 @@
 	type="text/css">
 <link rel="stylesheet" href="misSolicitud.css">
 </head>
-
+<SCRIPT LANGUAGE="JavaScript">
+function openChild(file,window) {
+    childWindow=open(file,window,'resizable=no,width=200,height=400');
+    if (childWindow.opener == null) childWindow.opener = self;
+    }
+</SCRIPT>
 <body>
 	<jsp:include page="barrasuperior.jsp" flush="true" />
 	<nav class="navbar navbar-light border-dark">
@@ -41,18 +46,25 @@
 
 				<tbody>
 					<c:forEach items="${model.solicitudes}" var="solicitud">
-						<form action="#" method="post" class="text-left">
+						
 							<tr>
+							<form action="#" method="post" class="text-left">
 								<td style="max-width: 500px; word-wrap: break-word;"><input
 									type="hidden" id="solicitudId" name="solicitudId"
 									value="${solicitud.id}"> ${solicitud.titulo}</td>
 								<td style="max-width: 500px; word-wrap: break-word;">${solicitud.descripcion}</td>
 								<td>${solicitud.estado}</td>
-								<td><button class="bg-primary">
+								<td><button class="bg-primary" name="info">
 										<img src="https://image.flaticon.com/icons/svg/1/1176.svg"
 											alt="Information button free icon"
 											title="Ver datos de mi solicitud" height="20" width="20">
-									</button></td>
+									</button>
+									<button class="bg-primary" name="borrar">
+									<img src="https://image.flaticon.com/icons/svg/121/121116.svg"
+										alt="Eliminar solicitud" title="Eliminar solicitud"
+										height="20" width="20">
+								</button></td>
+									</td>
 							</tr>
 						</form>
 					</c:forEach>
