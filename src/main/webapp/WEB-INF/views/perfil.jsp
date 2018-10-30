@@ -106,55 +106,64 @@
 							<tr>
 								<td rowspan="2">
 									<img src="https://i.imgur.com/Yiay52m.png" width = 256 title="source: imgur.com" /><br>
-									<a>&emsp;&emsp;&emsp;<c:forEach begin="1" end="5" varStatus="loop">
-   										<img src="https://i.imgur.com/gYOuM8u.png" width = 25 title="source: imgur.com" />
-									</c:forEach></a>
+									<c:if test="${boolModel.esProfesional}">
+										<a>&emsp;&emsp;&emsp;<c:forEach begin="1" end="5" varStatus="loop">
+	   										<img src="https://i.imgur.com/gYOuM8u.png" width = 25 title="source: imgur.com" />
+										</c:forEach></a>
+									</c:if>
 									<br>
 									<br>
-									<h3><b> ${model} </b></h3>
-									<a><font size="+1">Edad: 24</font></a><br>
-									<a><font size="+1">DNI: 12345678E</font></a><br>
-									<a><font size="+1">E-mail: pepotingo64@gmail.com</font></a><br>
-									<a><font size="+1">Teléfono: 123456789</font></a>
+									<h3><b>${model.usuario.nombre} ${model.usuario.apellidos}</b></h3>
+									<a><font size="+1">Edad: N/A</font></a><br>
+									<a><font size="+1">DNI: ${model.usuario.dni}</font></a><br>
+									<a><font size="+1">E-mail: ${model.usuario.email}</font></a><br>
+									<a><font size="+1">Teléfono: ${model.usuario.telefono}</font></a>
 								</td>
 								<td>&nbsp;</td>
 								<td>
 									<div class="subrayadoGordo">
-										<h3>Consultas</h3>
+										<h3><b>Consultas</b></h3>
 									</div>
 									<br>
 									<div style="height:400px; overflow-y: scroll; ">
 										<ul style="list-style-type: none;">
-										  	<c:forEach begin="1" end="30" varStatus="loop">	
-												<li>
-													<h4><b>Título</b></h4>
-													<div class="subrayadoFino" style="overflow-x: hidden;">
-														Descripción bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-														<br>
-														<br>
-													</div>
-												</li>
-											</c:forEach>
+											<c:choose>
+											    <c:when test="${intModel.numConsultas > 0}">
+											        <c:forEach items="${model.consultas}" var="cons">	
+														<li>
+															<h4><b>${cons.titulo}</b></h4>
+															<div class="subrayadoFino" style="overflow-x: hidden;">
+																${cons.descripcion}
+																<br>
+																<br>
+															</div>
+														</li>
+													</c:forEach>
+													
+											    </c:when>    
+											    <c:otherwise>
+											        <li>
+														<h4><b>Aun no ha realizado ninguna consulta&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</b></h4>
+													</li>
+											    </c:otherwise>
+											</c:choose>
 										</ul>
 									</div>
-									<table class="listado">
-										<tbody>	
-											
-										</tbody>
-									</table>
 								</td>
 							</tr>
 						</tbody>
 					</table>
-					<div class="subrayadoGordo">
-						<h3>Certificados</h3>
-					</div>
-					<br>
-					<div style="height:130px; overflow-x: scroll; white-space: nowrap;">
-						<a>&nbsp;<c:forEach begin="1" end="5" varStatus="loop">
-							&nbsp;<img src="https://i.imgur.com/nHcoCaG.png" height = 100 title="source: imgur.com" />Master en Bulletballogía &nbsp;
-						</c:forEach></a>
-					</div>
+					<c:if test="${boolModel.esProfesional}">
+						<div class="subrayadoGordo">
+							<h3><b>Certificados</b></h3>
+						</div>
+						<br>
+						<div style="height:130px; overflow-x: scroll; white-space: nowrap;">
+							<a>&nbsp;<c:forEach begin="1" end="5" varStatus="loop">
+								&nbsp;<img src="https://i.imgur.com/nHcoCaG.png" height = 100 title="source: imgur.com" />Master en Física &nbsp;
+							</c:forEach></a>
+						</div>
+					</c:if>
 				</div>
 			</div>
 		</div>

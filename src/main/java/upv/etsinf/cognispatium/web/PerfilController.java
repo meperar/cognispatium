@@ -39,18 +39,6 @@ public class PerfilController {
 
 	@Autowired
 	private SimpleServicioManager servicioManager;
-
-	@Autowired
-	private SimpleSolicitudManager servicioSolicitudManager;
-
-	@Autowired
-	private SimpleClienteManager simpleClienteManager;
-	
-	@Autowired
-	private SimpleProfesionalManager simpleProfesionalManager;
-	
-	@Autowired
-	private SimplePresupuestoManager simplePresupuestoManager;
 	
 	@Autowired
 	private SimpleUsuarioManager usuarioManager;
@@ -66,100 +54,40 @@ public class PerfilController {
 			throws ServletException, IOException {
 
 		Map<String, Object> myModel = new HashMap<String, Object>();
+		Map<String, Integer> intModel = new HashMap<String, Integer>();
+		Map<String, Boolean> boolModel = new HashMap<String, Boolean>();
 		
-		/*myModel.put("serviMed", this.servicioManager.getServiciosbyAmbito("Medicina"));
-		String hello = "hola";
-		myModel.put("hi", hello);*/
+		List<Consulta> listaConsultas = new ArrayList<Consulta>();
+		List<Consulta> listaConTodasLasConsultas = new ArrayList<Consulta>();
 		
-		Usuario usuario = usuarioManager.getUsuarios().get(1);
-		myModel.put("usuario", usuario);
-		
-		ModelAndView mav = new ModelAndView("perfil","model",myModel);
-		
-		/*List<Consulta> listaConsultas = new ArrayList<Consulta>();
-		//Map<String, Object> Mymodel = new HashMap<String, Object>();
-		
-		
-		Usuario usuario = usuarioManager.getUsuarios().get(1);
+		Usuario usuario = usuarioManager.getUsuarios().get(1); // <-------- Aquí es donde cojo el usuario, Adri (Quita el comentario cuando acabes).
 		Boolean esProfesional = usuario instanceof Profesional;
-		listaConsultas = consultaManager.getConsultas();
+		listaConTodasLasConsultas = consultaManager.getConsultas();
 		
-		for(Consulta consulta : listaConsultas) {
+		for(Consulta consulta : listaConTodasLasConsultas) {
 			String dniClienteConsulta = consulta.getClienteOrigen().getDni();
 			String dniUsuario = usuario.getDni();
 			
-			if(!dniClienteConsulta.equals(dniUsuario)) listaConsultas.remove(consulta);
+			if(dniClienteConsulta.equals(dniUsuario)) listaConsultas.add(consulta);
 		}
 		
-		
-		Map<String, Object> myModel = new HashMap<String, Object>();
-		
-		
 		myModel.put("usuario", usuario);
-		myModel.put("esProfesional", esProfesional);
+		boolModel.put("esProfesional", esProfesional);
 		myModel.put("consultas", listaConsultas);
+		intModel.put("numConsultas", listaConsultas.size());
+
+		ModelAndView mav = new ModelAndView("perfil","model",myModel);
+		mav.addObject("intModel", intModel);
+		mav.addObject("boolModel", boolModel);
 		
-		//mav.addObject("model", Mymodel);
-		ModelAndView mav = new ModelAndView("perfil", "model", myModel);
 		
-		*/
 		return mav;
 
 	}
 	
-	/*@GetMapping("/barrasuperior.htm")
-	protected ModelAndView onSubmit(@RequestParam Map<String, String> reqPar) throws Exception {
-
-		
-		List<Consulta> listaConsultas = new ArrayList<Consulta>();
-		Map<String, Object> Mymodel = new HashMap<String, Object>();
-		
-		
-		Usuario usuario = usuarioManager.getUsuarios().get(1);
-		Boolean esProfesional = usuario instanceof Profesional;
-		listaConsultas = consultaManager.getConsultas();
-		
-		for(Consulta consulta : listaConsultas) {
-			String dniClienteConsulta = consulta.getClienteOrigen().getDni();
-			String dniUsuario = usuario.getDni();
-			
-			if(!dniClienteConsulta.equals(dniUsuario)) listaConsultas.remove(consulta);
-		}
-		
-		
-		Map<String, Object> myModel = new HashMap<String, Object>();
-		ModelAndView mav = new ModelAndView("listadoconsultas", "model", myModel);
-		
-		Mymodel.put("usuario", usuario);
-		Mymodel.put("esProfesional", esProfesional);
-		Mymodel.put("consultas", listaConsultas);
-		
-		mav.addObject("model", Mymodel);
-
-		return mav;
-	}*/
 	
 	public void setServicioManager(SimpleServicioManager servicioManager) {
 		this.servicioManager = servicioManager;
 	}
 
-	
-	/*@PostMapping("/listadoprofesionales.htm")
-	protected ModelAndView guardarPresupueusto(@RequestParam Map<String, String> reqPar) throws Exception {
-
-		Presupuesto presupuesto = new Presupuesto();
-		presupuesto.setDescripcion(reqPar.get("descripcion"));
-		presupuesto.setPrecio(Integer.parseInt(reqPar.get("precio")));
-		
-		
-		presupuesto.setSolicitudOrigen(servicioSolicitudManager.getSolicitudbyId(Integer.parseInt(reqPar.get("solicitudId"))));
-		
-		presupuesto.setProfesionalOrigen(simpleProfesionalManager.getProfesionales().get(0));
-		
-		simplePresupuestoManager.addPresupuesto(presupuesto);
-				
-		return new ModelAndView("hello");
-
-		
-	}*/
 }
