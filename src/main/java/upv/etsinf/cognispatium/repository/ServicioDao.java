@@ -14,18 +14,10 @@ public interface ServicioDao {
 
 	public Servicio getServicioById(Integer serviceId);
 	
-<<<<<<< HEAD
-=======
 	public List<String> getAmbitos();
 	
->>>>>>> branch 'DEV' of https://github.com/meperar/cognispatium
 	public List<Servicio> getServiciobyAmbito(String ambitoId);
 	
 	public List<Profesional> getProfsbyServicio(Integer serviceId);
-<<<<<<< HEAD
-	
-	public List<String> getAmbitos();
-=======
->>>>>>> branch 'DEV' of https://github.com/meperar/cognispatium
 
 }

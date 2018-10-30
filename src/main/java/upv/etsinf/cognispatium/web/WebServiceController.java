@@ -67,10 +67,6 @@ public class WebServiceController {
 		String now = (new Date()).toString();
 		logger.info("Returning hello view with " + now);
 
-<<<<<<< HEAD
-
-=======
->>>>>>> branch 'DEV' of https://github.com/meperar/cognispatium
 		Map<String, Object> med = new HashMap<String, Object>();
 		med.put("serviMed", this.servicioManager.getServiciosbyAmbito("Medicina"));
 		
@@ -113,10 +109,6 @@ public class WebServiceController {
 		mav.addObject("idio", idio);
 		mav.addObject("est", est);
 		return mav;
-<<<<<<< HEAD
-
-=======
->>>>>>> branch 'DEV' of https://github.com/meperar/cognispatium
 	
 		
 	}
