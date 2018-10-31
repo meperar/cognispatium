@@ -75,7 +75,6 @@ public class ListadoSolicitudesController {
 	@RequestMapping("/listadosolicitudes.htm")
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		Map<String, Object> myModel = new HashMap<String, Object>();
 		ModelAndView mav = new ModelAndView("listadosolicitudes", "model", myModel);
 		Map<String, Object> servicios = new HashMap<String, Object>();
@@ -94,7 +93,6 @@ public class ListadoSolicitudesController {
 
 	@GetMapping("/listadosolicitudes.htm")
 	protected ModelAndView onSubmit(@RequestParam Map<String, String> reqPar) throws Exception {
-
 		List<Solicitud> listaSolicitudes = new ArrayList<Solicitud>();
 		Map<String, Object> servicios = new HashMap<String, Object>();
 		if (reqPar.get("servicio") != null) {
@@ -128,7 +126,6 @@ public class ListadoSolicitudesController {
 	
 	@PostMapping("/listadosolicitudes.htm")
 	protected ModelAndView crearPresupueusto(@RequestParam Map<String, String> reqPar) throws Exception {
-
 		Map<String, Object> myModel = new HashMap<String, Object>();
 		
 		Solicitud miSolicitud = servicioSolicitudManager.getSolicitudbyId(Integer.parseInt(reqPar.get("solicitudId")));
@@ -156,7 +153,7 @@ public class ListadoSolicitudesController {
 		
 		simplePresupuestoManager.addPresupuesto(presupuesto);
 		
-		//Notificar al usuario de recepción de presupuesto
+		//Notificar al usuario de recepciï¿½n de presupuesto
 		
 		Mensaje mensaje = new Mensaje();
 		mensaje.setDescripcion(reqPar.get("descripcion"));
