@@ -87,6 +87,74 @@
 ::-webkit-scrollbar-thumb:hover {
     background: #555555; 
 }
+
+
+/* Button used to open the contact form - fixed at the bottom of the page */
+.open-button {
+  background-color: #555;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  bottom: 23px;
+  right: 28px;
+  width: 280px;
+}
+
+/* The popup form - hidden by default */
+.form-popup {
+  display: none;
+  bottom: 0;
+  right: 15px;
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+}
+
+/* Add styles to the form container */
+.form-container {
+  max-width: 300px;
+  padding: 10px;
+  background-color: white;
+}
+
+/* Full-width input fields */
+.form-container input[type=text], .form-container input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+/* When the inputs get focus, do something */
+.form-container input[type=text]:focus, .form-container input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for the submit/login button */
+.form-container .btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+  background-color: red;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+  opacity: 1;
+}
+
 </style>
 </head>
 
@@ -118,6 +186,41 @@
 									<a><font size="+1">DNI: ${model.usuario.dni}</font></a><br>
 									<a><font size="+1">E-mail: ${model.usuario.email}</font></a><br>
 									<a><font size="+1">Teléfono: ${model.usuario.telefono}</font></a>
+									
+									<button class="open-button" onclick="openForm()">Open Form</button>
+
+									<div class="form-popup" id="myForm">
+									  <form action="#" method="post" class="form-container">
+									    <h1>Editar Perfil</h1>
+										
+										<label for="psw"><b>Edad</b></label>
+									    <input type="text" placeholder="N/A" name="edad" required>
+										
+										<label for="psw"><b>DNI</b></label>
+									    <input type="text" placeholder="${model.usuario.dni}" name="dni" required>
+										
+									    <label for="email"><b>Email</b></label>
+									    <input type="text" placeholder="${model.usuario.email}" name="email" required>
+									
+									    <label for="psw"><b>Telefono</b></label>
+									    <input type="text" placeholder="${model.usuario.telefono}" name="tele" required>
+									
+									    <button type="submit" class="btn">Guardar</button>
+									    <button type="button" class="btn cancel" onclick="closeForm()">Cancelar</button>
+									  </form>
+									</div>
+									
+									<script>
+									function openForm() {
+									    document.getElementById("myForm").style.display = "block";
+									}
+									
+									function closeForm() {
+									    document.getElementById("myForm").style.display = "none";
+									}
+									</script>
+									
+
 								</td>
 								<td>&nbsp;</td>
 								<td>

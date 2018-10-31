@@ -3,6 +3,7 @@ package upv.etsinf.cognispatium.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -11,9 +12,11 @@ import org.springframework.web.servlet.ModelAndView;
 import upv.etsinf.cognispatium.service.SimpleServicioManager;
 import upv.etsinf.cognispatium.service.SimpleSolicitudManager;
 import upv.etsinf.cognispatium.service.SimpleUsuarioManager;
+import upv.etsinf.cognispatium.domain.Cliente;
 import upv.etsinf.cognispatium.domain.Consulta;
 import upv.etsinf.cognispatium.domain.ConsultaUrgente;
 import upv.etsinf.cognispatium.domain.Profesional;
+import upv.etsinf.cognispatium.domain.Registro;
 import upv.etsinf.cognispatium.domain.Servicio;
 import upv.etsinf.cognispatium.domain.Usuario;
 import upv.etsinf.cognispatium.service.SimpleClienteManager;
@@ -83,6 +86,18 @@ public class PerfilController {
 		
 		return mav;
 
+	}
+	
+	@PostMapping("/perfil.htm")
+	protected ModelAndView editar(@RequestParam Map<String, String> reqPar) throws Exception {
+		Usuario usuario = usuarioManager.getUsuariobyId(1);
+		
+		usuario.setDni(reqPar.get("dni"));
+		
+		usuarioManager.addUsuario(usuario);
+
+		
+		return new ModelAndView("hello");
 	}
 	
 	

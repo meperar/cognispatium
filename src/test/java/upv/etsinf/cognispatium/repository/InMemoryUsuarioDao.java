@@ -22,6 +22,7 @@ public class InMemoryUsuarioDao implements UsuarioDao {
     public Usuario getUsuariobyId(Integer usuarioId) {
     	return null;
     	
-    };
+    }
+
 
 }
