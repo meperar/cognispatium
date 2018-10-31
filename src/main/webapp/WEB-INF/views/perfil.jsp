@@ -105,24 +105,26 @@
 /* The popup form - hidden by default */
 .form-popup {
   display: none;
+  width: 400px;
+  position: absolute;
   bottom: 0;
-  right: 15px;
+  left: 400px;
   border: 3px solid #f1f1f1;
-  z-index: 9;
+  z-index: 100;
 }
 
 /* Add styles to the form container */
 .form-container {
-  max-width: 300px;
-  padding: 10px;
+  max-width: 500px;
+  padding: 5px;
   background-color: white;
 }
 
 /* Full-width input fields */
 .form-container input[type=text], .form-container input[type=password] {
-  width: 100%;
-  padding: 15px;
-  margin: 5px 0 22px 0;
+  width: inherit;
+  padding: 5px;
+  margin: 20px 10px 10px 10px;
   border: none;
   background: #f1f1f1;
 }
@@ -137,12 +139,10 @@
 .form-container .btn {
   background-color: #4CAF50;
   color: white;
-  padding: 16px 20px;
+  padding: 10px 10px;
   border: none;
   cursor: pointer;
-  width: 100%;
-  margin-bottom:10px;
-  opacity: 0.8;
+  width: 187px;
 }
 
 /* Add a red background color to the cancel button */
@@ -155,6 +155,13 @@
   opacity: 1;
 }
 
+
+
+.rightAlign {
+    text-align: right;
+    padding: 22px 0;
+
+}
 </style>
 </head>
 
@@ -175,39 +182,60 @@
 								<td rowspan="2">
 									<img src="https://i.imgur.com/Yiay52m.png" width = 256 title="source: imgur.com" /><br>
 									<c:if test="${boolModel.esProfesional}">
-										<a>&emsp;&emsp;&emsp;<c:forEach begin="1" end="5" varStatus="loop">
-	   										<img src="https://i.imgur.com/gYOuM8u.png" width = 25 title="source: imgur.com" />
-										</c:forEach></a>
+										<a>&emsp;&emsp;&emsp;
+											<c:forEach begin="1" end="${intModel.valoracion}" varStatus="loop">
+		   										<img src="https://i.imgur.com/rhSk7m7.png" width = 26 title="source: imgur.com" />
+											</c:forEach>
+											<c:forEach begin="1" end="${5 - intModel.valoracion}" varStatus="loop">
+		   										<img src="https://i.imgur.com/hYfF8io.png" width = 26 title="source: imgur.com" />
+											</c:forEach>
+										</a>
 									</c:if>
 									<br>
 									<br>
 									<h3><b>${model.usuario.nombre} ${model.usuario.apellidos}</b></h3>
-									<a><font size="+1">Edad: N/A</font></a><br>
+									<a><font size="+1">Apodo: ${model.registro.username}</font></a><br>
+									<a><font size="+1">Edad: ${model.usuario.edad}</font></a><br>
 									<a><font size="+1">DNI: ${model.usuario.dni}</font></a><br>
 									<a><font size="+1">E-mail: ${model.usuario.email}</font></a><br>
-									<a><font size="+1">Teléfono: ${model.usuario.telefono}</font></a>
-									
-									<button class="open-button" onclick="openForm()">Open Form</button>
+									<a><font size="+1">Teléfono: ${model.usuario.telefono}</font></a><br>
+									<br>
+									<button class="open-button" onclick="openForm()">Editar</button>
 
 									<div class="form-popup" id="myForm">
-									  <form action="#" method="post" class="form-container">
-									    <h1>Editar Perfil</h1>
-										
-										<label for="psw"><b>Edad</b></label>
-									    <input type="text" placeholder="N/A" name="edad" required>
-										
-										<label for="psw"><b>DNI</b></label>
-									    <input type="text" placeholder="${model.usuario.dni}" name="dni" required>
-										
-									    <label for="email"><b>Email</b></label>
-									    <input type="text" placeholder="${model.usuario.email}" name="email" required>
-									
-									    <label for="psw"><b>Telefono</b></label>
-									    <input type="text" placeholder="${model.usuario.telefono}" name="tele" required>
-									
-									    <button type="submit" class="btn">Guardar</button>
-									    <button type="button" class="btn cancel" onclick="closeForm()">Cancelar</button>
-									  </form>
+									  	<form action="#" onsubmit="return validarCampos();" method="post" class="form-container">
+										    <div style="text-align: center"><h1>Editar Perfil</h1></div>
+											<table class="perfil">
+												<tbody>	
+													<tr>
+														<td><div class="rightAlign"><b>Nombre:</b></div></td>  <td><input type="text" value="${model.usuario.nombre}" name="nombre" id="nombre" required></td>
+													</tr>
+													<tr>
+														<td><div class="rightAlign"><b>Apellidos:</b></div></td>  <td><input type="text" value="${model.usuario.apellidos}" name="apellidos" id="apellidos" required></td>
+													</tr>
+													<tr>
+														<td><div class="rightAlign"><b>Apodo:</b></div></td>  <td><input type="text" value="${model.registro.username}" name="apodo" id="apodo" required></td>
+													</tr>
+													<tr>
+														<td><div class="rightAlign"><b>Edad:</b></div></td>  <td><input type="text" value="${model.usuario.edad}" name="edad" id="edad" required></td>
+													</tr>
+													<tr>
+														<td><div class="rightAlign"><b>DNI:</b></div></td>  <td><input type="text" value="${model.usuario.dni}" name="dni" id="dni" required></td>
+													</tr>
+													<tr>
+														<td><div class="rightAlign"><b>E-mail:</b></div></td>  <td><input type="text" value="${model.usuario.email}" name="email" id="email" required></td>
+													</tr>
+													<tr>
+														<td><div class="rightAlign"><b>Teléfono:</b></div></td>  <td><input type="text" value="${model.usuario.telefono}" name="telefono" id="telefono" required></td>
+													</tr>
+													<tr>
+														<td><div class="rightAlign"><b>Contraseña:</b></div></td>  <td><input type="text" value="${model.registro.contraseña}" name="contrasena" id="contrasena" required></td>
+													</tr>
+												</tbody>
+											</table>
+											
+											<div style="display: inline-block;"><button type="submit" class="btn">Guardar</button> <button type="button" class="btn cancel" onclick="closeForm()">Cancelar</button></div>
+									  	</form>
 									</div>
 									
 									<script>
@@ -217,6 +245,55 @@
 									
 									function closeForm() {
 									    document.getElementById("myForm").style.display = "none";
+									}
+									function validarCampos(){
+										var valido = true;
+										
+
+										var campoEdad = document.getElementById("edad");
+										var campoDni = document.getElementById("dni");
+										var campoEmail = document.getElementById("email");
+										var campoTelefono = document.getElementById("telefono");
+										var campoContrasena = document.getElementById("contrasena");
+
+										var edad = campoEdad.value;
+										var dni = campoDni.value;
+										var email = campoEmail.value;
+										var telefono = campoTelefono.value;
+										var contrasena = campoContrasena.value;
+										
+
+										if(isNaN(edad)){
+											campoEdad.style.border = "2px solid red";
+											valido = false;
+										}else{
+											campoEdad.style.border = "none";
+										}
+
+										
+										if(dni.length != 9){
+											campoDni.style.border = "2px solid red";
+											valido = false;
+										}else{
+											campoDni.style.border = "none";
+										}
+										
+
+										if(email.indexOf('@') <= -1){
+											campoEmail.style.border = "2px solid red";
+											valido = false;
+										}else{
+											campoEmail.style.border = "none";
+										}
+										
+										if(telefono.length != 9 || isNaN(telefono)){
+											campoTelefono.style.border = "2px solid red";
+											valido = false;
+										}else{
+											campoTelefono.style.border = "none";
+										}
+										
+										return valido;
 									}
 									</script>
 									
@@ -256,6 +333,9 @@
 							</tr>
 						</tbody>
 					</table>
+					<br>
+					<br>
+					<br>
 					<c:if test="${boolModel.esProfesional}">
 						<div class="subrayadoGordo">
 							<h3><b>Certificados</b></h3>

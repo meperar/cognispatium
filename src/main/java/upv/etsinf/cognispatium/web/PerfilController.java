@@ -22,6 +22,7 @@ import upv.etsinf.cognispatium.domain.Usuario;
 import upv.etsinf.cognispatium.service.SimpleClienteManager;
 import upv.etsinf.cognispatium.service.SimpleConsultaManager;
 import upv.etsinf.cognispatium.service.SimpleProfesionalManager;
+import upv.etsinf.cognispatium.service.SimpleRegistroManager;
 import upv.etsinf.cognispatium.service.SimplePresupuestoManager;
 
 import java.io.IOException;
@@ -47,6 +48,9 @@ public class PerfilController {
 	private SimpleUsuarioManager usuarioManager;
 	
 	@Autowired
+	private SimpleRegistroManager registroManager;
+	
+	@Autowired
 	private SimpleConsultaManager consultaManager;
 
 	/** Logger for this class and subclasses */
@@ -63,9 +67,16 @@ public class PerfilController {
 		List<Consulta> listaConsultas = new ArrayList<Consulta>();
 		List<Consulta> listaConTodasLasConsultas = new ArrayList<Consulta>();
 		
-		Usuario usuario = usuarioManager.getUsuarios().get(1); // <-------- Aquí es donde cojo el usuario, Adri (Quita el comentario cuando acabes).
+		Usuario usuario = usuarioManager.getUsuariobyId(3); // <-------- Aquí es donde cojo el usuario, Adri (Quita los comentarios cuando acabes).
+		Registro registro = registroManager.getRegistrobyId(3);// <-------- Aquí cojo el registro de ese usuario.
+		
 		Boolean esProfesional = usuario instanceof Profesional;
 		listaConTodasLasConsultas = consultaManager.getConsultas();
+		int valoracion = 0;
+		
+		if(esProfesional) {
+			valoracion = ((Profesional) usuario).getValoracion();
+		}
 		
 		for(Consulta consulta : listaConTodasLasConsultas) {
 			String dniClienteConsulta = consulta.getClienteOrigen().getDni();
@@ -75,9 +86,11 @@ public class PerfilController {
 		}
 		
 		myModel.put("usuario", usuario);
+		myModel.put("registro", registro);
 		boolModel.put("esProfesional", esProfesional);
 		myModel.put("consultas", listaConsultas);
 		intModel.put("numConsultas", listaConsultas.size());
+		intModel.put("valoracion", valoracion);
 
 		ModelAndView mav = new ModelAndView("perfil","model",myModel);
 		mav.addObject("intModel", intModel);
@@ -90,14 +103,62 @@ public class PerfilController {
 	
 	@PostMapping("/perfil.htm")
 	protected ModelAndView editar(@RequestParam Map<String, String> reqPar) throws Exception {
-		Usuario usuario = usuarioManager.getUsuariobyId(1);
-		
+		Usuario usuario = usuarioManager.getUsuariobyId(3); // <-------- Aquí también.
+
+		usuario.setNombre(reqPar.get("nombre"));
+		usuario.setApellidos(reqPar.get("apellidos"));
+		usuario.setEdad(Integer.parseInt(reqPar.get("edad")));
 		usuario.setDni(reqPar.get("dni"));
+		usuario.setEmail(reqPar.get("email"));
+		usuario.setTelefono(Integer.parseInt(reqPar.get("telefono")));
 		
 		usuarioManager.addUsuario(usuario);
+		
+		
+		Registro registro = registroManager.getRegistrobyId(3); // <-------- Aquí también.
+		
+		registro.setUsername(reqPar.get("apodo"));
+		registro.setContraseña(reqPar.get("contrasena"));
+		
+		registroManager.addRegistro(registro);
+
+		Map<String, Object> myModel = new HashMap<String, Object>();
+		Map<String, Integer> intModel = new HashMap<String, Integer>();
+		Map<String, Boolean> boolModel = new HashMap<String, Boolean>();
+		
+		List<Consulta> listaConsultas = new ArrayList<Consulta>();
+		List<Consulta> listaConTodasLasConsultas = new ArrayList<Consulta>();
+		
 
 		
-		return new ModelAndView("hello");
+		
+		Boolean esProfesional = usuario instanceof Profesional;
+		listaConTodasLasConsultas = consultaManager.getConsultas();
+		int valoracion = 0;
+		
+		if(esProfesional) {
+			valoracion = ((Profesional) usuario).getValoracion();
+		}
+		
+		for(Consulta consulta : listaConTodasLasConsultas) {
+			String dniClienteConsulta = consulta.getClienteOrigen().getDni();
+			String dniUsuario = usuario.getDni();
+			
+			if(dniClienteConsulta.equals(dniUsuario)) listaConsultas.add(consulta);
+		}
+		
+		myModel.put("usuario", usuario);
+		myModel.put("registro", registro);
+		boolModel.put("esProfesional", esProfesional);
+		myModel.put("consultas", listaConsultas);
+		intModel.put("numConsultas", listaConsultas.size());
+		intModel.put("valoracion", valoracion);
+
+		ModelAndView mav = new ModelAndView("perfil","model",myModel);
+		mav.addObject("intModel", intModel);
+		mav.addObject("boolModel", boolModel);
+		
+		return mav;
 	}
 	
 	

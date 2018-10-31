@@ -67,9 +67,14 @@
 									<td style="border: 0px"> &emsp; </td>
 									<td>
 										<h4><img src="https://i.imgur.com/4omBc9u.png" width = 128 title="source: imgur.com" />&emsp; ${profs.nombre} ${profs.apellidos}</h4>
-										<a>&nbsp;<c:forEach begin="1" end="5" varStatus="loop">
-    										<img src="https://i.imgur.com/gYOuM8u.png" width = 18 title="source: imgur.com" />
-										</c:forEach></a>
+										<a>&nbsp;
+											<c:forEach begin="1" end="${profs.valoracion}" varStatus="loop">
+		   										<img src="https://i.imgur.com/rhSk7m7.png" width = 18 title="source: imgur.com" />
+											</c:forEach>
+											<c:forEach begin="1" end="${5 - profs.valoracion}" varStatus="loop">
+		   										<img src="https://i.imgur.com/hYfF8io.png" width = 18 title="source: imgur.com" />
+											</c:forEach>
+										</a>
 									</td>
 								</tr>
 							</c:forEach>
