@@ -15,6 +15,7 @@ import org.springframework.web.util.WebUtils;
 
 import upv.etsinf.cognispatium.domain.Cliente;
 import upv.etsinf.cognispatium.domain.Solicitud;
+import upv.etsinf.cognispatium.domain.Usuario;
 import upv.etsinf.cognispatium.domain.EstadoConsulta;
 import upv.etsinf.cognispatium.domain.EstadoSolicitud;
 import upv.etsinf.cognispatium.domain.Mensaje;
@@ -91,7 +92,20 @@ public class ListadoSolicitudesDelClienteController {
 		myModel.put("solicitudes", listaSolicitudes);
 
 		mav.addObject("model", myModel);
-
+		
+		if(WebServiceController.usuarioRegistrado == null) {
+			Usuario userAux = new Usuario();
+			
+			userAux.setNombre("Usuario no registrado");
+			mav.addObject("usR", userAux);
+			
+		}
+		
+		else {
+			
+			mav.addObject("usR", WebServiceController.usuarioRegistrado);
+			
+		}
 		return mav;
 
 	}
@@ -116,7 +130,21 @@ public class ListadoSolicitudesDelClienteController {
 		myModel.put("presupuestos", presupuestos);
 		mav.addObject("model", myModel);
 		
+		if(WebServiceController.usuarioRegistrado == null) {
+			Usuario userAux = new Usuario();
+			
+			userAux.setNombre("Usuario no registrado");
+			mav.addObject("usR", userAux);
+			
+		}
+		
+		else {
+			
+			mav.addObject("usR", WebServiceController.usuarioRegistrado);
+			
+		}
 		return mav;
+		
 	
 		}
 		else {
@@ -136,7 +164,20 @@ public class ListadoSolicitudesDelClienteController {
 			myModel.put("solicitudes", listaSolicitudes);
 
 			mav.addObject("model", myModel);
-
+			
+			if(WebServiceController.usuarioRegistrado == null) {
+				Usuario userAux = new Usuario();
+				
+				userAux.setNombre("Usuario no registrado");
+				mav.addObject("usR", userAux);
+				
+			}
+			
+			else {
+				
+				mav.addObject("usR", WebServiceController.usuarioRegistrado);
+				
+			}
 			return mav;
 			
 		}

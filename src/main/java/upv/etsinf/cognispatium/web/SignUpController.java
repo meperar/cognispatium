@@ -65,6 +65,20 @@ public class SignUpController {
 		
 		ModelAndView mav = new ModelAndView("usersignup", "myString", myMap);
 		
+		if(WebServiceController.usuarioRegistrado == null) {
+			Usuario userAux = new Usuario();
+			
+			userAux.setNombre("Usuario no registrado");
+			mav.addObject("usR", userAux);
+			
+		}
+		
+		else {
+			
+			mav.addObject("usR", WebServiceController.usuarioRegistrado);
+			
+		}
+		
 		return mav;
 	}
 	
@@ -102,7 +116,21 @@ public class SignUpController {
 		
 		regMng.addRegistro(nuevoRegistro);
 		
-		return new ModelAndView("hello");
+		ModelAndView mav = new ModelAndView("hello");
+		if(WebServiceController.usuarioRegistrado == null) {
+			Usuario userAux = new Usuario();
+			
+			userAux.setNombre("Usuario no registrado");
+			mav.addObject("usR", userAux);
+			
+		}
+		
+		else {
+			
+			mav.addObject("usR", WebServiceController.usuarioRegistrado);
+			
+		}
+		return mav;
 	}
 	
 	

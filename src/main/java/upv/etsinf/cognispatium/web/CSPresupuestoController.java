@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import upv.etsinf.cognispatium.domain.Cliente;
 import upv.etsinf.cognispatium.domain.Solicitud;
+import upv.etsinf.cognispatium.domain.Usuario;
 import upv.etsinf.cognispatium.domain.EstadoConsulta;
 import upv.etsinf.cognispatium.domain.EstadoSolicitud;
 import upv.etsinf.cognispatium.domain.Servicio;
@@ -84,6 +85,19 @@ public class CSPresupuestoController {
 		servicios.put("ambitos", listaAmbitos);
 		servicios.put("serviciosxambitos", serviciosPorAmbito);
        mav.addObject("servicios", servicios);
+       if(WebServiceController.usuarioRegistrado == null) {
+			Usuario userAux = new Usuario();
+			
+			userAux.setNombre("Usuario no registrado");
+			mav.addObject("usR", userAux);
+			
+		}
+		
+		else {
+			
+			mav.addObject("usR", WebServiceController.usuarioRegistrado);
+			
+		}
 		return mav;
 		
 	}
@@ -112,8 +126,21 @@ public class CSPresupuestoController {
 		solicitud.setClienteOrigen(cliente);
 		solicitud.setEstado(EstadoSolicitud.creada);
 		servicioSolicitudManager.addSolicitud(solicitud);
-
-		return new ModelAndView("hello");
+		ModelAndView mav = new ModelAndView("hello");
+		if(WebServiceController.usuarioRegistrado == null) {
+			Usuario userAux = new Usuario();
+			
+			userAux.setNombre("Usuario no registrado");
+			mav.addObject("usR", userAux);
+			
+		}
+		
+		else {
+			
+			mav.addObject("usR", WebServiceController.usuarioRegistrado);
+			
+		}
+		return mav;
 	}
 	
 	

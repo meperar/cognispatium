@@ -67,8 +67,8 @@ public class PerfilController {
 		List<Consulta> listaConsultas = new ArrayList<Consulta>();
 		List<Consulta> listaConTodasLasConsultas = new ArrayList<Consulta>();
 		
-		Usuario usuario = usuarioManager.getUsuariobyId(3); // <-------- Aquí es donde cojo el usuario, Adri (Quita los comentarios cuando acabes).
-		Registro registro = registroManager.getRegistrobyId(3);// <-------- Aquí cojo el registro de ese usuario.
+		Usuario usuario = WebServiceController.usuarioRegistrado; 
+		Registro registro = registroManager.getRegistrobyUsuario(usuario.getId()).get(0); 
 		
 		Boolean esProfesional = usuario instanceof Profesional;
 		listaConTodasLasConsultas = consultaManager.getConsultas();
@@ -93,6 +93,19 @@ public class PerfilController {
 		intModel.put("valoracion", valoracion);
 
 		ModelAndView mav = new ModelAndView("perfil","model",myModel);
+		if(WebServiceController.usuarioRegistrado == null) {
+			Usuario userAux = new Usuario();
+			
+			userAux.setNombre("Usuario no registrado");
+			mav.addObject("usR", userAux);
+			
+		}
+		
+		else {
+			
+			mav.addObject("usR", WebServiceController.usuarioRegistrado);
+			
+		}
 		mav.addObject("intModel", intModel);
 		mav.addObject("boolModel", boolModel);
 		
@@ -155,6 +168,19 @@ public class PerfilController {
 		intModel.put("valoracion", valoracion);
 
 		ModelAndView mav = new ModelAndView("perfil","model",myModel);
+		if(WebServiceController.usuarioRegistrado == null) {
+			Usuario userAux = new Usuario();
+			
+			userAux.setNombre("Usuario no registrado");
+			mav.addObject("usR", userAux);
+			
+		}
+		
+		else {
+			
+			mav.addObject("usR", WebServiceController.usuarioRegistrado);
+			
+		}
 		mav.addObject("intModel", intModel);
 		mav.addObject("boolModel", boolModel);
 		
