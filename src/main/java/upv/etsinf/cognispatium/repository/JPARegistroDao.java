@@ -1,3 +1,4 @@
+
 package upv.etsinf.cognispatium.repository;
 
 import java.util.List;
@@ -48,5 +49,22 @@ public class JPARegistroDao implements RegistroDao {
 		return em.createQuery("SELECT r FROM Registro r WHERE r.username LIKE '"+ username + "' AND r.contraseña LIKE '" + contraseña + "'").getResultList();
 		//.setParameter("prbUsername", username).setParameter("prbContraseña", contraseña).
 	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	@SuppressWarnings("unchecked")
+	public List<Registro> getRegistrobyUsuario(Integer usuarioId) {
+		return em.createQuery("SELECT r FROM Registro r WHERE r.usuario LIKE '"+ usuarioId + "'").getResultList();
+	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	@SuppressWarnings("unchecked")
+	public List<Registro> getRegistrobyUN(String username) {
+		return em.createQuery("SELECT r FROM Registro r WHERE r.username LIKE '"+ username +  "'").getResultList();
+		//.setParameter("prbUsername", username).setParameter("prbContraseña", contraseña).
+	}
+	
+	
 
 }

@@ -1,3 +1,4 @@
+
 package upv.etsinf.cognispatium.repository;
 
 import java.util.List;
@@ -13,4 +14,8 @@ public interface RegistroDao {
     public Registro getRegistrobyId(Integer registroId);
     
     public List<Registro> getRegistrobyInfo(String username, String contraseña);
+    
+    public List<Registro> getRegistrobyUsuario(Integer usuarioId);
+    
+    public List<Registro> getRegistrobyUN(String username);
 }

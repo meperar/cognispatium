@@ -87,6 +87,81 @@
 ::-webkit-scrollbar-thumb:hover {
     background: #555555; 
 }
+
+
+/* Button used to open the contact form - fixed at the bottom of the page */
+.open-button {
+  background-color: #555;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  bottom: 23px;
+  right: 28px;
+  width: 280px;
+}
+
+/* The popup form - hidden by default */
+.form-popup {
+  display: none;
+  width: 400px;
+  position: absolute;
+  top: 0px;
+  left: 400px;
+  border: 3px solid #f1f1f1;
+  z-index: 100;
+}
+
+/* Add styles to the form container */
+.form-container {
+  max-width: 500px;
+  padding: 7px;
+  background-color: white;
+}
+
+/* Full-width input fields */
+.form-container input[type=text], .form-container input[type=password] {
+  width: inherit;
+  padding: 5px;
+  margin: 20px 10px 10px 10px;
+  border: none;
+  background: #f1f1f1;
+}
+
+/* When the inputs get focus, do something */
+.form-container input[type=text]:focus, .form-container input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for the submit/login button */
+.form-container .btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 10px;
+  border: none;
+  cursor: pointer;
+  width: 187px;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+  background-color: red;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+  opacity: 1;
+}
+
+
+
+.rightAlign {
+    text-align: right;
+    padding: 22px 0;
+
+}
 </style>
 </head>
 
@@ -97,6 +172,10 @@
   <link rel="stylesheet" href="https://static.pingendo.com/bootstrap/bootstrap-4.1.3.css" style="">
 <jsp:include page="barrasuperior.jsp" flush="true" />
 
+<c:if test="${boolModel.errorUsername}">
+	<br>
+	<div style="text-align: center; color: red;"><h3>ERROR: El apodo ya está en uso.</h3></div>
+</c:if>
 <div class="py-5">
 		<div class="container">
 			<div class="row">
@@ -107,17 +186,141 @@
 								<td rowspan="2">
 									<img src="https://i.imgur.com/Yiay52m.png" width = 256 title="source: imgur.com" /><br>
 									<c:if test="${boolModel.esProfesional}">
-										<a>&emsp;&emsp;&emsp;<c:forEach begin="1" end="5" varStatus="loop">
-	   										<img src="https://i.imgur.com/gYOuM8u.png" width = 25 title="source: imgur.com" />
-										</c:forEach></a>
+										<a>&emsp;&emsp;&emsp;
+											<c:forEach begin="1" end="${intModel.valoracion}" varStatus="loop">
+		   										<img src="https://i.imgur.com/rhSk7m7.png" width = 26 title="source: imgur.com" />
+											</c:forEach>
+											<c:forEach begin="1" end="${5 - intModel.valoracion}" varStatus="loop">
+		   										<img src="https://i.imgur.com/hYfF8io.png" width = 26 title="source: imgur.com" />
+											</c:forEach>
+										</a>
 									</c:if>
 									<br>
 									<br>
 									<h3><b>${model.usuario.nombre} ${model.usuario.apellidos}</b></h3>
-									<a><font size="+1">Edad: N/A</font></a><br>
+									<a><font size="+1">Apodo: ${model.registro.username}</font></a><br>
+									<a><font size="+1">Edad: ${model.usuario.edad}</font></a><br>
 									<a><font size="+1">DNI: ${model.usuario.dni}</font></a><br>
 									<a><font size="+1">E-mail: ${model.usuario.email}</font></a><br>
-									<a><font size="+1">Teléfono: ${model.usuario.telefono}</font></a>
+									<a><font size="+1">Teléfono: ${model.usuario.telefono}</font></a><br>
+									<br>
+									<button class="open-button" onclick="openForm()">Editar</button>
+
+									<div class="form-popup" id="myForm">
+									  	<form action="#" onsubmit="return validarCampos();" method="post" class="form-container">
+										    <div style="text-align: center"><h1>Editar Perfil</h1></div>
+											<table class="perfil">
+												<tbody>	
+													<tr>
+														<td><div class="rightAlign"><b>Nombre:</b></div></td>  <td><input type="text" value="${model.usuario.nombre}" name="nombre" id="nombre" required></td>
+													</tr>
+													<tr>
+														<td><div class="rightAlign"><b>Apellidos:</b></div></td>  <td><input type="text" value="${model.usuario.apellidos}" name="apellidos" id="apellidos" required></td>
+													</tr>
+													<tr>
+														<td><div class="rightAlign"><b>Apodo:</b></div></td>  <td><input type="text" value="${model.registro.username}" name="apodo" id="apodo" required></td>
+													</tr>
+													<tr>
+														<td><div class="rightAlign"><b>Edad:</b></div></td>  <td><input type="text" value="${model.usuario.edad}" name="edad" id="edad" required><a id="errorEdad" style="color: white;">Tiene que ser un número.</a></td>
+													</tr>
+													<tr>
+														<td><div class="rightAlign"><b>DNI:</b></div></td>  <td><input type="text" value="${model.usuario.dni}" name="dni" id="dni" required><a id="errorDni" style="color: white;">Tiene que tener 9 carácteres.</a></td>
+													</tr>
+													<tr>
+														<td><div class="rightAlign"><b>E-mail:</b></div></td>  <td><input type="text" value="${model.usuario.email}" name="email" id="email" required><a id="errorEmail" style="color: white;">No es una dirección válida.</a></td>
+													</tr>
+													<tr>
+														<td><div class="rightAlign"><b>Teléfono:</b></div></td>  <td><input type="text" value="${model.usuario.telefono}" name="telefono" id="telefono" required><a id="errorTele" style="color: white;">Tiene que tener 9 dígitos.</a></td>
+													</tr>
+													<tr>
+														<td><div class="rightAlign"><b>Contraseña:</b></div></td>  <td><input type="text" value="${model.registro.contraseña}" name="contrasena" id="contrasena" required></td>
+													</tr>
+												</tbody>
+											</table>
+											
+											<div style="display: inline-block;"><button type="submit" class="btn">Guardar</button> <button type="button" class="btn cancel" onclick="closeForm()">Cancelar</button></div>
+									  	</form>
+									</div>
+									
+									<script>
+									function openForm() {
+									    document.getElementById("myForm").style.display = "block";
+									}
+									
+									function closeForm() {
+									    document.getElementById("myForm").style.display = "none";
+									}
+									function validarCampos(){
+										var valido = true;
+										
+
+										var campoEdad = document.getElementById("edad");
+										var campoDni = document.getElementById("dni");
+										var campoEmail = document.getElementById("email");
+										var campoTelefono = document.getElementById("telefono");
+										var campoContrasena = document.getElementById("contrasena");
+										
+										var errorEdad = document.getElementById("errorEdad");
+										var errorDni = document.getElementById("errorDni");
+										var errorEmail = document.getElementById("errorEmail");
+										var errorTele = document.getElementById("errorTele");
+
+										var edad = campoEdad.value;
+										var dni = campoDni.value;
+										var email = campoEmail.value;
+										var telefono = campoTelefono.value;
+										var contrasena = campoContrasena.value;
+										
+
+										if(isNaN(edad)){
+											campoEdad.style.border = "2px solid red";
+											errorEdad.style.color = "red";
+											valido = false;
+										}else{
+											campoEdad.style.border = "none";
+											errorEdad.style.color = "white";
+										}
+
+										
+										if(dni.length != 9){
+											campoDni.style.border = "2px solid red";
+											errorDni.style.color = "red";
+											valido = false;
+										}else{
+											campoDni.style.border = "none";
+											errorDni.style.color = "white";
+										}
+										
+
+										if(email.indexOf('@') <= -1){
+											campoEmail.style.border = "2px solid red";
+											errorEmail.style.color = "red";
+											valido = false;
+										}else{
+											campoEmail.style.border = "none";
+											errorEmail.style.color = "white";
+										}
+										
+										if(telefono.length != 9){
+											errorTele.innerHTML = "Tiene que tener 9 dígitos.";
+											errorTele.style.color = "red";
+											campoTelefono.style.border = "2px solid red";
+											valido = false;
+										}else if(isNaN(telefono)){
+											errorTele.innerHTML = "Solo pueden haber números.";
+											errorTele.style.color = "red";
+											campoTelefono.style.border = "2px solid red";
+											valido = false;
+										}else{
+											campoTelefono.style.border = "none";
+											errorTele.style.color = "white";
+										}
+										
+										return valido;
+									}
+									</script>
+									
+
 								</td>
 								<td>&nbsp;</td>
 								<td>
@@ -153,6 +356,9 @@
 							</tr>
 						</tbody>
 					</table>
+					<br>
+					<br>
+					<br>
 					<c:if test="${boolModel.esProfesional}">
 						<div class="subrayadoGordo">
 							<h3><b>Certificados</b></h3>

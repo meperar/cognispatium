@@ -37,7 +37,8 @@ public class Profesional extends Usuario implements Serializable {
 	joinColumns=@JoinColumn(name="profesional",referencedColumnName="id"),
 	inverseJoinColumns=@JoinColumn(name="servicio",referencedColumnName="id"))
 	private List<Servicio> servicios;
-			
+		
+	private int valoracion;
 
 	public List<Presupuesto> getPresupuestos() {
 		return presupuestos;
@@ -71,4 +72,11 @@ public class Profesional extends Usuario implements Serializable {
 		this.servicios = servicios;
 	}
 	
+	public int getValoracion() {
+		return valoracion;
+	}
+
+	public void setValoracion(int valoracion) {
+		this.valoracion = valoracion;
+	}
 }

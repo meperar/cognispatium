@@ -35,7 +35,7 @@
 								name="username" class="form-control" id="UN"
 								placeholder="Elija un nombre de usuario, p. ej. 'usuario123' " 								
 								maxlength="10"
-								required  />
+								required  /> ${err.err}
 						</div>
 			
 			<div class="form-group">

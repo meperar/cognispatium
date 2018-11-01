@@ -18,6 +18,7 @@ import upv.etsinf.cognispatium.domain.Mensaje;
 //import net.bytebuddy.agent.builder.AgentBuilder.Default.Transformation.Simple;  /*Si quitas el comentario da error*/
 import upv.etsinf.cognispatium.domain.Respuesta;
 import upv.etsinf.cognispatium.domain.Servicio;
+import upv.etsinf.cognispatium.domain.Usuario;
 import upv.etsinf.cognispatium.service.SimpleAdminManager;
 import upv.etsinf.cognispatium.service.SimpleConsultaManager;
 import upv.etsinf.cognispatium.service.SimpleConsultaUrgenteManager;
@@ -79,6 +80,19 @@ public class RCUrgenteController {
 		myModel.put("consultas", consultaUrgente);
 		ModelAndView mav = new ModelAndView("ResponderConsultaUrgente", "model", myModel);
         mav.addObject("consultas", consultaUrgente);
+        if(WebServiceController.usuarioRegistrado == null) {
+			Usuario userAux = new Usuario();
+			
+			userAux.setNombre("Usuario no registrado");
+			mav.addObject("usR", userAux);
+			
+		}
+		
+		else {
+			
+			mav.addObject("usR", WebServiceController.usuarioRegistrado);
+			
+		}
 		return mav;
     }
 
@@ -105,6 +119,20 @@ public class RCUrgenteController {
 		mensaje.setFecha(date);
 		mensajeManager.addMensaje(mensaje);
 		
+		ModelAndView mav = new ModelAndView("hello");
+		if(WebServiceController.usuarioRegistrado == null) {
+			Usuario userAux = new Usuario();
+			
+			userAux.setNombre("Usuario no registrado");
+			mav.addObject("usR", userAux);
+			
+		}
+		
+		else {
+			
+			mav.addObject("usR", WebServiceController.usuarioRegistrado);
+			
+		}
 		return new ModelAndView("hello");
 
 	}

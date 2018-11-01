@@ -42,6 +42,7 @@ public class JPAUsuarioDao implements UsuarioDao {
 	public Usuario getUsuariobyId(Integer usuarioId) {
 		return em.find(Usuario.class, usuarioId);
 	}
+    
 
     
 }
