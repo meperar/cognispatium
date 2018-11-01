@@ -109,7 +109,7 @@ public class PerfilController {
 		Registro registro = registroManager.getRegistrobyId(3);
 		Boolean errorUsername = false;
 		
-		List<Registro> registrosBD = registroManager.getRegistroByUsername(reqPar.get("apodo"));
+		List<Registro> registrosBD = registroManager.getRegistrobyUN(reqPar.get("apodo"));
 		
 		
 		if(registrosBD.size() == 0 || registro.getUsername().equals(reqPar.get("apodo"))) {
