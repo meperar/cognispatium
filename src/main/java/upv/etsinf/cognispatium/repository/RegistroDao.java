@@ -15,4 +15,6 @@ public interface RegistroDao {
     public List<Registro> getRegistrobyInfo(String username, String contraseña);
     
     public List<Registro> getRegistrobyUsuario(Integer usuarioId);
+    
+    public List<Registro> getRegistrobyUN(String username);
 }

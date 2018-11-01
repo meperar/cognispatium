@@ -36,6 +36,10 @@ public class SimpleRegistroManager implements Serializable {
 	    	return  registroDao.getRegistrobyInfo(username, contraseña);
 		}
 	 
+	 public List<Registro> getRegistrobyUN(String username) {
+	    	return  registroDao.getRegistrobyUN(username);
+		}
+	 
 	 public List<Registro> getRegistrobyUsuario(Integer usuarioId){
 		 	return registroDao.getRegistrobyUsuario(usuarioId);
 		 
