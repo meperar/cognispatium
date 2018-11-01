@@ -48,5 +48,12 @@ public class JPARegistroDao implements RegistroDao {
 		return em.createQuery("SELECT r FROM Registro r WHERE r.username LIKE '"+ username + "' AND r.contraseña LIKE '" + contraseña + "'").getResultList();
 		//.setParameter("prbUsername", username).setParameter("prbContraseña", contraseña).
 	}
-
+	
+	
+	@Override
+	@Transactional(readOnly = true)
+	@SuppressWarnings("unchecked")
+	public List<Registro> getRegistroByUsername(String username) {
+		return em.createQuery("SELECT r FROM Registro r WHERE r.username LIKE '"+ username + "'").getResultList();
+	}
 }

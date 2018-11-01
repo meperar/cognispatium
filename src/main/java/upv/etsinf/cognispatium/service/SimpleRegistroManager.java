@@ -28,12 +28,15 @@ public class SimpleRegistroManager implements Serializable {
 		registroDao.saveRegistro(registro);
 	}
 	
-	 public Registro getRegistrobyId(Integer registroId) {
+	public Registro getRegistrobyId(Integer registroId) {
 	    	return  registroDao.getRegistrobyId(registroId);
-		}
+	}
 	 
-	 public List<Registro> getRegistrobyInfo(String username, String contraseña) {
+	public List<Registro> getRegistrobyInfo(String username, String contraseña) {
 	    	return  registroDao.getRegistrobyInfo(username, contraseña);
-		}
+	}
 	
+	public List<Registro> getRegistroByUsername(String username) {
+	    	return  registroDao.getRegistroByUsername(username);
+	}
 }
