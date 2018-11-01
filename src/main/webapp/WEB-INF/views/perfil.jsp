@@ -221,16 +221,16 @@
 														<td><div class="rightAlign"><b>Apodo:</b></div></td>  <td><input type="text" value="${model.registro.username}" name="apodo" id="apodo" required></td>
 													</tr>
 													<tr>
-														<td><div class="rightAlign"><b>Edad:</b></div></td>  <td><input type="text" value="${model.usuario.edad}" name="edad" id="edad" required></td>
+														<td><div class="rightAlign"><b>Edad:</b></div></td>  <td><input type="text" value="${model.usuario.edad}" name="edad" id="edad" required><a id="errorEdad" style="color: white;">Tiene que ser un número.</a></td>
 													</tr>
 													<tr>
-														<td><div class="rightAlign"><b>DNI:</b></div></td>  <td><input type="text" value="${model.usuario.dni}" name="dni" id="dni" required></td>
+														<td><div class="rightAlign"><b>DNI:</b></div></td>  <td><input type="text" value="${model.usuario.dni}" name="dni" id="dni" required><a id="errorDni" style="color: white;">Tiene que tener 9 carácteres.</a></td>
 													</tr>
 													<tr>
-														<td><div class="rightAlign"><b>E-mail:</b></div></td>  <td><input type="text" value="${model.usuario.email}" name="email" id="email" required></td>
+														<td><div class="rightAlign"><b>E-mail:</b></div></td>  <td><input type="text" value="${model.usuario.email}" name="email" id="email" required><a id="errorEmail" style="color: white;">No es una dirección válida.</a></td>
 													</tr>
 													<tr>
-														<td><div class="rightAlign"><b>Teléfono:</b></div></td>  <td><input type="text" value="${model.usuario.telefono}" name="telefono" id="telefono" required></td>
+														<td><div class="rightAlign"><b>Teléfono:</b></div></td>  <td><input type="text" value="${model.usuario.telefono}" name="telefono" id="telefono" required><a id="errorTele" style="color: white;">Tiene que tener 9 dígitos.</a></td>
 													</tr>
 													<tr>
 														<td><div class="rightAlign"><b>Contraseña:</b></div></td>  <td><input type="text" value="${model.registro.contraseña}" name="contrasena" id="contrasena" required></td>
@@ -259,6 +259,11 @@
 										var campoEmail = document.getElementById("email");
 										var campoTelefono = document.getElementById("telefono");
 										var campoContrasena = document.getElementById("contrasena");
+										
+										var errorEdad = document.getElementById("errorEdad");
+										var errorDni = document.getElementById("errorDni");
+										var errorEmail = document.getElementById("errorEmail");
+										var errorTele = document.getElementById("errorTele");
 
 										var edad = campoEdad.value;
 										var dni = campoDni.value;
@@ -269,32 +274,46 @@
 
 										if(isNaN(edad)){
 											campoEdad.style.border = "2px solid red";
+											errorEdad.style.color = "red";
 											valido = false;
 										}else{
 											campoEdad.style.border = "none";
+											errorEdad.style.color = "white";
 										}
 
 										
 										if(dni.length != 9){
 											campoDni.style.border = "2px solid red";
+											errorDni.style.color = "red";
 											valido = false;
 										}else{
 											campoDni.style.border = "none";
+											errorDni.style.color = "white";
 										}
 										
 
 										if(email.indexOf('@') <= -1){
 											campoEmail.style.border = "2px solid red";
+											errorEmail.style.color = "red";
 											valido = false;
 										}else{
 											campoEmail.style.border = "none";
+											errorEmail.style.color = "white";
 										}
 										
-										if(telefono.length != 9 || isNaN(telefono)){
+										if(telefono.length != 9){
+											errorTele.innerHTML = "Tiene que tener 9 dígitos.";
+											errorTele.style.color = "red";
+											campoTelefono.style.border = "2px solid red";
+											valido = false;
+										}else if(isNaN(telefono)){
+											errorTele.innerHTML = "Solo pueden haber números.";
+											errorTele.style.color = "red";
 											campoTelefono.style.border = "2px solid red";
 											valido = false;
 										}else{
 											campoTelefono.style.border = "none";
+											errorTele.style.color = "white";
 										}
 										
 										return valido;
