@@ -107,7 +107,7 @@
   display: none;
   width: 400px;
   position: absolute;
-  bottom: 0;
+  top: 0px;
   left: 400px;
   border: 3px solid #f1f1f1;
   z-index: 100;
@@ -116,7 +116,7 @@
 /* Add styles to the form container */
 .form-container {
   max-width: 500px;
-  padding: 5px;
+  padding: 7px;
   background-color: white;
 }
 
@@ -172,6 +172,10 @@
   <link rel="stylesheet" href="https://static.pingendo.com/bootstrap/bootstrap-4.1.3.css" style="">
 <jsp:include page="barrasuperior.jsp" flush="true" />
 
+<c:if test="${boolModel.errorUsername}">
+	<br>
+	<div style="text-align: center; color: red;"><h3>ERROR: El apodo ya está en uso.</h3></div>
+</c:if>
 <div class="py-5">
 		<div class="container">
 			<div class="row">

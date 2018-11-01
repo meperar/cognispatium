@@ -88,6 +88,7 @@ public class PerfilController {
 		myModel.put("usuario", usuario);
 		myModel.put("registro", registro);
 		boolModel.put("esProfesional", esProfesional);
+		boolModel.put("errorUsername", false);
 		myModel.put("consultas", listaConsultas);
 		intModel.put("numConsultas", listaConsultas.size());
 		intModel.put("valoracion", valoracion);
@@ -116,25 +117,39 @@ public class PerfilController {
 	
 	@PostMapping("/perfil.htm")
 	protected ModelAndView editar(@RequestParam Map<String, String> reqPar) throws Exception {
-		Usuario usuario = usuarioManager.getUsuariobyId(3); // <-------- Aquí también.
-
-		usuario.setNombre(reqPar.get("nombre"));
-		usuario.setApellidos(reqPar.get("apellidos"));
-		usuario.setEdad(Integer.parseInt(reqPar.get("edad")));
-		usuario.setDni(reqPar.get("dni"));
-		usuario.setEmail(reqPar.get("email"));
-		usuario.setTelefono(Integer.parseInt(reqPar.get("telefono")));
 		
-		usuarioManager.addUsuario(usuario);
+		Usuario usuario = usuarioManager.getUsuariobyId(3);
+		Registro registro = registroManager.getRegistrobyId(3);
+		Boolean errorUsername = false;
+		
+		List<Registro> registrosBD = registroManager.getRegistrobyUN(reqPar.get("apodo"));
 		
 		
-		Registro registro = registroManager.getRegistrobyId(3); // <-------- Aquí también.
+		if(registrosBD.size() == 0 || registro.getUsername().equals(reqPar.get("apodo"))) {
+			
+			usuario = usuarioManager.getUsuariobyId(3); // <-------- Aquí también.
+	
+			usuario.setNombre(reqPar.get("nombre"));
+			usuario.setApellidos(reqPar.get("apellidos"));
+			usuario.setEdad(Integer.parseInt(reqPar.get("edad")));
+			usuario.setDni(reqPar.get("dni"));
+			usuario.setEmail(reqPar.get("email"));
+			usuario.setTelefono(Integer.parseInt(reqPar.get("telefono")));
+			
+			usuarioManager.addUsuario(usuario);
+			
+			
+			registro = registroManager.getRegistrobyId(3); // <-------- Aquí también.
+			
+			registro.setUsername(reqPar.get("apodo"));
+			registro.setContraseña(reqPar.get("contrasena"));
+			
+			registroManager.addRegistro(registro);
+			
+		}else {
+			errorUsername = true;
+		}
 		
-		registro.setUsername(reqPar.get("apodo"));
-		registro.setContraseña(reqPar.get("contrasena"));
-		
-		registroManager.addRegistro(registro);
-
 		Map<String, Object> myModel = new HashMap<String, Object>();
 		Map<String, Integer> intModel = new HashMap<String, Integer>();
 		Map<String, Boolean> boolModel = new HashMap<String, Boolean>();
@@ -143,9 +158,9 @@ public class PerfilController {
 		List<Consulta> listaConTodasLasConsultas = new ArrayList<Consulta>();
 		
 
-		
-		
 		Boolean esProfesional = usuario instanceof Profesional;
+		
+		
 		listaConTodasLasConsultas = consultaManager.getConsultas();
 		int valoracion = 0;
 		
@@ -160,9 +175,11 @@ public class PerfilController {
 			if(dniClienteConsulta.equals(dniUsuario)) listaConsultas.add(consulta);
 		}
 		
+		
 		myModel.put("usuario", usuario);
 		myModel.put("registro", registro);
 		boolModel.put("esProfesional", esProfesional);
+		boolModel.put("errorUsername", errorUsername);
 		myModel.put("consultas", listaConsultas);
 		intModel.put("numConsultas", listaConsultas.size());
 		intModel.put("valoracion", valoracion);
