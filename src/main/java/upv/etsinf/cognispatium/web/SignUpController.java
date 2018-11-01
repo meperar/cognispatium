@@ -65,6 +65,20 @@ public class SignUpController {
 		
 		ModelAndView mav = new ModelAndView("usersignup", "myString", myMap);	
 		
+		if(WebServiceController.usuarioRegistrado == null) {
+			Usuario userAux = new Usuario();
+			
+			userAux.setNombre("Usuario no registrado");
+			mav.addObject("usR", userAux);
+			
+		}
+		
+		else {
+			
+			mav.addObject("usR", WebServiceController.usuarioRegistrado);
+			
+		}
+		
 		return mav;
 	}
 	
@@ -109,8 +123,22 @@ public class SignUpController {
 			err = "Nombre de usuario no disponible, pruebe con otro.";
 			Map<String, Object> myMap = new HashMap<String, Object>();
 			myMap.put("err", err);
-
-			return new ModelAndView("usersignup", "err", myMap);
+			
+			ModelAndView mav = new ModelAndView("usersignup", "err", myMap);
+			if(WebServiceController.usuarioRegistrado == null) {
+				Usuario userAux = new Usuario();
+				
+				userAux.setNombre("Usuario no registrado");
+				mav.addObject("usR", userAux);
+				
+			}
+			
+			else {
+				
+				mav.addObject("usR", WebServiceController.usuarioRegistrado);
+				
+			}
+			return mav;
 		}
 		
 	}
