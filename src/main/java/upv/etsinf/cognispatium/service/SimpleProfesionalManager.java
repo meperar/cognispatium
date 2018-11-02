@@ -34,4 +34,10 @@ public class SimpleProfesionalManager implements ProfesionalManager {
     public void addProfesional(Profesional profesional) {
     profesionalDao.saveProfesional(profesional);
 	}
+    
+    public void dropProf(Profesional profesional) {
+    	
+        profesionalDao.dropProfesional(profesional);
+        
+    }
 }

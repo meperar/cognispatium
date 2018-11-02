@@ -43,5 +43,12 @@ public class JPAConsultaDao implements ConsultaDao {
 		em.merge(consulta);
 
 	}
+	
+	@Override
+	@Transactional(readOnly = false)
+	public void dropConsulta(Consulta consulta) {
+		em.remove(em.contains(consulta) ? consulta : em.merge(consulta));
+
+	}
 
 }

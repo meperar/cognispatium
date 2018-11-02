@@ -45,4 +45,9 @@ public class SimpleRegistroManager implements Serializable {
 		 	return registroDao.getRegistrobyUsuario(usuarioId);
 		 
 	 }
+	 
+	 public void dropReg(Registro registro) {
+			
+			registroDao.dropRegistro(registro);
+		}
 }

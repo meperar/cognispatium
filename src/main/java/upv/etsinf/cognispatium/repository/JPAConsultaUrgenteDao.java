@@ -35,6 +35,13 @@ public class JPAConsultaUrgenteDao implements ConsultaUrgenteDao {
 		em.merge(consultaUrgente);
 
 	}
+	
+	@Override
+	@Transactional(readOnly = false)
+	public void dropConsultaUrgente(ConsultaUrgente consultaUrgente) {
+		em.remove(em.contains(consultaUrgente) ? consultaUrgente : em.merge(consultaUrgente));
+
+	}
 
 	@SuppressWarnings("unchecked")
 	@Override

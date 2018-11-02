@@ -45,5 +45,11 @@ public class JPAProfesionalDao implements ProfesionalDao {
     public void saveProfesional(Profesional profesional) {
         em.merge(profesional);
     }
+    
+    @Override
+    @Transactional(readOnly = false)
+    public void dropProfesional(Profesional profesional) {
+    	em.remove(em.contains(profesional) ? profesional : em.merge(profesional));
+    }
 
 }

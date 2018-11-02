@@ -10,6 +10,7 @@ public interface ProfesionalDao {
     /*public List<Profesional> getProfesionalesbyServicio(Integer serviceId);*/
     public void saveProfesional(Profesional profesional);
     
+    public void dropProfesional(Profesional profesional);
     //GetAdminby??
 
 }

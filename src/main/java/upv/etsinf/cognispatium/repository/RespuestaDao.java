@@ -9,5 +9,7 @@ public interface RespuestaDao {
     public List<Respuesta> getRespuestaList();
 
     public void saveRespuesta(Respuesta respuesta);
+    
+    public void dropRespuesta(Respuesta respuesta);
 
 }

@@ -12,4 +12,6 @@ public interface UsuarioDao {
     
     public Usuario getUsuariobyId(Integer usuarioId);
     
+    public void dropUsuario(Usuario usuario);
+    
 }

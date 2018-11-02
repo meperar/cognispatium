@@ -33,4 +33,8 @@ public class SimpleConsultaManager implements Serializable {
     public void addConsulta(Consulta consulta) {
     	consultaDao.saveConsulta(consulta);
 	}
+    
+    public void dropCons(Consulta consulta) {
+    	consultaDao.dropConsulta(consulta);
+    }
 }

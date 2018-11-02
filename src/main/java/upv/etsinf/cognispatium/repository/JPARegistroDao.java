@@ -34,6 +34,12 @@ public class JPARegistroDao implements RegistroDao {
 		em.merge(registro);
 		
 	}
+	
+	 @Override
+	 @Transactional(readOnly = false)
+	 public void dropRegistro(Registro registro) {
+		 em.remove(em.contains(registro) ? registro : em.merge(registro));
+	 }
 
 	@Override
 	@Transactional(readOnly = true)
