@@ -21,14 +21,14 @@ public class VotarProfesionalController {
 	@GetMapping("/votarProfesional.htm")
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("handleRequest() votarProfesional22222222222222222222222222");
+
 		ModelAndView mav = new ModelAndView("votarProfesional");
 		Map<String, Object> myModel = new HashMap<String, Object>();
 		
 		mav.addObject("model", myModel);
 		
 		if(WebServiceController.usuarioRegistrado == null) {
-			System.out.println("if !!!!!!!!!!!!!!!!!!!");
+
 			Usuario userAux = new Usuario();
 			
 			userAux.setNombre("Usuario no registrado");
@@ -37,7 +37,7 @@ public class VotarProfesionalController {
 		}
 		
 		else {
-			System.out.println("else !!!!!!!!!!!!!!!!!!!");
+
 			mav.addObject("usR", WebServiceController.usuarioRegistrado);
 			
 		}
