@@ -314,13 +314,17 @@
           		 <li class="nav-item"> <a class="nav-link" href="login.htm">Log In </a> </li> 
 				</c:if>
 				 <c:if test ="${usR.apellidos != null}">
-			     <li class="nav-item" ><a class="nav-link" href="crearconsultaurgente.htm">Publicar CU</a></li>
-		         <li class="nav-item" ><a class="nav-link" href="crearsolicitudpresupuesto.htm">Pedir Presupuesto</a></li>
-		         <li class="nav-item" ><a class="nav-link" href="listadosolicitudes.htm">Solicitudes</a></li>
-		         <li class="nav-item" ><a class="nav-link" href="listadoconsultas.htm">Consultas</a></li>
-				 <li class="nav-item" ><a class="nav-link" href="bandejamensajes.htm">Bandeja de Mensajes</a></li>
-				 <li class="nav-item" ><a class="nav-link" href="misSolicitudes.htm">Mis Solicitudes</a></li>
-				 <li class="nav-item" ><a class="nav-link" href="perfil.htm">Perfil</a></li>
+				 	<c:if test ="${(usR.DTYPE).toString().length()==7}">
+				     <li class="nav-item" ><a class="nav-link" href="crearconsultaurgente.htm">Publicar CU</a></li>
+			         <li class="nav-item" ><a class="nav-link" href="crearsolicitudpresupuesto.htm">Pedir Presupuesto</a></li>
+			         <li class="nav-item" ><a class="nav-link" href="misSolicitudes.htm">Mis Solicitudes</a></li>
+			         </c:if>
+			         <c:if test ="${(usR.DTYPE).toString().length()==11}">
+			         <li class="nav-item" ><a class="nav-link" href="listadosolicitudes.htm">Solicitudes</a></li>
+			         <li class="nav-item" ><a class="nav-link" href="listadoconsultas.htm">Consultas</a></li> 
+					 </c:if>
+					 <li class="nav-item" ><a class="nav-link" href="bandejamensajes.htm">Bandeja de Mensajes</a></li>	 
+					 <li class="nav-item" ><a class="nav-link" href="perfil.htm">Perfil</a></li>
 				</c:if>
         </ul>
       </div>

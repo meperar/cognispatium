@@ -40,4 +40,9 @@ public class SimpleProfesionalManager implements ProfesionalManager {
         profesionalDao.dropProfesional(profesional);
         
     }
+    
+    public Profesional getProfesionalById(Integer profesionalId) {
+    	
+    	return profesionalDao.getProfesionalById(profesionalId);
+    }
 }

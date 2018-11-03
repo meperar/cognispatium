@@ -12,5 +12,7 @@ public interface ProfesionalDao {
     
     public void dropProfesional(Profesional profesional);
     //GetAdminby??
+    
+    public Profesional getProfesionalById(Integer profesionalId);
 
 }
