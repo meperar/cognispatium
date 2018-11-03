@@ -156,7 +156,41 @@
 .rightAlign {
     text-align: right;
     padding: 22px 0;
+}
 
+div.stars {
+  width: 270px;
+  display: inline-block;
+}
+
+input.star { display: none; }
+
+label.star {
+  float: right;
+  padding: 10px;
+  font-size: 36px;
+  color: #444;
+  transition: all .2s;
+}
+
+input.star:checked ~ label.star:before {
+  content: '\f005';
+  color: #FD4;
+  transition: all .25s;
+}
+
+input.star-5:checked ~ label.star:before {
+  color: #FE7;
+  text-shadow: 0 0 20px #952;
+}
+
+input.star-1:checked ~ label.star:before { color: #F62; }
+
+label.star:hover { transform: rotate(-15deg) scale(1.3); }
+
+label.star:before {
+  content: '\f006';
+  font-family: FontAwesome;
 }
 </style>
 </head>
@@ -168,11 +202,19 @@
 <jsp:include page="barrasuperior.jsp" flush="true" />
 	<img src="https://i.imgur.com/Yiay52m.png" width = 256 title="source: imgur.com" />
 	<p></p>
-	<c:forEach begin="1" end="5" varStatus="loop">
+	<div class="stars">
+  	<form action="">
+	<c:forEach begin="1" end="5" varStatus="loop" var="i">
 		<!-- <img src="https://image.flaticon.com/icons/svg/149/149765.svg" whith=30 height=30/>-->
-		<img src="https://image.flaticon.com/icons/svg/149/149222.svg" whith=25 height=25 />
+		<!-- <img src="https://image.flaticon.com/icons/svg/149/149222.svg" whith=25 height=25 /> -->
+		<input class="star star-${6-i}" id="star-${6-i}" value="${6-i}" type="radio" name="star"/>
+    	<label class="star star-${6-i}" for="star-${6-i}"></label>
 	</c:forEach>
-
+	</form>
+	</div>
+	<br/>
+	<button class="bg-primary" name="votarProfesional">Votar profesional
+	</button>
 
 </body>
 </html>
