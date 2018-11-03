@@ -79,7 +79,7 @@ public class ListadoSolicitudesDelClienteController {
 	@GetMapping("/misSolicitudes.htm")
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("handleRequest()");
+
 		ModelAndView mav = new ModelAndView("misSolicitudes");
 		Map<String, Object> myModel = new HashMap<String, Object>();
 
