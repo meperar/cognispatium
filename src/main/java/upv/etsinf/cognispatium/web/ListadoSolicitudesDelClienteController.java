@@ -3,6 +3,7 @@ package upv.etsinf.cognispatium.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -79,7 +80,7 @@ public class ListadoSolicitudesDelClienteController {
 	@GetMapping("/misSolicitudes.htm")
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		System.out.println("handleRequest() misSolicitudes2222222222222222222222");
 		ModelAndView mav = new ModelAndView("misSolicitudes");
 		Map<String, Object> myModel = new HashMap<String, Object>();
 
@@ -115,15 +116,11 @@ public class ListadoSolicitudesDelClienteController {
 		System.out.println("verSolicitud()");
 		this.miSolicitud = servicioSolicitudManager.getSolicitudbyId(Integer.parseInt(reqPar.get("solicitudId")));
 		
-		System.out.println("borrar= " + WebUtils.hasSubmitParameter(request, "borrar"));
-		System.out.println("valorarProfesional= " + WebUtils.hasSubmitParameter(request, "valorarProfesional"));
 		boolean info = WebUtils.hasSubmitParameter(request, "info");
 		
 		if(WebUtils.hasSubmitParameter(request, "valorarProfesional")) {
-			System.out.println("Valora al profesional");
-			
-			ModelAndView mav = new ModelAndView("votarProfesional");
-			return mav;
+
+			return new ModelAndView("redirect:/votarProfesional.htm");
 		}
 		
 		if (info) {
