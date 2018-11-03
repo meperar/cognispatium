@@ -32,6 +32,9 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -72,6 +75,8 @@ public class ListadoSolicitudesController {
 	/** Logger for this class and subclasses */
 	protected final Log logger = LogFactory.getLog(getClass());
 
+	// obtengo todos los estados de una solicitud;
+	 
 	@RequestMapping("/listadosolicitudes.htm")
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -94,24 +99,40 @@ public class ListadoSolicitudesController {
 
 	@GetMapping("/listadosolicitudes.htm")
 	protected ModelAndView onSubmit(@RequestParam Map<String, String> reqPar) throws Exception {
-
+	    
+	    
 		List<Solicitud> listaSolicitudes = new ArrayList<Solicitud>();
-		Map<String, Object> servicios = new HashMap<String, Object>();
-		if (reqPar.get("servicio") != null) {
+		Map<String, Object> servicios = new HashMap<String, Object>();	
+		if (reqPar.get("servicio") != null && reqPar.get("estado") != null) {
 			Integer ServiceId = Integer.parseInt(reqPar.get("servicio"));
 			Servicio servicioConsulta = servicioManager.getServiciobyId(ServiceId);
 			listaSolicitudes = servicioSolicitudManager.getSolicitudsbyService(servicioConsulta)
-					.stream()
-				    .filter(sol -> !(sol.getEstado()==EstadoSolicitud.eliminada))
-				    .collect(Collectors.toList());;;
+					.stream().sorted(Comparator.comparing(Solicitud::getId).reversed())
+				    .filter(sol -> (sol.getEstado()==EstadoSolicitud.valueOf(reqPar.get("estado"))))
+				    .collect(Collectors.toList());
 			servicios.put("serviciId", ServiceId);
+			String estado = reqPar.get("estado");
+			System.out.println("Entro en 1er if con estado" + estado);
 
-		} else {
-			listaSolicitudes = servicioSolicitudManager.getSolicituds()
-					.stream()
-				    .filter(sol -> !(sol.getEstado()==EstadoSolicitud.eliminada))
-				    .collect(Collectors.toList());;;
 		}
+		else if(reqPar.get("servicio") != null) {
+		    Integer ServiceId = Integer.parseInt(reqPar.get("servicio"));
+            Servicio servicioConsulta = servicioManager.getServiciobyId(ServiceId);
+            listaSolicitudes = servicioSolicitudManager.getSolicitudsbyService(servicioConsulta)
+                    .stream().sorted(Comparator.comparing(Solicitud::getId).reversed())
+                    .filter(sol -> !(sol.getEstado()==EstadoSolicitud.eliminada))
+                    .collect(Collectors.toList());
+            servicios.put("serviciId", ServiceId);
+            System.out.println("Entro en 2er if");
+		}
+		else {
+			listaSolicitudes = servicioSolicitudManager.getSolicituds()
+					.stream().sorted(Comparator.comparing(Solicitud::getId).reversed())
+				    .filter(sol -> !(sol.getEstado()==EstadoSolicitud.eliminada))
+				    .collect(Collectors.toList());
+			System.out.println("Entro en 3er if");
+		}
+		
 		Map<String, Object> myModel = new HashMap<String, Object>();
 		ModelAndView mav = new ModelAndView("listadosolicitudes", "model", myModel);
 		List<Servicio> listaServicios = servicioManager.getServicios();
@@ -121,7 +142,8 @@ public class ListadoSolicitudesController {
 		Map<String, Object> solicitudes = new HashMap<String, Object>();
 		solicitudes.put("solicitudes", listaSolicitudes);
 		mav.addObject("solicitudes", solicitudes);
-
+		
+		
 		return mav;
 	}
 
@@ -156,7 +178,7 @@ public class ListadoSolicitudesController {
 		
 		simplePresupuestoManager.addPresupuesto(presupuesto);
 		
-		//Notificar al usuario de recepción de presupuesto
+		//Notificar al usuario de recepciï¿½n de presupuesto
 		
 		Mensaje mensaje = new Mensaje();
 		mensaje.setDescripcion(reqPar.get("descripcion"));
@@ -172,7 +194,6 @@ public class ListadoSolicitudesController {
 		
 		
 		return new ModelAndView("hello");
-
 		
 	}
 }
