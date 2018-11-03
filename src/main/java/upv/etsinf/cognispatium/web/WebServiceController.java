@@ -65,7 +65,9 @@ public class WebServiceController {
 	private SimpleRegistroManager simpleRegistroManager;
 	
 
-	public Usuario usuarioRegistrado = null;
+	public static Usuario usuarioRegistrado = null;
+	
+	public boolean registradoB = false;
 	
 
 	@RequestMapping(value = "/hello.htm")
@@ -116,11 +118,16 @@ public class WebServiceController {
 			userAux.setNombre("Usuario no registrado");
 			mav.addObject("usR", userAux);
 			
+			registradoB = false;
+			
+			mav.addObject("regis", registradoB);
+			
 		}
 		
 		else {
 			
 			mav.addObject("usR", usuarioRegistrado);
+			registradoB = true;
 		}
 		//Map<String, Object> usR = new HashMap<String, Object>();
 	//	usR.put("usuarioRegistrado", usuarioRegistrado);
@@ -169,7 +176,26 @@ public class WebServiceController {
 			
 			servicio.put("servicio", miServicio);
 			
+			
+			
 			mav = new ModelAndView("listaprofesionales", "model", myModel);
+			
+
+			if(usuarioRegistrado == null) {
+				Usuario userAux = new Usuario();
+				
+				userAux.setNombre("Usuario no registrado");
+				mav.addObject("usR", userAux);
+				
+			
+				
+			}
+			
+			else {
+				
+				mav.addObject("usR", usuarioRegistrado);
+
+			}
 			mav.addObject("servicio", servicio);
 			
 		} else if (reqPar.get("serviceIdC") != null) {
@@ -182,6 +208,21 @@ public class WebServiceController {
 			servicio.put("servicio", miServicio);
 			
 			mav = new ModelAndView("listaconsultas", "model", myModel);
+			
+
+			if(usuarioRegistrado == null) {
+				Usuario userAux = new Usuario();
+				
+				userAux.setNombre("Usuario no registrado");
+				mav.addObject("usR", userAux);
+				
+			}
+			
+			else {
+				
+				mav.addObject("usR", usuarioRegistrado);
+				
+			}
 			mav.addObject("servicio", servicio);
 			
 		} else {
@@ -197,7 +238,7 @@ public class WebServiceController {
 			
 			mav = new ModelAndView("hello", "model", myModel);
 			
-			mav.addObject("usRe", usuarioRegistrado);
+			mav.addObject("usR", usuarioRegistrado);
 			
 			Map<String, Object> med = new HashMap<String, Object>();
 			med.put("serviMed", this.servicioManager.getServiciosbyAmbito("Medicina"));
@@ -267,6 +308,20 @@ public class WebServiceController {
 			servicio.put("servicio", miServicio);
 			
 			mav = new ModelAndView("listaprofesionales", "model", myModel);
+
+			if(usuarioRegistrado == null) {
+				Usuario userAux = new Usuario();
+				
+				userAux.setNombre("Usuario no registrado");
+				mav.addObject("usR", userAux);
+				
+			}
+			
+			else {
+				
+				mav.addObject("usR", usuarioRegistrado);
+				
+			}
 			mav.addObject("servicio", servicio);
 			
 		} else if (reqPar.get("serviceIdC") != null) {
@@ -279,6 +334,19 @@ public class WebServiceController {
 			servicio.put("servicio", miServicio);
 			
 			mav = new ModelAndView("listaconsultas", "model", myModel);
+			if(usuarioRegistrado == null) {
+				Usuario userAux = new Usuario();
+				
+				userAux.setNombre("Usuario no registrado");
+				mav.addObject("usR", userAux);
+				
+			}
+			
+			else {
+				
+				mav.addObject("usR", usuarioRegistrado);
+				
+			}
 			mav.addObject("servicio", servicio);
 			
 		} else {
@@ -290,11 +358,25 @@ public class WebServiceController {
 			
 			List<Registro> registros = simpleRegistroManager.getRegistrobyInfo(username, contraseña);
 			
+			
+			
+			if(registros.size() == 0) {
+				
+				mav = new ModelAndView("login", "model", myModel);
+				
+				String str = "Error : Usuario no registrado.";
+				
+				mav.addObject("error",str);
+				
+				return mav;
+				
+			}
+			
 			usuarioRegistrado = registros.get(0).getUsuario();
 			
 			mav = new ModelAndView("hello", "model", myModel);
 			
-			mav.addObject("usRe", usuarioRegistrado);
+			mav.addObject("usR", usuarioRegistrado);
 			
 			Map<String, Object> med = new HashMap<String, Object>();
 			med.put("serviMed", this.servicioManager.getServiciosbyAmbito("Medicina"));

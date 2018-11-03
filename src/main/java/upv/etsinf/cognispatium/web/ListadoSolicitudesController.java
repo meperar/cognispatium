@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import upv.etsinf.cognispatium.domain.Cliente;
 import upv.etsinf.cognispatium.domain.Solicitud;
+import upv.etsinf.cognispatium.domain.Usuario;
 import upv.etsinf.cognispatium.domain.EstadoConsulta;
 import upv.etsinf.cognispatium.domain.EstadoPresupuesto;
 import upv.etsinf.cognispatium.domain.EstadoSolicitud;
@@ -92,6 +93,19 @@ public class ListadoSolicitudesController {
 		List<Solicitud> listaSolicitudes = servicioSolicitudManager.getSolicituds();
 		solicitudes.put("solicitudes", listaSolicitudes);
 		mav.addObject("solicitudes", solicitudes);
+		if(WebServiceController.usuarioRegistrado == null) {
+			Usuario userAux = new Usuario();
+			
+			userAux.setNombre("Usuario no registrado");
+			mav.addObject("usR", userAux);
+			
+		}
+		
+		else {
+			
+			mav.addObject("usR", WebServiceController.usuarioRegistrado);
+			
+		}
 
 		return mav;
 
@@ -142,8 +156,17 @@ public class ListadoSolicitudesController {
 		Map<String, Object> solicitudes = new HashMap<String, Object>();
 		solicitudes.put("solicitudes", listaSolicitudes);
 		mav.addObject("solicitudes", solicitudes);
-		
-		
+
+		if(WebServiceController.usuarioRegistrado == null) {
+			Usuario userAux = new Usuario();
+			
+			userAux.setNombre("Usuario no registrado");
+			mav.addObject("usR", userAux);
+		}
+		else {	
+			mav.addObject("usR", WebServiceController.usuarioRegistrado);	
+		}
+
 		return mav;
 	}
 
@@ -159,6 +182,19 @@ public class ListadoSolicitudesController {
 		
 		
 		myModel.put("solicitud", miSolicitud);
+		if(WebServiceController.usuarioRegistrado == null) {
+			Usuario userAux = new Usuario();
+			
+			userAux.setNombre("Usuario no registrado");
+			mav.addObject("usR", userAux);
+			
+		}
+		
+		else {
+			
+			mav.addObject("usR", WebServiceController.usuarioRegistrado);
+			
+		}
 
 		return mav;
 	}
@@ -174,7 +210,7 @@ public class ListadoSolicitudesController {
 		Solicitud solicitud = servicioSolicitudManager.getSolicitudbyId(Integer.parseInt(reqPar.get("solicitudId")));
 		presupuesto.setSolicitudOrigen(solicitud);
 		
-		presupuesto.setProfesionalOrigen(simpleProfesionalManager.getProfesionales().get(0));
+		presupuesto.setProfesionalOrigen(simpleProfesionalManager.getProfesionalById(WebServiceController.usuarioRegistrado.getId()));
 		
 		simplePresupuestoManager.addPresupuesto(presupuesto);
 		
@@ -183,7 +219,7 @@ public class ListadoSolicitudesController {
 		Mensaje mensaje = new Mensaje();
 		mensaje.setDescripcion(reqPar.get("descripcion"));
 		mensaje.setAsunto("Presupuesto para solicitud:" + solicitud.getTitulo() );
-		mensaje.setProfesional(simpleProfesionalManager.getProfesionales().get(0));
+		mensaje.setProfesional(simpleProfesionalManager.getProfesionalById(WebServiceController.usuarioRegistrado.getId()));
 		mensaje.setCliente(solicitud.getClienteOrigen());
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		long millis=System.currentTimeMillis();
@@ -192,8 +228,22 @@ public class ListadoSolicitudesController {
 		mensaje.setFecha(date);
 		mensajeManager.addMensaje(mensaje);
 		
+		ModelAndView mav = new ModelAndView("hello");
+		if(WebServiceController.usuarioRegistrado == null) {
+			Usuario userAux = new Usuario();
+			
+			userAux.setNombre("Usuario no registrado");
+			mav.addObject("usR", userAux);
+			
+		}
 		
-		return new ModelAndView("hello");
+		else {
+			
+			mav.addObject("usR", WebServiceController.usuarioRegistrado);
+			
+		}
+		return mav;
+
 		
 	}
 }

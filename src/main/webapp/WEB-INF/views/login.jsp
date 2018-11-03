@@ -23,6 +23,7 @@
       <div class="row">
         <div class="col-md-12 text-center">
           <h1 class="">Log In</h1>
+          <label>${error}</label>
         </div>
       </div>
       <div class="row p-5">

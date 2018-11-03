@@ -63,47 +63,102 @@ public class SignUpController {
 		Map<String, Object> myMap = new HashMap<String, Object>();
 		myMap.put("myString", now);
 		
-		ModelAndView mav = new ModelAndView("usersignup", "myString", myMap);
+		ModelAndView mav = new ModelAndView("usersignup", "myString", myMap);	
+		
+		if(WebServiceController.usuarioRegistrado == null) {
+			Usuario userAux = new Usuario();
+			
+			userAux.setNombre("Usuario no registrado");
+			mav.addObject("usR", userAux);
+			
+		}
+		
+		else {
+			
+			mav.addObject("usR", WebServiceController.usuarioRegistrado);
+			
+		}
 		
 		return mav;
 	}
 	
 	@PostMapping("/usersignup.htm")
 	protected ModelAndView Registrarse(@RequestParam Map<String, String> reqPar) throws Exception {
-		nuevoCliente = new Cliente();
-		nuevoProf = new Profesional();
-		nuevoRegistro = new Registro();
-		
-		String cli = "cliente";
-		String prof = "profesional";
-		
-		if(reqPar.get("rol").equals(cli)) {
-			nuevoCliente.setNombre(reqPar.get("nombre"));
-			nuevoCliente.setEmail(reqPar.get("email"));
-			nuevoCliente.setApellidos(reqPar.get("apellido"));
-			nuevoCliente.setDni(reqPar.get("dninif"));
-			nuevoCliente.setTelefono(Integer.parseInt(reqPar.get("tlf")));
-			nuevoCliente.setDTYPE(reqPar.get("rol"));
-			
-			nuevoRegistro.setUsuario(nuevoCliente);
-		} else if (reqPar.get("rol").equals(prof)) {
-			nuevoProf.setNombre(reqPar.get("nombre"));
-			nuevoProf.setEmail(reqPar.get("email"));
-			nuevoProf.setApellidos(reqPar.get("apellido"));
-			nuevoProf.setDni(reqPar.get("dninif"));
-			nuevoProf.setTelefono(Integer.parseInt(reqPar.get("tlf")));
-			nuevoProf.setDTYPE(reqPar.get("rol"));
-			
-			nuevoRegistro.setUsuario(nuevoProf);
+		String err = "";
+		if(regMng.getRegistrobyUN(reqPar.get("username")).size() == 0) {
+			nuevoCliente = new Cliente();
+			nuevoProf = new Profesional();
+			nuevoRegistro = new Registro();
+
+			String cli = "cliente";
+			String prof = "profesional";
+
+			if(reqPar.get("rol").equals(cli)) {
+				nuevoCliente.setNombre(reqPar.get("nombre"));
+				nuevoCliente.setEmail(reqPar.get("email"));
+				nuevoCliente.setApellidos(reqPar.get("apellido"));
+				nuevoCliente.setDni(reqPar.get("dninif"));
+				nuevoCliente.setTelefono(Integer.parseInt(reqPar.get("tlf")));
+				nuevoCliente.setDTYPE(reqPar.get("rol"));
+
+				nuevoRegistro.setUsuario(nuevoCliente);
+			} else if (reqPar.get("rol").equals(prof)) {
+				nuevoProf.setNombre(reqPar.get("nombre"));
+				nuevoProf.setEmail(reqPar.get("email"));
+				nuevoProf.setApellidos(reqPar.get("apellido"));
+				nuevoProf.setDni(reqPar.get("dninif"));
+				nuevoProf.setTelefono(Integer.parseInt(reqPar.get("tlf")));
+				nuevoProf.setDTYPE(reqPar.get("rol"));
+
+				nuevoRegistro.setUsuario(nuevoProf);
+			}
+
+			nuevoRegistro.setContraseña(reqPar.get("password"));
+			nuevoRegistro.setUsername(reqPar.get("username"));
+
+			regMng.addRegistro(nuevoRegistro);
+
+			ModelAndView mav = new ModelAndView("hello");
+
+			if(WebServiceController.usuarioRegistrado == null) {
+				Usuario userAux = new Usuario();
+
+				userAux.setNombre("Usuario no registrado");
+				mav.addObject("usR", userAux);
+
+			}
+
+			else {
+
+				mav.addObject("usR", WebServiceController.usuarioRegistrado);
+
+			}
+			return mav;
+
+
+		} else {
+			err = "Nombre de usuario no disponible, pruebe con otro.";
+			Map<String, Object> myMap = new HashMap<String, Object>();
+			myMap.put("err", err);
+
+			ModelAndView mav = new ModelAndView("usersignup", "err", myMap);
+			if(WebServiceController.usuarioRegistrado == null) {
+				Usuario userAux = new Usuario();
+
+				userAux.setNombre("Usuario no registrado");
+				mav.addObject("usR", userAux);
+
+			}
+
+			else {
+
+				mav.addObject("usR", WebServiceController.usuarioRegistrado);
+
+			}
+			return mav;
 		}
-		
-		nuevoRegistro.setContraseña(reqPar.get("password"));
-		nuevoRegistro.setUsername(reqPar.get("username"));
-		
-		regMng.addRegistro(nuevoRegistro);
-		
-		return new ModelAndView("hello");
+
 	}
-	
-	
+
+
 }

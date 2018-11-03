@@ -10,6 +10,8 @@ public interface ConsultaUrgenteDao {
     public List<ConsultaUrgente> getConsultaUrgenteList();
 
     public void saveConsultaUrgente(ConsultaUrgente consultaUrgente);
+    
+    public void dropConsultaUrgente(ConsultaUrgente consultaUrgente);
 
 	public List<ConsultaUrgente> getConsultaListbyService(Servicio servicioConsulta);
 

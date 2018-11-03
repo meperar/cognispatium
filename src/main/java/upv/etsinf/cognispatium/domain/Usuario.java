@@ -32,6 +32,7 @@ public class Usuario implements Serializable {
 	private String dni;
 	private String DTYPE;
 	private int telefono;
+	private int edad;
 	
 	
 
@@ -91,6 +92,14 @@ public class Usuario implements Serializable {
 
 	public void setTelefono(int telefono) {
 		this.telefono = telefono;
+	}
+	
+	public int getEdad() {
+		return edad;
+	}
+
+	public void setEdad(int edad) {
+		this.edad = edad;
 	}
 
 	public String toString() {

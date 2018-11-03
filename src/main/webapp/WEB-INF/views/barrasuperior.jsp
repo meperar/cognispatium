@@ -100,7 +100,7 @@
          		 <tbody>
          	 		<tr>
          	 		 <td>
-         	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Medicina<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
+         	 		 <h4 class="gh-sbc-parent"><a title="" class="titulosFiltros">Medicina<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
          	 		 <ul>
          	 		 <c:forEach items="${med.serviMed}" var="serviM">
          	 		 <form action="#" method="post" class="text-left">
@@ -109,7 +109,7 @@
          	 		 </form> 
          	 		 </c:forEach>
          	 		 </ul>
-         	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Deporte<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
+         	 		 <h4 class="gh-sbc-parent"><a title="" class="titulosFiltros">Deporte<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
          	 		 <ul>
          	 		 <c:forEach items="${dep.serviDep}" var="serviD">
          	 		 <form action="#" method="post" class="text-left">
@@ -118,7 +118,7 @@
          	 		 </form>
          	 		 </c:forEach>
          	 		 </ul>
-         	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Ciencia<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
+         	 		 <h4 class="gh-sbc-parent"><a title="" class="titulosFiltros">Ciencia<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
          	 		 <ul>
          	 		 <c:forEach items="${cien.serviCien}" var="serviC">
          	 		 <form action="#" method="post" class="text-left">
@@ -129,7 +129,7 @@
          	 		 </ul>    	 		 
          	 		 </td>
          	 		 <td>
-         	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Técnicos<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
+         	 		 <h4 class="gh-sbc-parent"><a title="" class="titulosFiltros">Técnicos<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
          	 		 <ul>
          	 		 <c:forEach items="${tec.serviTec}" var="serviT">
          	 		 <form action="#" method="post" class="text-left">
@@ -138,7 +138,7 @@
          	 		 </form>
          	 		 </c:forEach>
          	 		 </ul> 
-         	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Legislación<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
+         	 		 <h4 class="gh-sbc-parent"><a title="" class="titulosFiltros">Legislación<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
          	 		 <ul>
          	 		 <c:forEach items="${leg.serviLeg}" var="serviL">
          	 		 <form action="#" method="post" class="text-left">
@@ -147,7 +147,7 @@
          	 		 </form>
          	 		 </c:forEach>
          	 		 </ul> 
-         	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Artes Marciales<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
+         	 		 <h4 class="gh-sbc-parent"><a title="" class="titulosFiltros">Artes Marciales<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
          	 		 <ul>
          	 		 <c:forEach items="${artm.serviArtM}" var="serviAM">
          	 		 <form action="#" method="post" class="text-left">
@@ -156,7 +156,7 @@
          	 		 </form>
          	 		 </c:forEach>
          	 		 </ul> 
-         	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Cuidados del Hogar<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
+         	 		 <h4 class="gh-sbc-parent"><a title="" class="titulosFiltros">Cuidados del Hogar<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
          	 		 <ul>
          	 		 <c:forEach items="${cuiho.serviCuiHo}" var="serviCH">
          	 		 <form action="#" method="post" class="text-left">
@@ -167,7 +167,7 @@
          	 		 </ul> 
          	 		 </td>
          	 		 <td>
-         	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Arte<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
+         	 		 <h4 class="gh-sbc-parent"><a title="" class="titulosFiltros">Arte<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
          	 		 <ul>
          	 		 <c:forEach items="${art.serviArt}" var="serviA">
          	 		 <form action="#" method="post" class="text-left">
@@ -176,7 +176,7 @@
          	 		 </form>
          	 		 </c:forEach>
          	 		 </ul> 
-         	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Idiomas<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
+         	 		 <h4 class="gh-sbc-parent"><a title="" class="titulosFiltros">Idiomas<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
          	 		 <ul>
          	 		 <c:forEach items="${idio.serviIdio}" var="serviI">
          	 		 <form action="#" method="post" class="text-left">
@@ -185,7 +185,7 @@
          	 		 </form>
          	 		 </c:forEach>
          	 		 </ul> 
-         	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Estética<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
+         	 		 <h4 class="gh-sbc-parent"><a title="" class="titulosFiltros">Estética<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
          	 		 <ul>
          	 		 <c:forEach items="${est.serviEst}" var="serviE">
          	 		 <form action="#" method="post" class="text-left">
@@ -206,7 +206,7 @@
          		<tbody>
          	 		<tr>
          	 		 <td>
-         	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Medicina<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
+         	 		 <h4 class="gh-sbc-parent"><a title="" class="titulosFiltros">Medicina<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
          	 		 <ul>
          	 		 <c:forEach items="${med.serviMed}" var="serviM">
          	 		 <form action="#" method="post" class="text-left">
@@ -215,7 +215,7 @@
          	 		 </form> 
          	 		 </c:forEach>
          	 		 </ul>
-         	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Deporte<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
+         	 		 <h4 class="gh-sbc-parent"><a title="" class="titulosFiltros">Deporte<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
          	 		 <ul>
          	 		 <c:forEach items="${dep.serviDep}" var="serviD">
          	 		 <form action="#" method="post" class="text-left">
@@ -224,7 +224,7 @@
          	 		 </form>
          	 		 </c:forEach>
          	 		 </ul>
-         	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Ciencia<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
+         	 		 <h4 class="gh-sbc-parent"><a title="" class="titulosFiltros">Ciencia<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
          	 		 <ul>
          	 		 <c:forEach items="${cien.serviCien}" var="serviC">
          	 		 <form action="#" method="post" class="text-left">
@@ -235,7 +235,7 @@
          	 		 </ul>    	 		 
          	 		 </td>
          	 		 <td>
-         	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Técnicos<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
+         	 		 <h4 class="gh-sbc-parent"><a title="" class="titulosFiltros">Técnicos<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
          	 		 <ul>
          	 		 <c:forEach items="${tec.serviTec}" var="serviT">
          	 		 <form action="#" method="post" class="text-left">
@@ -244,7 +244,7 @@
          	 		 </form>
          	 		 </c:forEach>
          	 		 </ul> 
-         	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Legislación<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
+         	 		 <h4 class="gh-sbc-parent"><a title="" class="titulosFiltros">Legislación<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
          	 		 <ul>
          	 		 <c:forEach items="${leg.serviLeg}" var="serviL">
          	 		 <form action="#" method="post" class="text-left">
@@ -253,7 +253,7 @@
          	 		 </form>
          	 		 </c:forEach>
          	 		 </ul> 
-         	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Artes Marciales<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
+         	 		 <h4 class="gh-sbc-parent"><a title="" class="titulosFiltros">Artes Marciales<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
          	 		 <ul>
          	 		 <c:forEach items="${artm.serviArtM}" var="serviAM">
          	 		 <form action="#" method="post" class="text-left">
@@ -262,7 +262,7 @@
          	 		 </form>
          	 		 </c:forEach>
          	 		 </ul> 
-         	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Cuidados del Hogar<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
+         	 		 <h4 class="gh-sbc-parent"><a title="" class="titulosFiltros">Cuidados del Hogar<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
          	 		 <ul>
          	 		 <c:forEach items="${cuiho.serviCuiHo}" var="serviCH">
          	 		 <form action="#" method="post" class="text-left">
@@ -273,7 +273,7 @@
          	 		 </ul> 
          	 		 </td>
          	 		 <td>
-         	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Arte<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
+         	 		 <h4 class="gh-sbc-parent"><a title="" class="titulosFiltros">Arte<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
          	 		 <ul>
          	 		 <c:forEach items="${art.serviArt}" var="serviA">
          	 		 <form action="#" method="post" class="text-left">
@@ -282,7 +282,7 @@
          	 		 </form>
          	 		 </c:forEach>
          	 		 </ul> 
-         	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Idiomas<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
+         	 		 <h4 class="gh-sbc-parent"><a title="" class="titulosFiltros">Idiomas<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
          	 		 <ul>
          	 		 <c:forEach items="${idio.serviIdio}" var="serviI">
          	 		 <form action="#" method="post" class="text-left">
@@ -291,7 +291,7 @@
          	 		 </form>
          	 		 </c:forEach>
          	 		 </ul> 
-         	 		 <h4 class="gh-sbc-parent"><a title="" href=# class="titulosFiltros">Estética<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
+         	 		 <h4 class="gh-sbc-parent"><a title="" class="titulosFiltros">Estética<i class="gh-sbc-h3i gh-sprRetina"></i></a></h4>
          	 		 <ul>
          	 		 <c:forEach items="${est.serviEst}" var="serviE">
          	 		 <form action="#" method="post" class="text-left">
@@ -308,15 +308,24 @@
         </div>
         <ul class="navbar-nav">
           <li class="nav-item" style=""> <a class="nav-link" href="#">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  </a> </li>          
-          <li class="nav-item"> <a class="nav-link" href="usersignup.htm">Sign up </a> </li>
-          <li class="nav-item"> <a class="nav-link" href="login.htm">Log In </a> </li>         
-          <li class="nav-item" ><a class="nav-link" href="crearconsultaurgente.htm">Publicar CU</a></li>
-          <li class="nav-item" ><a class="nav-link" href="crearsolicitudpresupuesto.htm">Pedir Presupuesto</a></li>
-          <li class="nav-item" ><a class="nav-link" href="listadosolicitudes.htm">Solicitudes</a></li>
-          <li class="nav-item" ><a class="nav-link" href="listadoconsultas.htm">Consultas</a></li>
-		  <li class="nav-item" ><a class="nav-link" href="bandejamensajes.htm">Bandeja de Mensajes</a></li>
-		   <li class="nav-item" ><a class="nav-link" href="misSolicitudes.htm">Mis Solicitudes</a></li>
-		  
+          		
+          		 <c:if test ="${usR.apellidos == null}">
+			     <li class="nav-item"> <a class="nav-link" href="usersignup.htm">Sign up </a> </li>
+          		 <li class="nav-item"> <a class="nav-link" href="login.htm">Log In </a> </li> 
+				</c:if>
+				 <c:if test ="${usR.apellidos != null}">
+				 	<c:if test ="${(usR.DTYPE).toString().length()==7}">
+				     <li class="nav-item" ><a class="nav-link" href="crearconsultaurgente.htm">Publicar CU</a></li>
+			         <li class="nav-item" ><a class="nav-link" href="crearsolicitudpresupuesto.htm">Pedir Presupuesto</a></li>
+			         <li class="nav-item" ><a class="nav-link" href="misSolicitudes.htm">Mis Solicitudes</a></li>
+			         </c:if>
+			         <c:if test ="${(usR.DTYPE).toString().length()==11}">
+			         <li class="nav-item" ><a class="nav-link" href="listadosolicitudes.htm">Solicitudes</a></li>
+			         <li class="nav-item" ><a class="nav-link" href="listadoconsultas.htm">Consultas</a></li> 
+					 </c:if>
+					 <li class="nav-item" ><a class="nav-link" href="bandejamensajes.htm">Bandeja de Mensajes</a></li>	 
+					 <li class="nav-item" ><a class="nav-link" href="perfil.htm">Perfil</a></li>
+				</c:if>
         </ul>
       </div>
     </div>

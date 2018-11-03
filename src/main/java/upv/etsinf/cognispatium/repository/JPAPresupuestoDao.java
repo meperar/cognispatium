@@ -32,6 +32,12 @@ public class JPAPresupuestoDao implements PresupuestoDao {
 		em.merge(presupuesto);
 
 	}
+	
+	@Override
+	@Transactional(readOnly = false)
+	public void dropPresupuesto(Presupuesto presupuesto) {
+		em.remove(em.contains(presupuesto) ? presupuesto : em.merge(presupuesto));
+	}
 
 	@Override
 	public Presupuesto getPresupuestoById(Integer presupuestoId) {

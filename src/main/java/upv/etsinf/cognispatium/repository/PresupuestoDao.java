@@ -9,6 +9,8 @@ public interface PresupuestoDao {
     public List<Presupuesto> getPresupuestoList();
 
     public void savePresupuesto(Presupuesto presupuesto);
+    
+    public void dropPresupuesto(Presupuesto presupuesto);
 
 	public Presupuesto getPresupuestoById(Integer presupuestoId);
 

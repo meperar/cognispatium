@@ -6,7 +6,6 @@ import upv.etsinf.cognispatium.domain.Profesional;
 import upv.etsinf.cognispatium.domain.Servicio;
 
 
-
 public interface ServicioDao {
 
     public List<Servicio> getServicioList();
