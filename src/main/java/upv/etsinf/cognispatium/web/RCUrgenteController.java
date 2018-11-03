@@ -104,13 +104,13 @@ public class RCUrgenteController {
 		ConsultaUrgente consultaUrgente = simpleConsultaUrgenteManager.getConsultaUrgentebyId(consultaId);
 		respuesta.setDescripcion(reqPar.get("respuesta"));	
 		respuesta.setConsultaOrigen(consultaUrgente);
-		respuesta.setProfesionalOrigen(simpleProfesionalManager.getProfesionales().get(1));
+		respuesta.setProfesionalOrigen(simpleProfesionalManager.getProfesionalById(WebServiceController.usuarioRegistrado.getId()));
 		respuestaManager.addRespuesta(respuesta);
 		
 		Mensaje mensaje = new Mensaje();
 		mensaje.setDescripcion(reqPar.get("respuesta"));
 		mensaje.setAsunto("Respuesta a su Consulta urgente:" + consultaUrgente.getTitulo() );
-		mensaje.setProfesional(simpleProfesionalManager.getProfesionales().get(0));
+		mensaje.setProfesional(simpleProfesionalManager.getProfesionalById(WebServiceController.usuarioRegistrado.getId()));
 		mensaje.setCliente(consultaUrgente.getClienteOrigen());
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		long millis=System.currentTimeMillis();

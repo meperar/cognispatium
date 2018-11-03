@@ -10,6 +10,8 @@ public interface ConsultaDao {
 
     public void saveConsulta(Consulta consulta);
     
+    public void dropConsulta(Consulta consulta);
+    
     public List<Consulta> getConsultasbyServicio(Integer serviceId);
         
      

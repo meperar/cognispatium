@@ -32,5 +32,12 @@ public class JPARespuestaDao implements RespuestaDao {
 		em.merge(respuesta);
 
 	}
+	
+	@Override
+	@Transactional(readOnly = false)
+	public void dropRespuesta(Respuesta respuesta) {
+		em.remove(em.contains(respuesta) ? respuesta : em.merge(respuesta));
+
+	}
 
 }

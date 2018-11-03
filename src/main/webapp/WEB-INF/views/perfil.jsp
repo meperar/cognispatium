@@ -205,6 +205,19 @@
 									<a><font size="+1">Teléfono: ${model.usuario.telefono}</font></a><br>
 									<br>
 									<button class="open-button" onclick="openForm()">Editar</button>
+									<br>
+									<button class="open-button" onclick="openForme()">Eliminar Perfil</button>
+									
+									<div class="form-popup" id="myForme">
+										<form action="#" method="post" class="form-container">
+											<input type="hidden" id="usridE" name="usridE" value="${model.usuario.id}">
+											<div style="text-align: center">No podrás recuperar tus datos, ¿proceder?</div>
+											<div style="display: inline-block;">
+												<button type="submit" class="btn">Aceptar</button> 
+												<button type="button" class="btn cancel" onclick="closeForme()">Cancelar</button>
+											</div>
+										</form>
+									</div>
 
 									<div class="form-popup" id="myForm">
 									  	<form action="#" onsubmit="return validarCampos();" method="post" class="form-container">
@@ -243,6 +256,14 @@
 									</div>
 									
 									<script>
+									function openForme() {
+									    document.getElementById("myForme").style.display = "block";
+									}
+									
+									function closeForme() {
+									    document.getElementById("myForme").style.display = "none";
+									}
+									
 									function openForm() {
 									    document.getElementById("myForm").style.display = "block";
 									}

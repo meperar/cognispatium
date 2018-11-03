@@ -31,6 +31,11 @@ public class SimpleConsultaUrgenteManager implements Serializable {
 		
 		consultaUrgenteDao.saveConsultaUrgente(consultaUrgente);
 	}
+    
+    public void dropCU(ConsultaUrgente consultaUrgente) {
+		
+		consultaUrgenteDao.dropConsultaUrgente(consultaUrgente);
+	}
 
 	public List<ConsultaUrgente> getConsultasbyService(Servicio servicioConsulta) {
 		return consultaUrgenteDao.getConsultaListbyService(servicioConsulta);

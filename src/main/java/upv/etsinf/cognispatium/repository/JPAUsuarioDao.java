@@ -43,6 +43,11 @@ public class JPAUsuarioDao implements UsuarioDao {
 		return em.find(Usuario.class, usuarioId);
 	}
     
+    @Override
+    @Transactional(readOnly = false)
+    public void dropUsuario(Usuario usuario) { 
+        em.remove(em.contains(usuario) ? usuario : em.merge(usuario));
+    }
 
     
 }

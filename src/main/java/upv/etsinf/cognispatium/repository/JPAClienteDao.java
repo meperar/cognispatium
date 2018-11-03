@@ -34,6 +34,12 @@ public class JPAClienteDao implements ClienteDao {
     public void saveCliente(Cliente cliente) {
         em.merge(cliente);
     }
+    
+    @Override
+    @Transactional(readOnly = false)
+    public void dropCliente(Cliente cliente) {
+    	em.remove(em.contains(cliente) ? cliente : em.merge(cliente));
+    }
 
 	@Override
 	@Transactional(readOnly = true)

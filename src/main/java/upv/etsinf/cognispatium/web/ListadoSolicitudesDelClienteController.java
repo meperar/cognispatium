@@ -83,7 +83,7 @@ public class ListadoSolicitudesDelClienteController {
 		ModelAndView mav = new ModelAndView("misSolicitudes");
 		Map<String, Object> myModel = new HashMap<String, Object>();
 
-		Cliente clienteSimulado = simpleClienteManager.getClientes().get(0);
+		Cliente clienteSimulado = simpleClienteManager.getClientebyId(WebServiceController.usuarioRegistrado.getId());
 
 		List<Solicitud> listaSolicitudes = clienteSimulado.getSolicitudes()
 				.stream()
@@ -165,7 +165,7 @@ public class ListadoSolicitudesDelClienteController {
 			ModelAndView mav = new ModelAndView("misSolicitudes");
 			Map<String, Object> myModel = new HashMap<String, Object>();
 
-			Cliente clienteSimulado = simpleClienteManager.getClientes().get(0);
+			Cliente clienteSimulado = simpleClienteManager.getClientebyId(WebServiceController.usuarioRegistrado.getId());
 
 			List<Solicitud> listaSolicitudes = clienteSimulado.getSolicitudes()
 					.stream()
@@ -208,7 +208,7 @@ public class ListadoSolicitudesDelClienteController {
 		ModelAndView mav = new ModelAndView("misSolicitudes");
 		Map<String, Object> myModel = new HashMap<String, Object>();
 
-		Cliente clienteSimulado = simpleClienteManager.getClientes().get(0);
+		Cliente clienteSimulado = simpleClienteManager.getClientebyId(WebServiceController.usuarioRegistrado.getId());
 
 		List<Solicitud> listaSolicitudes = clienteSimulado.getSolicitudes();
 		myModel.put("solicitudes", listaSolicitudes);
