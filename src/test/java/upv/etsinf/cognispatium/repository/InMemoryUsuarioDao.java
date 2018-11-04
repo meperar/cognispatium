@@ -24,5 +24,11 @@ public class InMemoryUsuarioDao implements UsuarioDao {
     	
     }
 
+	@Override
+	public void dropUsuario(Usuario usuario) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }

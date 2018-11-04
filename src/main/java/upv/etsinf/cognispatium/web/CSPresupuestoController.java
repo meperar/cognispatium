@@ -119,7 +119,7 @@ public class CSPresupuestoController {
 		Integer ServiceId = Integer.parseInt(reqPar.get("servicio"));
 		Servicio servicioConsulta = servicioManager.getServiciobyId(ServiceId);
 		Solicitud solicitud = new Solicitud();
-		Cliente cliente = simpleClienteManager.getClientes().get(0);
+		Cliente cliente = simpleClienteManager.getClientebyId(WebServiceController.usuarioRegistrado.getId());
 		solicitud.setDescripcion(descripcion);
 		solicitud.setTitulo(titulo);
 		solicitud.setServicioOrigen(servicioConsulta);

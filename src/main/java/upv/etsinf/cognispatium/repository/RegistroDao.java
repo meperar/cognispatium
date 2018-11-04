@@ -11,6 +11,8 @@ public interface RegistroDao {
 
     public void saveRegistro(Registro registro);
     
+    public void dropRegistro(Registro registro);
+    
     public Registro getRegistrobyId(Integer registroId);
     
     public List<Registro> getRegistrobyInfo(String username, String contraseña);

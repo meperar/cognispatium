@@ -33,6 +33,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -83,10 +84,10 @@ public class ListadoSolicitudesDelClienteController {
 		ModelAndView mav = new ModelAndView("misSolicitudes");
 		Map<String, Object> myModel = new HashMap<String, Object>();
 
-		Cliente clienteSimulado = simpleClienteManager.getClientes().get(0);
+		Cliente clienteSimulado = simpleClienteManager.getClientebyId(WebServiceController.usuarioRegistrado.getId());
 
 		List<Solicitud> listaSolicitudes = clienteSimulado.getSolicitudes()
-				.stream()
+				.stream().sorted(Comparator.comparing(Solicitud::getId).reversed())
 			    .filter(sol -> !(sol.getEstado()==EstadoSolicitud.eliminada))
 			    .collect(Collectors.toList());;
 		myModel.put("solicitudes", listaSolicitudes);
@@ -155,10 +156,10 @@ public class ListadoSolicitudesDelClienteController {
 			ModelAndView mav = new ModelAndView("misSolicitudes");
 			Map<String, Object> myModel = new HashMap<String, Object>();
 
-			Cliente clienteSimulado = simpleClienteManager.getClientes().get(0);
+			Cliente clienteSimulado = simpleClienteManager.getClientebyId(WebServiceController.usuarioRegistrado.getId());
 
 			List<Solicitud> listaSolicitudes = clienteSimulado.getSolicitudes()
-					.stream()
+					.stream().sorted(Comparator.comparing(Solicitud::getId).reversed())
 				    .filter(sol -> !(sol.getEstado()==EstadoSolicitud.eliminada))
 				    .collect(Collectors.toList());
 			myModel.put("solicitudes", listaSolicitudes);
@@ -190,7 +191,7 @@ public class ListadoSolicitudesDelClienteController {
 		ModelAndView mav = new ModelAndView("misSolicitudes");
 		Map<String, Object> myModel = new HashMap<String, Object>();
 
-		Cliente clienteSimulado = simpleClienteManager.getClientes().get(0);
+		Cliente clienteSimulado = simpleClienteManager.getClientebyId(WebServiceController.usuarioRegistrado.getId());
 
 		List<Solicitud> listaSolicitudes = clienteSimulado.getSolicitudes();
 		myModel.put("solicitudes", listaSolicitudes);

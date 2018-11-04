@@ -37,4 +37,9 @@ public class SimpleClienteManager implements ClienteManager {
 		clienteDao.saveCliente(cliente);
 	}
     
+    public void dropCli(Cliente cliente) {
+		
+		clienteDao.dropCliente(cliente);
+	}
+    
 }

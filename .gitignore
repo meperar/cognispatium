@@ -1,3 +1,4 @@
 target/
 src/main/webapp/WEB-INF/views/prueba.html
 *.html
+src/main/java/upv/etsinf/cognispatium/service/Comparador.java
