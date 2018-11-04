@@ -202,19 +202,17 @@ label.star:before {
 <jsp:include page="barrasuperior.jsp" flush="true" />
 	<img src="https://i.imgur.com/Yiay52m.png" width = 256 title="source: imgur.com" />
 	<p></p>
-	<div class="stars">
-  	<form action="">
-	<c:forEach begin="1" end="5" varStatus="loop" var="i">
-		<!-- <img src="https://image.flaticon.com/icons/svg/149/149765.svg" whith=30 height=30/>-->
-		<!-- <img src="https://image.flaticon.com/icons/svg/149/149222.svg" whith=25 height=25 /> -->
-		<input class="star star-${6-i}" id="star-${6-i}" value="${6-i}" type="radio" name="star"/>
-    	<label class="star star-${6-i}" for="star-${6-i}"></label>
-	</c:forEach>
+	<form action="#"  method="post" class="text-left">
+		<div class="stars">
+			<c:forEach begin="1" end="5" varStatus="loop" var="i">
+				<input class="star star-${6-i}" id="star-${6-i}" value="${6-i}" type="radio" name="star" required/>
+		    	<label class="star star-${6-i}" for="star-${6-i}"></label>
+			</c:forEach>
+		</div>
+		<br/>
+		<button type="submit" class="bg-primary" name="votarProfesional">Votar profesional
+		</button>
 	</form>
-	</div>
-	<br/>
-	<button class="bg-primary" name="votarProfesional">Votar profesional
-	</button>
 
 </body>
 </html>

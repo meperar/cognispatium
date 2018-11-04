@@ -114,7 +114,7 @@ public class ListadoSolicitudesDelClienteController {
 
 	@PostMapping("/misSolicitudes.htm")
 	protected ModelAndView verSolicitud(@RequestParam Map<String, String> reqPar,HttpServletRequest request) throws Exception {
-		System.out.println("verSolicitud()");
+
 		this.miSolicitud = servicioSolicitudManager.getSolicitudbyId(Integer.parseInt(reqPar.get("solicitudId")));
 		
 		boolean info = WebUtils.hasSubmitParameter(request, "info");

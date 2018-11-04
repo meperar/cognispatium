@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import upv.etsinf.cognispatium.domain.Usuario;
@@ -43,5 +45,10 @@ public class VotarProfesionalController {
 		}
 		
 		return mav;
+	}
+	
+	@PostMapping("/votarProfesional.htm")
+	protected ModelAndView votarProfesional(@RequestParam Map<String, String> reqPar) throws Exception {
+		return new ModelAndView("redirect:/hello.htm");
 	}
 }
