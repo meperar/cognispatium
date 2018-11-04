@@ -118,8 +118,8 @@ public class PerfilController {
 	@PostMapping("/perfil.htm")
 	protected ModelAndView editar(@RequestParam Map<String, String> reqPar) throws Exception {
 		
-		Usuario usuario = usuarioManager.getUsuariobyId(3);
-		Registro registro = registroManager.getRegistrobyId(3);
+		Usuario usuario = WebServiceController.usuarioRegistrado; 
+		Registro registro = registroManager.getRegistrobyUsuario(usuario.getId()).get(0);
 		Boolean errorUsername = false;
 		
 		List<Registro> registrosBD = registroManager.getRegistrobyUN(reqPar.get("apodo"));
@@ -127,7 +127,7 @@ public class PerfilController {
 		
 		if(registrosBD.size() == 0 || registro.getUsername().equals(reqPar.get("apodo"))) {
 			
-			usuario = usuarioManager.getUsuariobyId(3); // <-------- Aquí también.
+			usuario = WebServiceController.usuarioRegistrado; 
 	
 			usuario.setNombre(reqPar.get("nombre"));
 			usuario.setApellidos(reqPar.get("apellidos"));
@@ -139,7 +139,7 @@ public class PerfilController {
 			usuarioManager.addUsuario(usuario);
 			
 			
-			registro = registroManager.getRegistrobyId(3); // <-------- Aquí también.
+			registro = registroManager.getRegistrobyUsuario(usuario.getId()).get(0);
 			
 			registro.setUsername(reqPar.get("apodo"));
 			registro.setContraseña(reqPar.get("contrasena"));
