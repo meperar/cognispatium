@@ -75,6 +75,12 @@
 		   										<img src="https://i.imgur.com/hYfF8io.png" width = 18 title="source: imgur.com" />
 											</c:forEach>
 										</a>
+										<br/>
+										<form action="<c:url value="/votarProfesional.htm" />">
+										<button>Valorar profesional</button>
+										<input type="hidden"
+											id="profesionalId" name="profesionalId" value="${profs.id}">
+										</form>
 									</td>
 								</tr>
 							</c:forEach>

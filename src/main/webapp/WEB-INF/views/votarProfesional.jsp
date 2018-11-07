@@ -192,6 +192,12 @@ label.star:before {
   content: '\f006';
   font-family: FontAwesome;
 }
+
+/*Texto cnetrado inicio*/
+.center {
+	text-align:center;
+}
+/*Texto cnetrado fin*/
 </style>
 </head>
 <body>
@@ -200,19 +206,28 @@ label.star:before {
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
 	<link rel="stylesheet" href="https://static.pingendo.com/bootstrap/bootstrap-4.1.3.css" style="">
 <jsp:include page="barrasuperior.jsp" flush="true" />
-	<img src="https://i.imgur.com/Yiay52m.png" width = 256 title="source: imgur.com" />
-	<p></p>
-	<form action="#"  method="post" class="text-left">
-		<div class="stars">
-			<c:forEach begin="1" end="5" varStatus="loop" var="i">
-				<input class="star star-${6-i}" id="star-${6-i}" value="${6-i}" type="radio" name="star" required/>
-		    	<label class="star star-${6-i}" for="star-${6-i}"></label>
-			</c:forEach>
+	<div class="center">
+		<img src="https://i.imgur.com/Yiay52m.png" width = 256 title="source: imgur.com"/>
+		<h4>${profesional.nombre} ${profesional.apellidos}</h4>
+	</div>
+	<form action="#"  method="post" class="text-left center">
+		<div class="center">
+			<div class="stars">
+				<c:forEach begin="1" end="5" varStatus="loop" var="i">
+					<input class="star star-${6-i} center" id="star-${6-i}" value="${6-i}" type="radio" name="star" required/>
+			    	<label class="star star-${6-i} center" for="star-${6-i}"></label>
+				</c:forEach>
+			</div>
 		</div>
-		<br/>
-		<button type="submit" class="bg-primary" name="votarProfesional">Votar profesional
-		</button>
+			<br/>
+		<div class="center">
+			
+				<button type="submit" class="bg-primary center" name="votarProfesional">Votar profesional
+				</button>
+		</div>
+		
 	</form>
+	
 
 </body>
 </html>

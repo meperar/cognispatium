@@ -120,7 +120,7 @@ public class ListadoSolicitudesDelClienteController {
 		boolean info = WebUtils.hasSubmitParameter(request, "info");
 		
 		if(WebUtils.hasSubmitParameter(request, "valorarProfesional")) {
-
+			
 			return new ModelAndView("redirect:/votarProfesional.htm");
 		}
 		
