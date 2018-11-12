@@ -37,465 +37,316 @@ import upv.etsinf.cognispatium.service.SimpleConsultaManager;
 import upv.etsinf.cognispatium.service.SimpleRegistroManager;
 import upv.etsinf.cognispatium.service.SimpleServicioManager;
 
-
 @Controller
 public class WebServiceController {
 
 	protected final Log logger = LogFactory.getLog(getClass());
 
+	Map<String, Object> serviciosPorAmbito;
+
 	@Autowired
 	private UsuarioManager usuarioManager;
-	
+
 	@Autowired
 	private ClienteManager clienteManager;
-	
+
 	@Autowired
 	private AdminManager adminManager;
-	
+
 	@Autowired
 	private ProfesionalManager profesionalManager;
-	
+
 	@Autowired
 	private SimpleServicioManager servicioManager;
-	
+
 	@Autowired
 	private SimpleConsultaManager consultaManager;
-	
+
 	@Autowired
 	private SimpleRegistroManager simpleRegistroManager;
-	
 
 	public static Usuario usuarioRegistrado = null;
-	
+
 	public boolean registradoB = false;
-	
 
 	@RequestMapping(value = "/hello.htm")
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		
 		String now = (new Date()).toString();
 		logger.info("Returning hello view with " + now);
+		
 
-		Map<String, Object> med = new HashMap<String, Object>();
-		med.put("serviMed", this.servicioManager.getServiciosbyAmbito("Medicina"));
-		
-		Map<String, Object> dep = new HashMap<String, Object>();
-		dep.put("serviDep", this.servicioManager.getServiciosbyAmbito("Deporte"));
-		
-		Map<String, Object> cien = new HashMap<String, Object>();
-		cien.put("serviCien", this.servicioManager.getServiciosbyAmbito("Ciencia"));
-		
-		Map<String, Object> tec = new HashMap<String, Object>();
-		tec.put("serviTec", this.servicioManager.getServiciosbyAmbito("Técnicos"));
-		
-		Map<String, Object> leg = new HashMap<String, Object>();
-		leg.put("serviLeg", this.servicioManager.getServiciosbyAmbito("Legislación"));
-		
-		Map<String, Object> artm = new HashMap<String, Object>();
-		artm.put("serviArtM", this.servicioManager.getServiciosbyAmbito("Artes Marciales"));
-		
-		Map<String, Object> cuiho = new HashMap<String, Object>();
-		cuiho.put("serviCuiHo", this.servicioManager.getServiciosbyAmbito("Cuidados del Hogar"));
-		
-		Map<String, Object> art = new HashMap<String, Object>();
-		art.put("serviArt", this.servicioManager.getServiciosbyAmbito("Arte"));
-		
-		Map<String, Object> idio = new HashMap<String, Object>();
-		idio.put("serviIdio", this.servicioManager.getServiciosbyAmbito("Idiomas"));
-		
-		Map<String, Object> est = new HashMap<String, Object>();
-		est.put("serviEst", this.servicioManager.getServiciosbyAmbito("Estética"));
+		List<String> listaAmbitos = servicioManager.getAmbitos();
+		List<Servicio> listaServicios = servicioManager.getServicios();
+		 serviciosPorAmbito = new HashMap<String, Object>();
 
-		
-		ModelAndView mav = new ModelAndView("hello", "med", med);
-		
-		
-		if(usuarioRegistrado == null) {
+		listaAmbitos.forEach(ambito -> {
+			String amb = ambito;
+			List<Servicio> lista = new ArrayList<Servicio>();
+			listaServicios.forEach(serv -> {
+				if (serv.getAmbito().equals(amb)) {
+					lista.add(serv);
+				}
+			});
+			serviciosPorAmbito.put(ambito, lista);
+		});
+
+		ModelAndView mav = new ModelAndView("hello");
+
+		mav.addObject("serviciosPorAmbito", serviciosPorAmbito);
+
+		if (usuarioRegistrado == null) {
 			Usuario userAux = new Usuario();
-			
+
 			userAux.setNombre("Usuario no registrado");
 			mav.addObject("usR", userAux);
-			
+
 			registradoB = false;
-			
+
 			mav.addObject("regis", registradoB);
-			
+
 		}
-		
+
 		else {
-			
+
 			mav.addObject("usR", usuarioRegistrado);
 			registradoB = true;
 		}
-		//Map<String, Object> usR = new HashMap<String, Object>();
-	//	usR.put("usuarioRegistrado", usuarioRegistrado);
-		mav.addObject("dep", dep);
-		mav.addObject("cien", cien);
-		mav.addObject("tec", tec);
-		mav.addObject("leg", leg);
-		mav.addObject("artm", artm);
-		mav.addObject("cuiho", cuiho);
-		mav.addObject("art", art);
-		mav.addObject("idio", idio);
-		mav.addObject("est", est);
+
+		// Map<String, Object> usR = new HashMap<String, Object>();
+		// usR.put("usuarioRegistrado", usuarioRegistrado);
+
+		listaAmbitos.forEach(a -> {
+
+			mav.addObject(a, serviciosPorAmbito.get(a));
+		});
 		return mav;
-	
-		
+
 	}
-	
+
 	@RequestMapping("/login.htm")
 	public ModelAndView handleLogin(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-			
 
 		Map<String, Object> myModel = new HashMap<String, Object>();
 		ModelAndView mav = new ModelAndView("login", "model", myModel);
+		mav.addObject("serviciosPorAmbito", this.serviciosPorAmbito);
 		return mav;
 
 	}
-		
-	
-	@PostMapping("/hello.htm")
+
+	@GetMapping("/listProf.htm")
 	protected ModelAndView listarProf(@RequestParam Map<String, String> reqPar) throws Exception {
 
-		List<Profesional> miProfesional = null;	
+		List<Profesional> miProfesional = null;
 		List<Consulta> miConsulta = null;
 		Servicio miServicio = null;
-		ModelAndView mav = null;
-		
+		ModelAndView mav = new ModelAndView("");
+
+		serviciosPorAmbito.clear();
+		final List<String> listaAmbitos = servicioManager.getAmbitos();
+		final List<Servicio> listaServicios = servicioManager.getServicios();
+
+		listaAmbitos.forEach(ambito -> {
+			String amb = ambito;
+			List<Servicio> lista = new ArrayList<Servicio>();
+			listaServicios.forEach(serv -> {
+				if (serv.getAmbito().equals(amb)) {
+					lista.add(serv);
+				}
+			});
+			serviciosPorAmbito.put(ambito, lista);
+		});
+
+		mav.addObject("serviciosPorAmbito", serviciosPorAmbito);
 		Map<String, Object> myModel = new HashMap<String, Object>();
 		Map<String, Object> servicio = new HashMap<String, Object>();
-		
-		if(reqPar.get("serviceId") != null) {
+
+		if (reqPar.get("serviceId") != null) {
 			miServicio = servicioManager.getServiciobyId(Integer.parseInt(reqPar.get("serviceId")));
-			
+
 			miProfesional = miServicio.getProfesionales();
 			myModel.put("profesional", miProfesional);
-			
-			servicio.put("servicio", miServicio);
-			
-			
-			
-			mav = new ModelAndView("listaprofesionales", "model", myModel);
-			
 
-			if(usuarioRegistrado == null) {
+			servicio.put("servicio", miServicio);
+			mav.setViewName("listaprofesionales");
+			mav.addObject("model", myModel);
+
+			if (usuarioRegistrado == null) {
 				Usuario userAux = new Usuario();
-				
+
 				userAux.setNombre("Usuario no registrado");
 				mav.addObject("usR", userAux);
-				
-			
-				
+
 			}
-			
+
 			else {
-				
+
 				mav.addObject("usR", usuarioRegistrado);
 
 			}
 			mav.addObject("servicio", servicio);
-			
+
 		} else if (reqPar.get("serviceIdC") != null) {
 			miServicio = servicioManager.getServiciobyId(Integer.parseInt(reqPar.get("serviceIdC")));
-			
+
 			miConsulta = consultaManager.getConsultasbyServicio(Integer.parseInt(reqPar.get("serviceIdC")));
 			myModel.put("consulta", miConsulta);
-			
-			
-			servicio.put("servicio", miServicio);
-			
-			mav = new ModelAndView("listaconsultas", "model", myModel);
-			
 
-			if(usuarioRegistrado == null) {
+			servicio.put("servicio", miServicio);
+
+			mav.setViewName("listaconsultas");
+			mav.addObject("model", myModel);
+
+			if (usuarioRegistrado == null) {
 				Usuario userAux = new Usuario();
-				
+
 				userAux.setNombre("Usuario no registrado");
 				mav.addObject("usR", userAux);
-				
+
 			}
-			
+
 			else {
-				
+
 				mav.addObject("usR", usuarioRegistrado);
-				
+
 			}
 			mav.addObject("servicio", servicio);
-			
+
 		} else {
-			
-			
+
 			String username = reqPar.get("username");
-			
+
 			String contraseña = reqPar.get("password");
-			
+
 			List<Registro> registros = simpleRegistroManager.getRegistrobyInfo(username, contraseña);
-			
+
 			usuarioRegistrado = registros.get(0).getUsuario();
-			
-			mav = new ModelAndView("hello", "model", myModel);
-			
+
+			mav.setViewName("hello");
+			mav.addObject("model", myModel);
+
 			mav.addObject("usR", usuarioRegistrado);
-			
-			Map<String, Object> med = new HashMap<String, Object>();
-			med.put("serviMed", this.servicioManager.getServiciosbyAmbito("Medicina"));
-			
-			Map<String, Object> dep = new HashMap<String, Object>();
-			dep.put("serviDep", this.servicioManager.getServiciosbyAmbito("Deporte"));
-			
-			Map<String, Object> cien = new HashMap<String, Object>();
-			cien.put("serviCien", this.servicioManager.getServiciosbyAmbito("Ciencia"));
-			
-			Map<String, Object> tec = new HashMap<String, Object>();
-			tec.put("serviTec", this.servicioManager.getServiciosbyAmbito("Técnicos"));
-			
-			Map<String, Object> leg = new HashMap<String, Object>();
-			leg.put("serviLeg", this.servicioManager.getServiciosbyAmbito("Legislación"));
-			
-			Map<String, Object> artm = new HashMap<String, Object>();
-			artm.put("serviArtM", this.servicioManager.getServiciosbyAmbito("Artes Marciales"));
-			
-			Map<String, Object> cuiho = new HashMap<String, Object>();
-			cuiho.put("serviCuiHo", this.servicioManager.getServiciosbyAmbito("Cuidados del Hogar"));
-			
-			Map<String, Object> art = new HashMap<String, Object>();
-			art.put("serviArt", this.servicioManager.getServiciosbyAmbito("Arte"));
-			
-			Map<String, Object> idio = new HashMap<String, Object>();
-			idio.put("serviIdio", this.servicioManager.getServiciosbyAmbito("Idiomas"));
-			
-			Map<String, Object> est = new HashMap<String, Object>();
-			est.put("serviEst", this.servicioManager.getServiciosbyAmbito("Estética"));
-			
-			mav.addObject("dep", dep);
-			mav.addObject("cien", cien);
-			mav.addObject("tec", tec);
-			mav.addObject("leg", leg);
-			mav.addObject("artm", artm);
-			mav.addObject("cuiho", cuiho);
-			mav.addObject("art", art);
-			mav.addObject("idio", idio);
-			mav.addObject("est", est);
-			mav.addObject("med", med);
-			
 		}
-		
 
 		return mav;
 	}
-	
+
 	@PostMapping("/login.htm")
 	protected ModelAndView crearMensaje(@RequestParam Map<String, String> reqPar) throws Exception {
 
-
-		List<Profesional> miProfesional = null;	
+		List<Profesional> miProfesional = null;
 		List<Consulta> miConsulta = null;
 		Servicio miServicio = null;
-		ModelAndView mav = null;
-		
+		ModelAndView mav = new ModelAndView();
+
 		Map<String, Object> myModel = new HashMap<String, Object>();
 		Map<String, Object> servicio = new HashMap<String, Object>();
-		
-		if(reqPar.get("serviceId") != null) {
+
+		if (reqPar.get("serviceId") != null) {
 			miServicio = servicioManager.getServiciobyId(Integer.parseInt(reqPar.get("serviceId")));
-			
+
 			miProfesional = miServicio.getProfesionales();
 			myModel.put("profesional", miProfesional);
-			
-			servicio.put("servicio", miServicio);
-			
-			mav = new ModelAndView("listaprofesionales", "model", myModel);
 
-			if(usuarioRegistrado == null) {
+			servicio.put("servicio", miServicio);
+
+			mav.setViewName("listaprofesionales");
+			mav.addObject("model", myModel);
+
+			if (usuarioRegistrado == null) {
 				Usuario userAux = new Usuario();
-				
+
 				userAux.setNombre("Usuario no registrado");
 				mav.addObject("usR", userAux);
-				
+
 			}
-			
+
 			else {
-				
+
 				mav.addObject("usR", usuarioRegistrado);
-				
+
 			}
 			mav.addObject("servicio", servicio);
-			
+
 		} else if (reqPar.get("serviceIdC") != null) {
 			miServicio = servicioManager.getServiciobyId(Integer.parseInt(reqPar.get("serviceIdC")));
-			
+
 			miConsulta = consultaManager.getConsultasbyServicio(Integer.parseInt(reqPar.get("serviceIdC")));
 			myModel.put("consulta", miConsulta);
-			
-			
+
 			servicio.put("servicio", miServicio);
-			
-			mav = new ModelAndView("listaconsultas", "model", myModel);
-			if(usuarioRegistrado == null) {
+			mav.setViewName("listaconsultas");
+			mav.addObject("model", myModel);
+			if (usuarioRegistrado == null) {
 				Usuario userAux = new Usuario();
-				
+
 				userAux.setNombre("Usuario no registrado");
 				mav.addObject("usR", userAux);
-				
+
 			}
-			
+
 			else {
-				
+
 				mav.addObject("usR", usuarioRegistrado);
-				
+
 			}
 			mav.addObject("servicio", servicio);
-			
+
 		} else {
-			
-			
+
 			String username = reqPar.get("username");
-			
+
 			String contraseña = reqPar.get("password");
-			
+
 			List<Registro> registros = simpleRegistroManager.getRegistrobyInfo(username, contraseña);
-			
-			
-			
-			if(registros.size() == 0) {
-				
-				mav = new ModelAndView("login", "model", myModel);
-				
+
+			if (registros.size() == 0) {
+
+				mav.setViewName("login");
+				mav.addObject("model", myModel);
+
 				String str = "Error : Usuario no registrado.";
-				
-				mav.addObject("error",str);
-				
+
+				mav.addObject("error", str);
+
 				return mav;
-				
+
 			}
-			
 			usuarioRegistrado = registros.get(0).getUsuario();
-			
-			mav = new ModelAndView("hello", "model", myModel);
-			
+
+			mav.setViewName("hello");
+			mav.addObject("model", myModel);
+
 			mav.addObject("usR", usuarioRegistrado);
-			
-			Map<String, Object> med = new HashMap<String, Object>();
-			med.put("serviMed", this.servicioManager.getServiciosbyAmbito("Medicina"));
-			
-			Map<String, Object> dep = new HashMap<String, Object>();
-			dep.put("serviDep", this.servicioManager.getServiciosbyAmbito("Deporte"));
-			
-			Map<String, Object> cien = new HashMap<String, Object>();
-			cien.put("serviCien", this.servicioManager.getServiciosbyAmbito("Ciencia"));
-			
-			Map<String, Object> tec = new HashMap<String, Object>();
-			tec.put("serviTec", this.servicioManager.getServiciosbyAmbito("Técnicos"));
-			
-			Map<String, Object> leg = new HashMap<String, Object>();
-			leg.put("serviLeg", this.servicioManager.getServiciosbyAmbito("Legislación"));
-			
-			Map<String, Object> artm = new HashMap<String, Object>();
-			artm.put("serviArtM", this.servicioManager.getServiciosbyAmbito("Artes Marciales"));
-			
-			Map<String, Object> cuiho = new HashMap<String, Object>();
-			cuiho.put("serviCuiHo", this.servicioManager.getServiciosbyAmbito("Cuidados del Hogar"));
-			
-			Map<String, Object> art = new HashMap<String, Object>();
-			art.put("serviArt", this.servicioManager.getServiciosbyAmbito("Arte"));
-			
-			Map<String, Object> idio = new HashMap<String, Object>();
-			idio.put("serviIdio", this.servicioManager.getServiciosbyAmbito("Idiomas"));
-			
-			Map<String, Object> est = new HashMap<String, Object>();
-			est.put("serviEst", this.servicioManager.getServiciosbyAmbito("Estética"));
-			
-			mav.addObject("dep", dep);
-			mav.addObject("cien", cien);
-			mav.addObject("tec", tec);
-			mav.addObject("leg", leg);
-			mav.addObject("artm", artm);
-			mav.addObject("cuiho", cuiho);
-			mav.addObject("art", art);
-			mav.addObject("idio", idio);
-			mav.addObject("est", est);
-			mav.addObject("med", med);
-			
+			this.serviciosPorAmbito.clear();
+			final List<String> listaAmbitos = servicioManager.getAmbitos();
+			final List<Servicio> listaServicios = servicioManager.getServicios();
+
+			listaAmbitos.forEach(ambito -> {
+				String amb = ambito;
+				List<Servicio> lista = new ArrayList<Servicio>();
+				listaServicios.forEach(serv -> {
+					if (serv.getAmbito().equals(amb)) {
+						lista.add(serv);
+					}
+				});
+				serviciosPorAmbito.put(ambito, lista);
+			});
+
+			mav.addObject("serviciosPorAmbito", serviciosPorAmbito);
+
 		}
-		
-
 		return mav;
-	
-		
-		
-		
-		/*Map<String, Object> myModel = new HashMap<String, Object>();
-		
-		String username = reqPar.get("username");
-		
-		String contraseña = reqPar.get("password");
-		
-		List<Registro> registros = simpleRegistroManager.getRegistrobyInfo(username, contraseña);
-		
-		usuarioRegistrado = registros.get(0).getUsuario();
-		
-		ModelAndView mav = new ModelAndView("hello", "model", myModel);
-		
-		
-		mav.addObject("usRe", usuarioRegistrado);
-		
-		Map<String, Object> med = new HashMap<String, Object>();
-		med.put("serviMed", this.servicioManager.getServiciosbyAmbito("Medicina"));
-		
-		Map<String, Object> dep = new HashMap<String, Object>();
-		dep.put("serviDep", this.servicioManager.getServiciosbyAmbito("Deporte"));
-		
-		Map<String, Object> cien = new HashMap<String, Object>();
-		cien.put("serviCien", this.servicioManager.getServiciosbyAmbito("Ciencia"));
-		
-		Map<String, Object> tec = new HashMap<String, Object>();
-		tec.put("serviTec", this.servicioManager.getServiciosbyAmbito("Técnicos"));
-		
-		Map<String, Object> leg = new HashMap<String, Object>();
-		leg.put("serviLeg", this.servicioManager.getServiciosbyAmbito("Legislación"));
-		
-		Map<String, Object> artm = new HashMap<String, Object>();
-		artm.put("serviArtM", this.servicioManager.getServiciosbyAmbito("Artes Marciales"));
-		
-		Map<String, Object> cuiho = new HashMap<String, Object>();
-		cuiho.put("serviCuiHo", this.servicioManager.getServiciosbyAmbito("Cuidados del Hogar"));
-		
-		Map<String, Object> art = new HashMap<String, Object>();
-		art.put("serviArt", this.servicioManager.getServiciosbyAmbito("Arte"));
-		
-		Map<String, Object> idio = new HashMap<String, Object>();
-		idio.put("serviIdio", this.servicioManager.getServiciosbyAmbito("Idiomas"));
-		
-		Map<String, Object> est = new HashMap<String, Object>();
-		est.put("serviEst", this.servicioManager.getServiciosbyAmbito("Estética"));
-		
-		mav.addObject("dep", dep);
-		mav.addObject("cien", cien);
-		mav.addObject("tec", tec);
-		mav.addObject("leg", leg);
-		mav.addObject("artm", artm);
-		mav.addObject("cuiho", cuiho);
-		mav.addObject("art", art);
-		mav.addObject("idio", idio);
-		mav.addObject("est", est);
-		mav.addObject("med", med);
-
-		return mav;*/
-		
 	}
-	
-	
 
 	public void setUsuarioManager(UsuarioManager usuarioManager) {
 		this.usuarioManager = usuarioManager;
 	}
-	
+
 	public void setClienteManager(ClienteManager clienteManager) {
 		this.clienteManager = clienteManager;
 	}
-	
-	
+
 }
