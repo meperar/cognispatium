@@ -1,3 +1,4 @@
+
 package upv.etsinf.cognispatium.service;
 
 import java.io.Serializable;
@@ -35,5 +36,18 @@ public class SimpleRegistroManager implements Serializable {
 	 public List<Registro> getRegistrobyInfo(String username, String contraseña) {
 	    	return  registroDao.getRegistrobyInfo(username, contraseña);
 		}
-	
+	 
+	 public List<Registro> getRegistrobyUN(String username) {
+	    	return  registroDao.getRegistrobyUN(username);
+		}
+	 
+	 public List<Registro> getRegistrobyUsuario(Integer usuarioId){
+		 	return registroDao.getRegistrobyUsuario(usuarioId);
+		 
+	 }
+	 
+	 public void dropReg(Registro registro) {
+			
+			registroDao.dropRegistro(registro);
+		}
 }

@@ -25,4 +25,10 @@ public class InMemoryClienteDao implements ClienteDao {
 		return null;
 	}
 
+	@Override
+	public void dropCliente(Cliente cliente) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

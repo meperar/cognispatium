@@ -24,8 +24,8 @@
 			<div class="row">
 				<form action="<c:url value="/listadosolicitudes.htm" />"
 					method="GET">
-					<label for="form16">Servicio</label> <br> <select
-						name='servicio'>
+					<label for="form16">Servicio</label> <br>
+					 <select name='servicio'>
 						<c:set var="servId" value="${servicios.serviciId}" />
 						<c:if test="${servId == null}" >
 						<option disabled selected value> -- Seleccione un servicio -- </option>
@@ -48,8 +48,18 @@
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
-					</select> <input class="btn btn-primary" type="submit" name="action"
-						value="Filtrar" />
+					</select>
+					
+					<label for="form16">Estado</label> <br>
+					 <select name='estado'>
+					 <option disabled selected value> -- Filtro por estado -- </option>
+                    <option value="creada">Creada</option>
+                    <option value="respondida">Respondida</option>
+                    <option value="adjudicada">Adjudicada</option>
+                    <option value="resuelta">Resuelta</option>
+                    <option value="cerrada">Cerrada</option>
+					 </select>
+					 <input class="btn btn-primary" type="submit" name="action" value="Filtrar" />
 				</form>
 			</div>
 			<br>

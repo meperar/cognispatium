@@ -48,6 +48,12 @@ public class SimpleUsuarioManager implements UsuarioManager {
 		usuarioDao.saveUsuario(usuario);
 	}
 	
+	public void dropUser(Usuario usuario) {
+		
+		usuarioDao.dropUsuario(usuario);
+	}
+	
+	
 	
     
 }

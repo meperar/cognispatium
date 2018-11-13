@@ -11,5 +11,7 @@ public interface UsuarioDao {
     public void saveUsuario(Usuario usuario);
     
     public Usuario getUsuariobyId(Integer usuarioId);
-
+    
+    public void dropUsuario(Usuario usuario);
+    
 }

@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import upv.etsinf.cognispatium.domain.Cliente;
 import upv.etsinf.cognispatium.domain.Solicitud;
+import upv.etsinf.cognispatium.domain.Usuario;
 import upv.etsinf.cognispatium.domain.EstadoConsulta;
 import upv.etsinf.cognispatium.domain.EstadoPresupuesto;
 import upv.etsinf.cognispatium.domain.EstadoSolicitud;
@@ -32,6 +33,9 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -72,6 +76,8 @@ public class ListadoSolicitudesController {
 	/** Logger for this class and subclasses */
 	protected final Log logger = LogFactory.getLog(getClass());
 
+	// obtengo todos los estados de una solicitud;
+	 
 	@RequestMapping("/listadosolicitudes.htm")
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -87,6 +93,19 @@ public class ListadoSolicitudesController {
 		List<Solicitud> listaSolicitudes = servicioSolicitudManager.getSolicituds();
 		solicitudes.put("solicitudes", listaSolicitudes);
 		mav.addObject("solicitudes", solicitudes);
+		if(WebServiceController.usuarioRegistrado == null) {
+			Usuario userAux = new Usuario();
+			
+			userAux.setNombre("Usuario no registrado");
+			mav.addObject("usR", userAux);
+			
+		}
+		
+		else {
+			
+			mav.addObject("usR", WebServiceController.usuarioRegistrado);
+			
+		}
 
 		return mav;
 
@@ -94,24 +113,40 @@ public class ListadoSolicitudesController {
 
 	@GetMapping("/listadosolicitudes.htm")
 	protected ModelAndView onSubmit(@RequestParam Map<String, String> reqPar) throws Exception {
-
+	    
+	    
 		List<Solicitud> listaSolicitudes = new ArrayList<Solicitud>();
-		Map<String, Object> servicios = new HashMap<String, Object>();
-		if (reqPar.get("servicio") != null) {
+		Map<String, Object> servicios = new HashMap<String, Object>();	
+		if (reqPar.get("servicio") != null && reqPar.get("estado") != null) {
 			Integer ServiceId = Integer.parseInt(reqPar.get("servicio"));
 			Servicio servicioConsulta = servicioManager.getServiciobyId(ServiceId);
 			listaSolicitudes = servicioSolicitudManager.getSolicitudsbyService(servicioConsulta)
-					.stream()
-				    .filter(sol -> !(sol.getEstado()==EstadoSolicitud.eliminada))
-				    .collect(Collectors.toList());;;
+					.stream().sorted(Comparator.comparing(Solicitud::getId).reversed())
+				    .filter(sol -> (sol.getEstado()==EstadoSolicitud.valueOf(reqPar.get("estado"))))
+				    .collect(Collectors.toList());
 			servicios.put("serviciId", ServiceId);
+			String estado = reqPar.get("estado");
+			System.out.println("Entro en 1er if con estado" + estado);
 
-		} else {
-			listaSolicitudes = servicioSolicitudManager.getSolicituds()
-					.stream()
-				    .filter(sol -> !(sol.getEstado()==EstadoSolicitud.eliminada))
-				    .collect(Collectors.toList());;;
 		}
+		else if(reqPar.get("servicio") != null) {
+		    Integer ServiceId = Integer.parseInt(reqPar.get("servicio"));
+            Servicio servicioConsulta = servicioManager.getServiciobyId(ServiceId);
+            listaSolicitudes = servicioSolicitudManager.getSolicitudsbyService(servicioConsulta)
+                    .stream().sorted(Comparator.comparing(Solicitud::getId).reversed())
+                    .filter(sol -> !(sol.getEstado()==EstadoSolicitud.eliminada))
+                    .collect(Collectors.toList());
+            servicios.put("serviciId", ServiceId);
+            System.out.println("Entro en 2er if");
+		}
+		else {
+			listaSolicitudes = servicioSolicitudManager.getSolicituds()
+					.stream().sorted(Comparator.comparing(Solicitud::getId).reversed())
+				    .filter(sol -> !(sol.getEstado()==EstadoSolicitud.eliminada))
+				    .collect(Collectors.toList());
+			System.out.println("Entro en 3er if");
+		}
+		
 		Map<String, Object> myModel = new HashMap<String, Object>();
 		ModelAndView mav = new ModelAndView("listadosolicitudes", "model", myModel);
 		List<Servicio> listaServicios = servicioManager.getServicios();
@@ -121,6 +156,16 @@ public class ListadoSolicitudesController {
 		Map<String, Object> solicitudes = new HashMap<String, Object>();
 		solicitudes.put("solicitudes", listaSolicitudes);
 		mav.addObject("solicitudes", solicitudes);
+
+		if(WebServiceController.usuarioRegistrado == null) {
+			Usuario userAux = new Usuario();
+			
+			userAux.setNombre("Usuario no registrado");
+			mav.addObject("usR", userAux);
+		}
+		else {	
+			mav.addObject("usR", WebServiceController.usuarioRegistrado);	
+		}
 
 		return mav;
 	}
@@ -137,6 +182,19 @@ public class ListadoSolicitudesController {
 		
 		
 		myModel.put("solicitud", miSolicitud);
+		if(WebServiceController.usuarioRegistrado == null) {
+			Usuario userAux = new Usuario();
+			
+			userAux.setNombre("Usuario no registrado");
+			mav.addObject("usR", userAux);
+			
+		}
+		
+		else {
+			
+			mav.addObject("usR", WebServiceController.usuarioRegistrado);
+			
+		}
 
 		return mav;
 	}
@@ -152,16 +210,16 @@ public class ListadoSolicitudesController {
 		Solicitud solicitud = servicioSolicitudManager.getSolicitudbyId(Integer.parseInt(reqPar.get("solicitudId")));
 		presupuesto.setSolicitudOrigen(solicitud);
 		
-		presupuesto.setProfesionalOrigen(simpleProfesionalManager.getProfesionales().get(0));
+		presupuesto.setProfesionalOrigen(simpleProfesionalManager.getProfesionalById(WebServiceController.usuarioRegistrado.getId()));
 		
 		simplePresupuestoManager.addPresupuesto(presupuesto);
 		
-		//Notificar al usuario de recepción de presupuesto
+		//Notificar al usuario de recepciï¿½n de presupuesto
 		
 		Mensaje mensaje = new Mensaje();
 		mensaje.setDescripcion(reqPar.get("descripcion"));
 		mensaje.setAsunto("Presupuesto para solicitud:" + solicitud.getTitulo() );
-		mensaje.setProfesional(simpleProfesionalManager.getProfesionales().get(0));
+		mensaje.setProfesional(simpleProfesionalManager.getProfesionalById(WebServiceController.usuarioRegistrado.getId()));
 		mensaje.setCliente(solicitud.getClienteOrigen());
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		long millis=System.currentTimeMillis();
@@ -170,8 +228,21 @@ public class ListadoSolicitudesController {
 		mensaje.setFecha(date);
 		mensajeManager.addMensaje(mensaje);
 		
+		ModelAndView mav = new ModelAndView("hello");
+		if(WebServiceController.usuarioRegistrado == null) {
+			Usuario userAux = new Usuario();
+			
+			userAux.setNombre("Usuario no registrado");
+			mav.addObject("usR", userAux);
+			
+		}
 		
-		return new ModelAndView("hello");
+		else {
+			
+			mav.addObject("usR", WebServiceController.usuarioRegistrado);
+			
+		}
+		return mav;
 
 		
 	}

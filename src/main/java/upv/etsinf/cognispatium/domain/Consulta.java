@@ -40,14 +40,14 @@ public class Consulta implements Serializable {
 	@Enumerated(value = EnumType.STRING)
 	private EstadoConsulta estado;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "cliente")
 	private Cliente clienteOrigen;
 
 	@OneToMany(mappedBy = "consultaOrigen")
 	private List<Respuesta> respuestas;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "servicio")
 	private Servicio servicioOrigen;
 

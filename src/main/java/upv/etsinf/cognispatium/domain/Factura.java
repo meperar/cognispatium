@@ -39,7 +39,7 @@ public class Factura implements Serializable {
 	private Pago pagoOrigen;
     
     
-    @OneToOne(fetch=FetchType.EAGER)
+    @OneToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="presupuesto")
 	private Presupuesto presupuestoOrigen;
 	

@@ -32,5 +32,10 @@ public class SimpleRespuestaManager implements Serializable {
 		
 		respuestaDao.saveRespuesta(respuesta);
 	}
+	
+	public void dropRes(Respuesta respuesta) {
+		
+		respuestaDao.dropRespuesta(respuesta);
+	}
 
 }

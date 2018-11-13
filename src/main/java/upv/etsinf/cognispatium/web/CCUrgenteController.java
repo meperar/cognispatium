@@ -15,6 +15,7 @@ import upv.etsinf.cognispatium.domain.Cliente;
 import upv.etsinf.cognispatium.domain.ConsultaUrgente;
 import upv.etsinf.cognispatium.domain.EstadoConsulta;
 import upv.etsinf.cognispatium.domain.Servicio;
+import upv.etsinf.cognispatium.domain.Usuario;
 import upv.etsinf.cognispatium.service.SimpleServicioManager;
 import upv.etsinf.cognispatium.service.SimpleConsultaUrgenteManager;
 import upv.etsinf.cognispatium.service.SimpleClienteManager;
@@ -82,6 +83,19 @@ public class CCUrgenteController {
 		servicios.put("ambitos", listaAmbitos);
 		servicios.put("serviciosxambitos", serviciosPorAmbito);
         mav.addObject("servicios", servicios);
+        if(WebServiceController.usuarioRegistrado == null) {
+			Usuario userAux = new Usuario();
+			
+			userAux.setNombre("Usuario no registrado");
+			mav.addObject("usR", userAux);
+			
+		}
+		
+		else {
+			
+			mav.addObject("usR", WebServiceController.usuarioRegistrado);
+			
+		}
 		return mav;
 		
 	}
@@ -108,7 +122,7 @@ public class CCUrgenteController {
 		Integer ServiceId = Integer.parseInt(reqPar.get("servicio"));
 		Servicio servicioConsulta = servicioManager.getServiciobyId(ServiceId);
 		ConsultaUrgente consultaUrgente = new ConsultaUrgente();
-		Cliente cliente = simpleClienteManager.getClientes().get(0);
+		Cliente cliente = simpleClienteManager.getClientebyId(WebServiceController.usuarioRegistrado.getId());
 		consultaUrgente.setDescripcion(descripcion);
 		consultaUrgente.setTitulo(titulo);
 		consultaUrgente.setFechaFin(fechaFinal);
@@ -118,9 +132,22 @@ public class CCUrgenteController {
 		servicioCUManager.addConsultaUrgente(consultaUrgente);
 		Map<String, Object> myModel = new HashMap<String, Object>();
 		myModel.put("consultaUrgente", consultaUrgente);
-		//
+		ModelAndView mav = new ModelAndView("pagoTarjeta", "model", myModel);
+		if(WebServiceController.usuarioRegistrado == null) {
+			Usuario userAux = new Usuario();
+			
+			userAux.setNombre("Usuario no registrado");
+			mav.addObject("usR", userAux);
+			
+		}
+		
+		else {
+			
+			mav.addObject("usR", WebServiceController.usuarioRegistrado);
+			
+		}
 
-		return new ModelAndView("pagoTarjeta","model",myModel);
+		return mav;
 	}
 	
 	

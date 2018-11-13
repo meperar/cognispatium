@@ -39,7 +39,7 @@ public class Registro implements Serializable {
     private String contraseña;
     
   
-    @OneToOne(fetch=FetchType.EAGER, cascade = {CascadeType.ALL})
+    @OneToOne(fetch=FetchType.LAZY, cascade = {CascadeType.ALL})
 	@JoinColumn(name="usuario")
 	private Usuario usuario;
     

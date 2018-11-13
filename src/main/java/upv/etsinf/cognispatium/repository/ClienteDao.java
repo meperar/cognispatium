@@ -10,7 +10,8 @@ public interface ClienteDao {
     public List<Cliente> getClienteList();
 
     public void saveCliente(Cliente cliente);
-
- 
+    
+    public void dropCliente(Cliente cliente);
+    
 	public Cliente getClienteById(Integer clienteId);
 }
