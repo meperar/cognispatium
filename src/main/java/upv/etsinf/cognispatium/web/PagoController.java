@@ -18,6 +18,8 @@ import upv.etsinf.cognispatium.domain.Solicitud;
 import upv.etsinf.cognispatium.domain.Tarjeta;
 import upv.etsinf.cognispatium.domain.Usuario;
 import upv.etsinf.cognispatium.domain.EstadoConsulta;
+import upv.etsinf.cognispatium.domain.EstadoPresupuesto;
+import upv.etsinf.cognispatium.domain.EstadoSolicitud;
 import upv.etsinf.cognispatium.domain.Pago;
 import upv.etsinf.cognispatium.domain.Presupuesto;
 import upv.etsinf.cognispatium.domain.Servicio;
@@ -229,9 +231,12 @@ public class PagoController {
 		pago.setPrecio(presupuesto.getPrecio());
 		pago.setTarjetaOrigen(tarjeta);
 		presupuesto.getSolicitudOrigen().setPago(pago);
-		
+		presupuesto.getSolicitudOrigen().setEstado(EstadoSolicitud.adjudicada);
+		presupuesto.getSolicitudOrigen().getPresupuestos().forEach(p->{
+			p.setEstado(EstadoPresupuesto.no_aceptado);
+		});
+		presupuesto.setEstado(EstadoPresupuesto.aceptado);
 		simplePresupuestoManager.addPresupuesto(presupuesto);
-		
 		Map<String, Object> myModel = new HashMap<String, Object>();
 
 		ModelAndView mav = new ModelAndView("factura", "model", myModel);
