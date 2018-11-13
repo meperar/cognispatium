@@ -61,6 +61,7 @@
 								<th>Titulo</th>
 								<th>Descripcion</th>
 								<th>Cliente</th>
+								<th>Estado</th>
 								<th>Accion</th>
 							</tr>
 						</thead>
@@ -74,6 +75,7 @@
 										<td style="max-width: 500px;word-wrap:break-word;">${solicitud.descripcion}</td>
 										<td>${solicitud.clienteOrigen.nombre}
 											${solicitud.clienteOrigen.apellidos}</td>
+										<td>${solicitud.estado}</td>
 										<td><button class="bg-primary">
 												<i class="fas fa-plus-square"></i>
 											</button></td>
