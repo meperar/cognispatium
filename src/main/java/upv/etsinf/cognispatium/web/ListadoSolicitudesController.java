@@ -211,7 +211,10 @@ public class ListadoSolicitudesController {
 		presupuesto.setSolicitudOrigen(solicitud);
 		
 		presupuesto.setProfesionalOrigen(simpleProfesionalManager.getProfesionalById(WebServiceController.usuarioRegistrado.getId()));
-		
+		if(solicitud.getEstado() == EstadoSolicitud.creada) {
+		solicitud.setEstado(EstadoSolicitud.respondida);
+		}
+		servicioSolicitudManager.addSolicitud(solicitud);
 		simplePresupuestoManager.addPresupuesto(presupuesto);
 		
 		//Notificar al usuario de recepci�n de presupuesto
