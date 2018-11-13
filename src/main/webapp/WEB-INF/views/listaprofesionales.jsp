@@ -76,11 +76,15 @@
 											</c:forEach>
 										</a>
 										<br/>
+										<c:if test="${usR.getDTYPE()=='cliente'}">
 										<form action="<c:url value="/votarProfesional.htm" />">
-										<button>Valorar profesional</button>
+										<p></p>
+											<button>Valorar profesional</button>
+										
 										<input type="hidden"
 											id="profesionalId" name="profesionalId" value="${profs.id}">
 										</form>
+										</c:if>
 									</td>
 								</tr>
 							</c:forEach>

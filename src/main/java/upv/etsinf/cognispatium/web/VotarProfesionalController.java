@@ -33,6 +33,9 @@ public class VotarProfesionalController {
 	@Autowired
 	private SimpleProfesionalManager profesionalManager;
 	
+	private Profesional profesional;
+	private Cliente cliente;
+	
 	@GetMapping("/votarProfesional.htm")
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response, @RequestParam Map<String, String> reqPar)
 			throws ServletException, IOException {
@@ -42,30 +45,45 @@ public class VotarProfesionalController {
 		mav.addObject("model", myModel);
 		
 		Integer profesionalId = Integer.parseInt(reqPar.get("profesionalId"));
-		Profesional profesional = profesionalManager.getProfesionalById(profesionalId);
+		//System.out.println(profesionalId);
+		profesional = profesionalManager.getProfesionalById(profesionalId);
+		//System.out.println(profesional);
 		mav.addObject("profesional", profesional);
 		
 		Usuario user = WebServiceController.usuarioRegistrado;
 		
 		if(user!=null && user instanceof Cliente) {
+			cliente = (Cliente)user;
 			mav.addObject("usR", user);
+			//System.out.println(profesional);
 			return mav;
 		}
 		else {
 			String referer = request.getHeader("Referer");
+			//System.out.println(profesional);
 		    return new ModelAndView("redirect:"+ referer);
 		}
 	}
 	
 	@PostMapping("/votarProfesional.htm")
 	protected ModelAndView votarProfesional(@RequestParam Map<String, String> reqPar) throws Exception {
+		System.out.println("1 - votarProfesional()");
 		Valoracion val = new Valoracion();
+		System.out.println("2 - votarProfesional()");
 		int star = Integer.parseInt(reqPar.get("star"));
-		//Profesional profesional = reqPar.get("profesional");
+		System.out.println("3 - votarProfesional()");
 		
-		Cliente cliente;
+		val.setProfesional(profesional);
+		System.out.println("4 - votarProfesional()");
+		//System.out.println(profesional);
+		val.setCliente(cliente);
+		//System.out.println(profesional);
+		System.out.println("5 - votarProfesional()");
 		val.setPuntuacion(star);
+		System.out.println("6 - votarProfesional()");
+		System.out.println("profesional: {" + val.getProfesional() + " }, cliente: {" + val.getCliente() + " } puntuacion: {" + val.getPuntuacion() + " }");
 		valoracionManager.addValoracion(val);
+		System.out.println("7 - votarProfesional()");
 		return new ModelAndView("redirect:/hello.htm");
 	}
 }

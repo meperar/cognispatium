@@ -221,7 +221,7 @@ label.star:before {
 		</div>
 			<br/>
 		<div class="center">
-			
+		
 				<button type="submit" class="bg-primary center" name="votarProfesional">Votar profesional
 				</button>
 		</div>
