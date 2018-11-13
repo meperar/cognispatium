@@ -20,4 +20,6 @@ public interface ServicioDao {
 	
 	public List<Profesional> getProfsbyServicio(Integer serviceId);
 
+	List<Profesional> getProfesionales(Integer servicioId);
+
 }

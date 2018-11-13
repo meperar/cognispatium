@@ -68,4 +68,8 @@ public class SimpleServicioManager implements Serializable {
 		
 	}
 	
+	
+	public List<Profesional> getProfesionales(Integer servicioId){
+		return servicioDao.getProfesionales(servicioId);	
+	}
 }

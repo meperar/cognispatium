@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -75,11 +76,10 @@ public class WebServiceController {
 
 		String now = (new Date()).toString();
 		logger.info("Returning hello view with " + now);
-		
 
 		List<String> listaAmbitos = servicioManager.getAmbitos();
 		List<Servicio> listaServicios = servicioManager.getServicios();
-		 serviciosPorAmbito = new HashMap<String, Object>();
+		serviciosPorAmbito = new HashMap<String, Object>();
 
 		listaAmbitos.forEach(ambito -> {
 			String amb = ambito;
@@ -165,7 +165,7 @@ public class WebServiceController {
 
 		if (reqPar.get("serviceId") != null) {
 			miServicio = servicioManager.getServiciobyId(Integer.parseInt(reqPar.get("serviceId")));
-
+			//Hibernate.initialize(miServicio.getProfesionales());
 			miProfesional = miServicio.getProfesionales();
 			myModel.put("profesional", miProfesional);
 
