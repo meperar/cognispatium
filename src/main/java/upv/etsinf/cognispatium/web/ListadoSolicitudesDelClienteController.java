@@ -81,7 +81,7 @@ public class ListadoSolicitudesDelClienteController {
 	@GetMapping("/misSolicitudes.htm")
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("handleRequest() misSolicitudes2222222222222222222222");
+
 		ModelAndView mav = new ModelAndView("misSolicitudes");
 		Map<String, Object> myModel = new HashMap<String, Object>();
 
@@ -120,8 +120,9 @@ public class ListadoSolicitudesDelClienteController {
 		boolean info = WebUtils.hasSubmitParameter(request, "info");
 		
 		if(WebUtils.hasSubmitParameter(request, "valorarProfesional")) {
+			int profesionalId = Integer.parseInt(reqPar.get("solicitudId"));
 			
-			return new ModelAndView("redirect:/votarProfesional.htm");
+			return new ModelAndView("redirect:/votarProfesional.htm?profesionalId=" + profesionalId);
 		}
 		
 		if (info) {
