@@ -232,8 +232,10 @@ public class PagoController {
 		pago.setTarjetaOrigen(tarjeta);
 		presupuesto.getSolicitudOrigen().setPago(pago);
 		presupuesto.getSolicitudOrigen().setEstado(EstadoSolicitud.adjudicada);
+		solicitudManager.addSolicitud(presupuesto.getSolicitudOrigen());
 		presupuesto.getSolicitudOrigen().getPresupuestos().forEach(p->{
 			p.setEstado(EstadoPresupuesto.no_aceptado);
+			simplePresupuestoManager.addPresupuesto(p);
 		});
 		presupuesto.setEstado(EstadoPresupuesto.aceptado);
 		simplePresupuestoManager.addPresupuesto(presupuesto);
