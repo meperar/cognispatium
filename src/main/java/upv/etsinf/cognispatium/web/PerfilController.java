@@ -253,90 +253,87 @@ public class PerfilController {
 			
 		} else {
 		
-		Usuario usuario = WebServiceController.usuarioRegistrado; 
-		Registro registro = registroManager.getRegistrobyUsuario(usuario.getId()).get(0);
-		Boolean errorUsername = false;
-		
-		List<Registro> registrosBD = registroManager.getRegistrobyUN(reqPar.get("apodo"));
-		
-		
-		if(registrosBD.size() == 0 || registro.getUsername().equals(reqPar.get("apodo"))) {
+			Usuario usuario = WebServiceController.usuarioRegistrado; 
+			Registro registro = registroManager.getRegistrobyUsuario(usuario.getId()).get(0);
+			Boolean errorUsername = false;
 			
-			usuario = WebServiceController.usuarioRegistrado; 
+			List<Registro> registrosBD = registroManager.getRegistrobyUN(reqPar.get("apodo"));
+			
+			
+			if(registrosBD.size() == 0 || registro.getUsername().equals(reqPar.get("apodo"))) {
+				
+				usuario = WebServiceController.usuarioRegistrado; 
+		
+				usuario.setNombre(reqPar.get("nombre"));
+				usuario.setApellidos(reqPar.get("apellidos"));
+				usuario.setEdad(Integer.parseInt(reqPar.get("edad")));
+				usuario.setDni(reqPar.get("dni"));
+				usuario.setEmail(reqPar.get("email"));
+				usuario.setTelefono(Integer.parseInt(reqPar.get("telefono")));
+				
+				usuarioManager.addUsuario(usuario);
+				
+				
+				registro = registroManager.getRegistrobyUsuario(usuario.getId()).get(0);
+				
+				registro.setUsername(reqPar.get("apodo"));
+				registro.setContraseña(reqPar.get("contrasena"));
+				
+				registroManager.addRegistro(registro);
+				
+			}else {
+				errorUsername = true;
+			}
+			
+			Map<String, Object> myModel = new HashMap<String, Object>();
+			Map<String, Integer> intModel = new HashMap<String, Integer>();
+			Map<String, Boolean> boolModel = new HashMap<String, Boolean>();
+			
+			List<Servicio> listaServicios = new ArrayList<Servicio>();
+			
 	
-			usuario.setNombre(reqPar.get("nombre"));
-			usuario.setApellidos(reqPar.get("apellidos"));
-			usuario.setEdad(Integer.parseInt(reqPar.get("edad")));
-			usuario.setDni(reqPar.get("dni"));
-			usuario.setEmail(reqPar.get("email"));
-			usuario.setTelefono(Integer.parseInt(reqPar.get("telefono")));
-			
-			usuarioManager.addUsuario(usuario);
+			Boolean esProfesional = usuario instanceof Profesional;
 			
 			
-			registro = registroManager.getRegistrobyUsuario(usuario.getId()).get(0);
 			
-			registro.setUsername(reqPar.get("apodo"));
-			registro.setContraseña(reqPar.get("contrasena"));
+			int valoracion = 0;
 			
-			registroManager.addRegistro(registro);
+			if(esProfesional) {
+				valoracion = ((Profesional) usuario).getValoracion();
+				
+				listaServicios = servicioManager.getServicioByProfesional(usuario.getId());
+				
+			}
 			
-		}else {
-			errorUsername = true;
-		}
-		
-		Map<String, Object> myModel = new HashMap<String, Object>();
-		Map<String, Integer> intModel = new HashMap<String, Integer>();
-		Map<String, Boolean> boolModel = new HashMap<String, Boolean>();
-		
-		List<Consulta> listaConsultas = new ArrayList<Consulta>();
-		List<Consulta> listaConTodasLasConsultas = new ArrayList<Consulta>();
-		
-
-		Boolean esProfesional = usuario instanceof Profesional;
-		
-		
-		listaConTodasLasConsultas = consultaManager.getConsultas();
-		int valoracion = 0;
-		
-		if(esProfesional) {
-			valoracion = ((Profesional) usuario).getValoracion();
-		}
-		
-		for(Consulta consulta : listaConTodasLasConsultas) {
-			String dniClienteConsulta = consulta.getClienteOrigen().getDni();
-			String dniUsuario = usuario.getDni();
 			
-			if(dniClienteConsulta.equals(dniUsuario)) listaConsultas.add(consulta);
-		}
-		
-		
-		myModel.put("usuario", usuario);
-		myModel.put("registro", registro);
-		boolModel.put("esProfesional", esProfesional);
-		boolModel.put("errorUsername", errorUsername);
-		myModel.put("consultas", listaConsultas);
-		intModel.put("numConsultas", listaConsultas.size());
-		intModel.put("valoracion", valoracion);
-
-		ModelAndView mav = new ModelAndView("perfil","model",myModel);
-		if(WebServiceController.usuarioRegistrado == null) {
-			Usuario userAux = new Usuario();
 			
-			userAux.setNombre("Usuario no registrado");
-			mav.addObject("usR", userAux);
 			
-		}
-		
-		else {
+			myModel.put("usuario", usuario);
+			myModel.put("registro", registro);
+			boolModel.put("esProfesional", esProfesional);
+			boolModel.put("errorUsername", errorUsername);
+			myModel.put("servicios", listaServicios);
+			intModel.put("numServicios", listaServicios.size());
+			intModel.put("valoracion", valoracion);
+	
+			ModelAndView mav = new ModelAndView("perfil","model",myModel);
+			if(WebServiceController.usuarioRegistrado == null) {
+				Usuario userAux = new Usuario();
+				
+				userAux.setNombre("Usuario no registrado");
+				mav.addObject("usR", userAux);
+				
+			}
 			
-			mav.addObject("usR", WebServiceController.usuarioRegistrado);
+			else {
+				
+				mav.addObject("usR", WebServiceController.usuarioRegistrado);
+				
+			}
+			mav.addObject("intModel", intModel);
+			mav.addObject("boolModel", boolModel);
 			
-		}
-		mav.addObject("intModel", intModel);
-		mav.addObject("boolModel", boolModel);
-		
-		return mav;
+			return mav;
 		}
 	}
 	

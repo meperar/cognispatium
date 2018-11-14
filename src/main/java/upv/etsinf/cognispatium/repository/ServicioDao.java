@@ -2,6 +2,8 @@ package upv.etsinf.cognispatium.repository;
 
 import java.util.List;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import upv.etsinf.cognispatium.domain.Profesional;
 import upv.etsinf.cognispatium.domain.Servicio;
 
@@ -21,5 +23,9 @@ public interface ServicioDao {
 	public List<Profesional> getProfsbyServicio(Integer serviceId);
 
 	List<Profesional> getProfesionales(Integer servicioId);
+	
+	@Transactional(readOnly = true)
+    @SuppressWarnings("unchecked")
+    public List<Servicio> getServicioByProfesional(Integer profesionalId);
 
 }

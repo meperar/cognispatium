@@ -343,34 +343,35 @@
 								</td>
 								<td>&nbsp;</td>
 								<td>
-									<div class="subrayadoGordo">
-										<h3><b>Consultas</b></h3>
-									</div>
-									<br>
-									<div style="height:400px; overflow-y: scroll; ">
-										<ul style="list-style-type: none;">
-											<c:choose>
-											    <c:when test="${intModel.numConsultas > 0}">
-											        <c:forEach items="${model.consultas}" var="cons">	
-														<li>
-															<h4><b>${cons.titulo}</b></h4>
-															<div class="subrayadoFino" style="overflow-x: hidden;">
-																${cons.descripcion}
-																<br>
-																<br>
-															</div>
+									<c:if test="${boolModel.esProfesional}">
+										
+									
+									
+										<div class="subrayadoGordo">
+											<h3><b>Servicios</b></h3>
+										</div>
+										<br>
+										<div style="height:400px; overflow-y: scroll;">
+											<ul style="list-style-type: none;">
+												<c:choose>
+												    <c:when test="${intModel.numServicios > 0}">
+												        <c:forEach items="${model.servicios}" var="serv">
+															<li>
+																<h4><b>${serv.nombre}</b></h4>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+																
+															</li>
+														</c:forEach>
+														
+												    </c:when>
+												    <c:otherwise>
+												        <li>
+															<h4><b>Aun no ha realizado ninguna consulta&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</b></h4>
 														</li>
-													</c:forEach>
-													
-											    </c:when>    
-											    <c:otherwise>
-											        <li>
-														<h4><b>Aun no ha realizado ninguna consulta&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</b></h4>
-													</li>
-											    </c:otherwise>
-											</c:choose>
-										</ul>
-									</div>
+												    </c:otherwise>
+												</c:choose>
+											</ul>
+										</div>
+									</c:if>
 								</td>
 							</tr>
 						</tbody>
