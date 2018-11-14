@@ -21,6 +21,7 @@ import upv.etsinf.cognispatium.domain.EstadoConsulta;
 import upv.etsinf.cognispatium.domain.EstadoSolicitud;
 import upv.etsinf.cognispatium.domain.Mensaje;
 import upv.etsinf.cognispatium.domain.Presupuesto;
+import upv.etsinf.cognispatium.domain.Profesional;
 import upv.etsinf.cognispatium.domain.Servicio;
 import upv.etsinf.cognispatium.service.SimpleServicioManager;
 import upv.etsinf.cognispatium.service.SimpleSolicitudManager;
@@ -59,7 +60,7 @@ public class ListadoSolicitudesDelClienteController {
 
 	@Autowired
 	private SimpleServicioManager servicioManager;
-
+	
 	@Autowired
 	private SimpleSolicitudManager servicioSolicitudManager;
 
@@ -120,9 +121,12 @@ public class ListadoSolicitudesDelClienteController {
 		boolean info = WebUtils.hasSubmitParameter(request, "info");
 		
 		if(WebUtils.hasSubmitParameter(request, "valorarProfesional")) {
-			int profesionalId = Integer.parseInt(reqPar.get("solicitudId"));
-			
+			int solicitudId = Integer.parseInt(reqPar.get("solicitudId"));
+			Solicitud solicitud = servicioSolicitudManager.getSolicitudbyId(solicitudId);
+			Presupuesto presupuesto = simplePresupuestoManager.getPresupuestoBySolicitud(solicitud);
+			int profesionalId = presupuesto.getProfesionalOrigen().getId();
 			return new ModelAndView("redirect:/votarProfesional.htm?profesionalId=" + profesionalId);
+			//return new ModelAndView("redirect:/votarProfesional.htm?solicitudId=" + solicitudId);
 		}
 		
 		if (info) {

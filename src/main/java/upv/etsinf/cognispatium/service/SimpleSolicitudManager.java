@@ -43,5 +43,5 @@ public class SimpleSolicitudManager implements Serializable {
 		return solicitudDao.getSolicitudById(solicitudId);
 	
 	}
-
+	
 }

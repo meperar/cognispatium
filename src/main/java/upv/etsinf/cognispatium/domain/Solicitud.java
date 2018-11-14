@@ -1,5 +1,7 @@
 package upv.etsinf.cognispatium.domain;
 
+import static org.hamcrest.CoreMatchers.instanceOf;
+
 import java.io.Serializable;
 
 import java.util.Date;
@@ -142,6 +144,10 @@ public class Solicitud implements Serializable {
 
 	public void setEstado(EstadoSolicitud estado) {
 		this.estado = estado;
+	}
+	
+	public boolean equals(Solicitud solicitud) {
+		return solicitud instanceof Solicitud && this.getId().equals(solicitud.getId());
 	}
 
 
