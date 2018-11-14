@@ -37,6 +37,7 @@ import upv.etsinf.cognispatium.service.ProfesionalManager;
 import upv.etsinf.cognispatium.service.SimpleConsultaManager;
 import upv.etsinf.cognispatium.service.SimpleRegistroManager;
 import upv.etsinf.cognispatium.service.SimpleServicioManager;
+import upv.etsinf.cognispatium.service.SimpleUsuarioManager;
 
 @Controller
 public class WebServiceController {
@@ -59,9 +60,14 @@ public class WebServiceController {
 
 	@Autowired
 	private SimpleServicioManager servicioManager;
+	
+	@Autowired
+	private SimpleUsuarioManager simpleUsuarioManager;
 
 	@Autowired
 	private SimpleConsultaManager consultaManager;
+	
+
 
 	@Autowired
 	private SimpleRegistroManager simpleRegistroManager;
@@ -315,7 +321,10 @@ public class WebServiceController {
 
 			}
 			usuarioRegistrado = registros.get(0).getUsuario();
-
+			usuarioRegistrado.setDesactivado(0);
+			
+			simpleUsuarioManager.addUsuario(usuarioRegistrado);
+			
 			mav.setViewName("hello");
 			mav.addObject("model", myModel);
 

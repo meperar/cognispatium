@@ -33,8 +33,17 @@ public class Usuario implements Serializable {
 	private String DTYPE;
 	private int telefono;
 	private int edad;
+	private int desactivado;
 	
 	
+
+	public int getDesactivado() {
+		return desactivado;
+	}
+
+	public void setDesactivado(int desactivado) {
+		this.desactivado = desactivado;
+	}
 
 	public Integer getId() {
 		return id;
