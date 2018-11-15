@@ -24,12 +24,14 @@ public class JPAValoracionDao implements ValoracionDao {
         this.em = em;
     }
 
+    @Override
     @Transactional(readOnly = true)
     @SuppressWarnings("unchecked")
     public List<Valoracion> getValoracionList() {
         return em.createQuery("select v from Valoracion v order by v.id").getResultList();
     }
 
+    @Override
     @Transactional(readOnly = false)
     public void saveValoracion(Valoracion valoracion) {
         em.merge(valoracion);

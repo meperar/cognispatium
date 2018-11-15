@@ -67,23 +67,13 @@ public class VotarProfesionalController {
 	
 	@PostMapping("/votarProfesional.htm")
 	protected ModelAndView votarProfesional(@RequestParam Map<String, String> reqPar) throws Exception {
-		System.out.println("1 - votarProfesional()");
 		Valoracion val = new Valoracion();
-		System.out.println("2 - votarProfesional()");
 		int star = Integer.parseInt(reqPar.get("star"));
-		System.out.println("3 - votarProfesional()");
 		
 		val.setProfesional(profesional);
-		System.out.println("4 - votarProfesional()");
-		//System.out.println(profesional);
 		val.setCliente(cliente);
-		//System.out.println(profesional);
-		System.out.println("5 - votarProfesional()");
 		val.setPuntuacion(star);
-		System.out.println("6 - votarProfesional()");
-		System.out.println("profesional: {" + val.getProfesional() + " }, cliente: {" + val.getCliente() + " } puntuacion: {" + val.getPuntuacion() + " }");
 		valoracionManager.addValoracion(val);
-		System.out.println("7 - votarProfesional()");
 		return new ModelAndView("redirect:/hello.htm");
 	}
 }

@@ -123,7 +123,7 @@ public class ListadoSolicitudesDelClienteController {
 		if(WebUtils.hasSubmitParameter(request, "valorarProfesional")) {
 			int solicitudId = Integer.parseInt(reqPar.get("solicitudId"));
 			Solicitud solicitud = servicioSolicitudManager.getSolicitudbyId(solicitudId);
-			Presupuesto presupuesto = simplePresupuestoManager.getPresupuestoBySolicitud(solicitud);
+			Presupuesto presupuesto = simplePresupuestoManager.getPresupuestoAceptadoBySolicitud(solicitud);
 			int profesionalId = presupuesto.getProfesionalOrigen().getId();
 			return new ModelAndView("redirect:/votarProfesional.htm?profesionalId=" + profesionalId);
 			//return new ModelAndView("redirect:/votarProfesional.htm?solicitudId=" + solicitudId);
