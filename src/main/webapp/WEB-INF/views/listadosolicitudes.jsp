@@ -30,6 +30,7 @@
 						<c:if test="${servId == null}" >
 						<option disabled selected value> -- Seleccione un servicio -- </option>
 						</c:if>
+						<option  value="" > -- sin filtro  -- </option>
 						<c:forEach items="${servicios.servicios}" var="servicio">
 							<c:choose>
 								<c:when test="${servId == null}">
@@ -52,12 +53,11 @@
 					
 					<label for="form16">Estado</label> <br>
 					 <select name='estado'>
-					 <option disabled selected value> -- Filtro por estado -- </option>
-                    <option value="creada">Creada</option>
-                    <option value="respondida">Respondida</option>
-                    <option value="adjudicada">Adjudicada</option>
-                    <option value="resuelta">Resuelta</option>
-                    <option value="cerrada">Cerrada</option>
+					 
+					 <option disabled selected value> -- Filtro por estado -- </option>	
+					 <option  value="" > -- sin filtro  -- </option>
+                     <option value="creada" >Creada</option>
+                    <option value="respondida" >Respondida </option>
 					 </select>
 					 <input class="btn btn-primary" type="submit" name="action" value="Filtrar" />
 				</form>
@@ -71,6 +71,7 @@
 								<th>Titulo</th>
 								<th>Descripcion</th>
 								<th>Cliente</th>
+								<th>Estado</th>
 								<th>Accion</th>
 							</tr>
 						</thead>
@@ -84,6 +85,7 @@
 										<td style="max-width: 500px;word-wrap:break-word;">${solicitud.descripcion}</td>
 										<td>${solicitud.clienteOrigen.nombre}
 											${solicitud.clienteOrigen.apellidos}</td>
+										<td>${solicitud.estado}</td>
 										<td><button class="bg-primary">
 												<i class="fas fa-plus-square"></i>
 											</button></td>

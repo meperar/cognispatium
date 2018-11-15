@@ -39,11 +39,11 @@ public class Presupuesto implements Serializable {
 	private Integer precio;
 
 	
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="solicitud")
 	private Solicitud solicitudOrigen;
 	
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="profesional")
 	private Profesional profesionalOrigen;
 	

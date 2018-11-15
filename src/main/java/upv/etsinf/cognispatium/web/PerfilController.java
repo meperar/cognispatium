@@ -235,26 +235,36 @@ public class PerfilController {
 			
 			ModelAndView mav = new ModelAndView("hello");
 			
-			if(WebServiceController.usuarioRegistrado != null) {
+
+			Usuario userAux = new Usuario();
+
+			userAux.setNombre("Usuario no registrado");
+			mav.addObject("usR", userAux);
+ 
+
+			return mav;
+			
+			
+		} else if(reqPar.get("desacId") != null) {
+			
+			Usuario usuEl = usuarioManager.getUsuariobyId(Integer.parseInt(reqPar.get("desacId")));
+			usuEl.setDesactivado(1);
+			usuarioManager.addUsuario(usuEl);
+			ModelAndView mav = new ModelAndView("hello");
+			
+			
 				Usuario userAux = new Usuario();
 
 				userAux.setNombre("Usuario no registrado");
 				mav.addObject("usR", userAux);
 
-			}
 
-			else {
-
-				mav.addObject("usR", WebServiceController.usuarioRegistrado);
-
-			}
 			return mav;
-			
 			
 		} else {
 		
-		Usuario usuario = usuarioManager.getUsuariobyId(3);
-		Registro registro = registroManager.getRegistrobyId(3);
+		Usuario usuario = WebServiceController.usuarioRegistrado; 
+		Registro registro = registroManager.getRegistrobyUsuario(usuario.getId()).get(0);
 		Boolean errorUsername = false;
 		
 		List<Registro> registrosBD = registroManager.getRegistrobyUN(reqPar.get("apodo"));
@@ -262,7 +272,7 @@ public class PerfilController {
 		
 		if(registrosBD.size() == 0 || registro.getUsername().equals(reqPar.get("apodo"))) {
 			
-			usuario = usuarioManager.getUsuariobyId(3); // <-------- Aquí también.
+			usuario = WebServiceController.usuarioRegistrado; 
 	
 			usuario.setNombre(reqPar.get("nombre"));
 			usuario.setApellidos(reqPar.get("apellidos"));
@@ -274,7 +284,7 @@ public class PerfilController {
 			usuarioManager.addUsuario(usuario);
 			
 			
-			registro = registroManager.getRegistrobyId(3); // <-------- Aquí también.
+			registro = registroManager.getRegistrobyUsuario(usuario.getId()).get(0);
 			
 			registro.setUsername(reqPar.get("apodo"));
 			registro.setContraseña(reqPar.get("contrasena"));

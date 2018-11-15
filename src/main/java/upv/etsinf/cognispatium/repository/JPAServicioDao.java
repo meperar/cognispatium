@@ -40,6 +40,15 @@ public class JPAServicioDao implements ServicioDao {
 	@Override
 	@Transactional(readOnly = true)
 	@SuppressWarnings("unchecked")
+	public List<Profesional> getProfesionales(Integer servicioId) {
+		return em.createQuery("SELECT s FROM Servicio s "+" join fetch s.profesionales "+"WHERE s.id = :serv")
+				.setParameter("serv", servicioId)
+				.getResultList();
+	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	@SuppressWarnings("unchecked")
 	public List<Profesional> getProfsbyServicio(Integer serviceId) {
 		return em.createQuery("SELECT p FROM Servicio s WHERE p.servicio LIKE :serviceId")
 				.setParameter("serviceId", serviceId)

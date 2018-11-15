@@ -48,20 +48,20 @@ public class Solicitud implements Serializable {
 	private EstadoSolicitud estado;
 	
 	
-	@OneToOne(fetch=FetchType.EAGER)
+	@OneToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="cobro")
 	private Cobro cobroOrigen;
 	
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="cliente")
 	private Cliente clienteOrigen;
 	
 	
-	@OneToOne(fetch=FetchType.EAGER)
+	@OneToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="pago")
 	private Pago pago ;
 	
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="servicio")
 	private Servicio servicioOrigen;
 	

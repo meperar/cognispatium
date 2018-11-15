@@ -73,6 +73,9 @@ public class ListadoSolicitudesController {
 	@Autowired
 	private SimpleMensajeManager mensajeManager;
 
+	private String estadoObtenido;
+	private String servicioObtenido;
+	
 	/** Logger for this class and subclasses */
 	protected final Log logger = LogFactory.getLog(getClass());
 
@@ -117,35 +120,52 @@ public class ListadoSolicitudesController {
 	    
 
 		List<Solicitud> listaSolicitudes = new ArrayList<Solicitud>();
-		Map<String, Object> servicios = new HashMap<String, Object>();	
-		if (reqPar.get("servicio") != null && reqPar.get("estado") != null) {
-			Integer ServiceId = Integer.parseInt(reqPar.get("servicio"));
-			Servicio servicioConsulta = servicioManager.getServiciobyId(ServiceId);
-			listaSolicitudes = servicioSolicitudManager.getSolicitudsbyService(servicioConsulta)
+		Map<String, Object> servicios = new HashMap<String, Object>();
+		
+		 servicioObtenido = reqPar.get("servicio");
+		 if(servicioObtenido == "") { servicioObtenido = null;}
+		 
+		estadoObtenido =  reqPar.get("estado");
+		if(estadoObtenido == "") { estadoObtenido = null; }
+		
+		System.out.println(estadoObtenido);
+		 if (servicioObtenido != null ){
+		     Integer ServiceId = Integer.parseInt(servicioObtenido);
+             Servicio servicioConsulta = servicioManager.getServiciobyId(ServiceId);
+             
+		      if( estadoObtenido != null ) {
+		         listaSolicitudes = servicioSolicitudManager.getSolicitudsbyService(servicioConsulta)
 					.stream().sorted(Comparator.comparing(Solicitud::getId).reversed())
-				    .filter(sol -> (sol.getEstado()==EstadoSolicitud.valueOf(reqPar.get("estado"))))
+				    .filter(sol -> (sol.getEstado()==EstadoSolicitud.valueOf(estadoObtenido)))
 				    .collect(Collectors.toList());
-			servicios.put("serviciId", ServiceId);
-			String estado = reqPar.get("estado");
-			System.out.println("Entro en 1er if con estado" + estado);
-
-		}
-		else if(reqPar.get("servicio") != null) {
-		    Integer ServiceId = Integer.parseInt(reqPar.get("servicio"));
-            Servicio servicioConsulta = servicioManager.getServiciobyId(ServiceId);
-            listaSolicitudes = servicioSolicitudManager.getSolicitudsbyService(servicioConsulta)
+		         servicios.put("serviciId", ServiceId);
+		         System.out.println("Entro en if con estado " + estadoObtenido);
+		     }
+		      else {
+	               listaSolicitudes = servicioSolicitudManager.getSolicitudsbyService(servicioConsulta)
+	                      .stream().sorted(Comparator.comparing(Solicitud::getId).reversed())
+	                      .filter(sol -> !(sol.getEstado()==EstadoSolicitud.eliminada))
+	                      .collect(Collectors.toList());
+	                servicios.put("serviciId", ServiceId);
+	                System.out.println("Selecciono servicio sin ningun estado");      
+	             }
+		 }
+		 else {
+		     if( estadoObtenido != null ) {
+                 listaSolicitudes = servicioSolicitudManager.getSolicituds()
                     .stream().sorted(Comparator.comparing(Solicitud::getId).reversed())
-                    .filter(sol -> !(sol.getEstado()==EstadoSolicitud.eliminada))
+                    .filter(sol -> (sol.getEstado()==EstadoSolicitud.valueOf(estadoObtenido)))
                     .collect(Collectors.toList());
-            servicios.put("serviciId", ServiceId);
-            System.out.println("Entro en 2er if");
-		}
-		else {
-			listaSolicitudes = servicioSolicitudManager.getSolicituds()
+                 
+                 System.out.println("Todos los servicios con estado " + estadoObtenido);
+             }	     
+		     else {
+		         listaSolicitudes = servicioSolicitudManager.getSolicituds()
 					.stream().sorted(Comparator.comparing(Solicitud::getId).reversed())
 				    .filter(sol -> !(sol.getEstado()==EstadoSolicitud.eliminada))
 				    .collect(Collectors.toList());
-			System.out.println("Entro en 3er if");
+			System.out.println("Todos los servicios sin estado");
+		     }
 		}
 		
 		Map<String, Object> myModel = new HashMap<String, Object>();
@@ -211,7 +231,10 @@ public class ListadoSolicitudesController {
 		presupuesto.setSolicitudOrigen(solicitud);
 		
 		presupuesto.setProfesionalOrigen(simpleProfesionalManager.getProfesionalById(WebServiceController.usuarioRegistrado.getId()));
-		
+		if(solicitud.getEstado() == EstadoSolicitud.creada) {
+		solicitud.setEstado(EstadoSolicitud.respondida);
+		}
+		servicioSolicitudManager.addSolicitud(solicitud);
 		simplePresupuestoManager.addPresupuesto(presupuesto);
 		
 		//Notificar al usuario de recepci�n de presupuesto
