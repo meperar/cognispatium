@@ -126,7 +126,7 @@ public class ListadoSolicitudesDelClienteController {
 			Presupuesto presupuesto = simplePresupuestoManager.getPresupuestoAceptadoBySolicitud(solicitud);
 			int profesionalId = presupuesto.getProfesionalOrigen().getId();
 			return new ModelAndView("redirect:/votarProfesional.htm?profesionalId=" + profesionalId);
-			//return new ModelAndView("redirect:/votarProfesional.htm?solicitudId=" + solicitudId);
+			//return new ModelAndView("redirect:/hello.htm");
 		}
 		
 		if (info) {

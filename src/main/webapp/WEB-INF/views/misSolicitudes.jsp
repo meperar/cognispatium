@@ -64,12 +64,11 @@ function openChild(file,window) {
 										alt="Eliminar solicitud" title="Eliminar solicitud"
 										height="20" width="20">
 								</button>
-								<!--<c:if test = "${solicitud.estado = 'adjudicada'}">-->
+								
 								<button class="bg-primary" name="valorarProfesional">
 								<img src="https://image.flaticon.com/icons/svg/1087/1087916.svg" alt="Valorar profesional" title="Valorar profesional"
 										height="20" width="20">
 								</button>
-								<!--</c:if>-->
 								</td>
 									</td>
 							</tr>

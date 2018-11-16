@@ -146,8 +146,16 @@ public class Solicitud implements Serializable {
 		this.estado = estado;
 	}
 	
-	public boolean equals(Solicitud solicitud) {
-		return solicitud instanceof Solicitud && this.getId().equals(solicitud.getId());
+	@Override
+	public boolean equals(Object solicitud) {
+		if(solicitud instanceof Solicitud) {
+			Solicitud solicitudTemp = (Solicitud) solicitud;
+			return this.getId().equals(solicitudTemp.getId());
+		} else {
+			return false;
+		}
+		/*System.out.println((solicitud instanceof Solicitud) + "AND" + this.getId().equals(solicitud.getId()));
+		return solicitud instanceof Solicitud && this.getId().equals(solicitud.getId());*/
 	}
 
 

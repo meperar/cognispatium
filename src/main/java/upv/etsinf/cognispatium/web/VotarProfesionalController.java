@@ -21,6 +21,7 @@ import upv.etsinf.cognispatium.domain.ConsultaUrgente;
 import upv.etsinf.cognispatium.domain.Profesional;
 import upv.etsinf.cognispatium.domain.Usuario;
 import upv.etsinf.cognispatium.domain.Valoracion;
+import upv.etsinf.cognispatium.service.SimpleClienteManager;
 import upv.etsinf.cognispatium.service.SimpleProfesionalManager;
 import upv.etsinf.cognispatium.service.SimpleValoracionManager;
 
@@ -32,6 +33,9 @@ public class VotarProfesionalController {
 	
 	@Autowired
 	private SimpleProfesionalManager profesionalManager;
+	
+	@Autowired
+	private SimpleClienteManager clienteManager;
 	
 	private Profesional profesional;
 	private Cliente cliente;
@@ -45,22 +49,18 @@ public class VotarProfesionalController {
 		mav.addObject("model", myModel);
 		
 		Integer profesionalId = Integer.parseInt(reqPar.get("profesionalId"));
-		//System.out.println(profesionalId);
 		profesional = profesionalManager.getProfesionalById(profesionalId);
-		//System.out.println(profesional);
 		mav.addObject("profesional", profesional);
 		
 		Usuario user = WebServiceController.usuarioRegistrado;
 		
-		if(user!=null && user instanceof Cliente) {
-			cliente = (Cliente)user;
+		if(user!=null && user.getDTYPE().equals("cliente")) {
+			cliente = clienteManager.getClientebyId(user.getId());
 			mav.addObject("usR", user);
-			//System.out.println(profesional);
 			return mav;
 		}
 		else {
 			String referer = request.getHeader("Referer");
-			//System.out.println(profesional);
 		    return new ModelAndView("redirect:"+ referer);
 		}
 	}
