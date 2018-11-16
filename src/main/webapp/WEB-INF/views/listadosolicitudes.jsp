@@ -51,13 +51,28 @@
 						</c:forEach>
 					</select>
 					
-					<label for="form16">Estado</label> <br>
+					<label for="form16">Estado ${estadoObt}</label> <br>
 					 <select name='estado'>
 					 
-					 <option disabled selected value> -- Filtro por estado -- </option>	
-					 <option  value="" > -- sin filtro  -- </option>
-                     <option value="creada" >Creada</option>
-                    <option value="respondida" >Respondida </option>
+					 <option disabled selected> -- Filtro por estado -- </option>	
+					 <c:if test="${estadoObt == null}">
+								<option  value="" selected > -- sin filtro  -- </option>
+					</c:if>
+					<c:if test="${estadoObt == 'creada'}">
+								<option value="creada" selected>Creada</option>
+					</c:if>
+					<c:if test="${estadoObt == 'respondida'}">
+								<option value="respondida" selected >Respondida </option>
+					</c:if>
+					<c:if test="${estadoObt != null}">
+								<option  value=""> -- sin filtro  -- </option>
+					</c:if>
+					<c:if test="${estadoObt != 'creada'}">
+								<option value="creada" >Creada</option>
+					</c:if>
+					<c:if test="${estadoObt != 'respondida'}">
+								<option value="respondida" >Respondida </option>
+					</c:if>
 					 </select>
 					 <input class="btn btn-primary" type="submit" name="action" value="Filtrar" />
 				</form>

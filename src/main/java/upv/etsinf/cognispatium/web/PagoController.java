@@ -77,7 +77,7 @@ public class PagoController {
 	@Autowired
 	private SimplePresupuestoManager simplePresupuestoManager;
 	
-	
+	private String servicioString;
 	
 	Map<String, Object> myModel;
 
@@ -91,6 +91,7 @@ public class PagoController {
 		String descripcion = reqPar.get("descripcion");
 		Integer ServiceId = Integer.parseInt(reqPar.get("servicio"));
 		Servicio servicioConsulta = servicioManager.getServiciobyId(ServiceId);
+		servicioString = servicioConsulta.getNombre();
 		ConsultaUrgente consultaUrgente = new ConsultaUrgente();
 		Cliente cliente = clienteManager.getClientebyId(WebServiceController.usuarioRegistrado.getId());
 		consultaUrgente.setDescripcion(descripcion);
@@ -142,16 +143,14 @@ public class PagoController {
 		pago.setTarjetaOrigen(tarjeta);
 		consultaUrgente.setPago(pago);
 		servicioCUManager.addConsultaUrgente(consultaUrgente);
-	
-		try {
-			new PDFgenerator("\\CreoPDF.pdf");
-			}
-			catch(Exception e) {System.out.println("No se ha creado el pdf");}
+		pagoManager.addPago(pago);
+		tarjetaManager.addTarjeta(tarjeta);
 		Map<String, Object> myModel = new HashMap<String, Object>();
-
+		
 		ModelAndView mav = new ModelAndView("factura", "model", myModel);
 
 		myModel.put("pago", pago);
+		myModel.put("servicioString", servicioString);
 		
 		if(WebServiceController.usuarioRegistrado == null) {
 			Usuario userAux = new Usuario();
@@ -171,25 +170,6 @@ public class PagoController {
 		
 	}
 
-	
-	private Tarjeta addTarjeta(Map<String, String> reqPar,Cliente cliente) {
-		String Stringnumero = reqPar.get("numTarjeta");
-		String titular = reqPar.get("titular");
-		long numero = Long.parseLong(Stringnumero);
-		String Stringcvv = reqPar.get("cvv");
-		int cvv = Integer.valueOf(Stringcvv);
-		Integer mes = Integer.parseInt(reqPar.get("mes"));
-		Integer anyo = Integer.parseInt(reqPar.get("anyo"));
-		Date fecha = new Date(anyo, mes, 01);
-		Tarjeta tarjeta = new Tarjeta();
-		tarjeta.setClienteOrigen(cliente);
-		tarjeta.setCodigoSeguridad(cvv);
-		tarjeta.setFechaCaducidad(fecha);
-		tarjeta.setNumero(numero);
-		tarjeta.setTitular(titular);
-		return tarjeta;
-	}
-	
 	
 	@GetMapping(value = "/pagoTarjetaSolicitud.htm")
 	public ModelAndView handleRequestSolicitud(HttpServletRequest request, HttpServletResponse response,
@@ -230,9 +210,11 @@ public class PagoController {
 		pago.setDescripcion(presupuesto.getDescripcion());
 		pago.setPrecio(presupuesto.getPrecio());
 		pago.setTarjetaOrigen(tarjeta);
+		pagoManager.addPago(pago);
 		presupuesto.getSolicitudOrigen().setPago(pago);
 		presupuesto.getSolicitudOrigen().setEstado(EstadoSolicitud.adjudicada);
 		solicitudManager.addSolicitud(presupuesto.getSolicitudOrigen());
+		
 		presupuesto.getSolicitudOrigen().getPresupuestos().forEach(p->{
 			p.setEstado(EstadoPresupuesto.no_aceptado);
 			simplePresupuestoManager.addPresupuesto(p);
@@ -261,6 +243,25 @@ public class PagoController {
 		return mav;
 	}
 
+    
+    private Tarjeta addTarjeta(Map<String, String> reqPar,Cliente cliente) {
+        String Stringnumero = reqPar.get("numTarjeta");
+        String titular = reqPar.get("titular");
+        long numero = Long.parseLong(Stringnumero);
+        String Stringcvv = reqPar.get("cvv");
+        int cvv = Integer.valueOf(Stringcvv);
+        Integer mes = Integer.parseInt(reqPar.get("mes"));
+        Integer anyo = Integer.parseInt(reqPar.get("anyo"));
+        Date fecha = new Date(anyo, mes, 01);
+        Tarjeta tarjeta = new Tarjeta();
+        tarjeta.setClienteOrigen(cliente);
+        tarjeta.setCodigoSeguridad(cvv);
+        tarjeta.setFechaCaducidad(fecha);
+        tarjeta.setNumero(numero);
+        tarjeta.setTitular(titular);
+        return tarjeta;
+    }
+    
 
 
 }

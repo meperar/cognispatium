@@ -116,7 +116,7 @@ public class ListadoSolicitudesController {
 
 	@GetMapping("/listadosolicitudes.htm")
 	protected ModelAndView onSubmit(@RequestParam Map<String, String> reqPar) throws Exception {
-	    
+	    Map<String, Object> myModel = new HashMap<String, Object>();
 	    
 		List<Solicitud> listaSolicitudes = new ArrayList<Solicitud>();
 		Map<String, Object> servicios = new HashMap<String, Object>();
@@ -127,7 +127,7 @@ public class ListadoSolicitudesController {
 		estadoObtenido =  reqPar.get("estado");
 		if(estadoObtenido == "") { estadoObtenido = null; }
 		
-		System.out.println(estadoObtenido);
+		
 		 if (servicioObtenido != null ){
 		     Integer ServiceId = Integer.parseInt(servicioObtenido);
              Servicio servicioConsulta = servicioManager.getServiciobyId(ServiceId);
@@ -138,15 +138,14 @@ public class ListadoSolicitudesController {
 				    .filter(sol -> (sol.getEstado()==EstadoSolicitud.valueOf(estadoObtenido)))
 				    .collect(Collectors.toList());
 		         servicios.put("serviciId", ServiceId);
-		         System.out.println("Entro en if con estado " + estadoObtenido);
+		        
 		     }
 		      else {
 	               listaSolicitudes = servicioSolicitudManager.getSolicitudsbyService(servicioConsulta)
 	                      .stream().sorted(Comparator.comparing(Solicitud::getId).reversed())
 	                      .filter(sol -> !(sol.getEstado()==EstadoSolicitud.eliminada))
 	                      .collect(Collectors.toList());
-	                servicios.put("serviciId", ServiceId);
-	                System.out.println("Selecciono servicio sin ningun estado");      
+	                servicios.put("serviciId", ServiceId);	               
 	             }
 		 }
 		 else {
@@ -154,21 +153,19 @@ public class ListadoSolicitudesController {
                  listaSolicitudes = servicioSolicitudManager.getSolicituds()
                     .stream().sorted(Comparator.comparing(Solicitud::getId).reversed())
                     .filter(sol -> (sol.getEstado()==EstadoSolicitud.valueOf(estadoObtenido)))
-                    .collect(Collectors.toList());
-                 
-                 System.out.println("Todos los servicios con estado " + estadoObtenido);
+                    .collect(Collectors.toList());                
              }	     
 		     else {
 		         listaSolicitudes = servicioSolicitudManager.getSolicituds()
 					.stream().sorted(Comparator.comparing(Solicitud::getId).reversed())
 				    .filter(sol -> !(sol.getEstado()==EstadoSolicitud.eliminada))
 				    .collect(Collectors.toList());
-			System.out.println("Todos los servicios sin estado");
 		     }
 		}
+	
 		
-		Map<String, Object> myModel = new HashMap<String, Object>();
 		ModelAndView mav = new ModelAndView("listadosolicitudes", "model", myModel);
+		mav.addObject("estadoObt",estadoObtenido);
 		List<Servicio> listaServicios = servicioManager.getServicios();
 		servicios.put("servicios", listaServicios);
 		mav.addObject("servicios", servicios);
