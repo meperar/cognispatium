@@ -69,11 +69,18 @@ public class VotarProfesionalController {
 	protected ModelAndView votarProfesional(@RequestParam Map<String, String> reqPar) throws Exception {
 		Valoracion val = new Valoracion();
 		int star = Integer.parseInt(reqPar.get("star"));
+		calcularValoracion(star);
 		
 		val.setProfesional(profesional);
 		val.setCliente(cliente);
 		val.setPuntuacion(star);
 		valoracionManager.addValoracion(val);
 		return new ModelAndView("redirect:/hello.htm");
+	}
+	
+	private int calcularValoracion(int idProfesional) {
+		Profesional profesional = profesionalManager.getProfesionalById(idProfesional);
+		System.out.println(profesional.getDni());
+		return 0;
 	}
 }
