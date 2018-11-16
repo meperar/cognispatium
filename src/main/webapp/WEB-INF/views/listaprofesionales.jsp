@@ -76,7 +76,6 @@
 												<c:forEach begin="1" end="${5 - profs.getValoracionMediaRedondeada()}" varStatus="loop">
 			   										<img src="https://i.imgur.com/hYfF8io.png" width = 18 title="source: imgur.com" />
 												</c:forEach>
-												 - ${profs.getValoracionMediaFormateada()}
 											</h4>
 										</c:when>
 										<c:when test="${profs.getValoracionMediaRedondeada() == 0}">
@@ -87,8 +86,6 @@
 										<c:if test="${usR.getDTYPE()=='cliente'}">
 										<form action="<c:url value="/votarProfesional.htm" />">
 										<p></p>
-											<button>Valorar profesional</button>
-										
 										<input type="hidden"
 											id="profesionalId" name="profesionalId" value="${profs.id}">
 										</form>
