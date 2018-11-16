@@ -100,8 +100,10 @@ public class SignUpController {
 				nuevoCliente.setDni(reqPar.get("dninif"));
 				nuevoCliente.setTelefono(Integer.parseInt(reqPar.get("tlf")));
 				nuevoCliente.setDTYPE(reqPar.get("rol"));
+				nuevoCliente.setDesactivado(0);
 
 				nuevoRegistro.setUsuario(nuevoCliente);
+				
 			} else if (reqPar.get("rol").equals(prof)) {
 				nuevoProf.setNombre(reqPar.get("nombre"));
 				nuevoProf.setEmail(reqPar.get("email"));
@@ -109,7 +111,7 @@ public class SignUpController {
 				nuevoProf.setDni(reqPar.get("dninif"));
 				nuevoProf.setTelefono(Integer.parseInt(reqPar.get("tlf")));
 				nuevoProf.setDTYPE(reqPar.get("rol"));
-
+				nuevoProf.setDesactivado(0);
 				nuevoRegistro.setUsuario(nuevoProf);
 			}
 

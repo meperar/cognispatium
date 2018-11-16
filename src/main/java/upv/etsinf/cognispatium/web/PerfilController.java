@@ -235,21 +235,31 @@ public class PerfilController {
 			
 			ModelAndView mav = new ModelAndView("hello");
 			
-			if(WebServiceController.usuarioRegistrado != null) {
+
+			Usuario userAux = new Usuario();
+
+			userAux.setNombre("Usuario no registrado");
+			mav.addObject("usR", userAux);
+ 
+
+			return mav;
+			
+			
+		} else if(reqPar.get("desacId") != null) {
+			
+			Usuario usuEl = usuarioManager.getUsuariobyId(Integer.parseInt(reqPar.get("desacId")));
+			usuEl.setDesactivado(1);
+			usuarioManager.addUsuario(usuEl);
+			ModelAndView mav = new ModelAndView("hello");
+			
+			
 				Usuario userAux = new Usuario();
 
 				userAux.setNombre("Usuario no registrado");
 				mav.addObject("usR", userAux);
 
-			}
 
-			else {
-
-				mav.addObject("usR", WebServiceController.usuarioRegistrado);
-
-			}
 			return mav;
-			
 			
 		} else {
 		

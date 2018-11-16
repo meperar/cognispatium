@@ -207,7 +207,8 @@
 									<button class="open-button" onclick="openForm()">Editar</button>
 									<br>
 									<button class="open-button" onclick="openForme()">Eliminar Perfil</button>
-									
+									<br>
+									<button class="open-button" onclick="openFormDesac()">Desactivar Perfil</button>
 									<div class="form-popup" id="myForme">
 										<form action="#" method="post" class="form-container">
 											<input type="hidden" id="usridE" name="usridE" value="${model.usuario.id}">
@@ -215,6 +216,17 @@
 											<div style="display: inline-block;">
 												<button type="submit" class="btn">Aceptar</button> 
 												<button type="button" class="btn cancel" onclick="closeForme()">Cancelar</button>
+											</div>
+										</form>
+									</div>
+									
+									<div class="form-popup" id="myFormDesac">
+										<form action="#" method="post" class="form-container">
+											<input type="hidden" id="desacId" name="desacId" value="${model.usuario.id}">
+											<div style="text-align: center">Se procederá a desactivar la cuenta, ¿está seguro de esto?</div>
+											<div style="display: inline-block;">
+												<button type="submit" class="btn">Aceptar</button> 
+												<button type="button" class="btn cancel" onclick="closeFormDesac()">Cancelar</button>
 											</div>
 										</form>
 									</div>
@@ -271,6 +283,16 @@
 									function closeForm() {
 									    document.getElementById("myForm").style.display = "none";
 									}
+									
+									function openFormDesac(){
+										document.getElementById("myFormDesac").style.display = "block";
+									}
+									
+
+									function closeFormDesac() {
+									    document.getElementById("myFormDesac").style.display = "none";
+									}
+									
 									function validarCampos(){
 										var valido = true;
 										
