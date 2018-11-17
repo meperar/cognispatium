@@ -13,5 +13,7 @@ public interface PresupuestoDao {
     public void dropPresupuesto(Presupuesto presupuesto);
 
 	public Presupuesto getPresupuestoById(Integer presupuestoId);
+	
+	public List<Presupuesto> getPresupuestosByProf(Integer profId);
 
 }

@@ -16,6 +16,7 @@ import upv.etsinf.cognispatium.domain.Cliente;
 import upv.etsinf.cognispatium.domain.Consulta;
 import upv.etsinf.cognispatium.domain.ConsultaUrgente;
 import upv.etsinf.cognispatium.domain.EstadoConsulta;
+import upv.etsinf.cognispatium.domain.EstadoPresupuesto;
 import upv.etsinf.cognispatium.domain.Presupuesto;
 import upv.etsinf.cognispatium.domain.Profesional;
 import upv.etsinf.cognispatium.domain.Registro;
@@ -46,6 +47,9 @@ import org.apache.commons.logging.LogFactory;
 @Controller
 public class PerfilController {
 
+	@Autowired
+	private SimplePresupuestoManager presupuestoManager;
+	
 	@Autowired
 	private SimpleServicioManager servicioManager;
 	
@@ -250,6 +254,21 @@ public class PerfilController {
 			Usuario usuEl = usuarioManager.getUsuariobyId(Integer.parseInt(reqPar.get("desacId")));
 			usuEl.setDesactivado(1);
 			usuarioManager.addUsuario(usuEl);
+			
+			if(WebServiceController.usuarioRegistrado.getDTYPE().toString().length()==7) {
+				
+				
+			}
+			
+			else {
+				
+				List<Presupuesto> presupuestos = presupuestoManager.getPresupuestosByProf(usuEl.getId());
+				for(Presupuesto p : presupuestos) {
+					p.setEstado(EstadoPresupuesto.rechazado);
+					presupuestoManager.addPresupuesto(p);	
+				}
+				
+			}
 			ModelAndView mav = new ModelAndView("hello");
 			
 			

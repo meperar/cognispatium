@@ -43,4 +43,18 @@ public class JPAMensajeDao implements MensajeDao {
 		return em.find(Mensaje.class, mensajeId);
 	}
 
+	@Override
+	@Transactional(readOnly = true)
+	@SuppressWarnings("unchecked")
+	public List<Mensaje> getMensajeByClienteId(Integer clienteId) {
+		return em.createQuery("SELECT m FROM Mensaje m WHERE m.cliente LIKE '"+ clienteId + "'").getResultList();
+	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	@SuppressWarnings("unchecked")
+	public List<Mensaje> getMensajeByProfId(Integer profId) {
+		return em.createQuery("SELECT m FROM Mensaje m WHERE m.profesional LIKE '"+ profId + "'").getResultList();
+	}
+	
 }

@@ -52,4 +52,9 @@ public class SimplePresupuestoManager implements Serializable {
     	}
     	return res;
     }
+    
+    public List<Presupuesto> getPresupuestosByProf(Integer profId){
+    	return presupuestoDao.getPresupuestosByProf(profId);
+    	
+    }
 }

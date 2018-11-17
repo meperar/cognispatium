@@ -80,7 +80,19 @@ public class BandejaMensajesController {
 		Map<String, Object> myModel = new HashMap<String, Object>();
 		ModelAndView mav = new ModelAndView("bandejaMensajes", "model", myModel);
 		Map<String, Object> mensajes = new HashMap<String, Object>();
-		List<Mensaje> listaMensajes = mensajeManager.getMensajes();
+		List<Mensaje> listaMensajes;
+		System.out.println(WebServiceController.usuarioRegistrado.getId());
+		mav.addObject("prueba", WebServiceController.usuarioRegistrado.getId() );
+		if(WebServiceController.usuarioRegistrado.getDTYPE().toString().length()==7) {
+			
+			listaMensajes = mensajeManager.getMensajesByClienteId(WebServiceController.usuarioRegistrado.getId());
+		}
+		
+		else {
+			
+			listaMensajes = mensajeManager.getMensajesByProfId(WebServiceController.usuarioRegistrado.getId());
+		}
+		
 		mensajes.put("mensajes", listaMensajes);
 		mav.addObject("mensajes", mensajes);
 		if(WebServiceController.usuarioRegistrado == null) {
@@ -103,10 +115,21 @@ public class BandejaMensajesController {
 	@GetMapping("/bandejamensajes.htm")
 	protected ModelAndView onSubmit(@RequestParam Map<String, String> reqPar) throws Exception {
 
-		List<Mensaje> listaMensajes = new ArrayList<Mensaje>();
+		List<Mensaje> listaMensajes;
 		
-			listaMensajes = mensajeManager.getMensajes();
-
+		
+		if(WebServiceController.usuarioRegistrado.getDTYPE().toString().length()==7) {
+			
+			listaMensajes = mensajeManager.getMensajesByClienteId(WebServiceController.usuarioRegistrado.getId());
+		}
+		
+		else {
+			
+			listaMensajes = mensajeManager.getMensajesByProfId(WebServiceController.usuarioRegistrado.getId());
+		}
+		
+		
+		
 		Map<String, Object> myModel = new HashMap<String, Object>();
 		ModelAndView mav = new ModelAndView("bandejaMensajes", "model", myModel);
 		Map<String, Object> mensajes = new HashMap<String, Object>();
