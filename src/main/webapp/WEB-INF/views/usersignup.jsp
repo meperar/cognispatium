@@ -39,7 +39,7 @@
 						</div>
 			
 			<div class="form-group">
-							<label for="form16">Contraseña</label> <input type="text"
+							<label for="form16">Contraseña</label> <input type="password"
 								name="password" class="form-control" id="PSW"								
 								maxlength="10"
 								required  />
