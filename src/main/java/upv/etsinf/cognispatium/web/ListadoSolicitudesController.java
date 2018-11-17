@@ -51,6 +51,8 @@ import javax.validation.Valid;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
+import org.joda.time.format.DateTimeFormatter;
 
 @Controller
 public class ListadoSolicitudesController {
@@ -96,6 +98,7 @@ public class ListadoSolicitudesController {
 		List<Solicitud> listaSolicitudes = servicioSolicitudManager.getSolicituds();
 		solicitudes.put("solicitudes", listaSolicitudes);
 		mav.addObject("solicitudes", solicitudes);
+		
 		if(WebServiceController.usuarioRegistrado == null) {
 			Usuario userAux = new Usuario();
 			
@@ -223,7 +226,7 @@ public class ListadoSolicitudesController {
 		presupuesto.setDescripcion(reqPar.get("descripcion"));
 		presupuesto.setPrecio(Integer.parseInt(reqPar.get("precio")));
 		presupuesto.setEstado(EstadoPresupuesto.propuesto);
-		
+		presupuesto.setFechaCreacion(DateTime.now().toDate());
 		Solicitud solicitud = servicioSolicitudManager.getSolicitudbyId(Integer.parseInt(reqPar.get("solicitudId")));
 		presupuesto.setSolicitudOrigen(solicitud);
 		

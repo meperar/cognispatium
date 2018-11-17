@@ -19,11 +19,13 @@
 
 <body>
 	<jsp:include page="barrasuperior.jsp" flush="true" />
+	
 	<div class="py-5">
 		<div class="container">
 			<div class="row">
 				<form action="<c:url value="/listadosolicitudes.htm" />"
 					method="GET">
+					<div class="col-md-6" >
 					<label for="form16">Servicio</label> <br>
 					 <select name='servicio'>
 						<c:set var="servId" value="${servicios.serviciId}" />
@@ -50,7 +52,8 @@
 							</c:choose>
 						</c:forEach>
 					</select>
-					
+					</div>
+					<div class="col-md-6" >
 					<label for="form16">Estado ${estadoObt}</label> <br>
 					 <select name='estado'>
 					 
@@ -74,9 +77,11 @@
 								<option value="respondida" >Respondida </option>
 					</c:if>
 					 </select>
-					 <input class="btn btn-primary" type="submit" name="action" value="Filtrar" />
-				</form>
+					 </div>
+					<div class="col-md-4"> <input class="btn btn-primary" type="submit" name="action" value="Filtrar" /></div>	
+					 </form>
 			</div>
+			
 			<br>
 			<div class="row">
 				<div class="col-md-12">

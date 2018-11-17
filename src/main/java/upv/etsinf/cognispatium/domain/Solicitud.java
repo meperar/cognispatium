@@ -20,9 +20,16 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
+
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.joda.ser.DateTimeSerializer;
 
 @Entity
 @Table(name="solicitud")
@@ -45,6 +52,9 @@ public class Solicitud implements Serializable {
 	@Enumerated(value = EnumType.STRING)
 	private EstadoSolicitud estado;
 	
+	@Column
+	@Temporal(TemporalType.DATE)
+    private Date fechaCreacion;  
 	
 	@OneToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="cobro")
@@ -143,6 +153,14 @@ public class Solicitud implements Serializable {
 	public void setEstado(EstadoSolicitud estado) {
 		this.estado = estado;
 	}
+
+    public Date getFechaCreacion() {
+        return fechaCreacion;
+    }
+
+    public void setFechaCreacion(Date fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
+    }
 
 
 	

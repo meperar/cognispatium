@@ -125,6 +125,7 @@ public class CSPresupuestoController {
 		solicitud.setServicioOrigen(servicioConsulta);
 		solicitud.setClienteOrigen(cliente);
 		solicitud.setEstado(EstadoSolicitud.creada);
+		solicitud.setFechaCreacion(DateTime.now().toDate());
 		servicioSolicitudManager.addSolicitud(solicitud);
 		ModelAndView mav = new ModelAndView("hello");
 		if(WebServiceController.usuarioRegistrado == null) {
