@@ -3,6 +3,7 @@ package upv.etsinf.cognispatium.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -20,6 +21,7 @@ import upv.etsinf.cognispatium.domain.EstadoConsulta;
 import upv.etsinf.cognispatium.domain.EstadoSolicitud;
 import upv.etsinf.cognispatium.domain.Mensaje;
 import upv.etsinf.cognispatium.domain.Presupuesto;
+import upv.etsinf.cognispatium.domain.Profesional;
 import upv.etsinf.cognispatium.domain.Servicio;
 import upv.etsinf.cognispatium.service.SimpleServicioManager;
 import upv.etsinf.cognispatium.service.SimpleSolicitudManager;
@@ -58,7 +60,7 @@ public class ListadoSolicitudesDelClienteController {
 
 	@Autowired
 	private SimpleServicioManager servicioManager;
-
+	
 	@Autowired
 	private SimpleSolicitudManager servicioSolicitudManager;
 
@@ -113,10 +115,20 @@ public class ListadoSolicitudesDelClienteController {
 
 	@PostMapping("/misSolicitudes.htm")
 	protected ModelAndView verSolicitud(@RequestParam Map<String, String> reqPar,HttpServletRequest request) throws Exception {
-		
-		this.miSolicitud = servicioSolicitudManager.getSolicitudbyId(Integer.parseInt(reqPar.get("solicitudId")));
 
+		this.miSolicitud = servicioSolicitudManager.getSolicitudbyId(Integer.parseInt(reqPar.get("solicitudId")));
+		
 		boolean info = WebUtils.hasSubmitParameter(request, "info");
+		
+		if(WebUtils.hasSubmitParameter(request, "valorarProfesional")) {
+			int solicitudId = Integer.parseInt(reqPar.get("solicitudId"));
+			Solicitud solicitud = servicioSolicitudManager.getSolicitudbyId(solicitudId);
+			Presupuesto presupuesto = simplePresupuestoManager.getPresupuestoAceptadoBySolicitud(solicitud);
+			int profesionalId = presupuesto.getProfesionalOrigen().getId();
+			return new ModelAndView("redirect:/votarProfesional.htm?profesionalId=" + profesionalId);
+			//return new ModelAndView("redirect:/hello.htm");
+		}
+		
 		if (info) {
 
 		Map<String, Object> myModel = new HashMap<String, Object>();
@@ -184,10 +196,18 @@ public class ListadoSolicitudesDelClienteController {
 		}
 	}
 	
+	@RequestMapping(value="/valorarProfesional", method=RequestMethod.POST, params="valorarProfesional")
+	protected ModelAndView votarProfesional(@RequestParam(value="valorarProfesional") Boolean valorarProfesional) {
+		
+		System.out.println("votarProfesional()");
+		ModelAndView mav = new ModelAndView("misSolicitudes");
+		
+		return mav;
+	}
 	
 	@PostMapping("/guardaUsuario.htm")
 	protected ModelAndView guardaUsuario(@RequestParam Map<String, String> reqPar,HttpServletRequest request) throws Exception {
-		
+		System.out.println("guardaUsuario()");
 		ModelAndView mav = new ModelAndView("misSolicitudes");
 		Map<String, Object> myModel = new HashMap<String, Object>();
 
@@ -205,7 +225,7 @@ public class ListadoSolicitudesDelClienteController {
 	
 	@GetMapping("/diferentesPresupuestos.htm")
 	protected ModelAndView verPresupuestosDeSolicitud(@RequestParam Map<String, String> reqPar,HttpServletRequest request) throws Exception {
-		
+		System.out.println("verPresupuestosDeSolicitud()");
 		Map<String, Object> myModel = new HashMap<String, Object>();
 		
 		ModelAndView mav = new ModelAndView("diferentesPresupuestos");
@@ -224,7 +244,7 @@ public class ListadoSolicitudesDelClienteController {
 
 	@PostMapping("/validarPresupuesto.htm")
 	protected ModelAndView validaPresupuesto(@RequestParam Map<String, String> reqPar) throws Exception {
-
+		System.out.println("validaPresupuesto()");
 		Map<String, Object> myModel = new HashMap<String, Object>();
 
 		Presupuesto presupuesto = simplePresupuestoManager
@@ -240,7 +260,7 @@ public class ListadoSolicitudesDelClienteController {
 	@GetMapping("/eliminar.htm")
 	public ModelAndView handleRequestEliminar(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		System.out.println("handleRequestEliminar()");
 		ModelAndView mav = new ModelAndView("eliminarConfirmacion");
 
 		return mav;
@@ -249,8 +269,7 @@ public class ListadoSolicitudesDelClienteController {
 	
 	@PostMapping("/eliminar.htm")
 	protected void elimina(@RequestParam Map<String, String> reqPar,HttpServletRequest request) throws Exception {
-		
-		
+		System.out.println("elimina()");
 		boolean info = WebUtils.hasSubmitParameter(request, "elimina");
 		if (info) {
 			miSolicitud.setEstado(EstadoSolicitud.cerrada);

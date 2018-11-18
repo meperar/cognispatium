@@ -12,19 +12,14 @@
 	type="text/css">
 <link rel="stylesheet" href="misSolicitud.css">
 </head>
-<SCRIPT LANGUAGE="JavaScript">
-function openChild(file,window) {
-    childWindow=open(file,window,'resizable=no,width=200,height=400');
-    if (childWindow.opener == null) childWindow.opener = self;
-    }
-</SCRIPT>
+
 <body>
 	<jsp:include page="barrasuperior.jsp" flush="true" />
 	<nav class="navbar navbar-light border-dark">
 		<div class="container d-flex justify-content-center">
 			<a class="navbar-brand text-primary" href="#"> <i
 				class="fa d-inline fa-lg fa-circle-o text-dark"></i> <b
-				class="text-dark"> MIS SOLICITUDES</b>
+				class="text-dark"> MIS PRESUPUESTOS</b>
 			</a>
 		</div>
 	</nav>
@@ -37,42 +32,31 @@ function openChild(file,window) {
 			<table class="table">
 				<thead>
 					<tr>
-						<th>Titulo</th>
-						<th>Descripcion</th>
+						<th>Solicitud</th>
 						<th>Estado</th>
+						<th>Fecha creación</th>
 						<th>Accion</th>
 					</tr>
 				</thead>
 
 				<tbody>
-					<c:forEach items="${model.solicitudes}" var="solicitud">
+					<c:forEach items="${model.presupuestos}" var="presupuesto">
 						
 							<tr>
 							<form action="#" method="post" class="text-left">
 								<td style="max-width: 500px; word-wrap: break-word;"><input
-									type="hidden" id="solicitudId" name="solicitudId"
-									value="${solicitud.id}"> ${solicitud.titulo}</td>
-								<td style="max-width: 500px; word-wrap: break-word;">${solicitud.descripcion}</td>
-								<td>${solicitud.estado}</td>
+									type="hidden" id="presupuestoId" name="presupuestoId"
+									value="${presupuesto.id}"> ${presupuesto.getSolicitudOrigen().getTitulo()}</td>
+								<td style="max-width: 500px; word-wrap: break-word;">${presupuesto.estado}</td>
+								<td>${presupuesto.fechaCreacion}</td>
 								<td><button class="bg-primary" name="info">
 										<img src="https://image.flaticon.com/icons/svg/1/1176.svg"
 											alt="Information button free icon"
-											title="Ver datos de mi solicitud" height="20" width="20">
+											title="Ver datos de mi presupuesto" height="20" width="20">
 									</button>
-									<button class="bg-primary" name="borrar">
-									<img src="https://image.flaticon.com/icons/svg/121/121116.svg"
-										alt="Eliminar solicitud" title="Eliminar solicitud"
-										height="20" width="20">
-								</button>
-								
-								<button class="bg-primary" name="valorarProfesional">
-								<img src="https://image.flaticon.com/icons/svg/1087/1087916.svg" alt="Valorar profesional" title="Valorar profesional"
-										height="20" width="20">
-								</button>
-								</td>
-									</td>
-							</tr>
-						</form>
+									</td>	
+							</form>							
+							</tr>						
 					</c:forEach>
 				</tbody>
 			</table>
@@ -131,4 +115,5 @@ function openChild(file,window) {
 		</div>
 	</div>
 </body>
+
 </html>

@@ -49,5 +49,12 @@ public class JPASolicitudDao implements SolicitudDao {
 	public Solicitud getSolicitudById(int solicitudId) {
 		return em.find(Solicitud.class, solicitudId);
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional(readOnly = true)
+	public List<Solicitud> getSolicitudByCli(int cliId){
+		return em.createQuery("SELECT s FROM Solicitud s WHERE s.clienteOrigen LIKE '"+ cliId + "'").getResultList();
+	}
 
 }

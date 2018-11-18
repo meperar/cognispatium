@@ -57,9 +57,15 @@ public class SimpleMensajeManager implements Serializable{
 		return mensajeDao.getMensajesEliminadosbyUsuario(usuario);
 	}
 	
-
+	 public List<Mensaje> getMensajesByClienteId(Integer clienteId){
+		 	return mensajeDao.getMensajeByClienteId(clienteId);
+		 
+	 }
 	
-	
+	 public List<Mensaje> getMensajesByProfId(Integer profId){
+		 	return mensajeDao.getMensajeByProfId(profId);
+		 
+	 }
 	
 	
 

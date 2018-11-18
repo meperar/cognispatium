@@ -26,6 +26,7 @@ import upv.etsinf.cognispatium.service.UsuarioManager;
 
 import upv.etsinf.cognispatium.service.ClienteManager;
 import upv.etsinf.cognispatium.domain.Consulta;
+import upv.etsinf.cognispatium.domain.EstadoConsulta;
 import upv.etsinf.cognispatium.domain.Mensaje;
 import upv.etsinf.cognispatium.domain.Profesional;
 import upv.etsinf.cognispatium.domain.Registro;
@@ -147,6 +148,7 @@ public class WebServiceController {
 
 		List<Profesional> miProfesional = null;
 		List<Consulta> miConsulta = null;
+		List<Consulta> miConsultaDV = null;
 		Servicio miServicio = null;
 		ModelAndView mav = new ModelAndView("");
 
@@ -198,6 +200,10 @@ public class WebServiceController {
 			miServicio = servicioManager.getServiciobyId(Integer.parseInt(reqPar.get("serviceIdC")));
 
 			miConsulta = consultaManager.getConsultasbyServicio(Integer.parseInt(reqPar.get("serviceIdC")));
+			for(Consulta con : miConsulta) {
+				if(con.getEstado() == EstadoConsulta.cerrada) miConsulta.remove(con);
+			}
+			
 			myModel.put("consulta", miConsulta);
 
 			servicio.put("servicio", miServicio);

@@ -19,11 +19,13 @@
 
 <body>
 	<jsp:include page="barrasuperior.jsp" flush="true" />
+	
 	<div class="py-5">
 		<div class="container">
 			<div class="row">
 				<form action="<c:url value="/listadosolicitudes.htm" />"
 					method="GET">
+					<div class="col-md-6" >
 					<label for="form16">Servicio</label> <br>
 					 <select name='servicio'>
 						<c:set var="servId" value="${servicios.serviciId}" />
@@ -50,18 +52,36 @@
 							</c:choose>
 						</c:forEach>
 					</select>
-					
-					<label for="form16">Estado</label> <br>
+					</div>
+					<div class="col-md-6" >
+					<label for="form16">Estado ${estadoObt}</label> <br>
 					 <select name='estado'>
 					 
-					 <option disabled selected value> -- Filtro por estado -- </option>	
-					 <option  value="" > -- sin filtro  -- </option>
-                     <option value="creada" >Creada</option>
-                    <option value="respondida" >Respondida </option>
+					 <option disabled selected> -- Filtro por estado -- </option>	
+					 <c:if test="${estadoObt == null}">
+								<option  value="" selected > -- sin filtro  -- </option>
+					</c:if>
+					<c:if test="${estadoObt == 'creada'}">
+								<option value="creada" selected>Creada</option>
+					</c:if>
+					<c:if test="${estadoObt == 'respondida'}">
+								<option value="respondida" selected >Respondida </option>
+					</c:if>
+					<c:if test="${estadoObt != null}">
+								<option  value=""> -- sin filtro  -- </option>
+					</c:if>
+					<c:if test="${estadoObt != 'creada'}">
+								<option value="creada" >Creada</option>
+					</c:if>
+					<c:if test="${estadoObt != 'respondida'}">
+								<option value="respondida" >Respondida </option>
+					</c:if>
 					 </select>
-					 <input class="btn btn-primary" type="submit" name="action" value="Filtrar" />
-				</form>
+					 </div>
+					<div class="col-md-4"> <input class="btn btn-primary" type="submit" name="action" value="Filtrar" /></div>	
+					 </form>
 			</div>
+			
 			<br>
 			<div class="row">
 				<div class="col-md-12">

@@ -3,6 +3,7 @@ package upv.etsinf.cognispatium.repository;
 import java.util.List;
 
 import upv.etsinf.cognispatium.domain.Consulta;
+import upv.etsinf.cognispatium.domain.Solicitud;
 
 public interface ConsultaDao {
 
@@ -14,6 +15,7 @@ public interface ConsultaDao {
     
     public List<Consulta> getConsultasbyServicio(Integer serviceId);
         
+    public List<Consulta> getConsultasByCli(int cliId);
      
 
 }

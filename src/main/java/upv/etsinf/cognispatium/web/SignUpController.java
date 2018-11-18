@@ -112,6 +112,7 @@ public class SignUpController {
 				nuevoProf.setTelefono(Integer.parseInt(reqPar.get("tlf")));
 				nuevoProf.setDTYPE(reqPar.get("rol"));
 				nuevoProf.setDesactivado(0);
+				
 				nuevoRegistro.setUsuario(nuevoProf);
 			}
 

@@ -7,6 +7,8 @@ import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import upv.etsinf.cognispatium.domain.Mensaje;
 import upv.etsinf.cognispatium.domain.Presupuesto;
 
 @Repository(value = "PresupuestoDao")
@@ -43,5 +45,11 @@ public class JPAPresupuestoDao implements PresupuestoDao {
 	public Presupuesto getPresupuestoById(Integer presupuestoId) {
 		return em.find(Presupuesto.class,presupuestoId);
 	}
-
+	
+	@Override
+	@Transactional(readOnly = true)
+	@SuppressWarnings("unchecked")
+	public List<Presupuesto> getPresupuestosByProf(Integer profId) {
+		return em.createQuery("SELECT p FROM Presupuesto p WHERE p.profesionalOrigen LIKE '"+ profId + "'").getResultList();
+	}
 }

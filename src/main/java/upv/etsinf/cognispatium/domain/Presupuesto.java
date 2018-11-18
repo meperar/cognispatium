@@ -20,6 +20,16 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
+
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.joda.ser.DateTimeSerializer;
+import com.fasterxml.jackson.datatype.joda.ser.LocalDateSerializer;
 
 @Entity
 @Table(name="presupuesto")
@@ -51,7 +61,9 @@ public class Presupuesto implements Serializable {
 	@Enumerated(value = EnumType.STRING)
 	private EstadoPresupuesto estado;
 	
-	
+	@Column
+    @Temporal(TemporalType.DATE)
+    private Date fechaCreacion;  
 	
 	public Integer getId() {
 		return id;
@@ -93,6 +105,12 @@ public class Presupuesto implements Serializable {
 	public void setEstado(EstadoPresupuesto estado) {
 		this.estado = estado;
 	}
+    public Date getFechaCreacion() {
+        return fechaCreacion;
+    }
+    public void setFechaCreacion(Date localDate) {
+        this.fechaCreacion = localDate;
+    }
 	
 	
 	
