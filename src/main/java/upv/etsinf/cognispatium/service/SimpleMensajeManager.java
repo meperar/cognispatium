@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import upv.etsinf.cognispatium.domain.Mensaje;
+import upv.etsinf.cognispatium.domain.Usuario;
 import upv.etsinf.cognispatium.repository.MensajeDao;
 
 @Component
@@ -32,6 +33,29 @@ public class SimpleMensajeManager implements Serializable{
 	 public Mensaje getMensajebyId(Integer mensajeId) {
 	    	return  mensajeDao.getMensajeById(mensajeId);
 		}
+
+
+	public List<Mensaje> getMensajesByUsuario(Usuario usuario) {
+		// TODO Auto-generated method stub
+		return mensajeDao.getMensajesbyUsuario(usuario);
+	}
+
+
+	public List<Mensaje> getMensajesNoLeidosByUsuario(Usuario usuario) {
+		// TODO Auto-generated method stub
+		return mensajeDao.getMensajesNoLeidosbyUsuario(usuario);
+	}
+
+
+	public List<Mensaje> getMensajesLeidosByUsuario(Usuario usuario) {
+		// TODO Auto-generated method stub
+		return mensajeDao.getMensajesLeidosbyUsuario(usuario);
+	}
+	
+	public List<Mensaje> getMensajesEliminadosbyUsuario(Usuario usuario) {
+		// TODO Auto-generated method stub
+		return mensajeDao.getMensajesEliminadosbyUsuario(usuario);
+	}
 	
 
 	

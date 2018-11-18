@@ -242,8 +242,8 @@ public class ListadoSolicitudesController {
 		Mensaje mensaje = new Mensaje();
 		mensaje.setDescripcion(reqPar.get("descripcion"));
 		mensaje.setAsunto("Presupuesto para solicitud:" + solicitud.getTitulo() );
-		mensaje.setProfesional(simpleProfesionalManager.getProfesionalById(WebServiceController.usuarioRegistrado.getId()));
-		mensaje.setCliente(solicitud.getClienteOrigen());
+		mensaje.setUsuarioOrigen(simpleProfesionalManager.getProfesionalById(WebServiceController.usuarioRegistrado.getId()));
+		mensaje.setUsuarioDestino(solicitud.getClienteOrigen());
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		long millis=System.currentTimeMillis();
 		java.util.Date date=new java.util.Date(millis);
