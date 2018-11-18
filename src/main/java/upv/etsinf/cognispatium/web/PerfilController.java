@@ -314,7 +314,7 @@ public class PerfilController {
 			listaServicios = profesional.getServicios();
 			
 			
-			//Quitar el servicio
+			//Quitamos el servicio
 			Integer idServicio = Integer.parseInt(reqPar.get("quitarServicio"));
 			Servicio servicio = servicioManager.getServiciobyId(idServicio);
 			
@@ -392,47 +392,22 @@ public class PerfilController {
 			Map<String, Object> myModel = new HashMap<String, Object>();
 			Map<String, Integer> intModel = new HashMap<String, Integer>();
 			Map<String, Boolean> boolModel = new HashMap<String, Boolean>();
-<<<<<<< HEAD
 
-=======
-			
->>>>>>> branch 'DEV-Xavi' of https://github.com/meperar/cognispatium
 			List<Servicio> listaServicios = new ArrayList<Servicio>();
 			
 	
-<<<<<<< HEAD
 			Boolean esProfesional = profManager.getProfesionalById(usuario.getId()) != null;
-=======
-			Boolean esProfesional = usuario instanceof Profesional;
->>>>>>> branch 'DEV-Xavi' of https://github.com/meperar/cognispatium
 			
 			
-<<<<<<< HEAD
 			int valoracion = 0;
-=======
->>>>>>> branch 'DEV-Xavi' of https://github.com/meperar/cognispatium
 			
-<<<<<<< HEAD
 			if(esProfesional) {
 				Profesional profesional = profManager.getProfesionalById(usuario.getId());
 				valoracion = profesional.getValoracion();
 				listaServicios = profesional.getServicios();
 			}
-=======
-			int valoracion = 0;
->>>>>>> branch 'DEV-Xavi' of https://github.com/meperar/cognispatium
 			
-<<<<<<< HEAD
-=======
-			if(esProfesional) {
-				valoracion = ((Profesional) usuario).getValoracion();
-				
-				listaServicios = servicioManager.getServicioByProfesional(usuario.getId());
-				
-			}
->>>>>>> branch 'DEV-Xavi' of https://github.com/meperar/cognispatium
 			
-<<<<<<< HEAD
 			myModel.put("usuario", usuario);
 			myModel.put("registro", registro);
 			boolModel.put("esProfesional", esProfesional);
@@ -454,39 +429,7 @@ public class PerfilController {
 			}
 			mav.addObject("intModel", intModel);
 			mav.addObject("boolModel", boolModel);
-=======
->>>>>>> branch 'DEV-Xavi' of https://github.com/meperar/cognispatium
 			
-<<<<<<< HEAD
-=======
-			
-			
-			myModel.put("usuario", usuario);
-			myModel.put("registro", registro);
-			boolModel.put("esProfesional", esProfesional);
-			boolModel.put("errorUsername", errorUsername);
-			myModel.put("servicios", listaServicios);
-			intModel.put("numServicios", listaServicios.size());
-			intModel.put("valoracion", valoracion);
-	
-			ModelAndView mav = new ModelAndView("perfil","model",myModel);
-			if(WebServiceController.usuarioRegistrado == null) {
-				Usuario userAux = new Usuario();
-				
-				userAux.setNombre("Usuario no registrado");
-				mav.addObject("usR", userAux);
-				
-			}
-			
-			else {
-				
-				mav.addObject("usR", WebServiceController.usuarioRegistrado);
-				
-			}
-			mav.addObject("intModel", intModel);
-			mav.addObject("boolModel", boolModel);
-			
->>>>>>> branch 'DEV-Xavi' of https://github.com/meperar/cognispatium
 			return mav;
 		}
 	}
