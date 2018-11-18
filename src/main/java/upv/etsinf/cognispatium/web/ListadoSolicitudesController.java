@@ -20,9 +20,11 @@ import upv.etsinf.cognispatium.domain.EstadoPresupuesto;
 import upv.etsinf.cognispatium.domain.EstadoSolicitud;
 import upv.etsinf.cognispatium.domain.Mensaje;
 import upv.etsinf.cognispatium.domain.Presupuesto;
+import upv.etsinf.cognispatium.domain.Profesional;
 import upv.etsinf.cognispatium.domain.Servicio;
 import upv.etsinf.cognispatium.service.SimpleServicioManager;
 import upv.etsinf.cognispatium.service.SimpleSolicitudManager;
+import upv.etsinf.cognispatium.service.ProfesionalManager;
 import upv.etsinf.cognispatium.service.SimpleClienteManager;
 import upv.etsinf.cognispatium.service.SimpleMensajeManager;
 import upv.etsinf.cognispatium.service.SimpleProfesionalManager;
@@ -231,27 +233,36 @@ public class ListadoSolicitudesController {
 		Solicitud solicitud = servicioSolicitudManager.getSolicitudbyId(Integer.parseInt(reqPar.get("solicitudId")));
 		presupuesto.setSolicitudOrigen(solicitud);
 		
-		presupuesto.setProfesionalOrigen(simpleProfesionalManager.getProfesionalById(WebServiceController.usuarioRegistrado.getId()));
+		// Añado el servicio al que doy presupuesto a la base de datos del profesional
+		Profesional profesional = simpleProfesionalManager.getProfesionalById(WebServiceController.usuarioRegistrado.getId());
+		List<Servicio> serviciosProfesional = profesional.getServicios();
+		serviciosProfesional.add(solicitud.getServicioOrigen());
+		profesional.setServicios(serviciosProfesional);
+		
+		presupuesto.setProfesionalOrigen(profesional);
 		if(solicitud.getEstado() == EstadoSolicitud.creada) {
 		solicitud.setEstado(EstadoSolicitud.respondida);
 		}
+		
+		simpleProfesionalManager.addProfesional(profesional);
 		servicioSolicitudManager.addSolicitud(solicitud);
 		simplePresupuestoManager.addPresupuesto(presupuesto);
 		
 		//Notificar al usuario de recepci�n de presupuesto
 		
+		/*
 		Mensaje mensaje = new Mensaje();
 		mensaje.setDescripcion(reqPar.get("descripcion"));
 		mensaje.setAsunto("Presupuesto para solicitud:" + solicitud.getTitulo() );
 		mensaje.setProfesional(simpleProfesionalManager.getProfesionalById(WebServiceController.usuarioRegistrado.getId()));
-		mensaje.setCliente(solicitud.getClienteOrigen());
+		//mensaje.setCliente(solicitud.getClienteOrigen());
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		long millis=System.currentTimeMillis();
 		java.util.Date date=new java.util.Date(millis);
 		dateFormat.format(date);
 		mensaje.setFecha(date);
 		mensajeManager.addMensaje(mensaje);
-		
+		*/
 		ModelAndView mav = new ModelAndView("hello");
 		if(WebServiceController.usuarioRegistrado == null) {
 			Usuario userAux = new Usuario();
