@@ -257,12 +257,6 @@ public class WebServiceController {
 		Map<String, Object> servicio = new HashMap<String, Object>();
 
 		if (reqPar.get("serviceId") != null) {
-			miServicio = servicioManager.getServiciobyId(Integer.parseInt(reqPar.get("serviceId")));
-
-			miProfesional = miServicio.getProfesionales();
-			myModel.put("profesional", miProfesional);
-
-			servicio.put("servicio", miServicio);
 
 			mav.setViewName("listaprofesionales");
 			mav.addObject("model", myModel);
@@ -283,12 +277,6 @@ public class WebServiceController {
 			mav.addObject("servicio", servicio);
 
 		} else if (reqPar.get("serviceIdC") != null) {
-			miServicio = servicioManager.getServiciobyId(Integer.parseInt(reqPar.get("serviceIdC")));
-
-			miConsulta = consultaManager.getConsultasbyServicio(Integer.parseInt(reqPar.get("serviceIdC")));
-			myModel.put("consulta", miConsulta);
-
-			servicio.put("servicio", miServicio);
 			mav.setViewName("listaconsultas");
 			mav.addObject("model", myModel);
 			if (usuarioRegistrado == null) {

@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -41,14 +43,16 @@ public class Mensaje implements Serializable {
     private Date fecha;
 	
     @ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="cliente")
-	private Cliente cliente;
+	@JoinColumn(name="usuarioOrigen")
+	private Usuario usuarioOrigen;
     
     @ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="profesional")
-	private Profesional profesional;
+	@JoinColumn(name="usuarioDestino")
+	private Usuario usuarioDestino;
     
-    
+	@Column(name = "estado", nullable = false, length = 20)
+	@Enumerated(value = EnumType.STRING)
+	private EstadoMensaje estado;
 	
 	public Integer getId() {
 		return id;
@@ -64,21 +68,22 @@ public class Mensaje implements Serializable {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	public Cliente getCliente() {
-		return cliente;
-	}
 	
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
+	public Usuario getUsuarioOrigen() {
+		return usuarioOrigen;
 	}
-	
-	public Profesional getProfesional() {
-		return profesional;
+	public void setUsuarioOrigen(Usuario usuarioOrigen) {
+		this.usuarioOrigen = usuarioOrigen;
 	}
-	public void setProfesional(Profesional profesional) {
-		this.profesional = profesional;
+	public Usuario getUsuarioDestino() {
+		return usuarioDestino;
 	}
-	
+	public void setUsuarioDestino(Usuario usuarioDestino) {
+		this.usuarioDestino = usuarioDestino;
+	}
+	public Date getFecha() {
+		return fecha;
+	}
 	public String getAsunto() {
 		return asunto;
 	}
@@ -92,7 +97,13 @@ public class Mensaje implements Serializable {
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
-	
+	public EstadoMensaje getEstado() {
+		return estado;
+	}
+	public void setEstado(EstadoMensaje estado) {
+		this.estado = estado;
+	}
+
 	
 	
 }

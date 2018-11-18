@@ -27,7 +27,6 @@ public class Cliente extends Usuario implements Serializable {
 	private List<Consulta> consultas;
 
 	@OneToMany(mappedBy = "clienteOrigen")
-	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Solicitud> solicitudes;
 
 	@OneToMany(mappedBy = "clienteOrigen")

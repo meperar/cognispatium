@@ -77,7 +77,6 @@ public class Solicitud implements Serializable {
 	
 	
 	@OneToMany(mappedBy = "solicitudOrigen")
-	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Presupuesto> presupuestos;
 
 	
