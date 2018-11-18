@@ -54,6 +54,16 @@ public class JPAServicioDao implements ServicioDao {
 				.setParameter("serviceId", serviceId)
 				.getResultList();
 	}
+	
+	@Transactional(readOnly = true)
+    @SuppressWarnings("unchecked")
+    public List<Servicio> getServicioByProfesional(Integer profesionalId) {
+    	
+        return em.createQuery("SELECT p FROM Servicio s WHERE p.profesional LIKE :profesionalId ")
+        		.setParameter("profesionalId", profesionalId)
+        		.getResultList();
+     }
+	
 
 	@Override
 	@Transactional(readOnly = false)
