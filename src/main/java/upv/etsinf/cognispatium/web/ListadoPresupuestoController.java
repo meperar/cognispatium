@@ -81,7 +81,7 @@ public class ListadoPresupuestoController {
         Presupuesto miPresupuesto = presupuestoManager.getPresupuestobyId(Integer.parseInt(reqPar.get("presupuestoId")));
         Solicitud solicitudOrigen = miPresupuesto.getSolicitudOrigen();
         
-        ModelAndView mav = new ModelAndView("informacionPresupuesto", "model", myModel);
+        ModelAndView mav = new ModelAndView("presupuestoDelProfesional", "model", myModel);
         myModel.put("presupuesto", miPresupuesto);
         myModel.put("solicitud", solicitudOrigen);
         if(WebServiceController.usuarioRegistrado == null) {

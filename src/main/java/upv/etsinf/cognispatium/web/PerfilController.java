@@ -16,11 +16,14 @@ import upv.etsinf.cognispatium.domain.Cliente;
 import upv.etsinf.cognispatium.domain.Consulta;
 import upv.etsinf.cognispatium.domain.ConsultaUrgente;
 import upv.etsinf.cognispatium.domain.EstadoConsulta;
+import upv.etsinf.cognispatium.domain.EstadoPresupuesto;
+import upv.etsinf.cognispatium.domain.EstadoSolicitud;
 import upv.etsinf.cognispatium.domain.Presupuesto;
 import upv.etsinf.cognispatium.domain.Profesional;
 import upv.etsinf.cognispatium.domain.Registro;
 import upv.etsinf.cognispatium.domain.Respuesta;
 import upv.etsinf.cognispatium.domain.Servicio;
+import upv.etsinf.cognispatium.domain.Solicitud;
 import upv.etsinf.cognispatium.domain.Usuario;
 import upv.etsinf.cognispatium.service.SimpleClienteManager;
 import upv.etsinf.cognispatium.service.SimpleConsultaManager;
@@ -47,6 +50,9 @@ import org.apache.commons.logging.LogFactory;
 public class PerfilController {
 
 	@Autowired
+	private SimplePresupuestoManager presupuestoManager;
+	
+	@Autowired
 	private SimpleServicioManager servicioManager;
 	
 	@Autowired
@@ -72,6 +78,9 @@ public class PerfilController {
 	
 	@Autowired
 	private SimpleConsultaUrgenteManager CUManager;
+	
+	@Autowired
+	private SimpleSolicitudManager SManager;
 
 	/** Logger for this class and subclasses */
 	protected final Log logger = LogFactory.getLog(getClass());
@@ -250,6 +259,31 @@ public class PerfilController {
 			Usuario usuEl = usuarioManager.getUsuariobyId(Integer.parseInt(reqPar.get("desacId")));
 			usuEl.setDesactivado(1);
 			usuarioManager.addUsuario(usuEl);
+			
+			if(WebServiceController.usuarioRegistrado.getDTYPE().toString().length()==7) {
+				List<Solicitud> solicitudes = SManager.getSolicitudByCli(usuEl.getId());
+				for(Solicitud s : solicitudes) {
+					s.setEstado(EstadoSolicitud.eliminada);
+					SManager.addSolicitud(s);
+				}
+				
+				List<Consulta> consultas = consultaManager.getConsultasByCli(usuEl.getId());
+				for(Consulta c : consultas) {
+					c.setEstado(EstadoConsulta.cerrada);
+					consultaManager.addConsulta(c);
+				}
+				
+			}
+			
+			else {
+				
+				List<Presupuesto> presupuestos = presupuestoManager.getPresupuestosByProf(usuEl.getId());
+				for(Presupuesto p : presupuestos) {
+					p.setEstado(EstadoPresupuesto.rechazado);
+					presupuestoManager.addPresupuesto(p);	
+				}
+				
+			}
 			ModelAndView mav = new ModelAndView("hello");
 			
 			

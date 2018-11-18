@@ -12,5 +12,9 @@ public interface MensajeDao {
     public void saveMensaje(Mensaje mensaje);
 
 	public Mensaje getMensajeById(Integer mensajeId);
+	
+	public List<Mensaje> getMensajeByClienteId(Integer clienteId);
+	
+	public List<Mensaje> getMensajeByProfId(Integer clienteId);
 
 }

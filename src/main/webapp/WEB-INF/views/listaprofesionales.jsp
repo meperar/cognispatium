@@ -67,14 +67,29 @@
 									<td style="border: 0px"> &emsp; </td>
 									<td>
 										<h4><img src="https://i.imgur.com/4omBc9u.png" width = 128 title="source: imgur.com" />&emsp; ${profs.nombre} ${profs.apellidos}</h4>
-										<a>&nbsp;
-											<c:forEach begin="1" end="${profs.valoracion}" varStatus="loop">
-		   										<img src="https://i.imgur.com/rhSk7m7.png" width = 18 title="source: imgur.com" />
-											</c:forEach>
-											<c:forEach begin="1" end="${5 - profs.valoracion}" varStatus="loop">
-		   										<img src="https://i.imgur.com/hYfF8io.png" width = 18 title="source: imgur.com" />
-											</c:forEach>
-										</a>
+										<c:choose>
+										<c:when test="${profs.getValoracionMediaRedondeada() != 0}">
+											<h4>&nbsp;
+												<c:forEach begin="1" end="${profs.getValoracionMediaRedondeada()}" varStatus="loop">
+			   										<img src="https://i.imgur.com/rhSk7m7.png" width = 18 title="source: imgur.com" />
+												</c:forEach>
+												<c:forEach begin="1" end="${5 - profs.getValoracionMediaRedondeada()}" varStatus="loop">
+			   										<img src="https://i.imgur.com/hYfF8io.png" width = 18 title="source: imgur.com" />
+												</c:forEach>
+											</h4>
+										</c:when>
+										<c:when test="${profs.getValoracionMediaRedondeada() == 0}">
+										Este profesinal no ha sido valorado
+										</c:when>
+										</c:choose>
+										<br/>
+										<c:if test="${usR.getDTYPE()=='cliente'}">
+										<form action="<c:url value="/votarProfesional.htm" />">
+										<p></p>
+										<input type="hidden"
+											id="profesionalId" name="profesionalId" value="${profs.id}">
+										</form>
+										</c:if>
 									</td>
 								</tr>
 							</c:forEach>

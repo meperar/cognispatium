@@ -86,7 +86,6 @@ public class ListadoSolicitudesController {
 	@RequestMapping("/listadosolicitudes.htm")
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		Map<String, Object> myModel = new HashMap<String, Object>();
 		ModelAndView mav = new ModelAndView("listadosolicitudes", "model", myModel);
 		Map<String, Object> servicios = new HashMap<String, Object>();
@@ -119,8 +118,11 @@ public class ListadoSolicitudesController {
 
 	@GetMapping("/listadosolicitudes.htm")
 	protected ModelAndView onSubmit(@RequestParam Map<String, String> reqPar) throws Exception {
+
 	    Map<String, Object> myModel = new HashMap<String, Object>();
+
 	    
+
 		List<Solicitud> listaSolicitudes = new ArrayList<Solicitud>();
 		Map<String, Object> servicios = new HashMap<String, Object>();
 		
@@ -193,7 +195,6 @@ public class ListadoSolicitudesController {
 	
 	@PostMapping("/listadosolicitudes.htm")
 	protected ModelAndView crearPresupueusto(@RequestParam Map<String, String> reqPar) throws Exception {
-
 		Map<String, Object> myModel = new HashMap<String, Object>();
 		
 		Solicitud miSolicitud = servicioSolicitudManager.getSolicitudbyId(Integer.parseInt(reqPar.get("solicitudId")));

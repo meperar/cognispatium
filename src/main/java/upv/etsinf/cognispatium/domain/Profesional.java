@@ -31,6 +31,9 @@ public class Profesional extends Usuario implements Serializable {
 	@OneToMany(mappedBy = "profesionalOrigen")
 	private List<Cobro> cobros ;
 	
+	@OneToMany(mappedBy = "profesional")
+	private List<Valoracion> valoraciones ;
+	
 	@ManyToMany
 	@JoinTable(
 	name="servicio_profesional",
@@ -78,5 +81,22 @@ public class Profesional extends Usuario implements Serializable {
 
 	public void setValoracion(int valoracion) {
 		this.valoracion = valoracion;
+	}
+	
+	public double getValoracionMedia() {
+		if(valoraciones.size()==0)
+			return 0;
+		int acum = 0;
+		for(int i=0;i<valoraciones.size();i++) 
+			acum += valoraciones.get(i).getPuntuacion();
+		return (double)acum/valoraciones.size();
+	}
+	
+	public long getValoracionMediaRedondeada() {
+		return Math.round(getValoracionMedia());
+	}
+	
+	public String getValoracionMediaFormateada() {
+		return String.format("%.1f", getValoracionMedia());
 	}
 }

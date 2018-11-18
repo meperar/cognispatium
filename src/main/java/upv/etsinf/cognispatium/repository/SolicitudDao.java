@@ -15,5 +15,7 @@ public interface SolicitudDao {
 	public List<Solicitud> getSolicitudListbyService(Servicio servicioConsulta);
 
 	public Solicitud getSolicitudById(int solicitudId);
+	
+	public List<Solicitud> getSolicitudByCli(int cliId);
 
 }

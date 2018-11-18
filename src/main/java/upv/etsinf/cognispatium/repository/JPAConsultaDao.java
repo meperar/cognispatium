@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import upv.etsinf.cognispatium.domain.Consulta;
 import upv.etsinf.cognispatium.domain.Servicio;
+import upv.etsinf.cognispatium.domain.Solicitud;
 
 @Repository(value = "ConsultaDao")
 public class JPAConsultaDao implements ConsultaDao {
@@ -49,6 +50,13 @@ public class JPAConsultaDao implements ConsultaDao {
 	public void dropConsulta(Consulta consulta) {
 		em.remove(em.contains(consulta) ? consulta : em.merge(consulta));
 
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional(readOnly = true)
+	public List<Consulta> getConsultasByCli(int cliId){
+		return em.createQuery("SELECT s FROM Consulta s WHERE s.clienteOrigen LIKE '"+ cliId + "'").getResultList();
 	}
 
 }

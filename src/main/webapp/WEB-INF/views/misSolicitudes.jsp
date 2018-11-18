@@ -63,7 +63,13 @@ function openChild(file,window) {
 									<img src="https://image.flaticon.com/icons/svg/121/121116.svg"
 										alt="Eliminar solicitud" title="Eliminar solicitud"
 										height="20" width="20">
-								</button></td>
+								</button>
+								
+								<button class="bg-primary" name="valorarProfesional">
+								<img src="https://image.flaticon.com/icons/svg/1087/1087916.svg" alt="Valorar profesional" title="Valorar profesional"
+										height="20" width="20">
+								</button>
+								</td>
 									</td>
 							</tr>
 						</form>
