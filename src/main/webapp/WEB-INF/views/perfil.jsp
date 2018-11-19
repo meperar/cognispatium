@@ -204,11 +204,52 @@
 									<a><font size="+1">E-mail: ${model.usuario.email}</font></a><br>
 									<a><font size="+1">Teléfono: ${model.usuario.telefono}</font></a><br>
 									<br>
+									<button class="open-button" onclick="openFormAddS()">Añadir servicio</button>
+									<br>
 									<button class="open-button" onclick="openForm()">Editar</button>
 									<br>
 									<button class="open-button" onclick="openForme()">Eliminar Perfil</button>
 									<br>
 									<button class="open-button" onclick="openFormDesac()">Desactivar Perfil</button>
+									
+									<div class="form-popup" id="myFormAddS">
+										<form action="#" method="post" class="form-container">
+											<input type="hidden" id="addSid" name="addSid" value="${model.usuario.id}">
+											<div style="text-align: center">Seleccione un servicio a añadir</div>
+												<div class="row">
+														 <br> <select
+															name='servicio'>
+															<c:set var="servId" value="${model.serviciId}" />
+															<c:if test="${servId == null}">
+																<option disabled selected value>-- Seleccione un
+																	servicio --</option>
+															</c:if>
+															<c:forEach items="${model.allServices}" var="servicio">
+																<c:choose>
+																	<c:when test="${servId == null}">
+																		<option value="${servicio.id}" label="${servicio.nombre}"></option>
+																	</c:when>
+																	<c:otherwise>
+																		<c:choose>
+																			<c:when test="${servId == servicio.id}">
+																				<option value="${servicio.id}" label="${servicio.nombre}"
+																					selected></option>
+																			</c:when>
+																			<c:otherwise>
+																				<option value="${servicio.id}" label="${servicio.nombre}"></option>
+																			</c:otherwise>
+																		</c:choose>
+																	</c:otherwise>
+																</c:choose>
+															</c:forEach>
+														</select> 
+												</div>
+											<div style="display: inline-block;">
+												<button type="submit" class="btn">Aceptar</button> 
+												<button type="button" class="btn cancel" onclick="closeFormAddS()">Cancelar</button>
+											</div>
+										</form>
+									</div>
 									
 									<div class="form-popup" id="myForme">
 										<form action="#" method="post" class="form-container">
@@ -280,6 +321,14 @@
 									</div>
 									
 									<script>
+									function openFormAddS() {
+									    document.getElementById("myFormAddS").style.display = "block";
+									}
+									
+									function closeFormAddS() {
+									    document.getElementById("myFormAddS").style.display = "none";
+									}
+									
 									function openForme() {
 									    document.getElementById("myForme").style.display = "block";
 									}
