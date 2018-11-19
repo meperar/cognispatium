@@ -16,6 +16,7 @@ import upv.etsinf.cognispatium.domain.Cliente;
 import upv.etsinf.cognispatium.domain.Solicitud;
 import upv.etsinf.cognispatium.domain.Usuario;
 import upv.etsinf.cognispatium.domain.EstadoConsulta;
+import upv.etsinf.cognispatium.domain.EstadoMensaje;
 import upv.etsinf.cognispatium.domain.EstadoPresupuesto;
 import upv.etsinf.cognispatium.domain.EstadoSolicitud;
 import upv.etsinf.cognispatium.domain.Mensaje;
@@ -248,21 +249,20 @@ public class ListadoSolicitudesController {
 		servicioSolicitudManager.addSolicitud(solicitud);
 		simplePresupuestoManager.addPresupuesto(presupuesto);
 		
-		//Notificar al usuario de recepci�n de presupuesto
 		
-		/*
 		Mensaje mensaje = new Mensaje();
 		mensaje.setDescripcion(reqPar.get("descripcion"));
 		mensaje.setAsunto("Presupuesto para solicitud:" + solicitud.getTitulo() );
-		mensaje.setProfesional(simpleProfesionalManager.getProfesionalById(WebServiceController.usuarioRegistrado.getId()));
-		//mensaje.setCliente(solicitud.getClienteOrigen());
+		mensaje.setUsuarioOrigen(simpleProfesionalManager.getProfesionalById(WebServiceController.usuarioRegistrado.getId()));
+		mensaje.setUsuarioDestino(solicitud.getClienteOrigen());
+		mensaje.setEstado(EstadoMensaje.noLeido);
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		long millis=System.currentTimeMillis();
 		java.util.Date date=new java.util.Date(millis);
 		dateFormat.format(date);
 		mensaje.setFecha(date);
 		mensajeManager.addMensaje(mensaje);
-		*/
+		
 		ModelAndView mav = new ModelAndView("hello");
 		if(WebServiceController.usuarioRegistrado == null) {
 			Usuario userAux = new Usuario();

@@ -216,7 +216,7 @@ public class PagoController {
 		solicitudManager.addSolicitud(presupuesto.getSolicitudOrigen());
 		
 		presupuesto.getSolicitudOrigen().getPresupuestos().forEach(p->{
-			p.setEstado(EstadoPresupuesto.no_aceptado);
+			p.setEstado(EstadoPresupuesto.noAceptado);
 			simplePresupuestoManager.addPresupuesto(p);
 		});
 		presupuesto.setEstado(EstadoPresupuesto.aceptado);

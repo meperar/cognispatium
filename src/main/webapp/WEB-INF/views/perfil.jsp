@@ -204,11 +204,53 @@
 									<a><font size="+1">E-mail: ${model.usuario.email}</font></a><br>
 									<a><font size="+1">Teléfono: ${model.usuario.telefono}</font></a><br>
 									<br>
+									<button class="open-button" onclick="openFormAddS()">Añadir servicio</button>
+									<br>
 									<button class="open-button" onclick="openForm()">Editar</button>
 									<br>
 									<button class="open-button" onclick="openForme()">Eliminar Perfil</button>
 									<br>
 									<button class="open-button" onclick="openFormDesac()">Desactivar Perfil</button>
+									
+									<div class="form-popup" id="myFormAddS">
+										<form action="#" method="post" class="form-container">
+											<input type="hidden" id="addSid" name="addSid" value="${model.usuario.id}">
+											<div style="text-align: center">Seleccione un servicio a añadir</div>
+												<div class="row">
+														 <br> <select
+															name='servicio'>
+															<c:set var="servId" value="${model.serviciId}" />
+															<c:if test="${servId == null}">
+																<option disabled selected value>-- Seleccione un
+																	servicio --</option>
+															</c:if>
+															<c:forEach items="${model.allServices}" var="servicio">
+																<c:choose>
+																	<c:when test="${servId == null}">
+																		<option value="${servicio.id}" label="${servicio.nombre}"></option>
+																	</c:when>
+																	<c:otherwise>
+																		<c:choose>
+																			<c:when test="${servId == servicio.id}">
+																				<option value="${servicio.id}" label="${servicio.nombre}"
+																					selected></option>
+																			</c:when>
+																			<c:otherwise>
+																				<option value="${servicio.id}" label="${servicio.nombre}"></option>
+																			</c:otherwise>
+																		</c:choose>
+																	</c:otherwise>
+																</c:choose>
+															</c:forEach>
+														</select> 
+												</div>
+											<div style="display: inline-block;">
+												<button type="submit" class="btn">Aceptar</button> 
+												<button type="button" class="btn cancel" onclick="closeFormAddS()">Cancelar</button>
+											</div>
+										</form>
+									</div>
+									
 									<div class="form-popup" id="myForme">
 										<form action="#" method="post" class="form-container">
 											<input type="hidden" id="usridE" name="usridE" value="${model.usuario.id}">
@@ -227,6 +269,17 @@
 											<div style="display: inline-block;">
 												<button type="submit" class="btn">Aceptar</button> 
 												<button type="button" class="btn cancel" onclick="closeFormDesac()">Cancelar</button>
+											</div>
+										</form>
+									</div>
+									
+									<div class="form-popup" id="myFormQuitarServicio">
+										<form action="#" method="post" class="form-container">
+											<input type="hidden" id="quitarServicio" name="quitarServicio" value="${model.usuario.id}">
+											<div style="text-align: center">Se procederá a eliminar el servicio de su lista de servicios, ¿está seguro de esto?</div>
+											<div style="display: inline-block;">
+												<button type="submit" class="btn">Aceptar</button> 
+												<button type="button" class="btn cancel" onclick="closeFormQuitarServicio()">Cancelar</button>
 											</div>
 										</form>
 									</div>
@@ -268,6 +321,14 @@
 									</div>
 									
 									<script>
+									function openFormAddS() {
+									    document.getElementById("myFormAddS").style.display = "block";
+									}
+									
+									function closeFormAddS() {
+									    document.getElementById("myFormAddS").style.display = "none";
+									}
+									
 									function openForme() {
 									    document.getElementById("myForme").style.display = "block";
 									}
@@ -291,6 +352,10 @@
 
 									function closeFormDesac() {
 									    document.getElementById("myFormDesac").style.display = "none";
+									}
+									
+									function closeFormQuitarServicio() {
+									    document.getElementById("myFormQuitarServicio").style.display = "none";
 									}
 									
 									function validarCampos(){
@@ -362,38 +427,34 @@
 									</script>
 									
 
-								</td>
-								<td>&nbsp;</td>
-								<td>
-									<div class="subrayadoGordo">
-										<h3><b>Consultas</b></h3>
-									</div>
-									<br>
-									<div style="height:400px; overflow-y: scroll; ">
-										<ul style="list-style-type: none;">
-											<c:choose>
-											    <c:when test="${intModel.numConsultas > 0}">
-											        <c:forEach items="${model.consultas}" var="cons">	
-														<li>
-															<h4><b>${cons.titulo}</b></h4>
-															<div class="subrayadoFino" style="overflow-x: hidden;">
-																${cons.descripcion}
-																<br>
-																<br>
-															</div>
-														</li>
-													</c:forEach>
-													
-											    </c:when>    
-											    <c:otherwise>
-											        <li>
-														<h4><b>Aun no ha realizado ninguna consulta&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</b></h4>
+								</td>								
+								<c:if test="${boolModel.esProfesional}">
+
+									<td>
+										<div class="subrayadoGordo">
+											<h3><b>Servicios</b></h3>
+										</div>
+										<br>
+										<div style="height:400px; overflow-y: scroll; ">
+											<ul style="list-style-type: none;">
+
+										        <c:forEach items="${model.servicios}" var="ser">	
+													<li>
+														<button onclick="openFormQuitarServicio()">${ser.nombre}</button>
+														
+														<script>
+														function openFormQuitarServicio(){
+															document.getElementById("quitarServicio").value = ${ser.id};
+															document.getElementById("myFormQuitarServicio").style.display = "block";
+														}
+														</script>
 													</li>
-											    </c:otherwise>
-											</c:choose>
-										</ul>
-									</div>
-								</td>
+												</c:forEach>
+
+											</ul>
+										</div>
+									</td>
+								</c:if>
 							</tr>
 						</tbody>
 					</table>

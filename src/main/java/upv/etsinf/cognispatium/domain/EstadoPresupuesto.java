@@ -5,6 +5,6 @@ public enum EstadoPresupuesto {
     propuesto,
     aceptado,
     rechazado,
-    no_aceptado,
+    noAceptado,
     cerrado
 }
