@@ -284,7 +284,7 @@ public class PerfilController {
 
 			return mav;
 
-		} else if (reqPar.get("quitarServicio") != null) { /////// QUITAR SERVICIO////////
+		} else if (reqPar.get("quitarServicio") != null) { ///////QUITAR SERVICIO////////
 
 			Map<String, Object> myModel = new HashMap<String, Object>();
 			Map<String, Integer> intModel = new HashMap<String, Integer>();
@@ -304,16 +304,23 @@ public class PerfilController {
 			listaServicios = profesional.getServicios();
 
 			// Quitamos el servicio
-			Integer idServicio = Integer.parseInt(reqPar.get("quitarServicio"));
+			Integer idServicio = Integer.parseInt(reqPar.get("servicioAQuitar"));
 			Servicio servicio = servicioManager.getServiciobyId(idServicio);
 
+			System.out.println("Servicio eliminado: " + servicio.getNombre() + servicio.getId());
+			
 			for (Servicio servicioAuxiliar : listaServicios) {
-				if (servicioAuxiliar.getId() == idServicio)
+				System.out.print(" , " + servicioAuxiliar.getNombre() + servicioAuxiliar.getId() + "/" + idServicio);
+				if (servicioAuxiliar.getId() == idServicio) {
 					servicio = servicioAuxiliar;
+				}
 			}
+			
+			System.out.println("Servicio eliminado: " + servicio.getNombre() + servicio.getId());
 
 			listaServicios.remove(servicio);
 			System.out.println("Servicio eliminado: " + servicio.getNombre());
+			
 			// rechazo los presupuestos activos asociados al servicio que quito
 			List<Presupuesto> presupuestos = profesional.getPresupuestos();
 			for(Presupuesto p: presupuestos) {
@@ -356,7 +363,7 @@ public class PerfilController {
 
 			return mav;
 
-		} else if (reqPar.get("addSid") != null) { /////// AÑADIR SERVICIO (POR QUÉ PARECE QUE ESTEMOS GRITANDO EKISDE)////////
+		} else if (reqPar.get("addSid") != null) { ///////AÑADIR SERVICIO (POR QUÉ PARECE QUE ESTEMOS GRITANDO EKISDE)////////
 			
 			boolean check = false;
 			Servicio serviceToAdd = null;
