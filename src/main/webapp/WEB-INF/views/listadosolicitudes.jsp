@@ -25,7 +25,7 @@
 			<div class="row">
 				<form action="<c:url value="/listadosolicitudes.htm" />"
 					method="GET">
-					<div class="col-md-6" >
+					<div class="col-md-12" >
 					<label for="form16">Servicio</label> <br>
 					 <select name='servicio'>
 						<c:set var="servId" value="${servicios.serviciId}" />
@@ -53,7 +53,7 @@
 						</c:forEach>
 					</select>
 					</div>
-					<div class="col-md-6" >
+					<div class="col-md-12" >
 					<label for="form16">Estado ${estadoObt}</label> <br>
 					 <select name='estado'>
 					 
@@ -78,7 +78,7 @@
 					</c:if>
 					 </select>
 					 </div>
-					<div class="col-md-4"> <input class="btn btn-primary" type="submit" name="action" value="Filtrar" /></div>	
+					<div class="col-md-10"> <input class="btn btn-primary" type="submit" name="action" value="Filtrar" /></div>	
 					 </form>
 			</div>
 			

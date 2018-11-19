@@ -18,6 +18,7 @@ import upv.etsinf.cognispatium.domain.Cliente;
 import upv.etsinf.cognispatium.domain.Solicitud;
 import upv.etsinf.cognispatium.domain.Usuario;
 import upv.etsinf.cognispatium.domain.EstadoConsulta;
+import upv.etsinf.cognispatium.domain.EstadoPresupuesto;
 import upv.etsinf.cognispatium.domain.EstadoSolicitud;
 import upv.etsinf.cognispatium.domain.Mensaje;
 import upv.etsinf.cognispatium.domain.Presupuesto;
@@ -136,7 +137,10 @@ public class ListadoSolicitudesDelClienteController {
 		ModelAndView mav = new ModelAndView("diferentesPresupuestos");
 		
 		
-		List<Presupuesto> presupuestos = miSolicitud.getPresupuestos();
+		List<Presupuesto> presupuestos = miSolicitud.getPresupuestos()
+                .stream()
+                .filter(sol -> !(sol.getEstado()==EstadoPresupuesto.rechazado))
+                .collect(Collectors.toList());
 	
 		
 		myModel.put("solicitud", miSolicitud);
