@@ -139,7 +139,10 @@ public class PerfilController {
 		mav.addObject("intModel", intModel);
 		mav.addObject("boolModel", boolModel);
 		
-		
+		WebServiceController.listaAmbitos.forEach(a -> {
+
+			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+		});
 		return mav;
 
 	}
@@ -250,7 +253,10 @@ public class PerfilController {
 			userAux.setNombre("Usuario no registrado");
 			mav.addObject("usR", userAux);
  
+			WebServiceController.listaAmbitos.forEach(a -> {
 
+				mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+			});
 			return mav;
 			
 			
@@ -292,7 +298,10 @@ public class PerfilController {
 				userAux.setNombre("Usuario no registrado");
 				mav.addObject("usR", userAux);
 
+				WebServiceController.listaAmbitos.forEach(a -> {
 
+					mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+				});
 			return mav;
 			
 		} else {
@@ -379,7 +388,10 @@ public class PerfilController {
 		}
 		mav.addObject("intModel", intModel);
 		mav.addObject("boolModel", boolModel);
-		
+		WebServiceController.listaAmbitos.forEach(a -> {
+
+			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+		});
 		return mav;
 		}
 	}

@@ -93,6 +93,10 @@ public class RCUrgenteController {
 			mav.addObject("usR", WebServiceController.usuarioRegistrado);
 			
 		}
+        WebServiceController.listaAmbitos.forEach(a -> {
+
+			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+		});
 		return mav;
     }
 
@@ -133,7 +137,12 @@ public class RCUrgenteController {
 			mav.addObject("usR", WebServiceController.usuarioRegistrado);
 			
 		}
-		return new ModelAndView("hello");
+		ModelAndView mav2 =  new ModelAndView("hello");
+		WebServiceController.listaAmbitos.forEach(a -> {
+
+			mav2.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+		});
+		return mav2;
 
 	}
 	

@@ -56,6 +56,11 @@ public class BarraSuperiorController {
 		
 		ModelAndView mav = new ModelAndView("barrasuperior","model",myModel);
 		
+		WebServiceController.listaAmbitos.forEach(a -> {
+
+			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+		});
+		
 		return mav;
 
 	}

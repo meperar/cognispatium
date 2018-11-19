@@ -109,6 +109,10 @@ public class ListadoSolicitudesDelClienteController {
 			mav.addObject("usR", WebServiceController.usuarioRegistrado);
 			
 		}
+		WebServiceController.listaAmbitos.forEach(a -> {
+
+			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+		});
 		return mav;
 
 	}
@@ -125,7 +129,12 @@ public class ListadoSolicitudesDelClienteController {
 			Solicitud solicitud = servicioSolicitudManager.getSolicitudbyId(solicitudId);
 			Presupuesto presupuesto = simplePresupuestoManager.getPresupuestoAceptadoBySolicitud(solicitud);
 			int profesionalId = presupuesto.getProfesionalOrigen().getId();
-			return new ModelAndView("redirect:/votarProfesional.htm?profesionalId=" + profesionalId);
+			ModelAndView mav = new ModelAndView("redirect:/votarProfesional.htm?profesionalId=" + profesionalId);
+			WebServiceController.listaAmbitos.forEach(a -> {
+
+				mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+			});
+			return mav;
 			//return new ModelAndView("redirect:/hello.htm");
 		}
 		
@@ -156,6 +165,10 @@ public class ListadoSolicitudesDelClienteController {
 			mav.addObject("usR", WebServiceController.usuarioRegistrado);
 			
 		}
+		WebServiceController.listaAmbitos.forEach(a -> {
+
+			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+		});
 		return mav;
 		
 	
@@ -191,6 +204,10 @@ public class ListadoSolicitudesDelClienteController {
 				mav.addObject("usR", WebServiceController.usuarioRegistrado);
 				
 			}
+			WebServiceController.listaAmbitos.forEach(a -> {
+
+				mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+			});
 			return mav;
 			
 		}
@@ -201,7 +218,10 @@ public class ListadoSolicitudesDelClienteController {
 		
 		System.out.println("votarProfesional()");
 		ModelAndView mav = new ModelAndView("misSolicitudes");
-		
+		WebServiceController.listaAmbitos.forEach(a -> {
+
+			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+		});
 		return mav;
 	}
 	
@@ -217,7 +237,10 @@ public class ListadoSolicitudesDelClienteController {
 		myModel.put("solicitudes", listaSolicitudes);
 
 		mav.addObject("model", myModel);
+		WebServiceController.listaAmbitos.forEach(a -> {
 
+			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+		});
 		return mav;
 		
 		}
@@ -236,7 +259,10 @@ public class ListadoSolicitudesDelClienteController {
 		myModel.put("solicitud", miSolicitud);
 		myModel.put("presupuestos", presupuestos);
 		mav.addObject("model", myModel);
-		
+		WebServiceController.listaAmbitos.forEach(a -> {
+
+			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+		});
 		return mav;
 
 		
@@ -253,7 +279,10 @@ public class ListadoSolicitudesDelClienteController {
 		myModel.put("presupuesto", presupuesto);
 
 		ModelAndView mav = new ModelAndView("presupuesto", "model", myModel);
+		WebServiceController.listaAmbitos.forEach(a -> {
 
+			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+		});
 		return mav;
 	}
 	
@@ -262,7 +291,10 @@ public class ListadoSolicitudesDelClienteController {
 			throws ServletException, IOException {
 		System.out.println("handleRequestEliminar()");
 		ModelAndView mav = new ModelAndView("eliminarConfirmacion");
+		WebServiceController.listaAmbitos.forEach(a -> {
 
+			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+		});
 		return mav;
 
 	}

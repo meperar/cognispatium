@@ -109,7 +109,10 @@ public class ListadoConsultasController {
 			mav.addObject("usR", WebServiceController.usuarioRegistrado);
 			
 		}
+		WebServiceController.listaAmbitos.forEach(a -> {
 
+			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+		});
 		return mav;
 	}
 
@@ -139,7 +142,10 @@ public class ListadoConsultasController {
 			mav.addObject("usR", WebServiceController.usuarioRegistrado);
 			
 		}
+		WebServiceController.listaAmbitos.forEach(a -> {
 
+			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+		});
 		return mav;
 	}
 

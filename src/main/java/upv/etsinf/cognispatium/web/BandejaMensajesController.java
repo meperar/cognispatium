@@ -82,6 +82,11 @@ public class BandejaMensajesController {
 			mav.addObject("mensajeTipo", "Todos");
 
 		}
+		
+		WebServiceController.listaAmbitos.forEach(a -> {
+
+			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+		});
 
 		return mav;
 	}
@@ -97,6 +102,11 @@ public class BandejaMensajesController {
 		mensajes.put("mensajes", listaMensajes);
 		mav.addObject("mensajes", mensajes);
 		mav.addObject("mensajeTipo", "Todos");
+		
+		WebServiceController.listaAmbitos.forEach(a -> {
+
+			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+		});
 
 		return mav;
 	}
@@ -112,6 +122,11 @@ public class BandejaMensajesController {
 		mensajes.put("mensajes", listaMensajes);
 		mav.addObject("mensajes", mensajes);
 		mav.addObject("mensajeTipo", "No leidos");
+		
+		WebServiceController.listaAmbitos.forEach(a -> {
+
+			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+		});
 
 		return mav;
 	}
@@ -127,6 +142,11 @@ public class BandejaMensajesController {
 		mensajes.put("mensajes", listaMensajes);
 		mav.addObject("mensajes", mensajes);
 		mav.addObject("mensajeTipo", "Leidos");
+		
+		WebServiceController.listaAmbitos.forEach(a -> {
+
+			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+		});
 
 		return mav;
 	}
@@ -142,6 +162,11 @@ public class BandejaMensajesController {
 		mensajes.put("mensajes", listaMensajes);
 		mav.addObject("mensajes", mensajes);
 		mav.addObject("mensajeTipo", "Eliminados");
+		
+		WebServiceController.listaAmbitos.forEach(a -> {
+
+			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+		});
 
 		return mav;
 	}
@@ -162,6 +187,10 @@ public class BandejaMensajesController {
 			ModelAndView mav = new ModelAndView("respondermensajes", "model", myModel);
 			myModel.put("mensaje", miMensaje);
 			mav.addObject("usR", this.usuario);
+			WebServiceController.listaAmbitos.forEach(a -> {
+
+				mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+			});
 			return mav;
 		} else {			
 			miMensaje.setEstado(EstadoMensaje.eliminado);
@@ -173,7 +202,10 @@ public class BandejaMensajesController {
 			mensajes.put("mensajes", listaMensajes);
 			mav.addObject("mensajes", mensajes);
 			mav.addObject("mensajeTipo", "Todos");
+			WebServiceController.listaAmbitos.forEach(a -> {
 
+				mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+			});
 			return mav;
 		}
 	}
@@ -214,6 +246,11 @@ public class BandejaMensajesController {
 		}
 
 		// Aquin añadían todos los ambitos/servicios
+		
+		WebServiceController.listaAmbitos.forEach(a -> {
+
+			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+		});
 
 		return mav;
 

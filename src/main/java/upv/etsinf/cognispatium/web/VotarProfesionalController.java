@@ -57,11 +57,21 @@ public class VotarProfesionalController {
 		if(user!=null && user.getDTYPE().equals("cliente")) {
 			cliente = clienteManager.getClientebyId(user.getId());
 			mav.addObject("usR", user);
+			WebServiceController.listaAmbitos.forEach(a -> {
+
+				mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+			});
 			return mav;
 		}
 		else {
 			String referer = request.getHeader("Referer");
-		    return new ModelAndView("redirect:"+ referer);
+			ModelAndView mav2 = new ModelAndView("redirect:"+ referer);
+			WebServiceController.listaAmbitos.forEach(a -> {
+
+				mav2.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+			});
+			return mav2;
+		   
 		}
 	}
 	
@@ -74,6 +84,11 @@ public class VotarProfesionalController {
 		val.setCliente(cliente);
 		val.setPuntuacion(star);
 		valoracionManager.addValoracion(val);
-		return new ModelAndView("redirect:/hello.htm");
+		ModelAndView mav = new ModelAndView("redirect:/hello.htm");
+		WebServiceController.listaAmbitos.forEach(a -> {
+
+			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+		});
+		return mav;
 	}
 }

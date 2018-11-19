@@ -45,7 +45,9 @@ public class WebServiceController {
 
 	protected final Log logger = LogFactory.getLog(getClass());
 
-	Map<String, Object> serviciosPorAmbito;
+	public static Map<String, Object>  serviciosPorAmbito = null;
+	
+	public static List<String> listaAmbitos = null;
 
 	@Autowired
 	private UsuarioManager usuarioManager;
@@ -84,11 +86,11 @@ public class WebServiceController {
 		String now = (new Date()).toString();
 		logger.info("Returning hello view with " + now);
 
-		List<String> listaAmbitos = servicioManager.getAmbitos();
+		List<String> listaAmbitosAux = servicioManager.getAmbitos();
 		List<Servicio> listaServicios = servicioManager.getServicios();
-		serviciosPorAmbito = new HashMap<String, Object>();
+		 Map<String, Object> serviciosPorAmbitoAux = new HashMap<String, Object>();
 
-		listaAmbitos.forEach(ambito -> {
+		 listaAmbitosAux.forEach(ambito -> {
 			String amb = ambito;
 			List<Servicio> lista = new ArrayList<Servicio>();
 			listaServicios.forEach(serv -> {
@@ -96,8 +98,11 @@ public class WebServiceController {
 					lista.add(serv);
 				}
 			});
-			serviciosPorAmbito.put(ambito, lista);
+			serviciosPorAmbitoAux.put(ambito, lista);
 		});
+		
+		WebServiceController.serviciosPorAmbito = serviciosPorAmbitoAux;
+		WebServiceController.listaAmbitos = listaAmbitosAux;
 
 		ModelAndView mav = new ModelAndView("hello");
 
@@ -124,9 +129,13 @@ public class WebServiceController {
 		// Map<String, Object> usR = new HashMap<String, Object>();
 		// usR.put("usuarioRegistrado", usuarioRegistrado);
 
-		listaAmbitos.forEach(a -> {
+		listaAmbitosAux.forEach(a -> {
 
 			mav.addObject(a, serviciosPorAmbito.get(a));
+		});
+		WebServiceController.listaAmbitos.forEach(a -> {
+
+			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
 		});
 		return mav;
 
@@ -139,6 +148,10 @@ public class WebServiceController {
 		Map<String, Object> myModel = new HashMap<String, Object>();
 		ModelAndView mav = new ModelAndView("login", "model", myModel);
 		mav.addObject("serviciosPorAmbito", this.serviciosPorAmbito);
+		WebServiceController.listaAmbitos.forEach(a -> {
+
+			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+		});
 		return mav;
 
 	}
@@ -241,7 +254,10 @@ public class WebServiceController {
 
 			mav.addObject("usR", usuarioRegistrado);
 		}
+		WebServiceController.listaAmbitos.forEach(a -> {
 
+			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+		});
 		return mav;
 	}
 
@@ -310,7 +326,10 @@ public class WebServiceController {
 				String str = "Error : Usuario no registrado.";
 
 				mav.addObject("error", str);
+				WebServiceController.listaAmbitos.forEach(a -> {
 
+					mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+				});
 				return mav;
 
 			}
@@ -341,6 +360,10 @@ public class WebServiceController {
 			mav.addObject("serviciosPorAmbito", serviciosPorAmbito);
 
 		}
+		WebServiceController.listaAmbitos.forEach(a -> {
+
+			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+		});
 		return mav;
 	}
 
