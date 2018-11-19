@@ -102,6 +102,18 @@
   width: 280px;
 }
 
+.open-button-slim {
+  background-color: #555;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  bottom: 23px;
+  right: 28px;
+  width: 140px;
+}
+
 /* The popup form - hidden by default */
 .form-popup {
   display: none;
@@ -183,10 +195,14 @@
 					<table class="perfil">
 						<tbody>	
 							<tr>
-								<td rowspan="2">
+								<td width="25%"></td>
+								<c:if test="${!boolModel.esProfesional}">
+									<td width="12%"></td>
+								</c:if>
+								<td>
 									<img src="https://i.imgur.com/Yiay52m.png" width = 256 title="source: imgur.com" /><br>
 									<c:if test="${boolModel.esProfesional}">
-										<a>&emsp;&emsp;&emsp;
+										<a>&emsp;&emsp;&emsp;&emsp;&emsp;
 											<c:forEach begin="1" end="${intModel.valoracion}" varStatus="loop">
 		   										<img src="https://i.imgur.com/rhSk7m7.png" width = 26 title="source: imgur.com" />
 											</c:forEach>
@@ -204,9 +220,7 @@
 									<a><font size="+1">E-mail: ${model.usuario.email}</font></a><br>
 									<a><font size="+1">Teléfono: ${model.usuario.telefono}</font></a><br>
 									<br>
-									<button class="open-button" onclick="openFormAddS()">Añadir servicio</button>
-									<br>
-									<button class="open-button" onclick="openForm()">Editar</button>
+									<button class="open-button" onclick="openForm()">Editar perfil</button>
 									<br>
 									<button class="open-button" onclick="openForme()">Eliminar Perfil</button>
 									<br>
@@ -215,38 +229,84 @@
 									<div class="form-popup" id="myFormAddS">
 										<form action="#" method="post" class="form-container">
 											<input type="hidden" id="addSid" name="addSid" value="${model.usuario.id}">
+											
 											<div style="text-align: center">Seleccione un servicio a añadir</div>
-												<div class="row">
-														 <br> <select
-															name='servicio'>
-															<c:set var="servId" value="${model.serviciId}" />
-															<c:if test="${servId == null}">
-																<option disabled selected value>-- Seleccione un
-																	servicio --</option>
-															</c:if>
-															<c:forEach items="${model.allServices}" var="servicio">
+											
+											<div class="row">
+												<br> 
+												<select name='servicio'>
+												 
+													<c:set var="servId" value="${model.serviciId}" />
+													
+													<c:if test="${servId == null}">
+														<option disabled selected value>-- Seleccione un servicio --</option>
+													</c:if>
+													
+													<c:forEach items="${model.allServices}" var="servicio">
+														<c:choose>
+															<c:when test="${servId == null}">
+																<option value="${servicio.id}" label="${servicio.nombre}"></option>
+															</c:when>
+															<c:otherwise>
 																<c:choose>
-																	<c:when test="${servId == null}">
-																		<option value="${servicio.id}" label="${servicio.nombre}"></option>
+																	<c:when test="${servId == servicio.id}">
+																		<option value="${servicio.id}" label="${servicio.nombre}"
+																			selected></option>
 																	</c:when>
 																	<c:otherwise>
-																		<c:choose>
-																			<c:when test="${servId == servicio.id}">
-																				<option value="${servicio.id}" label="${servicio.nombre}"
-																					selected></option>
-																			</c:when>
-																			<c:otherwise>
-																				<option value="${servicio.id}" label="${servicio.nombre}"></option>
-																			</c:otherwise>
-																		</c:choose>
+																		<option value="${servicio.id}" label="${servicio.nombre}"></option>
 																	</c:otherwise>
 																</c:choose>
-															</c:forEach>
-														</select> 
-												</div>
+															</c:otherwise>
+														</c:choose>
+													</c:forEach>
+												</select> 
+											</div>
 											<div style="display: inline-block;">
 												<button type="submit" class="btn">Aceptar</button> 
 												<button type="button" class="btn cancel" onclick="closeFormAddS()">Cancelar</button>
+											</div>
+										</form>
+									</div>
+									
+									<div class="form-popup" id="myFormQuitarServicio">
+										<form action="#" method="post" class="form-container">
+											<input type="hidden" id="quitarServicio" name="quitarServicio" value="${model.usuario.id}">
+											
+											<div style="text-align: center">Seleccione un servicio a eliminar</div>
+											
+											<div class="row">
+												<br> 
+												<select name='servicioAQuitar'>
+												 
+													
+													<c:if test="${servicioId == null}">
+														<option disabled selected value>-- Seleccione un servicio --</option>
+													</c:if>
+													
+													<c:forEach items="${model.servicios}" var="servicioAQuitar">
+														<c:choose>
+															<c:when test="${servicioId == null}">
+																<option value="${servicioAQuitar.id}" label="${servicioAQuitar.nombre}"></option>
+															</c:when>
+															<c:otherwise>
+																<c:choose>
+																	<c:when test="${servicioId == servicio.id}">
+																		<option value="${servicioAQuitar.id}" label="${servicioAQuitar.nombre}"
+																			selected></option>
+																	</c:when>
+																	<c:otherwise>
+																		<option value="${servicioAQuitar.id}" label="${servicioAQuitar.nombre}"></option>
+																	</c:otherwise>
+																</c:choose>
+															</c:otherwise>
+														</c:choose>
+													</c:forEach>
+												</select> 
+											</div>
+											<div style="display: inline-block;">
+												<button type="submit" class="btn">Aceptar</button> 
+												<button type="button" class="btn cancel" onclick="closeFormQuitarServicio()">Cancelar</button>
 											</div>
 										</form>
 									</div>
@@ -273,17 +333,9 @@
 										</form>
 									</div>
 									
-									<div class="form-popup" id="myFormQuitarServicio">
-										<form action="#" method="post" class="form-container">
-											<input type="hidden" id="quitarServicio" name="quitarServicio" value="${model.usuario.id}">
-											<div style="text-align: center">Se procederá a eliminar el servicio de su lista de servicios, ¿está seguro de esto?</div>
-											<div style="display: inline-block;">
-												<button type="submit" class="btn">Aceptar</button> 
-												<button type="button" class="btn cancel" onclick="closeFormQuitarServicio()">Cancelar</button>
-											</div>
-										</form>
-									</div>
-
+									
+									
+									
 									<div class="form-popup" id="myForm">
 									  	<form action="#" onsubmit="return validarCampos();" method="post" class="form-container">
 										    <div style="text-align: center"><h1>Editar Perfil</h1></div>
@@ -352,6 +404,11 @@
 
 									function closeFormDesac() {
 									    document.getElementById("myFormDesac").style.display = "none";
+									}
+									
+									function openFormQuitarServicio(){
+										
+										document.getElementById("myFormQuitarServicio").style.display = "block";
 									}
 									
 									function closeFormQuitarServicio() {
@@ -430,30 +487,31 @@
 								</td>								
 								<c:if test="${boolModel.esProfesional}">
 
-									<td>
+									<td width="300px">
+										<br>
+										<br>
+										<br>
+										<br>
+										<br>
+										<br>
+										<br>
 										<div class="subrayadoGordo">
-											<h3><b>Servicios</b></h3>
+											<h1><b>Servicios</b></h1>
 										</div>
 										<br>
-										<div style="height:400px; overflow-y: scroll; ">
+										<div style="height:400px; width:100px">
 											<ul style="list-style-type: none;">
 
 										        <c:forEach items="${model.servicios}" var="ser">	
-													<li>
-														<button onclick="openFormQuitarServicio()">${ser.nombre}</button>
-														
-														<script>
-														function openFormQuitarServicio(){
-															document.getElementById("quitarServicio").value = ${ser.id};
-															document.getElementById("myFormQuitarServicio").style.display = "block";
-														}
-														</script>
-													</li>
+													<li><h2>${ser.nombre}</h2></li>
 												</c:forEach>
 
 											</ul>
 										</div>
+										<button class="open-button-slim" onclick="openFormAddS()">Añadir servicio</button>
+										<button class="open-button-slim" onclick="openFormQuitarServicio()">Quitar servicio</button>
 									</td>
+									<td width="20%"></td>
 								</c:if>
 							</tr>
 						</tbody>
