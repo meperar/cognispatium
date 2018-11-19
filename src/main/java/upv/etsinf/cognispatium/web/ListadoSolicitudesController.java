@@ -151,7 +151,7 @@ public class ListadoSolicitudesController {
 		      else {
 	               listaSolicitudes = servicioSolicitudManager.getSolicitudsbyService(servicioConsulta)
 	                      .stream().sorted(Comparator.comparing(Solicitud::getId).reversed())
-	                      .filter(sol -> !(sol.getEstado()==EstadoSolicitud.eliminada))
+	                      .filter(sol -> !(sol.getEstado()==EstadoSolicitud.eliminada) && !(sol.getEstado()==EstadoSolicitud.adjudicada) )
 	                      .collect(Collectors.toList());
 	                servicios.put("serviciId", ServiceId);	               
 	             }
@@ -166,7 +166,7 @@ public class ListadoSolicitudesController {
 		     else {
 		         listaSolicitudes = servicioSolicitudManager.getSolicituds()
 					.stream().sorted(Comparator.comparing(Solicitud::getId).reversed())
-				    .filter(sol -> !(sol.getEstado()==EstadoSolicitud.eliminada))
+				    .filter(sol -> !(sol.getEstado()==EstadoSolicitud.eliminada) && !(sol.getEstado()==EstadoSolicitud.adjudicada))
 				    .collect(Collectors.toList());
 		     }
 		}
