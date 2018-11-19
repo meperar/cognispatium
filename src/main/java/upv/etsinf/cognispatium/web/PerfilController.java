@@ -324,9 +324,11 @@ public class PerfilController {
 			// rechazo los presupuestos activos asociados al servicio que quito
 			List<Presupuesto> presupuestos = profesional.getPresupuestos();
 			for(Presupuesto p: presupuestos) {
-			    System.out.println(p.getDescripcion() + p.getEstado());
-			    if(p.getSolicitudOrigen().getServicioOrigen() == servicio) {
+			    System.out.println(p.getSolicitudOrigen().getServicioOrigen().getNombre());
+			    if(p.getSolicitudOrigen().getServicioOrigen().getNombre().equals(servicio.getNombre())) {
+			        System.out.println(p.getDescripcion() +" "+ p.getEstado());
 			        p.setEstado(EstadoPresupuesto.rechazado);
+			        System.out.println("Ahora he cambiado el estado: " + p.getEstado());
                     presupuestoManager.addPresupuesto(p);
 			    }
 			}
