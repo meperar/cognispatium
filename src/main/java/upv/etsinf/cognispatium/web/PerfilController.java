@@ -110,6 +110,8 @@ public class PerfilController {
 		}
 		
 		List<Servicio> allServices = servicioManager.getServicios();
+		
+		
 		myModel.put("allServices", allServices);
 		myModel.put("usuario", usuario);
 		myModel.put("registro", registro);
@@ -316,6 +318,7 @@ public class PerfilController {
 			profManager.addProfesional(profesional);
 			// Fin quitar servicio
 			
+			
 			List<Servicio> allServices = servicioManager.getServicios();
 			myModel.put("allServices", allServices);
 			myModel.put("usuario", usuario);
@@ -344,6 +347,7 @@ public class PerfilController {
 
 		} else if (reqPar.get("addSid") != null) { /////// AÑADIR SERVICIO (POR QUÉ PARECE QUE ESTEMOS GRITANDO EKISDE)////////
 			
+			boolean check = false;
 			Servicio serviceToAdd = null;
 			
 			if (reqPar.get("servicio") != null) {
@@ -368,13 +372,18 @@ public class PerfilController {
 			valoracion = profesional.getValoracion();
 			listaServicios = profesional.getServicios();
 			
-			if(serviceToAdd != null ) {
+			for(Servicio s : listaServicios) {
+				if(s.getId() == serviceToAdd.getId()) check = true;
+			}
+			
+			if(serviceToAdd != null && check == false ) {
 				listaServicios.add(serviceToAdd);
 				profesional.setServicios(listaServicios);
 				profManager.addProfesional(profesional);
 			}
 			
-			List<Servicio> allServices = servicioManager.getServicios();
+			
+			List<Servicio> allServices = servicioManager.getServicios();			
 			myModel.put("allServices", allServices);
 			myModel.put("usuario", usuario);
 			myModel.put("registro", registro);
