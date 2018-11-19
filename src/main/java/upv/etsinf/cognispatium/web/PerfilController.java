@@ -313,7 +313,18 @@ public class PerfilController {
 			}
 
 			listaServicios.remove(servicio);
-
+			System.out.println("Servicio eliminado: " + servicio.getNombre());
+			// rechazo los presupuestos activos asociados al servicio que quito
+			List<Presupuesto> presupuestos = profesional.getPresupuestos();
+			for(Presupuesto p: presupuestos) {
+			    System.out.println(p.getDescripcion() + p.getEstado());
+			    if(p.getSolicitudOrigen().getServicioOrigen() == servicio) {
+			        p.setEstado(EstadoPresupuesto.rechazado);
+                    presupuestoManager.addPresupuesto(p);
+			    }
+			}
+			
+			profesional.setPresupuestos(presupuestos);
 			profesional.setServicios(listaServicios);
 			profManager.addProfesional(profesional);
 			// Fin quitar servicio
@@ -492,5 +503,6 @@ public class PerfilController {
 	public void setServicioManager(SimpleServicioManager servicioManager) {
 		this.servicioManager = servicioManager;
 	}
+	
 
 }
