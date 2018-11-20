@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import upv.etsinf.cognispatium.domain.Consulta;
 import upv.etsinf.cognispatium.domain.ConsultaUrgente;
+import upv.etsinf.cognispatium.domain.EstadoMensaje;
 import upv.etsinf.cognispatium.domain.Mensaje;
 //import net.bytebuddy.agent.builder.AgentBuilder.Default.Transformation.Simple;  /*Si quitas el comentario da error*/
 import upv.etsinf.cognispatium.domain.Respuesta;
@@ -121,6 +122,7 @@ public class RCUrgenteController {
 		java.util.Date date=new java.util.Date(millis);
 		dateFormat.format(date);
 		mensaje.setFecha(date);
+		mensaje.setEstado(EstadoMensaje.noLeido);
 		mensajeManager.addMensaje(mensaje);
 		
 		ModelAndView mav = new ModelAndView("hello");

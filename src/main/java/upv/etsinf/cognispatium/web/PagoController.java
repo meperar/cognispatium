@@ -212,7 +212,8 @@ public class PagoController {
 			throws Exception {
 		@SuppressWarnings("unchecked")
 		Presupuesto presupuesto =(Presupuesto)this.myModel.get("presupuesto");
-		Cliente cliente = presupuesto.getSolicitudOrigen().getClienteOrigen();	
+		Cliente cliente = presupuesto.getSolicitudOrigen().getClienteOrigen();
+		servicioString = presupuesto.getSolicitudOrigen().getServicioOrigen().getNombre();
 		Tarjeta tarjeta = addTarjeta(reqPar,cliente);
 		Pago pago = new Pago();	
 		pago.setClienteOrigen(cliente);
@@ -235,6 +236,7 @@ public class PagoController {
 		ModelAndView mav = new ModelAndView("factura", "model", myModel);
 
 		myModel.put("pago", pago);
+		myModel.put("servicioString", servicioString);
 		
 		if(WebServiceController.usuarioRegistrado == null) {
 			Usuario userAux = new Usuario();
