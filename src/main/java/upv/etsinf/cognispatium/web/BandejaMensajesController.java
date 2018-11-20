@@ -225,6 +225,7 @@ public class BandejaMensajesController {
 		java.util.Date date = new java.util.Date(millis);
 		dateFormat.format(date);
 		mensaje.setFecha(date);
+		mensaje.setEstado(EstadoMensaje.noLeido);
 		mensajeManager.addMensaje(mensaje);
 
 		Map<String, Object> myModel = new HashMap<String, Object>();
