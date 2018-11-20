@@ -56,7 +56,7 @@ public class SimpleMensajeManager implements Serializable{
 		// TODO Auto-generated method stub
 		return mensajeDao.getMensajesEliminadosbyUsuario(usuario);
 	}
-	
+
 	
 
 }

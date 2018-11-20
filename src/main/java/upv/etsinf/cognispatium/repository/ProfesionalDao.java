@@ -3,6 +3,7 @@ package upv.etsinf.cognispatium.repository;
 import java.util.List;
 
 import upv.etsinf.cognispatium.domain.Profesional;
+import upv.etsinf.cognispatium.domain.Servicio;
 
 public interface ProfesionalDao {
 
@@ -14,5 +15,6 @@ public interface ProfesionalDao {
     //GetAdminby??
     
     public Profesional getProfesionalById(Integer profesionalId);
+    
 
 }
