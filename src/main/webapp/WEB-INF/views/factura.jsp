@@ -13,34 +13,39 @@
 <jsp:include page="barrasuperior.jsp" flush="true" />
 <body >
 
-<div class="row">
-	<form action="<c:url value="/factura.htm" />"
-					method="POST">
-        <div class="col-md-5 p-4">
-          <h3>Datos Factura</h3>
-
-          <p class="lead mt-3"> <b>Cliente:</b></p>
-          <p>${model.pago.clienteOrigen.getNombre()} ${model.pago.clienteOrigen.getApellidos()}</p>
-          
-          <p class="lead mt-3"> <b>Importe:</b></p>
-          <p> ${model.pago.getPrecio()} </p>
-          
-          <p class="lead mt-3"> <b>Servicio:</b></p>         
-          <p> </p>
-          
-          <p class="lead mt-3"> <b>Descripción:</b></p>
-          <p>  ${model.pago.getDescripcion()}</p>
+<div class="container">
+      <div class="row">
+        <div class="col-md-12" style="">
+          <form action="<c:url value="/hello.htm" />"  method="POST">
+           <div class="col-md-12 p-4" style="">
+              <h1 class="bg-dark text-white text-center">Datos Factura</h1>
+              <h2> <b>Cliente:</b></h2>
+              <p>${model.pago.clienteOrigen.getNombre()} ${model.pago.clienteOrigen.getApellidos()}</p>
+              <h2> <b>Importe:</b></h2>
+              <p> ${model.pago.getPrecio()} EUROS. </p>
+              <h2> <b>Servicio:</b></h2>
+              <p>${model.servicioString} </p>
+              <h2 > <b>Descripcion:</b></h2>
+              <p> ${model.pago.getDescripcion()}</p>
+            </div>
+          </form>
         </div>
-        
-       </form>
-       <form action="<c:url value="/factura.htm" />" method="post">
-       	<center>
-       		<button  type="submit" class="btn btn-primary">Guardar</button>
-       	</center>
-       </form>
-       
-       
       </div>
+    </div>
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+           <form  class="text-center" > 
+           <center>
+           	<div class="col-md-12 text-center"><button type="reset" onclick="location.href='hello.htm'" class="btn btn-primary w-25 text-center">Volver</button></div>
+           </center>
+          </form>
+        </div>
+      </div>
+   </div>
+   
+
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
@@ -72,7 +77,7 @@
     </div>
     <div class="row">
       <div class="col-md-12 text-center">
-        <p class="mb-0">© 2018 CogniSpatium. All rights reserved</p>
+        <p class="mb-0">Â© 2018 CogniSpatium. All rights reserved</p>
       </div>
     </div>
   </div>

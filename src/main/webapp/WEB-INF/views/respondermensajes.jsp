@@ -27,9 +27,9 @@
       <div class="row">
         <div class="col-md-6 p-4">
           <p class="lead mt-3"> <b>Remitente</b></p>
-          <p>${model.mensaje.profesional.getNombre()} ${model.mensaje.profesional.getApellidos()}</p>
+          <p>${model.mensaje.usuarioOrigen.getNombre()} ${model.mensaje.usuarioOrigen.getApellidos()}</p>
           <p class="lead mt-3"> <b>Destinatario</b></p>
-          <p>${model.mensaje.cliente.getNombre()} ${model.mensaje.cliente.getApellidos()}</p>
+          <p>${model.mensaje.usuarioDestino.getNombre()} ${model.mensaje.usuarioDestino.getApellidos()}</p>
           <p class="lead mt-3"> <b>Titulo</b></p>
           <p> ${model.mensaje.asunto} </p>
           <p class="lead mt-3"> <b>Descripcion</b></p>

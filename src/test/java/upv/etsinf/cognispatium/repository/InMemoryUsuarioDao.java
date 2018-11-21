@@ -18,5 +18,17 @@ public class InMemoryUsuarioDao implements UsuarioDao {
 
     public void saveUsuario(Usuario user) {
     }
+    
+    public Usuario getUsuariobyId(Integer usuarioId) {
+    	return null;
+    	
+    }
+
+	@Override
+	public void dropUsuario(Usuario usuario) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }

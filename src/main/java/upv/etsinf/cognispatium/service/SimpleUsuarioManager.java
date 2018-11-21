@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import upv.etsinf.cognispatium.domain.Mensaje;
 import upv.etsinf.cognispatium.domain.Pago;
 import upv.etsinf.cognispatium.domain.Usuario;
 import upv.etsinf.cognispatium.repository.PagoDao;
@@ -35,7 +36,23 @@ public class SimpleUsuarioManager implements UsuarioManager {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public Usuario getUsuariobyId(Integer usuarioId) {
+		
+		return usuarioDao.getUsuariobyId(usuarioId);
+		
+	}
 
+	public void addUsuario(Usuario usuario) {
+		
+		usuarioDao.saveUsuario(usuario);
+	}
+	
+	public void dropUser(Usuario usuario) {
+		
+		usuarioDao.dropUsuario(usuario);
+	}
+	
 	
 	
     

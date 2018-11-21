@@ -34,11 +34,11 @@ public class Pago implements Serializable {
 	private String descripcion;
 	private Integer precio;
 
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="cliente")
 	private Cliente clienteOrigen;
 	
-	@ManyToOne(fetch=FetchType.EAGER, cascade = {CascadeType.ALL})
+	@ManyToOne(fetch=FetchType.LAZY, cascade = {CascadeType.ALL})
 	@JoinColumn(name="tarjeta")
 	private Tarjeta tarjetaOrigen;
 	

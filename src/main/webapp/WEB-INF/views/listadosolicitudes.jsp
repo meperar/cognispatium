@@ -19,17 +19,20 @@
 
 <body>
 	<jsp:include page="barrasuperior.jsp" flush="true" />
+	
 	<div class="py-5">
 		<div class="container">
 			<div class="row">
 				<form action="<c:url value="/listadosolicitudes.htm" />"
 					method="GET">
-					<label for="form16">Servicio</label> <br> <select
-						name='servicio'>
+					<div class="col-md-12" >
+					<label for="form16">Servicio</label> <br>
+					 <select name='servicio'>
 						<c:set var="servId" value="${servicios.serviciId}" />
 						<c:if test="${servId == null}" >
 						<option disabled selected value> -- Seleccione un servicio -- </option>
 						</c:if>
+						<option  value="" > -- sin filtro  -- </option>
 						<c:forEach items="${servicios.servicios}" var="servicio">
 							<c:choose>
 								<c:when test="${servId == null}">
@@ -48,10 +51,37 @@
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
-					</select> <input class="btn btn-primary" type="submit" name="action"
-						value="Filtrar" />
-				</form>
+					</select>
+					</div>
+					<div class="col-md-12" >
+					<label for="form16">Estado ${estadoObt}</label> <br>
+					 <select name='estado'>
+					 
+					 <option disabled selected> -- Filtro por estado -- </option>	
+					 <c:if test="${estadoObt == null}">
+								<option  value="" selected > -- sin filtro  -- </option>
+					</c:if>
+					<c:if test="${estadoObt == 'creada'}">
+								<option value="creada" selected>Creada</option>
+					</c:if>
+					<c:if test="${estadoObt == 'respondida'}">
+								<option value="respondida" selected >Respondida </option>
+					</c:if>
+					<c:if test="${estadoObt != null}">
+								<option  value=""> -- sin filtro  -- </option>
+					</c:if>
+					<c:if test="${estadoObt != 'creada'}">
+								<option value="creada" >Creada</option>
+					</c:if>
+					<c:if test="${estadoObt != 'respondida'}">
+								<option value="respondida" >Respondida </option>
+					</c:if>
+					 </select>
+					 </div>
+					<div class="col-md-10"> <input class="btn btn-primary" type="submit" name="action" value="Filtrar" /></div>	
+					 </form>
 			</div>
+			
 			<br>
 			<div class="row">
 				<div class="col-md-12">
@@ -61,6 +91,7 @@
 								<th>Titulo</th>
 								<th>Descripcion</th>
 								<th>Cliente</th>
+								<th>Estado</th>
 								<th>Accion</th>
 							</tr>
 						</thead>
@@ -74,6 +105,7 @@
 										<td style="max-width: 500px;word-wrap:break-word;">${solicitud.descripcion}</td>
 										<td>${solicitud.clienteOrigen.nombre}
 											${solicitud.clienteOrigen.apellidos}</td>
+										<td>${solicitud.estado}</td>
 										<td><button class="bg-primary">
 												<i class="fas fa-plus-square"></i>
 											</button></td>

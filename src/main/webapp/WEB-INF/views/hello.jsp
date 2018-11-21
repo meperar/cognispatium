@@ -56,6 +56,16 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
   <link rel="stylesheet" href="https://static.pingendo.com/bootstrap/bootstrap-4.1.3.css" style="">
 <jsp:include page="barrasuperior.jsp" flush="true" />
+   <div class="">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <p class="text-monospace text-right">${usR.nombre}</p>
+          <p class="text-monospace text-right">${usRe.nombre}</p>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="py-5 text-center" style="">
     <div class="container">
       <div class="row">

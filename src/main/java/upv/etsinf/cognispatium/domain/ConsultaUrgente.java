@@ -36,11 +36,11 @@ public class ConsultaUrgente extends Consulta implements Serializable {
 	@JsonSerialize(using = DateTimeSerializer.class)
 	private DateTime fechaFin;	
 	
-	@OneToOne(fetch=FetchType.EAGER)
+	@OneToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="cobro")
 	private Cobro cobroOrigen;
 	
-	@OneToOne(fetch=FetchType.EAGER, cascade = {CascadeType.ALL})
+	@OneToOne(fetch=FetchType.LAZY, cascade = {CascadeType.ALL})
 	@JoinColumn(name="pago")
 	private Pago pago;
 

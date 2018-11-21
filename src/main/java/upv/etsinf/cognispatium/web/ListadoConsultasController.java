@@ -13,8 +13,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import upv.etsinf.cognispatium.domain.Cliente;
+import upv.etsinf.cognispatium.domain.Consulta;
 import upv.etsinf.cognispatium.domain.Solicitud;
+import upv.etsinf.cognispatium.domain.Usuario;
 import upv.etsinf.cognispatium.domain.EstadoConsulta;
+import upv.etsinf.cognispatium.domain.EstadoSolicitud;
 import upv.etsinf.cognispatium.domain.ConsultaUrgente;
 import upv.etsinf.cognispatium.domain.Mensaje;
 import upv.etsinf.cognispatium.domain.Presupuesto;
@@ -32,11 +35,13 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -83,11 +88,18 @@ public class ListadoConsultasController {
 		if (reqPar.get("servicio") != null) {
 			Integer ServiceId = Integer.parseInt(reqPar.get("servicio"));
 			Servicio servicioConsulta = servicioManager.getServiciobyId(ServiceId);
-			listaConsultas = consultaUManager.getConsultasbyService(servicioConsulta);
+			listaConsultas =consultaUManager.getConsultasbyService(servicioConsulta)
+			        .stream().sorted(Comparator.comparing(Consulta::getId).reversed())
+                    .filter(sol -> (sol.getEstado()!=EstadoConsulta.cerrada))
+                    .collect(Collectors.toList());
+			          
 			Mymodel.put("serviciId", ServiceId);
 
 		} else {
-			listaConsultas = consultaUManager.getConsultaUrgentes();
+			listaConsultas = consultaUManager.getConsultaUrgentes()
+			        .stream().sorted(Comparator.comparing(Consulta::getId).reversed())
+                    .filter(sol -> (sol.getEstado()!=EstadoConsulta.cerrada))
+                    .collect(Collectors.toList());
 		}
 		Map<String, Object> myModel = new HashMap<String, Object>();
 		ModelAndView mav = new ModelAndView("listadoconsultas", "model", myModel);
@@ -95,7 +107,23 @@ public class ListadoConsultasController {
 		Mymodel.put("consultas", listaConsultas);
 		Mymodel.put("servicios", listaServicios);
 		mav.addObject("model", Mymodel);
+		if(WebServiceController.usuarioRegistrado == null) {
+			Usuario userAux = new Usuario();
+			
+			userAux.setNombre("Usuario no registrado");
+			mav.addObject("usR", userAux);
+			
+		}
+		
+		else {
+			
+			mav.addObject("usR", WebServiceController.usuarioRegistrado);
+			
+		}
+		WebServiceController.listaAmbitos.forEach(a -> {
 
+			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+		});
 		return mav;
 	}
 
@@ -111,7 +139,24 @@ public class ListadoConsultasController {
 		
 		
 		myModel.put("consulta", miconsultaUrgente);
+		
+		if(WebServiceController.usuarioRegistrado == null) {
+			Usuario userAux = new Usuario();
+			
+			userAux.setNombre("Usuario no registrado");
+			mav.addObject("usR", userAux);
+			
+		}
+		
+		else {
+			
+			mav.addObject("usR", WebServiceController.usuarioRegistrado);
+			
+		}
+		WebServiceController.listaAmbitos.forEach(a -> {
 
+			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+		});
 		return mav;
 	}
 

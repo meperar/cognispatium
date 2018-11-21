@@ -15,30 +15,26 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
-@PrimaryKeyJoinColumn(name="id")
+@PrimaryKeyJoinColumn(name = "id")
 public class Cliente extends Usuario implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	
-	@OneToMany(mappedBy="clienteOrigen")
+
+	@OneToMany(mappedBy = "clienteOrigen")
 	private List<Consulta> consultas;
 
-	@OneToMany(mappedBy ="clienteOrigen")
-	@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToMany(mappedBy = "clienteOrigen")
 	private List<Solicitud> solicitudes;
-	
-	@OneToMany(mappedBy ="clienteOrigen")
-	private List<Pago> pagos;
-	
-	@OneToMany(mappedBy ="clienteOrigen")
-	private List<Tarjeta> tarjetas ;
 
-	
-	
+	@OneToMany(mappedBy = "clienteOrigen")
+	private List<Pago> pagos;
+
+	@OneToMany(mappedBy = "clienteOrigen")
+	private List<Tarjeta> tarjetas;
+
 	public List<Consulta> getConsultas() {
 		return consultas;
 	}
@@ -46,7 +42,6 @@ public class Cliente extends Usuario implements Serializable {
 	public void setConsultas(List<Consulta> consultas) {
 		this.consultas = consultas;
 	}
-	
 
 	public List<Solicitud> getSolicitudes() {
 		return solicitudes;
@@ -55,7 +50,6 @@ public class Cliente extends Usuario implements Serializable {
 	public void setSolicitudes(List<Solicitud> solicitudes) {
 		this.solicitudes = solicitudes;
 	}
-	
 
 	public List<Pago> getPagos() {
 		return pagos;
@@ -73,8 +67,4 @@ public class Cliente extends Usuario implements Serializable {
 		this.tarjetas = tarjetas;
 	}
 
-
-		
 }
-	
-	

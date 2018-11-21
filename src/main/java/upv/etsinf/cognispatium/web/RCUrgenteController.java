@@ -14,10 +14,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import upv.etsinf.cognispatium.domain.Consulta;
 import upv.etsinf.cognispatium.domain.ConsultaUrgente;
+import upv.etsinf.cognispatium.domain.EstadoMensaje;
 import upv.etsinf.cognispatium.domain.Mensaje;
 //import net.bytebuddy.agent.builder.AgentBuilder.Default.Transformation.Simple;  /*Si quitas el comentario da error*/
 import upv.etsinf.cognispatium.domain.Respuesta;
 import upv.etsinf.cognispatium.domain.Servicio;
+import upv.etsinf.cognispatium.domain.Usuario;
 import upv.etsinf.cognispatium.service.SimpleAdminManager;
 import upv.etsinf.cognispatium.service.SimpleConsultaManager;
 import upv.etsinf.cognispatium.service.SimpleConsultaUrgenteManager;
@@ -79,6 +81,23 @@ public class RCUrgenteController {
 		myModel.put("consultas", consultaUrgente);
 		ModelAndView mav = new ModelAndView("ResponderConsultaUrgente", "model", myModel);
         mav.addObject("consultas", consultaUrgente);
+        if(WebServiceController.usuarioRegistrado == null) {
+			Usuario userAux = new Usuario();
+			
+			userAux.setNombre("Usuario no registrado");
+			mav.addObject("usR", userAux);
+			
+		}
+		
+		else {
+			
+			mav.addObject("usR", WebServiceController.usuarioRegistrado);
+			
+		}
+        WebServiceController.listaAmbitos.forEach(a -> {
+
+			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+		});
 		return mav;
     }
 
@@ -90,22 +109,42 @@ public class RCUrgenteController {
 		ConsultaUrgente consultaUrgente = simpleConsultaUrgenteManager.getConsultaUrgentebyId(consultaId);
 		respuesta.setDescripcion(reqPar.get("respuesta"));	
 		respuesta.setConsultaOrigen(consultaUrgente);
-		respuesta.setProfesionalOrigen(simpleProfesionalManager.getProfesionales().get(1));
+		respuesta.setProfesionalOrigen(simpleProfesionalManager.getProfesionalById(WebServiceController.usuarioRegistrado.getId()));
 		respuestaManager.addRespuesta(respuesta);
 		
 		Mensaje mensaje = new Mensaje();
 		mensaje.setDescripcion(reqPar.get("respuesta"));
 		mensaje.setAsunto("Respuesta a su Consulta urgente:" + consultaUrgente.getTitulo() );
-		mensaje.setProfesional(simpleProfesionalManager.getProfesionales().get(0));
-		mensaje.setCliente(consultaUrgente.getClienteOrigen());
+		mensaje.setUsuarioOrigen(simpleProfesionalManager.getProfesionalById(WebServiceController.usuarioRegistrado.getId()));
+		mensaje.setUsuarioDestino(consultaUrgente.getClienteOrigen());
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		long millis=System.currentTimeMillis();
 		java.util.Date date=new java.util.Date(millis);
 		dateFormat.format(date);
 		mensaje.setFecha(date);
+		mensaje.setEstado(EstadoMensaje.noLeido);
 		mensajeManager.addMensaje(mensaje);
 		
-		return new ModelAndView("hello");
+		ModelAndView mav = new ModelAndView("hello");
+		if(WebServiceController.usuarioRegistrado == null) {
+			Usuario userAux = new Usuario();
+			
+			userAux.setNombre("Usuario no registrado");
+			mav.addObject("usR", userAux);
+			
+		}
+		
+		else {
+			
+			mav.addObject("usR", WebServiceController.usuarioRegistrado);
+			
+		}
+		ModelAndView mav2 =  new ModelAndView("hello");
+		WebServiceController.listaAmbitos.forEach(a -> {
+
+			mav2.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+		});
+		return mav2;
 
 	}
 	

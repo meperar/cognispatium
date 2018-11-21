@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,6 +20,16 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
+
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.joda.ser.DateTimeSerializer;
+import com.fasterxml.jackson.datatype.joda.ser.LocalDateSerializer;
 
 @Entity
 @Table(name="presupuesto")
@@ -37,15 +49,21 @@ public class Presupuesto implements Serializable {
 	private Integer precio;
 
 	
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="solicitud")
 	private Solicitud solicitudOrigen;
 	
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="profesional")
 	private Profesional profesionalOrigen;
 	
+	@Column(name = "estado", nullable = false, length = 20)
+	@Enumerated(value = EnumType.STRING)
+	private EstadoPresupuesto estado;
 	
+	@Column
+    @Temporal(TemporalType.DATE)
+    private Date fechaCreacion;  
 	
 	public Integer getId() {
 		return id;
@@ -81,6 +99,18 @@ public class Presupuesto implements Serializable {
 	public void setProfesionalOrigen(Profesional profesionalOrigen) {
 		this.profesionalOrigen = profesionalOrigen;
 	}
+	public EstadoPresupuesto getEstado() {
+		return estado;
+	}
+	public void setEstado(EstadoPresupuesto estado) {
+		this.estado = estado;
+	}
+    public Date getFechaCreacion() {
+        return fechaCreacion;
+    }
+    public void setFechaCreacion(Date localDate) {
+        this.fechaCreacion = localDate;
+    }
 	
 	
 	

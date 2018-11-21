@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import upv.etsinf.cognispatium.domain.Cliente;
 import upv.etsinf.cognispatium.domain.Servicio;
+import upv.etsinf.cognispatium.domain.Usuario;
 import upv.etsinf.cognispatium.repository.ClienteDao;
 
 @Component
@@ -29,6 +30,16 @@ public class SimpleClienteManager implements ClienteManager {
     
     public Cliente getClientebyId(Integer clienteId) {
     	return  clienteDao.getClienteById(clienteId);
+	}
+    
+    public void addCliente(Cliente cliente) {
+		
+		clienteDao.saveCliente(cliente);
+	}
+    
+    public void dropCli(Cliente cliente) {
+		
+		clienteDao.dropCliente(cliente);
 	}
     
 }

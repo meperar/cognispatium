@@ -16,13 +16,17 @@ import upv.etsinf.cognispatium.domain.Cliente;
 import upv.etsinf.cognispatium.domain.ConsultaUrgente;
 import upv.etsinf.cognispatium.domain.Solicitud;
 import upv.etsinf.cognispatium.domain.Tarjeta;
+import upv.etsinf.cognispatium.domain.Usuario;
 import upv.etsinf.cognispatium.domain.EstadoConsulta;
+import upv.etsinf.cognispatium.domain.EstadoPresupuesto;
+import upv.etsinf.cognispatium.domain.EstadoSolicitud;
 import upv.etsinf.cognispatium.domain.Pago;
 import upv.etsinf.cognispatium.domain.Presupuesto;
 import upv.etsinf.cognispatium.domain.Servicio;
 import upv.etsinf.cognispatium.service.SimpleServicioManager;
 import upv.etsinf.cognispatium.service.SimpleSolicitudManager;
 import upv.etsinf.cognispatium.service.SimpleTarjetaManager;
+import upv.etsinf.cognispatium.service.PDFgenerator;
 import upv.etsinf.cognispatium.service.SimpleClienteManager;
 import upv.etsinf.cognispatium.service.SimpleConsultaUrgenteManager;
 import upv.etsinf.cognispatium.service.SimplePagoManager;
@@ -47,8 +51,7 @@ import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
 
 import java.io.*;
-import com.lowagie.text.DocumentException;
-import org.xhtmlrenderer.pdf.ITextRenderer;
+
 
 @Controller
 public class PagoController {
@@ -74,7 +77,7 @@ public class PagoController {
 	@Autowired
 	private SimplePresupuestoManager simplePresupuestoManager;
 	
-	
+	private String servicioString;
 	
 	Map<String, Object> myModel;
 
@@ -83,14 +86,14 @@ public class PagoController {
 
 	@RequestMapping(value = "/pagoTarjeta.htm")
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response,
-			@RequestParam Map<String, String> reqPar) throws ServletException, IOException {
-
+			@RequestParam Map<String, String> reqPar) throws ServletException, IOException {	
 		String titulo = reqPar.get("titulo");
 		String descripcion = reqPar.get("descripcion");
 		Integer ServiceId = Integer.parseInt(reqPar.get("servicio"));
 		Servicio servicioConsulta = servicioManager.getServiciobyId(ServiceId);
+		servicioString = servicioConsulta.getNombre();
 		ConsultaUrgente consultaUrgente = new ConsultaUrgente();
-		Cliente cliente = clienteManager.getClientes().get(0);
+		Cliente cliente = clienteManager.getClientebyId(WebServiceController.usuarioRegistrado.getId());
 		consultaUrgente.setDescripcion(descripcion);
 		consultaUrgente.setTitulo(titulo);
 
@@ -108,8 +111,25 @@ public class PagoController {
 		myModel.put("consultaUrgente", consultaUrgente);
 		this.myModel = myModel;
 		ModelAndView mav = new ModelAndView("pagoTarjeta", "model", myModel);
+		if(WebServiceController.usuarioRegistrado == null) {
+			Usuario userAux = new Usuario();
+			
+			userAux.setNombre("Usuario no registrado");
+			mav.addObject("usR", userAux);
+			
+		}
+		
+		else {
+			
+			mav.addObject("usR", WebServiceController.usuarioRegistrado);
+			
+		}
+		WebServiceController.listaAmbitos.forEach(a -> {
 
+			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+		});
 		return mav;
+
 	}
 
 	@PostMapping("/pagoTarjeta.htm")
@@ -126,34 +146,36 @@ public class PagoController {
 		pago.setTarjetaOrigen(tarjeta);
 		consultaUrgente.setPago(pago);
 		servicioCUManager.addConsultaUrgente(consultaUrgente);
-
+		pagoManager.addPago(pago);
+		tarjetaManager.addTarjeta(tarjeta);
 		Map<String, Object> myModel = new HashMap<String, Object>();
-
+		
 		ModelAndView mav = new ModelAndView("factura", "model", myModel);
 
 		myModel.put("pago", pago);
+		myModel.put("servicioString", servicioString);
+		
+		if(WebServiceController.usuarioRegistrado == null) {
+			Usuario userAux = new Usuario();
+			
+			userAux.setNombre("Usuario no registrado");
+			mav.addObject("usR", userAux);
+			
+		}
+		
+		else {
+			
+			mav.addObject("usR", WebServiceController.usuarioRegistrado);
+			
+		}
+		WebServiceController.listaAmbitos.forEach(a -> {
+
+			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+		});
 		return mav;
+		
 	}
 
-	
-	private Tarjeta addTarjeta(Map<String, String> reqPar,Cliente cliente) {
-		String Stringnumero = reqPar.get("numTarjeta");
-		String titular = reqPar.get("titular");
-		long numero = Long.parseLong(Stringnumero);
-		String Stringcvv = reqPar.get("cvv");
-		int cvv = Integer.valueOf(Stringcvv);
-		Integer mes = Integer.parseInt(reqPar.get("mes"));
-		Integer anyo = Integer.parseInt(reqPar.get("anyo"));
-		Date fecha = new Date(anyo, mes, 01);
-		Tarjeta tarjeta = new Tarjeta();
-		tarjeta.setClienteOrigen(cliente);
-		tarjeta.setCodigoSeguridad(cvv);
-		tarjeta.setFechaCaducidad(fecha);
-		tarjeta.setNumero(numero);
-		tarjeta.setTitular(titular);
-		return tarjeta;
-	}
-	
 	
 	@GetMapping(value = "/pagoTarjetaSolicitud.htm")
 	public ModelAndView handleRequestSolicitud(HttpServletRequest request, HttpServletResponse response,
@@ -165,7 +187,23 @@ public class PagoController {
 		myModel.put("presupuesto", presupuesto);
 		this.myModel = myModel;
 		ModelAndView mav = new ModelAndView("pagoTarjeta", "model", myModel);
+		if(WebServiceController.usuarioRegistrado == null) {
+			Usuario userAux = new Usuario();
+			
+			userAux.setNombre("Usuario no registrado");
+			mav.addObject("usR", userAux);
+			
+		}
+		
+		else {
+			
+			mav.addObject("usR", WebServiceController.usuarioRegistrado);
+			
+		}
+		WebServiceController.listaAmbitos.forEach(a -> {
 
+			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+		});
 		return mav;
 	}
 
@@ -174,25 +212,71 @@ public class PagoController {
 			throws Exception {
 		@SuppressWarnings("unchecked")
 		Presupuesto presupuesto =(Presupuesto)this.myModel.get("presupuesto");
-		Cliente cliente = presupuesto.getSolicitudOrigen().getClienteOrigen();	
+		Cliente cliente = presupuesto.getSolicitudOrigen().getClienteOrigen();
+		servicioString = presupuesto.getSolicitudOrigen().getServicioOrigen().getNombre();
 		Tarjeta tarjeta = addTarjeta(reqPar,cliente);
 		Pago pago = new Pago();	
 		pago.setClienteOrigen(cliente);
 		pago.setDescripcion(presupuesto.getDescripcion());
 		pago.setPrecio(presupuesto.getPrecio());
 		pago.setTarjetaOrigen(tarjeta);
+		pagoManager.addPago(pago);
 		presupuesto.getSolicitudOrigen().setPago(pago);
+		presupuesto.getSolicitudOrigen().setEstado(EstadoSolicitud.adjudicada);
+		solicitudManager.addSolicitud(presupuesto.getSolicitudOrigen());
 		
+		presupuesto.getSolicitudOrigen().getPresupuestos().forEach(p->{
+			p.setEstado(EstadoPresupuesto.noAceptado);
+			simplePresupuestoManager.addPresupuesto(p);
+		});
+		presupuesto.setEstado(EstadoPresupuesto.aceptado);
 		simplePresupuestoManager.addPresupuesto(presupuesto);
-		
 		Map<String, Object> myModel = new HashMap<String, Object>();
 
 		ModelAndView mav = new ModelAndView("factura", "model", myModel);
 
 		myModel.put("pago", pago);
+		myModel.put("servicioString", servicioString);
+		
+		if(WebServiceController.usuarioRegistrado == null) {
+			Usuario userAux = new Usuario();
+			
+			userAux.setNombre("Usuario no registrado");
+			mav.addObject("usR", userAux);
+			
+		}
+		
+		else {
+			
+			mav.addObject("usR", WebServiceController.usuarioRegistrado);
+			
+		}
+		WebServiceController.listaAmbitos.forEach(a -> {
+
+			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+		});
 		return mav;
 	}
 
+    
+    private Tarjeta addTarjeta(Map<String, String> reqPar,Cliente cliente) {
+        String Stringnumero = reqPar.get("numTarjeta");
+        String titular = reqPar.get("titular");
+        long numero = Long.parseLong(Stringnumero);
+        String Stringcvv = reqPar.get("cvv");
+        int cvv = Integer.valueOf(Stringcvv);
+        Integer mes = Integer.parseInt(reqPar.get("mes"));
+        Integer anyo = Integer.parseInt(reqPar.get("anyo"));
+        Date fecha = new Date(anyo, mes, 01);
+        Tarjeta tarjeta = new Tarjeta();
+        tarjeta.setClienteOrigen(cliente);
+        tarjeta.setCodigoSeguridad(cvv);
+        tarjeta.setFechaCaducidad(fecha);
+        tarjeta.setNumero(numero);
+        tarjeta.setTitular(titular);
+        return tarjeta;
+    }
+    
 
 
 }

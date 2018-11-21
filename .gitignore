@@ -1,2 +1,3 @@
 target/
 *.html
+src/main/java/upv/etsinf/cognispatium/service/Comparador.java

@@ -43,5 +43,11 @@ public class SimpleSolicitudManager implements Serializable {
 		return solicitudDao.getSolicitudById(solicitudId);
 	
 	}
-
+	
+	public List<Solicitud> getSolicitudByCli(int cliId) {
+		
+		return solicitudDao.getSolicitudByCli(cliId);
+	
+	}
+	
 }

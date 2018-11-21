@@ -9,8 +9,10 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import upv.etsinf.cognispatium.domain.Cliente;
+import upv.etsinf.cognispatium.domain.EstadoMensaje;
 import upv.etsinf.cognispatium.domain.Mensaje;
 import upv.etsinf.cognispatium.domain.Profesional;
+import upv.etsinf.cognispatium.domain.Usuario;
 
 @Repository(value = "MensajeDao")
 public class JPAMensajeDao implements MensajeDao {
@@ -41,6 +43,47 @@ public class JPAMensajeDao implements MensajeDao {
 	@SuppressWarnings("unchecked")
 	public Mensaje getMensajeById(Integer mensajeId) {
 		return em.find(Mensaje.class, mensajeId);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Mensaje> getMensajesbyUsuario(Usuario usuario) {
+		// TODO Auto-generated method stub
+		return em.createQuery(
+			    "SELECT m FROM Mensaje m WHERE m.usuarioDestino LIKE :usuarioDestino and (m.estado LIKE :estadoleido  or m.estado LIKE :estadonoleido)" )
+			    .setParameter("usuarioDestino", usuario)
+			    .setParameter("estadoleido", EstadoMensaje.leido)
+			    .setParameter("estadonoleido", EstadoMensaje.noLeido)
+			    .getResultList();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Mensaje> getMensajesNoLeidosbyUsuario(Usuario usuario) {
+		// TODO Auto-generated method stub
+		return em.createQuery(
+			    "SELECT m FROM Mensaje m WHERE m.usuarioDestino LIKE :usuarioDestino and m.estado LIKE :estado")
+			    .setParameter("usuarioDestino", usuario).setParameter("estado", EstadoMensaje.noLeido)
+			    .getResultList();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Mensaje> getMensajesLeidosbyUsuario(Usuario usuario) {
+		// TODO Auto-generated method stub
+		return em.createQuery(
+			    "SELECT m FROM Mensaje m WHERE m.usuarioDestino LIKE :usuarioDestino and m.estado LIKE :estado")
+			    .setParameter("usuarioDestino", usuario).setParameter("estado", EstadoMensaje.leido)
+			    .getResultList();
+	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Mensaje> getMensajesEliminadosbyUsuario(Usuario usuario) {
+		// TODO Auto-generated method stub
+		return em.createQuery(
+			    "SELECT m FROM Mensaje m WHERE m.usuarioDestino LIKE :usuarioDestino and m.estado LIKE :estado")
+			    .setParameter("usuarioDestino", usuario).setParameter("estado", EstadoMensaje.eliminado)
+			    .getResultList();
 	}
 
 }
