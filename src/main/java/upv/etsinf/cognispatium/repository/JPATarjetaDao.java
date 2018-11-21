@@ -8,7 +8,6 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import upv.etsinf.cognispatium.domain.Solicitud;
 import upv.etsinf.cognispatium.domain.Tarjeta;
 
 @Repository(value = "TarjetaDao")

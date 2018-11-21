@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,19 +21,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import upv.etsinf.cognispatium.service.UsuarioManager;
-
-import upv.etsinf.cognispatium.service.ClienteManager;
 import upv.etsinf.cognispatium.domain.Consulta;
 import upv.etsinf.cognispatium.domain.EstadoConsulta;
-import upv.etsinf.cognispatium.domain.Mensaje;
 import upv.etsinf.cognispatium.domain.Profesional;
 import upv.etsinf.cognispatium.domain.Registro;
 import upv.etsinf.cognispatium.domain.Servicio;
 import upv.etsinf.cognispatium.domain.Usuario;
-import upv.etsinf.cognispatium.service.AdminManager;
-
-import upv.etsinf.cognispatium.service.ProfesionalManager;
 import upv.etsinf.cognispatium.service.SimpleConsultaManager;
 import upv.etsinf.cognispatium.service.SimpleRegistroManager;
 import upv.etsinf.cognispatium.service.SimpleServicioManager;
@@ -49,17 +41,7 @@ public class WebServiceController {
 	
 	public static List<String> listaAmbitos = null;
 
-	@Autowired
-	private UsuarioManager usuarioManager;
 
-	@Autowired
-	private ClienteManager clienteManager;
-
-	@Autowired
-	private AdminManager adminManager;
-
-	@Autowired
-	private ProfesionalManager profesionalManager;
 
 	@Autowired
 	private SimpleServicioManager servicioManager;
@@ -141,6 +123,7 @@ public class WebServiceController {
 
 	}
 
+	@SuppressWarnings("static-access")
 	@RequestMapping("/login.htm")
 	public ModelAndView handleLogin(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -161,7 +144,6 @@ public class WebServiceController {
 
 		List<Profesional> miProfesional = null;
 		List<Consulta> miConsulta = null;
-		List<Consulta> miConsultaDV = null;
 		Servicio miServicio = null;
 		ModelAndView mav = new ModelAndView("");
 
@@ -261,12 +243,10 @@ public class WebServiceController {
 		return mav;
 	}
 
+	@SuppressWarnings("static-access")
 	@PostMapping("/login.htm")
 	protected ModelAndView crearMensaje(@RequestParam Map<String, String> reqPar) throws Exception {
 
-		List<Profesional> miProfesional = null;
-		List<Consulta> miConsulta = null;
-		Servicio miServicio = null;
 		ModelAndView mav = new ModelAndView();
 
 		Map<String, Object> myModel = new HashMap<String, Object>();
@@ -367,12 +347,5 @@ public class WebServiceController {
 		return mav;
 	}
 
-	public void setUsuarioManager(UsuarioManager usuarioManager) {
-		this.usuarioManager = usuarioManager;
-	}
-
-	public void setClienteManager(ClienteManager clienteManager) {
-		this.clienteManager = clienteManager;
-	}
 
 }

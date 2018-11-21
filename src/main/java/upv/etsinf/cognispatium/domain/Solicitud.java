@@ -1,9 +1,6 @@
 package upv.etsinf.cognispatium.domain;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
-
 import java.io.Serializable;
-
 import java.util.Date;
 import java.util.List;
 
@@ -16,8 +13,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -25,14 +20,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-import org.hibernate.annotations.Type;
-import org.joda.time.DateTime;
-
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.joda.ser.DateTimeSerializer;
 
 @Entity
 @Table(name="solicitud")

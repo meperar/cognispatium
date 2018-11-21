@@ -1,7 +1,6 @@
 package upv.etsinf.cognispatium.web;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -18,21 +17,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import upv.etsinf.cognispatium.domain.Cliente;
-import upv.etsinf.cognispatium.domain.ConsultaUrgente;
-import upv.etsinf.cognispatium.domain.EstadoSolicitud;
 import upv.etsinf.cognispatium.domain.Presupuesto;
 import upv.etsinf.cognispatium.domain.Profesional;
-import upv.etsinf.cognispatium.domain.Servicio;
 import upv.etsinf.cognispatium.domain.Solicitud;
 import upv.etsinf.cognispatium.domain.Usuario;
 import upv.etsinf.cognispatium.service.SimplePresupuestoManager;
 import upv.etsinf.cognispatium.service.SimpleProfesionalManager;
-import upv.etsinf.cognispatium.service.SimpleServicioManager;
 
 @Controller
 public class ListadoPresupuestoController {

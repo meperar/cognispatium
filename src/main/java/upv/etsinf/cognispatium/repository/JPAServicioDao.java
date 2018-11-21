@@ -74,7 +74,6 @@ public class JPAServicioDao implements ServicioDao {
 	
 	@Override
 	@Transactional(readOnly = true)
-	@SuppressWarnings("unchecked")
 	public Servicio getServicioById(Integer serviceId) {
 		return em.find(Servicio.class, serviceId);
 	}

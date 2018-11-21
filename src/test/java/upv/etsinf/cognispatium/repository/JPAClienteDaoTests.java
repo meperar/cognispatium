@@ -34,7 +34,6 @@ public class JPAClienteDaoTests {
         List<Cliente> clientes = clienteDao.getClienteList();
 
         Cliente c = clientes.get(0);
-        String surname = c.getApellidos();
         c.setApellidos("Teresa");
         clienteDao.saveCliente(c);
 

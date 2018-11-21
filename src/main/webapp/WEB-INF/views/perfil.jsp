@@ -239,7 +239,7 @@
 													<c:set var="servId" value="${model.serviciId}" />
 													
 													<c:if test="${servId == null}">
-														<option disabled selected value>-- Seleccione un servicio --</option>
+														<option disabled selected>-- Seleccione un servicio --</option>
 													</c:if>
 													
 													<c:forEach items="${model.allServices}" var="servicio">
@@ -281,7 +281,7 @@
 												 
 													
 													<c:if test="${servicioId == null}">
-														<option disabled selected value>-- Seleccione un servicio --</option>
+														<option disabled selected>-- Seleccione un servicio --</option>
 													</c:if>
 													
 													<c:forEach items="${model.servicios}" var="servicioAQuitar">

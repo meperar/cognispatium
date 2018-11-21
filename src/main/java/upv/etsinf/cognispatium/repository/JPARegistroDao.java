@@ -43,7 +43,6 @@ public class JPARegistroDao implements RegistroDao {
 
 	@Override
 	@Transactional(readOnly = true)
-	@SuppressWarnings("unchecked")
 	public Registro getRegistrobyId(Integer registroId) {
 		return em.find(Registro.class, registroId);
 	}

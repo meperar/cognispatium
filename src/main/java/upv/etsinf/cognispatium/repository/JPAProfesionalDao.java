@@ -9,9 +9,7 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import upv.etsinf.cognispatium.domain.Cliente;
 import upv.etsinf.cognispatium.domain.Profesional;
-import upv.etsinf.cognispatium.domain.Servicio;
 
 @Repository(value = "ProfesionalDao")
 public class JPAProfesionalDao implements ProfesionalDao {
@@ -49,7 +47,6 @@ public class JPAProfesionalDao implements ProfesionalDao {
     
     @Override
 	@Transactional(readOnly = true)
-	@SuppressWarnings("unchecked")
 	public Profesional getProfesionalById(Integer profesionalId) {
 			return em.find(Profesional.class, profesionalId);
 
