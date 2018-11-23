@@ -135,7 +135,7 @@ public class PerfilController {
 
 	@PostMapping("/perfil.htm")
 	protected ModelAndView editar(@RequestParam Map<String, String> reqPar) throws Exception {
-		if (reqPar.get("usridE") != null) {
+		if (reqPar.get("usridE") != null) { //ELIMINAR USUARIO
 
 			Profesional profE = new Profesional();
 			Cliente cliE = new Cliente();
@@ -239,7 +239,7 @@ public class PerfilController {
 
 			return mav;
 
-		} else if (reqPar.get("desacId") != null) {
+		} else if (reqPar.get("desacId") != null) { //DESACTIVAR USUARIO
 
 			Usuario usuEl = usuarioManager.getUsuariobyId(Integer.parseInt(reqPar.get("desacId")));
 			usuEl.setDesactivado(1);
@@ -425,7 +425,7 @@ public class PerfilController {
 			
 			
 			
-		} else {
+		} else { //EDITAR PERFIL
 
 			Usuario usuario = WebServiceController.usuarioRegistrado;
 			Registro registro = registroManager.getRegistrobyUsuario(usuario.getId()).get(0);
@@ -472,7 +472,9 @@ public class PerfilController {
 				valoracion = profesional.getValoracion();
 				listaServicios = profesional.getServicios();
 			}
-
+			
+			List<Servicio> allServices = servicioManager.getServicios();			
+			myModel.put("allServices", allServices);
 			myModel.put("usuario", usuario);
 			myModel.put("registro", registro);
 			boolModel.put("esProfesional", esProfesional);
