@@ -76,7 +76,7 @@ public class LogOutController {
 			userAux.setNombre("Usuario no registrado");
 			mav.addObject("usR", userAux);
 
-		
+			WebServiceController.usuarioRegistrado = userAux;
 		
 		return mav;
 	}	
