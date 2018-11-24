@@ -81,6 +81,8 @@
         <div class="col-md-12">
           <p class="lead">CogniSpatium es la web donde solucionamos tus problemas. Déjanos tus dudas y las resolveremos enseguida.&nbsp;<br>También disponemos de personal bien formado a tu servicio.<br><br></p>
        	  <a><img src="https://i.imgur.com/tB4heUa.jpg" title="source: imgur.com" /></a>
+       	  <br>
+       	  <li class="nav-item"><a class="nav-link" href="conoceEquipo.htm">Conoce al equipo</a></li>
         </div>
       </div>
   </div>
