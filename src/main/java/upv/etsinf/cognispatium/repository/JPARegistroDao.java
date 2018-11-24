@@ -38,7 +38,8 @@ public class JPARegistroDao implements RegistroDao {
 	 @Override
 	 @Transactional(readOnly = false)
 	 public void dropRegistro(Registro registro) {
-		 em.remove(em.contains(registro) ? registro : em.merge(registro));
+		 //em.remove(em.contains(registro) ? registro : em.merge(registro));
+		 em.createQuery("DELETE FROM Registro r WHERE r.id LIKE '" + registro.getId() + "'").executeUpdate();
 	 }
 
 	@Override

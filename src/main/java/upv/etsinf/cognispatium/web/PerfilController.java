@@ -137,7 +137,7 @@ public class PerfilController {
 	protected ModelAndView editar(@RequestParam Map<String, String> reqPar) throws Exception {
 		if (reqPar.get("usridE") != null) { //ELIMINAR USUARIO
 
-			Profesional profE = new Profesional();
+			/*Profesional profE = new Profesional();
 			Cliente cliE = new Cliente();
 
 			List<Consulta> listaCe = new ArrayList<Consulta>();
@@ -148,11 +148,14 @@ public class PerfilController {
 
 			List<Presupuesto> listaPe = new ArrayList<Presupuesto>();
 			List<Presupuesto> listaTodasPe = new ArrayList<Presupuesto>();
+			
+			*/
 
 			Usuario usuEl = usuarioManager.getUsuariobyId(Integer.parseInt(reqPar.get("usridE")));
+			
 			Registro regEl = registroManager.getRegistrobyUsuario(usuEl.getId()).get(0);
 
-			Boolean esPe = usuEl instanceof Profesional;
+			/*Boolean esPe = usuEl instanceof Profesional;
 			listaTodasE = consultaManager.getConsultas();
 			listaTodasRe = resManager.getRespuestas();
 			int valoracion = 0;
@@ -226,9 +229,9 @@ public class PerfilController {
 
 				cliManager.dropCli(cliE);
 			}
-
+			*/
 			registroManager.dropReg(regEl);
-			usuarioManager.dropUser(usuEl);
+			//usuarioManager.dropUser(usuEl);
 
 			ModelAndView mav = new ModelAndView("hello");
 
@@ -236,7 +239,8 @@ public class PerfilController {
 
 			userAux.setNombre("Usuario no registrado");
 			mav.addObject("usR", userAux);
-
+			
+			WebServiceController.usuarioRegistrado = userAux;
 			return mav;
 
 		} else if (reqPar.get("desacId") != null) { //DESACTIVAR USUARIO
