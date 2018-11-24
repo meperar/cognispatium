@@ -172,6 +172,7 @@
 							
 							<li class="nav-item"><a class="nav-link" href="logout.htm">Log Out</a></li>
 						</c:if>
+						<li class="nav-item"><a class="nav-link" href="ayuda.htm">Ayuda</a></li>
 					</ul>
 			</div>
 		</div>
