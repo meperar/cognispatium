@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import upv.etsinf.cognispatium.domain.Cliente;
 import upv.etsinf.cognispatium.domain.EstadoMensaje;
 import upv.etsinf.cognispatium.domain.EstadoPresupuesto;
 import upv.etsinf.cognispatium.domain.EstadoSolicitud;
@@ -72,12 +73,24 @@ public class ListadoSolicitudesController {
 		Map<String, Object> myModel = new HashMap<String, Object>();
 		ModelAndView mav = new ModelAndView("listadosolicitudes", "model", myModel);
 		Map<String, Object> servicios = new HashMap<String, Object>();
-		List<Servicio> listaServicios = servicioManager.getServicios();
+		//List<Servicio> listaServicios = servicioManager.getServicios();
+		Profesional prof = simpleProfesionalManager.getProfesionalById(WebServiceController.usuarioRegistrado.getId());
+		System.out.println("PLS" + prof.getId());
+		
+		List<Servicio> listaServicios = prof.getServicios();
+		System.out.println("EKISDEEEEEE" + listaServicios.get(0));
+		System.out.println(listaServicios.get(1));
+		System.out.println(listaServicios.get(2));
+		
 		servicios.put("servicios", listaServicios);
 		mav.addObject("servicios", servicios);
 
 		Map<String, Object> solicitudes = new HashMap<String, Object>();
-		List<Solicitud> listaSolicitudes = servicioSolicitudManager.getSolicituds();
+		List<Solicitud> listaSolicitudes = new ArrayList<Solicitud>();
+		for(Servicio s : listaServicios) {
+			listaSolicitudes.addAll(servicioSolicitudManager.getSolicitudsbyService(s));
+		}
+		
 		solicitudes.put("solicitudes", listaSolicitudes);
 		mav.addObject("solicitudes", solicitudes);
 		
@@ -118,6 +131,9 @@ public class ListadoSolicitudesController {
 		estadoObtenido =  reqPar.get("estado");
 		if(estadoObtenido == "") { estadoObtenido = null; }
 		
+		Profesional prof = simpleProfesionalManager.getProfesionalById(WebServiceController.usuarioRegistrado.getId());
+		List<Servicio> listaServicios = prof.getServicios();
+		
 		
 		 if (servicioObtenido != null ){
 		     Integer ServiceId = Integer.parseInt(servicioObtenido);
@@ -141,13 +157,18 @@ public class ListadoSolicitudesController {
 		 }
 		 else {
 		     if( estadoObtenido != null ) {
-                 listaSolicitudes = servicioSolicitudManager.getSolicituds()
-                    .stream().sorted(Comparator.comparing(Solicitud::getId).reversed())
+		    	 for(Servicio s : listaServicios) {
+		 			listaSolicitudes.addAll(servicioSolicitudManager.getSolicitudsbyService(s));
+		 		}
+                listaSolicitudes.stream().sorted(Comparator.comparing(Solicitud::getId).reversed())
                     .filter(sol -> (sol.getEstado()==EstadoSolicitud.valueOf(estadoObtenido)))
-                    .collect(Collectors.toList());                
+                    .collect(Collectors.toList());               
              }	     
 		     else {
-		         listaSolicitudes = servicioSolicitudManager.getSolicituds()
+		    	 for(Servicio s : listaServicios) {
+			 			listaSolicitudes.addAll(servicioSolicitudManager.getSolicitudsbyService(s));
+			 		}
+		         listaSolicitudes 
 					.stream().sorted(Comparator.comparing(Solicitud::getId).reversed())
 				    .filter(sol -> !(sol.getEstado()==EstadoSolicitud.eliminada) && !(sol.getEstado()==EstadoSolicitud.adjudicada))
 				    .collect(Collectors.toList());
@@ -157,7 +178,8 @@ public class ListadoSolicitudesController {
 		
 		ModelAndView mav = new ModelAndView("listadosolicitudes", "model", myModel);
 		mav.addObject("estadoObt",estadoObtenido);
-		List<Servicio> listaServicios = servicioManager.getServicios();
+		
+		
 		servicios.put("servicios", listaServicios);
 		mav.addObject("servicios", servicios);
 
@@ -174,10 +196,10 @@ public class ListadoSolicitudesController {
 		else {	
 			mav.addObject("usR", WebServiceController.usuarioRegistrado);	
 		}
-		WebServiceController.listaAmbitos.forEach(a -> {
+		/*WebServiceController.listaAmbitos.forEach(a -> {
 
 			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
-		});
+		});*/
 		return mav;
 	}
 
