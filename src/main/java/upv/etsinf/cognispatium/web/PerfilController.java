@@ -1,16 +1,24 @@
 package upv.etsinf.cognispatium.web;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import upv.etsinf.cognispatium.service.SimpleServicioManager;
-import upv.etsinf.cognispatium.service.SimpleSolicitudManager;
-import upv.etsinf.cognispatium.service.SimpleUsuarioManager;
 import upv.etsinf.cognispatium.domain.Cliente;
 import upv.etsinf.cognispatium.domain.Consulta;
 import upv.etsinf.cognispatium.domain.ConsultaUrgente;
@@ -26,24 +34,13 @@ import upv.etsinf.cognispatium.domain.Solicitud;
 import upv.etsinf.cognispatium.domain.Usuario;
 import upv.etsinf.cognispatium.service.SimpleClienteManager;
 import upv.etsinf.cognispatium.service.SimpleConsultaManager;
-import upv.etsinf.cognispatium.service.SimpleConsultaUrgenteManager;
+import upv.etsinf.cognispatium.service.SimplePresupuestoManager;
 import upv.etsinf.cognispatium.service.SimpleProfesionalManager;
 import upv.etsinf.cognispatium.service.SimpleRegistroManager;
 import upv.etsinf.cognispatium.service.SimpleRespuestaManager;
-import upv.etsinf.cognispatium.service.SimplePresupuestoManager;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import upv.etsinf.cognispatium.service.SimpleServicioManager;
+import upv.etsinf.cognispatium.service.SimpleSolicitudManager;
+import upv.etsinf.cognispatium.service.SimpleUsuarioManager;
 
 @Controller
 public class PerfilController {
@@ -74,9 +71,6 @@ public class PerfilController {
 
 	@Autowired
 	private SimplePresupuestoManager preManager;
-
-	@Autowired
-	private SimpleConsultaUrgenteManager CUManager;
 
 	@Autowired
 	private SimpleSolicitudManager SManager;
@@ -141,9 +135,9 @@ public class PerfilController {
 
 	@PostMapping("/perfil.htm")
 	protected ModelAndView editar(@RequestParam Map<String, String> reqPar) throws Exception {
-		if (reqPar.get("usridE") != null) {
+		if (reqPar.get("usridE") != null) { //ELIMINAR USUARIO
 
-			Profesional profE = new Profesional();
+			/*Profesional profE = new Profesional();
 			Cliente cliE = new Cliente();
 
 			List<Consulta> listaCe = new ArrayList<Consulta>();
@@ -154,11 +148,14 @@ public class PerfilController {
 
 			List<Presupuesto> listaPe = new ArrayList<Presupuesto>();
 			List<Presupuesto> listaTodasPe = new ArrayList<Presupuesto>();
+			
+			*/
 
 			Usuario usuEl = usuarioManager.getUsuariobyId(Integer.parseInt(reqPar.get("usridE")));
+			
 			Registro regEl = registroManager.getRegistrobyUsuario(usuEl.getId()).get(0);
 
-			Boolean esPe = usuEl instanceof Profesional;
+			/*Boolean esPe = usuEl instanceof Profesional;
 			listaTodasE = consultaManager.getConsultas();
 			listaTodasRe = resManager.getRespuestas();
 			int valoracion = 0;
@@ -232,9 +229,9 @@ public class PerfilController {
 
 				cliManager.dropCli(cliE);
 			}
-
+			*/
 			registroManager.dropReg(regEl);
-			usuarioManager.dropUser(usuEl);
+			//usuarioManager.dropUser(usuEl);
 
 			ModelAndView mav = new ModelAndView("hello");
 
@@ -242,10 +239,11 @@ public class PerfilController {
 
 			userAux.setNombre("Usuario no registrado");
 			mav.addObject("usR", userAux);
-
+			
+			WebServiceController.usuarioRegistrado = userAux;
 			return mav;
 
-		} else if (reqPar.get("desacId") != null) {
+		} else if (reqPar.get("desacId") != null) { //DESACTIVAR USUARIO
 
 			Usuario usuEl = usuarioManager.getUsuariobyId(Integer.parseInt(reqPar.get("desacId")));
 			usuEl.setDesactivado(1);
@@ -324,9 +322,11 @@ public class PerfilController {
 			// rechazo los presupuestos activos asociados al servicio que quito
 			List<Presupuesto> presupuestos = profesional.getPresupuestos();
 			for(Presupuesto p: presupuestos) {
-			    System.out.println(p.getDescripcion() + p.getEstado());
-			    if(p.getSolicitudOrigen().getServicioOrigen() == servicio) {
+			    System.out.println(p.getSolicitudOrigen().getServicioOrigen().getNombre());
+			    if(p.getSolicitudOrigen().getServicioOrigen().getNombre().equals(servicio.getNombre())) {
+			        System.out.println(p.getDescripcion() +" "+ p.getEstado());
 			        p.setEstado(EstadoPresupuesto.rechazado);
+			        System.out.println("Ahora he cambiado el estado: " + p.getEstado());
                     presupuestoManager.addPresupuesto(p);
 			    }
 			}
@@ -429,7 +429,7 @@ public class PerfilController {
 			
 			
 			
-		} else {
+		} else { //EDITAR PERFIL
 
 			Usuario usuario = WebServiceController.usuarioRegistrado;
 			Registro registro = registroManager.getRegistrobyUsuario(usuario.getId()).get(0);
@@ -476,7 +476,9 @@ public class PerfilController {
 				valoracion = profesional.getValoracion();
 				listaServicios = profesional.getServicios();
 			}
-
+			
+			List<Servicio> allServices = servicioManager.getServicios();			
+			myModel.put("allServices", allServices);
 			myModel.put("usuario", usuario);
 			myModel.put("registro", registro);
 			boolModel.put("esProfesional", esProfesional);

@@ -12,12 +12,6 @@
 	type="text/css">
 <link rel="stylesheet" href="misSolicitud.css">
 </head>
-<SCRIPT LANGUAGE="JavaScript">
-function openChild(file,window) {
-    childWindow=open(file,window,'resizable=no,width=200,height=400');
-    if (childWindow.opener == null) childWindow.opener = self;
-    }
-</SCRIPT>
 <body>
 	<jsp:include page="barrasuperior.jsp" flush="true" />
 	<nav class="navbar navbar-light border-dark">

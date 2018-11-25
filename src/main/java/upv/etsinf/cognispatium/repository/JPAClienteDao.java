@@ -43,7 +43,6 @@ public class JPAClienteDao implements ClienteDao {
 
 	@Override
 	@Transactional(readOnly = true)
-	@SuppressWarnings("unchecked")
 	public Cliente getClienteById(Integer clienteId) {
 			return em.find(Cliente.class, clienteId);
 

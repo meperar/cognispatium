@@ -7,9 +7,8 @@ import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
 import upv.etsinf.cognispatium.domain.Consulta;
-import upv.etsinf.cognispatium.domain.Servicio;
-import upv.etsinf.cognispatium.domain.Solicitud;
 
 @Repository(value = "ConsultaDao")
 public class JPAConsultaDao implements ConsultaDao {

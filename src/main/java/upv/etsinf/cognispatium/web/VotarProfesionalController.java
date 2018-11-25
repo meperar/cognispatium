@@ -12,12 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import upv.etsinf.cognispatium.domain.Cliente;
-import upv.etsinf.cognispatium.domain.ConsultaUrgente;
 import upv.etsinf.cognispatium.domain.Profesional;
 import upv.etsinf.cognispatium.domain.Usuario;
 import upv.etsinf.cognispatium.domain.Valoracion;
@@ -57,11 +55,21 @@ public class VotarProfesionalController {
 		if(user!=null && user.getDTYPE().equals("cliente")) {
 			cliente = clienteManager.getClientebyId(user.getId());
 			mav.addObject("usR", user);
+			WebServiceController.listaAmbitos.forEach(a -> {
+
+				mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+			});
 			return mav;
 		}
 		else {
 			String referer = request.getHeader("Referer");
-		    return new ModelAndView("redirect:"+ referer);
+			ModelAndView mav2 = new ModelAndView("redirect:"+ referer);
+			WebServiceController.listaAmbitos.forEach(a -> {
+
+				mav2.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+			});
+			return mav2;
+		   
 		}
 	}
 	
@@ -74,6 +82,11 @@ public class VotarProfesionalController {
 		val.setCliente(cliente);
 		val.setPuntuacion(star);
 		valoracionManager.addValoracion(val);
-		return new ModelAndView("redirect:/hello.htm");
+		ModelAndView mav = new ModelAndView("redirect:/hello.htm");
+		WebServiceController.listaAmbitos.forEach(a -> {
+
+			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+		});
+		return mav;
 	}
 }

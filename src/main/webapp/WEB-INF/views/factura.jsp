@@ -24,7 +24,7 @@
               <h2> <b>Importe:</b></h2>
               <p> ${model.pago.getPrecio()} EUROS. </p>
               <h2> <b>Servicio:</b></h2>
-              <p> </p>
+              <p>${model.servicioString} </p>
               <h2 > <b>Descripcion:</b></h2>
               <p> ${model.pago.getDescripcion()}</p>
             </div>

@@ -1,16 +1,10 @@
 package upv.etsinf.cognispatium.web;
 
-import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -18,20 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import upv.etsinf.cognispatium.domain.EstadoMensaje;
 import upv.etsinf.cognispatium.domain.Mensaje;
 import upv.etsinf.cognispatium.domain.Usuario;
-import upv.etsinf.cognispatium.service.SimpleClienteManager;
 import upv.etsinf.cognispatium.service.SimpleMensajeManager;
-import upv.etsinf.cognispatium.service.SimplePresupuestoManager;
-import upv.etsinf.cognispatium.service.SimpleProfesionalManager;
-import upv.etsinf.cognispatium.service.SimpleServicioManager;
-import upv.etsinf.cognispatium.service.SimpleSolicitudManager;
 
 @Controller
 public class BandejaMensajesController {
@@ -40,20 +27,6 @@ public class BandejaMensajesController {
 	@Autowired
 	private SimpleMensajeManager mensajeManager;
 
-	@Autowired
-	private SimpleSolicitudManager servicioSolicitudManager;
-
-	@Autowired
-	private SimpleClienteManager simpleClienteManager;
-
-	@Autowired
-	private SimpleProfesionalManager simpleProfesionalManager;
-
-	@Autowired
-	private SimplePresupuestoManager simplePresupuestoManager;
-
-	@Autowired
-	private SimpleServicioManager servicioManager;
 
 	/** Logger for this class and subclasses */
 	protected final Log logger = LogFactory.getLog(getClass());
@@ -82,6 +55,11 @@ public class BandejaMensajesController {
 			mav.addObject("mensajeTipo", "Todos");
 
 		}
+		
+		WebServiceController.listaAmbitos.forEach(a -> {
+
+			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+		});
 
 		return mav;
 	}
@@ -97,6 +75,11 @@ public class BandejaMensajesController {
 		mensajes.put("mensajes", listaMensajes);
 		mav.addObject("mensajes", mensajes);
 		mav.addObject("mensajeTipo", "Todos");
+		
+		WebServiceController.listaAmbitos.forEach(a -> {
+
+			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+		});
 
 		return mav;
 	}
@@ -112,6 +95,11 @@ public class BandejaMensajesController {
 		mensajes.put("mensajes", listaMensajes);
 		mav.addObject("mensajes", mensajes);
 		mav.addObject("mensajeTipo", "No leidos");
+		
+		WebServiceController.listaAmbitos.forEach(a -> {
+
+			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+		});
 
 		return mav;
 	}
@@ -127,6 +115,11 @@ public class BandejaMensajesController {
 		mensajes.put("mensajes", listaMensajes);
 		mav.addObject("mensajes", mensajes);
 		mav.addObject("mensajeTipo", "Leidos");
+		
+		WebServiceController.listaAmbitos.forEach(a -> {
+
+			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+		});
 
 		return mav;
 	}
@@ -142,6 +135,11 @@ public class BandejaMensajesController {
 		mensajes.put("mensajes", listaMensajes);
 		mav.addObject("mensajes", mensajes);
 		mav.addObject("mensajeTipo", "Eliminados");
+		
+		WebServiceController.listaAmbitos.forEach(a -> {
+
+			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+		});
 
 		return mav;
 	}
@@ -162,6 +160,10 @@ public class BandejaMensajesController {
 			ModelAndView mav = new ModelAndView("respondermensajes", "model", myModel);
 			myModel.put("mensaje", miMensaje);
 			mav.addObject("usR", this.usuario);
+			WebServiceController.listaAmbitos.forEach(a -> {
+
+				mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+			});
 			return mav;
 		} else {			
 			miMensaje.setEstado(EstadoMensaje.eliminado);
@@ -173,7 +175,10 @@ public class BandejaMensajesController {
 			mensajes.put("mensajes", listaMensajes);
 			mav.addObject("mensajes", mensajes);
 			mav.addObject("mensajeTipo", "Todos");
+			WebServiceController.listaAmbitos.forEach(a -> {
 
+				mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+			});
 			return mav;
 		}
 	}
@@ -193,6 +198,7 @@ public class BandejaMensajesController {
 		java.util.Date date = new java.util.Date(millis);
 		dateFormat.format(date);
 		mensaje.setFecha(date);
+		mensaje.setEstado(EstadoMensaje.noLeido);
 		mensajeManager.addMensaje(mensaje);
 
 		Map<String, Object> myModel = new HashMap<String, Object>();
@@ -214,6 +220,11 @@ public class BandejaMensajesController {
 		}
 
 		// Aquin añadían todos los ambitos/servicios
+		
+		WebServiceController.listaAmbitos.forEach(a -> {
+
+			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+		});
 
 		return mav;
 

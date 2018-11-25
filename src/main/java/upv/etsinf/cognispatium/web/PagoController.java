@@ -1,56 +1,43 @@
 package upv.etsinf.cognispatium.web;
 
+import java.io.IOException;
+import java.time.LocalTime;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import upv.etsinf.cognispatium.domain.Cliente;
 import upv.etsinf.cognispatium.domain.ConsultaUrgente;
-import upv.etsinf.cognispatium.domain.Solicitud;
-import upv.etsinf.cognispatium.domain.Tarjeta;
-import upv.etsinf.cognispatium.domain.Usuario;
 import upv.etsinf.cognispatium.domain.EstadoConsulta;
 import upv.etsinf.cognispatium.domain.EstadoPresupuesto;
 import upv.etsinf.cognispatium.domain.EstadoSolicitud;
 import upv.etsinf.cognispatium.domain.Pago;
 import upv.etsinf.cognispatium.domain.Presupuesto;
 import upv.etsinf.cognispatium.domain.Servicio;
-import upv.etsinf.cognispatium.service.SimpleServicioManager;
-import upv.etsinf.cognispatium.service.SimpleSolicitudManager;
-import upv.etsinf.cognispatium.service.SimpleTarjetaManager;
-import upv.etsinf.cognispatium.service.PDFgenerator;
+import upv.etsinf.cognispatium.domain.Tarjeta;
+import upv.etsinf.cognispatium.domain.Usuario;
 import upv.etsinf.cognispatium.service.SimpleClienteManager;
 import upv.etsinf.cognispatium.service.SimpleConsultaUrgenteManager;
 import upv.etsinf.cognispatium.service.SimplePagoManager;
 import upv.etsinf.cognispatium.service.SimplePresupuestoManager;
-
-import java.io.Console;
-import java.io.IOException;
-import java.time.LocalTime;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.joda.time.DateTime;
-
-import java.io.*;
+import upv.etsinf.cognispatium.service.SimpleServicioManager;
+import upv.etsinf.cognispatium.service.SimpleSolicitudManager;
+import upv.etsinf.cognispatium.service.SimpleTarjetaManager;
 
 
 @Controller
@@ -124,7 +111,10 @@ public class PagoController {
 			mav.addObject("usR", WebServiceController.usuarioRegistrado);
 			
 		}
+		WebServiceController.listaAmbitos.forEach(a -> {
 
+			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+		});
 		return mav;
 
 	}
@@ -132,7 +122,6 @@ public class PagoController {
 	@PostMapping("/pagoTarjeta.htm")
 	protected ModelAndView onSubmit(@RequestParam Map<String, String> reqPar, ModelAndView modelAndView)
 			throws Exception {
-		@SuppressWarnings("unchecked")
 		ConsultaUrgente consultaUrgente =(ConsultaUrgente)this.myModel.get("consultaUrgente");
 		Cliente cliente = consultaUrgente.getClienteOrigen();		
 		Tarjeta tarjeta = addTarjeta(reqPar,cliente);
@@ -165,7 +154,10 @@ public class PagoController {
 			mav.addObject("usR", WebServiceController.usuarioRegistrado);
 			
 		}
+		WebServiceController.listaAmbitos.forEach(a -> {
 
+			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+		});
 		return mav;
 		
 	}
@@ -194,16 +186,19 @@ public class PagoController {
 			mav.addObject("usR", WebServiceController.usuarioRegistrado);
 			
 		}
+		WebServiceController.listaAmbitos.forEach(a -> {
 
+			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+		});
 		return mav;
 	}
 
 	@PostMapping("/pagoTarjetaSolicitud.htm")
 	protected ModelAndView onSubmitSolicitud(@RequestParam Map<String, String> reqPar, ModelAndView modelAndView)
 			throws Exception {
-		@SuppressWarnings("unchecked")
 		Presupuesto presupuesto =(Presupuesto)this.myModel.get("presupuesto");
-		Cliente cliente = presupuesto.getSolicitudOrigen().getClienteOrigen();	
+		Cliente cliente = presupuesto.getSolicitudOrigen().getClienteOrigen();
+		servicioString = presupuesto.getSolicitudOrigen().getServicioOrigen().getNombre();
 		Tarjeta tarjeta = addTarjeta(reqPar,cliente);
 		Pago pago = new Pago();	
 		pago.setClienteOrigen(cliente);
@@ -226,6 +221,7 @@ public class PagoController {
 		ModelAndView mav = new ModelAndView("factura", "model", myModel);
 
 		myModel.put("pago", pago);
+		myModel.put("servicioString", servicioString);
 		
 		if(WebServiceController.usuarioRegistrado == null) {
 			Usuario userAux = new Usuario();
@@ -240,11 +236,16 @@ public class PagoController {
 			mav.addObject("usR", WebServiceController.usuarioRegistrado);
 			
 		}
+		WebServiceController.listaAmbitos.forEach(a -> {
+
+			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+		});
 		return mav;
 	}
 
     
-    private Tarjeta addTarjeta(Map<String, String> reqPar,Cliente cliente) {
+    @SuppressWarnings("deprecation")
+	private Tarjeta addTarjeta(Map<String, String> reqPar,Cliente cliente) {
         String Stringnumero = reqPar.get("numTarjeta");
         String titular = reqPar.get("titular");
         long numero = Long.parseLong(Stringnumero);

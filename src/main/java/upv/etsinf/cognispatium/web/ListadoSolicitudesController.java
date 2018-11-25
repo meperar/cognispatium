@@ -1,47 +1,11 @@
 package upv.etsinf.cognispatium.web;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
-
-import upv.etsinf.cognispatium.domain.Cliente;
-import upv.etsinf.cognispatium.domain.Solicitud;
-import upv.etsinf.cognispatium.domain.Usuario;
-import upv.etsinf.cognispatium.domain.EstadoConsulta;
-import upv.etsinf.cognispatium.domain.EstadoMensaje;
-import upv.etsinf.cognispatium.domain.EstadoPresupuesto;
-import upv.etsinf.cognispatium.domain.EstadoSolicitud;
-import upv.etsinf.cognispatium.domain.Mensaje;
-import upv.etsinf.cognispatium.domain.Presupuesto;
-import upv.etsinf.cognispatium.domain.Profesional;
-import upv.etsinf.cognispatium.domain.Servicio;
-import upv.etsinf.cognispatium.service.SimpleServicioManager;
-import upv.etsinf.cognispatium.service.SimpleSolicitudManager;
-import upv.etsinf.cognispatium.service.ProfesionalManager;
-import upv.etsinf.cognispatium.service.SimpleClienteManager;
-import upv.etsinf.cognispatium.service.SimpleMensajeManager;
-import upv.etsinf.cognispatium.service.SimpleProfesionalManager;
-import upv.etsinf.cognispatium.service.SimplePresupuestoManager;
-
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -49,13 +13,33 @@ import java.util.stream.Collectors;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
-import org.joda.time.LocalDate;
-import org.joda.time.format.DateTimeFormatter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+import upv.etsinf.cognispatium.domain.Cliente;
+import upv.etsinf.cognispatium.domain.EstadoMensaje;
+import upv.etsinf.cognispatium.domain.EstadoPresupuesto;
+import upv.etsinf.cognispatium.domain.EstadoSolicitud;
+import upv.etsinf.cognispatium.domain.Mensaje;
+import upv.etsinf.cognispatium.domain.Presupuesto;
+import upv.etsinf.cognispatium.domain.Profesional;
+import upv.etsinf.cognispatium.domain.Servicio;
+import upv.etsinf.cognispatium.domain.Solicitud;
+import upv.etsinf.cognispatium.domain.Usuario;
+import upv.etsinf.cognispatium.service.SimpleMensajeManager;
+import upv.etsinf.cognispatium.service.SimplePresupuestoManager;
+import upv.etsinf.cognispatium.service.SimpleProfesionalManager;
+import upv.etsinf.cognispatium.service.SimpleServicioManager;
+import upv.etsinf.cognispatium.service.SimpleSolicitudManager;
 
 @Controller
 public class ListadoSolicitudesController {
@@ -65,9 +49,6 @@ public class ListadoSolicitudesController {
 
 	@Autowired
 	private SimpleSolicitudManager servicioSolicitudManager;
-
-	@Autowired
-	private SimpleClienteManager simpleClienteManager;
 	
 	@Autowired
 	private SimpleProfesionalManager simpleProfesionalManager;
@@ -92,12 +73,24 @@ public class ListadoSolicitudesController {
 		Map<String, Object> myModel = new HashMap<String, Object>();
 		ModelAndView mav = new ModelAndView("listadosolicitudes", "model", myModel);
 		Map<String, Object> servicios = new HashMap<String, Object>();
-		List<Servicio> listaServicios = servicioManager.getServicios();
+		//List<Servicio> listaServicios = servicioManager.getServicios();
+		Profesional prof = simpleProfesionalManager.getProfesionalById(WebServiceController.usuarioRegistrado.getId());
+		System.out.println("PLS" + prof.getId());
+		
+		List<Servicio> listaServicios = prof.getServicios();
+		System.out.println("EKISDEEEEEE" + listaServicios.get(0));
+		System.out.println(listaServicios.get(1));
+		System.out.println(listaServicios.get(2));
+		
 		servicios.put("servicios", listaServicios);
 		mav.addObject("servicios", servicios);
 
 		Map<String, Object> solicitudes = new HashMap<String, Object>();
-		List<Solicitud> listaSolicitudes = servicioSolicitudManager.getSolicituds();
+		List<Solicitud> listaSolicitudes = new ArrayList<Solicitud>();
+		for(Servicio s : listaServicios) {
+			listaSolicitudes.addAll(servicioSolicitudManager.getSolicitudsbyService(s));
+		}
+		
 		solicitudes.put("solicitudes", listaSolicitudes);
 		mav.addObject("solicitudes", solicitudes);
 		
@@ -114,7 +107,10 @@ public class ListadoSolicitudesController {
 			mav.addObject("usR", WebServiceController.usuarioRegistrado);
 			
 		}
+		WebServiceController.listaAmbitos.forEach(a -> {
 
+			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+		});
 		return mav;
 
 	}
@@ -134,6 +130,9 @@ public class ListadoSolicitudesController {
 		 
 		estadoObtenido =  reqPar.get("estado");
 		if(estadoObtenido == "") { estadoObtenido = null; }
+		
+		Profesional prof = simpleProfesionalManager.getProfesionalById(WebServiceController.usuarioRegistrado.getId());
+		List<Servicio> listaServicios = prof.getServicios();
 		
 		
 		 if (servicioObtenido != null ){
@@ -158,13 +157,18 @@ public class ListadoSolicitudesController {
 		 }
 		 else {
 		     if( estadoObtenido != null ) {
-                 listaSolicitudes = servicioSolicitudManager.getSolicituds()
-                    .stream().sorted(Comparator.comparing(Solicitud::getId).reversed())
+		    	 for(Servicio s : listaServicios) {
+		 			listaSolicitudes.addAll(servicioSolicitudManager.getSolicitudsbyService(s));
+		 		}
+                listaSolicitudes.stream().sorted(Comparator.comparing(Solicitud::getId).reversed())
                     .filter(sol -> (sol.getEstado()==EstadoSolicitud.valueOf(estadoObtenido)))
-                    .collect(Collectors.toList());                
+                    .collect(Collectors.toList());               
              }	     
 		     else {
-		         listaSolicitudes = servicioSolicitudManager.getSolicituds()
+		    	 for(Servicio s : listaServicios) {
+			 			listaSolicitudes.addAll(servicioSolicitudManager.getSolicitudsbyService(s));
+			 		}
+		         listaSolicitudes 
 					.stream().sorted(Comparator.comparing(Solicitud::getId).reversed())
 				    .filter(sol -> !(sol.getEstado()==EstadoSolicitud.eliminada) && !(sol.getEstado()==EstadoSolicitud.adjudicada))
 				    .collect(Collectors.toList());
@@ -174,7 +178,8 @@ public class ListadoSolicitudesController {
 		
 		ModelAndView mav = new ModelAndView("listadosolicitudes", "model", myModel);
 		mav.addObject("estadoObt",estadoObtenido);
-		List<Servicio> listaServicios = servicioManager.getServicios();
+		
+		
 		servicios.put("servicios", listaServicios);
 		mav.addObject("servicios", servicios);
 
@@ -191,7 +196,10 @@ public class ListadoSolicitudesController {
 		else {	
 			mav.addObject("usR", WebServiceController.usuarioRegistrado);	
 		}
+		/*WebServiceController.listaAmbitos.forEach(a -> {
 
+			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+		});*/
 		return mav;
 	}
 
@@ -219,7 +227,10 @@ public class ListadoSolicitudesController {
 			mav.addObject("usR", WebServiceController.usuarioRegistrado);
 			
 		}
+		WebServiceController.listaAmbitos.forEach(a -> {
 
+			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+		});
 		return mav;
 	}
 	
@@ -277,6 +288,10 @@ public class ListadoSolicitudesController {
 			mav.addObject("usR", WebServiceController.usuarioRegistrado);
 			
 		}
+		WebServiceController.listaAmbitos.forEach(a -> {
+
+			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+		});
 		return mav;
 
 		

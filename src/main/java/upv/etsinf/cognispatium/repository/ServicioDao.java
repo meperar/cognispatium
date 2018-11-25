@@ -25,7 +25,6 @@ public interface ServicioDao {
 	List<Profesional> getProfesionales(Integer servicioId);
 	
 	@Transactional(readOnly = true)
-    @SuppressWarnings("unchecked")
     public List<Servicio> getServicioByProfesional(Integer profesionalId);
 
 }

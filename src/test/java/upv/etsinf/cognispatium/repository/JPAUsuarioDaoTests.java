@@ -34,7 +34,6 @@ public class JPAUsuarioDaoTests {
         List<Usuario> usuarios = usuarioDao.getUsuarioList();
 
         Usuario u = usuarios.get(0);
-        String surname = u.getApellidos();
         u.setApellidos("Teresa");
         usuarioDao.saveUsuario(u);
 

@@ -159,8 +159,9 @@
 }
 
 div.stars {
-  width: 270px;
+  width: 300px;
   display: inline-block;
+  align: center;
 }
 
 input.star { display: none; }
@@ -213,6 +214,21 @@ label.star:before {
 	<form action="#"  method="post" class="text-left center">
 		<div class="center">
 			<div class="stars">
+				<!--<input class="star star-${5} center" id="star-${5}" value="${5}" type="radio" name="star" required/>
+				<label class="star star-${5} center" for="star-${5}"></label>
+				<p>5</p>
+				<input class="star star-${4} center" id="star-${4}" value="${4}" type="radio" name="star" required/>
+				<label class="star star-${4} center" for="star-${4}"></label>
+				<p>4</p>
+				<input class="star star-${3} center" id="star-${3}" value="${3}" type="radio" name="star" required/>
+				<label class="star star-${3} center" for="star-${3}"></label>
+				<p>3</p>
+				<input class="star star-${2} center" id="star-${2}" value="${2}" type="radio" name="star" required/>
+				<label class="star star-${2} center" for="star-${2}"></label>
+				<p>2</p>
+				<input class="star star-${1} center" id="star-${1}" value="${1}" type="radio" name="star" required/>
+				<label class="star star-${1} center" for="star-${1}"></label>
+				<p>1</p>-->
 				<c:forEach begin="1" end="5" varStatus="loop" var="i">
 					<input class="star star-${6-i} center" id="star-${6-i}" value="${6-i}" type="radio" name="star" required/>
 			    	<label class="star star-${6-i} center" for="star-${6-i}"></label>
@@ -222,8 +238,7 @@ label.star:before {
 			<br/>
 		<div class="center">
 		
-				<button type="submit" class="bg-primary center" name="votarProfesional">Votar profesional
-				</button>
+				<button type="submit" class="bg-primary center" name="votarProfesional">Votar profesional</button>
 		</div>
 		
 	</form>

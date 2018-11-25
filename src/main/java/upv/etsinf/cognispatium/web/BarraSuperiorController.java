@@ -1,17 +1,5 @@
 package upv.etsinf.cognispatium.web;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
-
-
-import upv.etsinf.cognispatium.service.SimpleServicioManager;
-import upv.etsinf.cognispatium.service.SimpleSolicitudManager;
-import upv.etsinf.cognispatium.service.SimpleClienteManager;
-import upv.etsinf.cognispatium.service.SimpleProfesionalManager;
-import upv.etsinf.cognispatium.service.SimplePresupuestoManager;
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,24 +10,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import upv.etsinf.cognispatium.service.SimpleServicioManager;
 
 @Controller
 public class BarraSuperiorController {
 
 	@Autowired
 	private SimpleServicioManager servicioManager;
-
-	@Autowired
-	private SimpleSolicitudManager servicioSolicitudManager;
-
-	@Autowired
-	private SimpleClienteManager simpleClienteManager;
-	
-	@Autowired
-	private SimpleProfesionalManager simpleProfesionalManager;
-	
-	@Autowired
-	private SimplePresupuestoManager simplePresupuestoManager;
 
 	/** Logger for this class and subclasses */
 	protected final Log logger = LogFactory.getLog(getClass());
@@ -55,6 +37,11 @@ public class BarraSuperiorController {
 		myModel.put("hi", hello);
 		
 		ModelAndView mav = new ModelAndView("barrasuperior","model",myModel);
+		
+		WebServiceController.listaAmbitos.forEach(a -> {
+
+			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+		});
 		
 		return mav;
 

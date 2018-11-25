@@ -45,7 +45,6 @@ public class JPAValoracionDao implements ValoracionDao {
 
 	@Override
 	@Transactional(readOnly = true)
-	@SuppressWarnings("unchecked")
 	public Valoracion getValoracionById(Integer valoracionId) {
 			return em.find(Valoracion.class, valoracionId);
 

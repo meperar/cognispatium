@@ -1,10 +1,8 @@
 package upv.etsinf.cognispatium.web;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -15,7 +13,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,10 +22,7 @@ import upv.etsinf.cognispatium.domain.Cliente;
 import upv.etsinf.cognispatium.domain.Profesional;
 import upv.etsinf.cognispatium.domain.Registro;
 import upv.etsinf.cognispatium.domain.Usuario;
-import upv.etsinf.cognispatium.service.SimpleClienteManager;
-import upv.etsinf.cognispatium.service.SimpleProfesionalManager;
 import upv.etsinf.cognispatium.service.SimpleRegistroManager;
-import upv.etsinf.cognispatium.service.SimpleUsuarioManager;
 
 
 
@@ -37,20 +31,11 @@ public class SignUpController {
 	
 	private Cliente nuevoCliente;
 	private Profesional nuevoProf;
-	private Usuario nuevoUsuario;
 	private Registro nuevoRegistro;
-	
-	@Autowired
-	private SimpleUsuarioManager usrMng;
 	
 	@Autowired
 	private SimpleRegistroManager regMng;
 	
-	@Autowired
-	private SimpleClienteManager cliMng;
-	
-	@Autowired
-	private SimpleProfesionalManager profMng;
 
 	protected final Log logger = LogFactory.getLog(getClass());
 
@@ -78,7 +63,10 @@ public class SignUpController {
 			mav.addObject("usR", WebServiceController.usuarioRegistrado);
 			
 		}
-		
+		WebServiceController.listaAmbitos.forEach(a -> {
+
+			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+		});
 		return mav;
 	}
 	
@@ -136,6 +124,11 @@ public class SignUpController {
 				mav.addObject("usR", WebServiceController.usuarioRegistrado);
 
 			}
+			
+			WebServiceController.listaAmbitos.forEach(a -> {
+
+				mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+			});
 			return mav;
 
 
@@ -158,6 +151,10 @@ public class SignUpController {
 				mav.addObject("usR", WebServiceController.usuarioRegistrado);
 
 			}
+			WebServiceController.listaAmbitos.forEach(a -> {
+
+				mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+			});
 			return mav;
 		}
 

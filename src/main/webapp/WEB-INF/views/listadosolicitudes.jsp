@@ -30,7 +30,7 @@
 					 <select name='servicio'>
 						<c:set var="servId" value="${servicios.serviciId}" />
 						<c:if test="${servId == null}" >
-						<option disabled selected value> -- Seleccione un servicio -- </option>
+						<option disabled selected> -- Seleccione un servicio -- </option>
 						</c:if>
 						<option  value="" > -- sin filtro  -- </option>
 						<c:forEach items="${servicios.servicios}" var="servicio">

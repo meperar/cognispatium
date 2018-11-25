@@ -169,6 +169,8 @@
 								href="bandejamensajes.htm">Bandeja de Mensajes</a></li>
 
 							<li class="nav-item"><a class="nav-link" href="perfil.htm">Perfil</a></li>
+							
+							<li class="nav-item"><a class="nav-link" href="logout.htm">Log Out</a></li>
 						</c:if>
 						
 					</ul>

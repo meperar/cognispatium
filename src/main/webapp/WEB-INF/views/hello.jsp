@@ -78,13 +78,14 @@
   </div>
   <div class="py-5" style="">
     <div class="container">
-		<div class="row">
-			<div class="col-md-12">
-	          <p class="lead">CogniSpatium es la web donde solucionamos tus problemas. Déjanos tus dudas y las resolveremos enseguida.&nbsp;<br>También disponemos de personal bien formado a tu servicio.<br><br></p>
-	       	  <a><img src="https://i.imgur.com/tB4heUa.jpg" title="source: imgur.com" /></a>
-        	</div>
-		</div>
-    </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          	<p class="lead">CogniSpatium es la web donde solucionamos tus problemas. Déjanos tus dudas y las resolveremos enseguida.&nbsp;<br>También disponemos de personal bien formado a tu servicio.<br><br></p>
+       	  	<a><img src="https://i.imgur.com/tB4heUa.jpg" title="source: imgur.com" /></a>
+        </div>
+      </div>
+     </div>
   </div>
   
   
@@ -97,9 +98,9 @@
 	  	<br>
 	  	<h2 style="color: white;">Utilidades</h2>
 	  	<hr style="border-top: 1px solid #aaaaaa;">
-	  	<a style="font-size: 13px; color: white;" href="ayuda.htm">&emsp; Atención al cliente &emsp;</a>
-	  	<a style="font-size: 13px; color: white;" href="#">&emsp; Política de privacidad &emsp;</a>
-	  	<a style="font-size: 13px; color: white;" href="#">&emsp; Guias de uso &emsp;</a>
+	  	<a style="font-size: 13px; color: white;" href="ayuda.htm">Atención al cliente</a>
+	  	&emsp; &emsp; 
+		<a style="font-size: 13px; color: white;" href="conoceEquipo.htm">Conoce al equipo</a>
 	  	<br>
 	  	<br>
 	  	<br>
