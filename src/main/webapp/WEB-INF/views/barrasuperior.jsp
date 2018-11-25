@@ -170,7 +170,7 @@
 
 							<li class="nav-item"><a class="nav-link" href="perfil.htm">Perfil</a></li>
 						</c:if>
-						<li class="nav-item"><a class="nav-link" href="ayuda.htm">Ayuda</a></li>
+						
 					</ul>
 			</div>
 		</div>

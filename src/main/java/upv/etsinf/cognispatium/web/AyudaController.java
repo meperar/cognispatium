@@ -34,6 +34,7 @@ import upv.etsinf.cognispatium.service.SimplePresupuestoManager;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -58,10 +59,31 @@ public class AyudaController {
 	@RequestMapping("/ayuda.htm")
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		String now = (new Date()).toString();
+		logger.info("Returning hello view with " + now);
 
+		
 		Map<String, Object> myModel = new HashMap<String, Object>();
 
 		ModelAndView mav = new ModelAndView("ayuda", "model", myModel);
+		
+		if(WebServiceController.usuarioRegistrado == null) {
+			Usuario userAux = new Usuario();
+			
+			userAux.setNombre("Usuario no registrado");
+			mav.addObject("usR", userAux);
+			
+		}
+		
+		else {
+			
+			mav.addObject("usR", WebServiceController.usuarioRegistrado);
+			
+		}
+		
+
+		
 		
 		return mav;
 
