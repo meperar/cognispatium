@@ -236,31 +236,25 @@ public class ListadoSolicitudesController {
 	
 	@PostMapping("/crearpresupuestoaSolicitud.htm")
 	protected ModelAndView guardarPresupueusto(@RequestParam Map<String, String> reqPar) throws Exception {
+		Solicitud solicitud = servicioSolicitudManager.getSolicitudbyId(Integer.parseInt(reqPar.get("solicitudId")));
+		Profesional profesional =simpleProfesionalManager.getProfesionalById(WebServiceController.usuarioRegistrado.getId());
 		//Crear presupuesto
 		Presupuesto presupuesto = new Presupuesto();
 		presupuesto.setDescripcion(reqPar.get("descripcion"));
 		presupuesto.setPrecio(Integer.parseInt(reqPar.get("precio")));
 		presupuesto.setEstado(EstadoPresupuesto.propuesto);
 		presupuesto.setFechaCreacion(DateTime.now().toDate());
-		Solicitud solicitud = servicioSolicitudManager.getSolicitudbyId(Integer.parseInt(reqPar.get("solicitudId")));
-		presupuesto.setSolicitudOrigen(solicitud);
-		
-		// Añado el servicio al que doy presupuesto a la base de datos del profesional
-		Profesional profesional = simpleProfesionalManager.getProfesionalById(WebServiceController.usuarioRegistrado.getId());
-		List<Servicio> serviciosProfesional = profesional.getServicios();
-		serviciosProfesional.add(solicitud.getServicioOrigen());
-		profesional.setServicios(serviciosProfesional);
-		
+		presupuesto.setSolicitudOrigen(solicitud);	
+		//Comprobar si la solicitud ya tiene respuestas
 		presupuesto.setProfesionalOrigen(profesional);
 		if(solicitud.getEstado() == EstadoSolicitud.creada) {
 		solicitud.setEstado(EstadoSolicitud.respondida);
 		}
 		
-		simpleProfesionalManager.addProfesional(profesional);
 		servicioSolicitudManager.addSolicitud(solicitud);
 		simplePresupuestoManager.addPresupuesto(presupuesto);
 		
-		
+		//Enviar mensaje de notificacion al cliente
 		Mensaje mensaje = new Mensaje();
 		mensaje.setDescripcion(reqPar.get("descripcion"));
 		mensaje.setAsunto("Presupuesto para solicitud:" + solicitud.getTitulo() );
