@@ -78,9 +78,6 @@ public class ListadoSolicitudesController {
 		System.out.println("PLS" + prof.getId());
 		
 		List<Servicio> listaServicios = prof.getServicios();
-		System.out.println("EKISDEEEEEE" + listaServicios.get(0));
-		System.out.println(listaServicios.get(1));
-		System.out.println(listaServicios.get(2));
 		
 		servicios.put("servicios", listaServicios);
 		mav.addObject("servicios", servicios);
