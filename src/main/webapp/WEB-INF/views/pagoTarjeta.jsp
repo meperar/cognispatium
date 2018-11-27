@@ -78,11 +78,11 @@
 											</div>
 											<div class="col-md-9 px-1" style="">
 												<div class="row"><label class="text-left" style=""> Tarjeta:	***********${tarjeta.numero.toString().substring(12, 15)}</label>
-												</div> <div class="row"><label class="text-left" style=""> Titular:${tarjeta.titular}</label></div>
+												</div> <div class="row"><label class="text-left" style=""> Titular:		${tarjeta.titular}</label></div>
 											</div>
 											
 										</div>
-										<p></p>									
+																		
 								<br>	
 								</c:forEach>
 								

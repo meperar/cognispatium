@@ -140,6 +140,8 @@ public class PagoController {
 		servicioCUManager.addConsultaUrgente(consultaUrgente);		
 		Map<String, Object> myModel = new HashMap<String, Object>();
 		
+		List<Tarjeta> tarjetaList = cliente.getTarjetas();
+		myModel.put("tarjetas", tarjetaList);
 		ModelAndView mav = new ModelAndView("factura", "model", myModel);
 
 		myModel.put("pago", pago);
@@ -172,10 +174,15 @@ public class PagoController {
 			@RequestParam Map<String, String> reqPar) throws ServletException, IOException {
 
 		Presupuesto presupuesto = simplePresupuestoManager.getPresupuestobyId(Integer.parseInt(reqPar.get("presupuestoId")));
+		Cliente cliente = presupuesto.getSolicitudOrigen().getClienteOrigen();
 
 		Map<String, Object> myModel = new HashMap<String, Object>();
 		myModel.put("presupuesto", presupuesto);
 		this.myModel = myModel;
+		
+		List<Tarjeta> tarjetaList = cliente.getTarjetas();
+		myModel.put("tarjetas", tarjetaList);
+		
 		ModelAndView mav = new ModelAndView("pagoTarjeta", "model", myModel);
 		if(WebServiceController.usuarioRegistrado == null) {
 			Usuario userAux = new Usuario();
@@ -209,11 +216,9 @@ public class PagoController {
 		pago.setDescripcion(presupuesto.getDescripcion());
 		pago.setPrecio(presupuesto.getPrecio());
 		pago.setTarjetaOrigen(tarjeta);
-		pagoManager.addPago(pago);
 		presupuesto.getSolicitudOrigen().setPago(pago);
 		presupuesto.getSolicitudOrigen().setEstado(EstadoSolicitud.adjudicada);
-		solicitudManager.addSolicitud(presupuesto.getSolicitudOrigen());
-		
+		solicitudManager.addSolicitud(presupuesto.getSolicitudOrigen());		
 		presupuesto.getSolicitudOrigen().getPresupuestos().forEach(p->{
 			p.setEstado(EstadoPresupuesto.noAceptado);
 			simplePresupuestoManager.addPresupuesto(p);
@@ -254,7 +259,7 @@ public class PagoController {
         System.out.println(reqPar.get("cb-tarjeta"));
         
         if(reqPar.get("cb-tarjeta")!= null && !reqPar.get("cb-tarjeta").equals("") ) {
-            long IdTarjeta = Long.parseLong(reqPar.get("cb-tarjeta"));
+            int IdTarjeta = Integer.parseInt(reqPar.get("cb-tarjeta"));
             tarjeta = tarjetaManager.getTarjetaByID((IdTarjeta));
         }
         

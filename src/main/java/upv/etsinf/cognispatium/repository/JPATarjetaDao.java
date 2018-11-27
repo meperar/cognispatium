@@ -36,7 +36,7 @@ public class JPATarjetaDao implements TarjetaDao {
 	}
 
     @Override
-    public Tarjeta getTarjetaById(Long tarjetaId) {
+    public Tarjeta getTarjetaById(int tarjetaId) {
         return em.find(Tarjeta.class,tarjetaId);
     }
 
