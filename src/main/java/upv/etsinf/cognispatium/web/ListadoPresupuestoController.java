@@ -26,6 +26,7 @@ import upv.etsinf.cognispatium.domain.Solicitud;
 import upv.etsinf.cognispatium.domain.Usuario;
 import upv.etsinf.cognispatium.service.SimplePresupuestoManager;
 import upv.etsinf.cognispatium.service.SimpleProfesionalManager;
+import upv.etsinf.cognispatium.service.SimpleServicioManager;
 
 @Controller
 public class ListadoPresupuestoController {
@@ -35,6 +36,9 @@ public class ListadoPresupuestoController {
     
     @Autowired
     private SimpleProfesionalManager simpleProfesionalManager;
+    
+    @Autowired
+	private SimpleServicioManager servicioManager;
 
     /** Logger for this class and subclasses */
     protected final Log logger = LogFactory.getLog(getClass());
@@ -67,6 +71,8 @@ public class ListadoPresupuestoController {
 
 			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
 		});
+        
+        mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
         return mav;
 
     }
@@ -98,6 +104,8 @@ public class ListadoPresupuestoController {
 
 			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
 		});
+        
+        mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
         return mav;
     }
   

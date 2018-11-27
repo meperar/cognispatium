@@ -78,6 +78,8 @@ public class LogOutController {
 
 			WebServiceController.usuarioRegistrado = userAux;
 		
+			
+		mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
 		return mav;
 	}	
 }

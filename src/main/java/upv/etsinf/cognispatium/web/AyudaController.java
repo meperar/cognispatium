@@ -84,7 +84,7 @@ public class AyudaController {
 		
 
 		
-		
+		mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
 		return mav;
 
 	}
@@ -95,6 +95,8 @@ public class AyudaController {
 
 		ModelAndView mav = new ModelAndView("ayuda", "model", myModel);
 		
+		
+		mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
 		return mav;
 		
 	}

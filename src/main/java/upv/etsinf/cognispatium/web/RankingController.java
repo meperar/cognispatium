@@ -1,6 +1,7 @@
 package upv.etsinf.cognispatium.web;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -27,13 +28,13 @@ import upv.etsinf.cognispatium.service.SimpleProfesionalManager;
 import upv.etsinf.cognispatium.service.SimpleServicioManager;
 
 @Controller
-public class ListadoConsultasController {
+public class RankingController {
 
 	@Autowired
 	private SimpleServicioManager servicioManager;
 	
 	@Autowired
-	private SimpleProfesionalManager simpleProfesionalManager;	
+	private SimpleProfesionalManager profesionalManager;	
 	
 	@Autowired
 	private SimpleConsultaUrgenteManager consultaUManager;
@@ -42,41 +43,48 @@ public class ListadoConsultasController {
 	/** Logger for this class and subclasses */
 	protected final Log logger = LogFactory.getLog(getClass());
 
-	@GetMapping("/listadoconsultas.htm")
+	@GetMapping("/ranking.htm")
 	protected ModelAndView onSubmit(@RequestParam Map<String, String> reqPar) throws Exception {
 
-		Profesional prof = simpleProfesionalManager.getProfesionalById(WebServiceController.usuarioRegistrado.getId());
-		List<Servicio> listaServicios = prof.getServicios();
+		//Profesional prof = simpleProfesionalManager.getProfesionalById(WebServiceController.usuarioRegistrado.getId());
+		List<Servicio> listaServicios = servicioManager.getServicios();
+		List<Profesional> listaProfesional = new ArrayList<Profesional>();
 		
-		List<ConsultaUrgente> listaConsultas = new ArrayList<ConsultaUrgente>();
+		Integer ServiceId;
+		Servicio servicioElegido;
 		
 		Map<String, Object> Mymodel = new HashMap<String, Object>();
 		
-		if (reqPar.get("servicio") != null) {
-			Integer ServiceId = Integer.parseInt(reqPar.get("servicio"));
-			Servicio servicioConsulta = servicioManager.getServiciobyId(ServiceId);
-			listaConsultas =consultaUManager.getConsultasbyService(servicioConsulta)
-			        .stream().sorted(Comparator.comparing(Consulta::getId).reversed())
-                    .filter(sol -> (sol.getEstado()!=EstadoConsulta.cerrada))
-                    .collect(Collectors.toList());
+		if (reqPar.get("serviceId") != null) {
+			ServiceId = Integer.parseInt(reqPar.get("serviceId"));
+			servicioElegido = servicioManager.getServiciobyId(ServiceId);
+			listaProfesional = servicioElegido.getProfesionales();
 			          
 			Mymodel.put("serviciId", ServiceId);
+			Mymodel.put("servicioElegido", servicioElegido);
+
+		} else if (reqPar.get("servicio") != null) {
+			ServiceId = Integer.parseInt(reqPar.get("servicio"));
+			servicioElegido = servicioManager.getServiciobyId(ServiceId);
+			listaProfesional = servicioElegido.getProfesionales();
+			          
+			Mymodel.put("serviciId", ServiceId);
+			Mymodel.put("servicioElegido", servicioElegido);
 
 		} else {
 			
 			for(Servicio s : listaServicios) {
-	 			listaConsultas.addAll(consultaUManager.getConsultasbyService(s));
+				listaProfesional.addAll(s.getProfesionales());
 	 		}
-			
-			/*listaConsultas
-			        .stream().sorted(Comparator.comparing(Consulta::getId).reversed())
-                    .filter(sol -> (sol.getEstado()!=EstadoConsulta.cerrada))
-                    .collect(Collectors.toList());*/
 		}
-		Map<String, Object> myModel = new HashMap<String, Object>();
-		ModelAndView mav = new ModelAndView("listadoconsultas", "model", myModel);
 		
-		Mymodel.put("consultas", listaConsultas);
+		Collections.sort(listaProfesional, (a, b) -> a.getValoracionMedia() < b.getValoracionMedia() ? 1 : a.getValoracionMedia() == b.getValoracionMedia() ? 0 : -1);
+		
+		
+		Map<String, Object> myModel = new HashMap<String, Object>();
+		ModelAndView mav = new ModelAndView("ranking", "model", myModel);
+		
+		Mymodel.put("profesionales", listaProfesional);
 		Mymodel.put("servicios", listaServicios);
 		mav.addObject("model", Mymodel);
 		if(WebServiceController.usuarioRegistrado == null) {
@@ -102,7 +110,7 @@ public class ListadoConsultasController {
 	}
 
 	
-	@PostMapping("/listadoconsultas.htm")
+	/*@PostMapping("/ranking.htm")
 	protected ModelAndView crearPresupueusto(@RequestParam Map<String, String> reqPar) throws Exception {
 
 		Map<String, Object> myModel = new HashMap<String, Object>();
@@ -131,9 +139,7 @@ public class ListadoConsultasController {
 
 			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
 		});
-		
-		mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
 		return mav;
-	}
+	}*/
 
 }

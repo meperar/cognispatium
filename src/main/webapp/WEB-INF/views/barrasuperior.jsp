@@ -82,9 +82,7 @@
 	<link rel="stylesheet"
 		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
 		type="text/css">
-	<link rel="stylesheet"
-		href="https://static.pingendo.com/bootstrap/bootstrap-4.1.3.css"
-		style="">
+	<link rel="stylesheet" href="https://static.pingendo.com/bootstrap/bootstrap-4.1.3.css" style="">
 	<nav class="navbar navbar-expand-md navbar-dark bg-dark" style="">
 		<div class="container">
 			<button class="navbar-toggler navbar-toggler-right border-0"
@@ -93,22 +91,18 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbar13">
 				<a class="navbar-brand d-none d-md-block" href="hello.htm"> <a
-					href="hello.htm"><img src="https://i.imgur.com/xmZULKf.png"
-						width=200 title="source: imgur.com" /></a>
+					href="hello.htm"><img src="https://i.imgur.com/xmZULKf.png" width=200 title="source: imgur.com" /></a>
 					<div class="btn-group">
 						<div class="dropdown">
-							<a id="dLabel" role="button" data-toggle="dropdown"
-								class="btn btn-primary" data-target="#"> Profesionales <span
-								class="caret"></span>
+							<a id="dLabel" role="button" data-toggle="dropdown" class="btn btn-primary" data-target="#"> Profesionales <span class="caret"></span>
 							</a>
-							<ul class="dropdown-menu multi-level" role="menu"
-								aria-labelledby="dropdownMenu">
-								<c:forEach items="${serviciosPorAmbito}" var="ambito">
+							<ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+							<li></li>
+								<c:forEach items="${serviciosXAmbito}" var="ambito">
 									<li class="dropdown-submenu"><a tabindex="-1">${ambito.key}</a>
 										<ul class="dropdown-menu">
 											<c:forEach items="${ambito.value}" var="servicio">
-												<li class="nav-item"><a class="nav-link"
-													href="listProf.htm?serviceId=${servicio.id}">${servicio.nombre}</a></li>
+												<li class="nav-item"><a class="nav-link" href="ranking.htm?serviceId=${servicio.id}">${servicio.nombre}</a></li>
 											</c:forEach>
 										</ul></li>
 								</c:forEach>
@@ -123,7 +117,7 @@
 							</a>
 							<ul class="dropdown-menu multi-level" role="menu"
 								aria-labelledby="dropdownMenu">
-								<c:forEach items="${serviciosPorAmbito}" var="ambito">
+								<c:forEach items="${serviciosXAmbito}" var="ambito">
 									<li class="dropdown-submenu"><a tabindex="-1">${ambito.key}</a>
 										<ul class="dropdown-menu">
 											<c:forEach items="${ambito.value}" var="servicio">

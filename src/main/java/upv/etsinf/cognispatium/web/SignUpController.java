@@ -23,6 +23,7 @@ import upv.etsinf.cognispatium.domain.Profesional;
 import upv.etsinf.cognispatium.domain.Registro;
 import upv.etsinf.cognispatium.domain.Usuario;
 import upv.etsinf.cognispatium.service.SimpleRegistroManager;
+import upv.etsinf.cognispatium.service.SimpleServicioManager;
 
 
 
@@ -35,6 +36,9 @@ public class SignUpController {
 	
 	@Autowired
 	private SimpleRegistroManager regMng;
+	
+	@Autowired
+	private SimpleServicioManager servicioManager;
 	
 
 	protected final Log logger = LogFactory.getLog(getClass());
@@ -67,6 +71,8 @@ public class SignUpController {
 
 			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
 		});
+		
+		mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
 		return mav;
 	}
 	
@@ -129,6 +135,8 @@ public class SignUpController {
 
 				mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
 			});
+			
+			mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
 			return mav;
 
 
@@ -155,6 +163,8 @@ public class SignUpController {
 
 				mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
 			});
+			
+			mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
 			return mav;
 		}
 
