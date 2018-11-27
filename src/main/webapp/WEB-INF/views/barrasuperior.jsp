@@ -166,6 +166,8 @@
 									href="listadoPresupuestos.htm">Presupuestos</a></li>
 							</c:if>
 							<li class="nav-item"><a class="nav-link"
+								href="historial.htm">Historial</a></li>
+							<li class="nav-item"><a class="nav-link"
 								href="bandejamensajes.htm">Bandeja de Mensajes</a></li>
 
 							<li class="nav-item"><a class="nav-link" href="perfil.htm">Perfil</a></li>

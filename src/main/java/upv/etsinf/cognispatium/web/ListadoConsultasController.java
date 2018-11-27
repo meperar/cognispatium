@@ -19,9 +19,11 @@ import org.springframework.web.servlet.ModelAndView;
 import upv.etsinf.cognispatium.domain.Consulta;
 import upv.etsinf.cognispatium.domain.ConsultaUrgente;
 import upv.etsinf.cognispatium.domain.EstadoConsulta;
+import upv.etsinf.cognispatium.domain.Profesional;
 import upv.etsinf.cognispatium.domain.Servicio;
 import upv.etsinf.cognispatium.domain.Usuario;
 import upv.etsinf.cognispatium.service.SimpleConsultaUrgenteManager;
+import upv.etsinf.cognispatium.service.SimpleProfesionalManager;
 import upv.etsinf.cognispatium.service.SimpleServicioManager;
 
 @Controller
@@ -29,6 +31,9 @@ public class ListadoConsultasController {
 
 	@Autowired
 	private SimpleServicioManager servicioManager;
+	
+	@Autowired
+	private SimpleProfesionalManager simpleProfesionalManager;	
 	
 	@Autowired
 	private SimpleConsultaUrgenteManager consultaUManager;
@@ -40,8 +45,13 @@ public class ListadoConsultasController {
 	@GetMapping("/listadoconsultas.htm")
 	protected ModelAndView onSubmit(@RequestParam Map<String, String> reqPar) throws Exception {
 
+		Profesional prof = simpleProfesionalManager.getProfesionalById(WebServiceController.usuarioRegistrado.getId());
+		List<Servicio> listaServicios = prof.getServicios();
+		
 		List<ConsultaUrgente> listaConsultas = new ArrayList<ConsultaUrgente>();
+		
 		Map<String, Object> Mymodel = new HashMap<String, Object>();
+		
 		if (reqPar.get("servicio") != null) {
 			Integer ServiceId = Integer.parseInt(reqPar.get("servicio"));
 			Servicio servicioConsulta = servicioManager.getServiciobyId(ServiceId);
@@ -53,14 +63,19 @@ public class ListadoConsultasController {
 			Mymodel.put("serviciId", ServiceId);
 
 		} else {
-			listaConsultas = consultaUManager.getConsultaUrgentes()
+			
+			for(Servicio s : listaServicios) {
+	 			listaConsultas.addAll(consultaUManager.getConsultasbyService(s));
+	 		}
+			
+			/*listaConsultas
 			        .stream().sorted(Comparator.comparing(Consulta::getId).reversed())
                     .filter(sol -> (sol.getEstado()!=EstadoConsulta.cerrada))
-                    .collect(Collectors.toList());
+                    .collect(Collectors.toList());*/
 		}
 		Map<String, Object> myModel = new HashMap<String, Object>();
 		ModelAndView mav = new ModelAndView("listadoconsultas", "model", myModel);
-		List<Servicio> listaServicios = servicioManager.getServicios();
+		
 		Mymodel.put("consultas", listaConsultas);
 		Mymodel.put("servicios", listaServicios);
 		mav.addObject("model", Mymodel);
