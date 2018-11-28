@@ -34,4 +34,7 @@ public class SimpleTarjetaManager implements Serializable {
 		tarjetaDao.saveTarjeta(tarjeta);
 	}
 
+	public Tarjeta getTarjetaByID(int tarjetaId) {
+	    return tarjetaDao.getTarjetaById(tarjetaId);
+	}
 }

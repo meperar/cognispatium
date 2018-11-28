@@ -101,6 +101,8 @@
 	  	<a style="font-size: 13px; color: white;" href="ayuda.htm">Atención al cliente</a>
 	  	&emsp; &emsp; 
 		<a style="font-size: 13px; color: white;" href="conoceEquipo.htm">Conoce al equipo</a>
+		&emsp; &emsp; 
+		<a style="font-size: 13px; color: white;" href="acercaDe.htm">Acerca de</a>
 	  	<br>
 	  	<br>
 	  	<br>

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.time.LocalTime;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -93,11 +94,16 @@ public class PagoController {
 		fechaFinal = fechaFinal.plusMinutes(tiempoEspera.getMinute());
 		fechaFinal = fechaFinal.plusHours(tiempoEspera.getHour());
 		consultaUrgente.setFechaFin(fechaFinal);
+		
+		List<Tarjeta> tarjetaList = cliente.getTarjetas();
 
 		Map<String, Object> myModel = new HashMap<String, Object>();
 		myModel.put("consultaUrgente", consultaUrgente);
+		myModel.put("tarjetas", tarjetaList);
+		
 		this.myModel = myModel;
 		ModelAndView mav = new ModelAndView("pagoTarjeta", "model", myModel);
+		
 		if(WebServiceController.usuarioRegistrado == null) {
 			Usuario userAux = new Usuario();
 			
@@ -131,11 +137,11 @@ public class PagoController {
 		pago.setPrecio(2);
 		pago.setTarjetaOrigen(tarjeta);
 		consultaUrgente.setPago(pago);
-		servicioCUManager.addConsultaUrgente(consultaUrgente);
-		pagoManager.addPago(pago);
-		tarjetaManager.addTarjeta(tarjeta);
+		servicioCUManager.addConsultaUrgente(consultaUrgente);		
 		Map<String, Object> myModel = new HashMap<String, Object>();
 		
+		List<Tarjeta> tarjetaList = cliente.getTarjetas();
+		myModel.put("tarjetas", tarjetaList);
 		ModelAndView mav = new ModelAndView("factura", "model", myModel);
 
 		myModel.put("pago", pago);
@@ -168,10 +174,15 @@ public class PagoController {
 			@RequestParam Map<String, String> reqPar) throws ServletException, IOException {
 
 		Presupuesto presupuesto = simplePresupuestoManager.getPresupuestobyId(Integer.parseInt(reqPar.get("presupuestoId")));
+		Cliente cliente = presupuesto.getSolicitudOrigen().getClienteOrigen();
 
 		Map<String, Object> myModel = new HashMap<String, Object>();
 		myModel.put("presupuesto", presupuesto);
 		this.myModel = myModel;
+		
+		List<Tarjeta> tarjetaList = cliente.getTarjetas();
+		myModel.put("tarjetas", tarjetaList);
+		
 		ModelAndView mav = new ModelAndView("pagoTarjeta", "model", myModel);
 		if(WebServiceController.usuarioRegistrado == null) {
 			Usuario userAux = new Usuario();
@@ -205,11 +216,9 @@ public class PagoController {
 		pago.setDescripcion(presupuesto.getDescripcion());
 		pago.setPrecio(presupuesto.getPrecio());
 		pago.setTarjetaOrigen(tarjeta);
-		pagoManager.addPago(pago);
 		presupuesto.getSolicitudOrigen().setPago(pago);
 		presupuesto.getSolicitudOrigen().setEstado(EstadoSolicitud.adjudicada);
-		solicitudManager.addSolicitud(presupuesto.getSolicitudOrigen());
-		
+		solicitudManager.addSolicitud(presupuesto.getSolicitudOrigen());		
 		presupuesto.getSolicitudOrigen().getPresupuestos().forEach(p->{
 			p.setEstado(EstadoPresupuesto.noAceptado);
 			simplePresupuestoManager.addPresupuesto(p);
@@ -246,20 +255,39 @@ public class PagoController {
     
     @SuppressWarnings("deprecation")
 	private Tarjeta addTarjeta(Map<String, String> reqPar,Cliente cliente) {
-        String Stringnumero = reqPar.get("numTarjeta");
-        String titular = reqPar.get("titular");
-        long numero = Long.parseLong(Stringnumero);
-        String Stringcvv = reqPar.get("cvv");
-        int cvv = Integer.valueOf(Stringcvv);
-        Integer mes = Integer.parseInt(reqPar.get("mes"));
-        Integer anyo = Integer.parseInt(reqPar.get("anyo"));
-        Date fecha = new Date(anyo, mes, 01);
         Tarjeta tarjeta = new Tarjeta();
+        System.out.println(reqPar.get("cb-tarjeta"));
+        
+        if(reqPar.get("cb-tarjeta")!= null && !reqPar.get("cb-tarjeta").equals("") ) {
+            int IdTarjeta = Integer.parseInt(reqPar.get("cb-tarjeta"));
+            tarjeta = tarjetaManager.getTarjetaByID((IdTarjeta));
+        }
+        
+        else {
+            
+        String Stringnumero = reqPar.get("numTarjeta");
+        long numero = Long.parseLong(Stringnumero);
+        
+        for(Tarjeta t: tarjetaManager.getTarjetas()) {
+            if (t.getNumero() == numero) tarjeta = t;
+            
+            else {
+                String titular = reqPar.get("titular");
+                String Stringcvv = reqPar.get("cvv");
+                int cvv = Integer.valueOf(Stringcvv);
+                Integer mes = Integer.parseInt(reqPar.get("mes"));
+                Integer anyo = Integer.parseInt(reqPar.get("anyo"));
+                Date fecha = new Date(anyo, mes, 01);
+                
+                tarjeta.setCodigoSeguridad(cvv);
+                tarjeta.setFechaCaducidad(fecha);
+                tarjeta.setNumero(numero);
+                tarjeta.setTitular(titular);
+            }
+        }
+        
+        }
         tarjeta.setClienteOrigen(cliente);
-        tarjeta.setCodigoSeguridad(cvv);
-        tarjeta.setFechaCaducidad(fecha);
-        tarjeta.setNumero(numero);
-        tarjeta.setTitular(titular);
         return tarjeta;
     }
     
