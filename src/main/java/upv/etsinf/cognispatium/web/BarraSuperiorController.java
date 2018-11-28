@@ -48,8 +48,6 @@ public class BarraSuperiorController {
 		List<Servicio> listaServicios = servicioManager.getServicios();
 		Map<String, Object> serviciosPorAmbitoAux = new HashMap<String, Object>();
 		
-		System.out.println(listaAmbitosAux + "==================");
-		System.out.println(listaServicios + "==================");
 
 		for(String a : listaAmbitosAux) {
 			List<Servicio> lista = new ArrayList<Servicio>();
@@ -61,7 +59,6 @@ public class BarraSuperiorController {
 			}
 			serviciosPorAmbitoAux.put(a, lista);
 		}
-		System.out.println(serviciosPorAmbitoAux + "==================");
 		
 		mav.addObject("serviciosXAmbito", serviciosPorAmbitoAux);
 		
@@ -130,8 +127,7 @@ public class BarraSuperiorController {
 		List<Servicio> listaServicios = servicioManager.getServicios();
 		Map<String, Object> serviciosPorAmbitoAux = new HashMap<String, Object>();
 		
-		System.out.println(listaAmbitosAux + "==================");
-		System.out.println(listaServicios + "==================");
+
 
 		for(String a : listaAmbitosAux) {
 			List<Servicio> lista = new ArrayList<Servicio>();
@@ -143,7 +139,6 @@ public class BarraSuperiorController {
 			}
 			serviciosPorAmbitoAux.put(a, lista);
 		}
-		System.out.println(serviciosPorAmbitoAux + "==================");
 		
 		
 		//mav.addObject("serviciosXAmbito", serviciosPorAmbitoAux);

@@ -74,8 +74,6 @@
 
 
 
-
-
 .dropdown-submenu {
 	position: relative;
 }
@@ -151,13 +149,13 @@
 					
 					
 					<div class="dropdown">
-					  <button onclick="myFunction()" class="dropbtn">Consultas</button>
+					  <button id="btnConsultas" onclick="myFunction()" class="dropbtn">Consultas</button>
 					  <ul id="myDropdown" class="dropdown-menu multi-level">
 					  	<c:forEach items="${serviciosXAmbito}" var="ambito">
 							<li class="dropdown-submenu"><a tabindex="-1">${ambito.key}</a>
 								<ul class="dropdown-menu">
 									<c:forEach items="${ambito.value}" var="servicio">
-										<a href="listProf.htm?serviceIdC=${servicio.id}">${servicio.nombre}</a>
+										<a class="nav-link" style="color:black;" href="listProf.htm?serviceIdC=${servicio.id}">${servicio.nombre}</a>
 									</c:forEach>
 
 								</ul></li>
@@ -168,13 +166,13 @@
 					
 					
 					<div class="dropdown">
-					  <button onclick="myFunction2()" class="dropbtn">Profesionales</button>
+					  <button id="btnProfesionales" onclick="myFunction2()" class="dropbtn">Profesionales</button>
 					  <ul id="myDropdown2" class="dropdown-menu multi-level">
 					  	<c:forEach items="${serviciosXAmbito}" var="ambito">
 							<li class="dropdown-submenu"><a tabindex="-1">${ambito.key}</a>
 								<ul class="dropdown-menu">
 									<c:forEach items="${ambito.value}" var="servicio">
-										<a class="nav-link" href="ranking.htm?serviceId=${servicio.id}">${servicio.nombre}</a>
+										<a class="nav-link" style="color:black;" href="ranking.htm?serviceId=${servicio.id}">${servicio.nombre}</a>
 									</c:forEach>
 
 								</ul></li>
@@ -195,10 +193,8 @@
 					        x.style.display = "none";
 					    }
 
-					    var y = document.getElementById("myDropdown2");
-					    if (y.style.display === "block") {
-					        y.style.display = "none";
-					    } 
+					    document.getElementById("myDropdown2").style.display = "none";
+					     
 					}
 					
 					function myFunction2() {
@@ -210,18 +206,19 @@
 					        x.style.display = "none";
 					    }
 					    
-					    var y = document.getElementById("myDropdown");
-					    if (y.style.display === "block") {
-					        y.style.display = "none";
-					    } 
+					    document.getElementById("myDropdown").style.display = "none";
+					     
 					}
 					
 					// Close the dropdown if the user clicks outside of it
 					window.onclick = function(event) {
-					  if (!event.target.matches('.dropbtn')) {
-					
-					    myFunction();
-					    myFunction2();
+
+					  if (event.target.id.localeCompare("btnProfesionales") != 0
+						  && event.target.id.localeCompare("btnConsultas") != 0) {
+						  
+						  
+						  document.getElementById("myDropdown").style.display = "none";
+						  document.getElementById("myDropdown2").style.display = "none";
 					  }
 					}
 					</script>
@@ -234,33 +231,22 @@
 						<c:if test="${usR.apellidos == null}">
 							<li class="nav-item"><a class="nav-link"
 								href="usersignup.htm">Sign up </a></li>
-							<li class="nav-item"><a class="nav-link" href="login.htm">Log
-									In </a></li>
+							<li class="nav-item"><a class="nav-link" href="login.htm">Log In </a></li>
 						</c:if>
 						<c:if test="${usR.apellidos != null}">
 							<c:if test="${(usR.DTYPE).toString().length()==7}">
-								<li class="nav-item"><a class="nav-link"
-									href="crearconsultaurgente.htm">Publicar CU</a></li>
-								<li class="nav-item"><a class="nav-link"
-									href="crearsolicitudpresupuesto.htm">Pedir Presupuesto</a></li>
-								<li class="nav-item"><a class="nav-link"
-									href="misSolicitudes.htm">Mis Solicitudes</a></li>
+								<li class="nav-item"><a class="nav-link" href="crearconsultaurgente.htm">Publicar CU</a></li>
+								<li class="nav-item"><a class="nav-link" href="crearsolicitudpresupuesto.htm">Pedir Presupuesto</a></li>
+								<li class="nav-item"><a class="nav-link" href="misSolicitudes.htm">Mis Solicitudes</a></li>
 							</c:if>
 							<c:if test="${(usR.DTYPE).toString().length()==11}">
-								<li class="nav-item"><a class="nav-link"
-									href="listadosolicitudes.htm">Solicitudes</a></li>
-								<li class="nav-item"><a class="nav-link"
-									href="listadoconsultas.htm">Consultas</a></li>
-									<li class="nav-item"><a class="nav-link"
-									href="listadoPresupuestos.htm">Presupuestos</a></li>
+								<li class="nav-item"><a class="nav-link" href="listadosolicitudes.htm">Solicitudes</a></li>
+								<li class="nav-item"><a class="nav-link" href="listadoconsultas.htm">Consultas</a></li>
+								<li class="nav-item"><a class="nav-link" href="listadoPresupuestos.htm">Presupuestos</a></li>
 							</c:if>
-							<li class="nav-item"><a class="nav-link"
-								href="historial.htm">Historial</a></li>
-							<li class="nav-item"><a class="nav-link"
-								href="bandejamensajes.htm">Bandeja de Mensajes</a></li>
-
-							<li class="nav-item"><a class="nav-link" href="perfil.htm">Perfil</a></li>
-							
+							<li class="nav-item"><a class="nav-link" href="historial.htm">Historial</a></li>
+							<li class="nav-item"><a class="nav-link" href="bandejamensajes.htm">Bandeja de Mensajes</a></li>
+							<li class="nav-item"><a class="nav-link" href="perfil.htm">Perfil</a></li>						
 							<li class="nav-item"><a class="nav-link" href="logout.htm">Log Out</a></li>
 						</c:if>
 						
