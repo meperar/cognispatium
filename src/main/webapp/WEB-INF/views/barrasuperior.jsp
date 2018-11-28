@@ -147,6 +147,9 @@
 								href="usersignup.htm">Sign up </a></li>
 							<li class="nav-item"><a class="nav-link" href="login.htm">Log
 									In </a></li>
+							<li class="nav-item">
+							<a class="nav-link" href="guiaDeUso.htm">Manual de uso</a>
+						</li>
 						</c:if>
 						<c:if test="${usR.apellidos != null}">
 							<c:if test="${(usR.DTYPE).toString().length()==7}">
@@ -174,6 +177,7 @@
 							
 							<li class="nav-item"><a class="nav-link" href="logout.htm">Log Out</a></li>
 						</c:if>
+						
 						
 					</ul>
 			</div>
