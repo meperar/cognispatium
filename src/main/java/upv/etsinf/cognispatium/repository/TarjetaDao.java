@@ -11,4 +11,6 @@ public interface TarjetaDao {
 
     public void saveTarjeta(Tarjeta Tarjeta);
 
+    public Tarjeta getTarjetaById(int tarjetaId);
+
 }

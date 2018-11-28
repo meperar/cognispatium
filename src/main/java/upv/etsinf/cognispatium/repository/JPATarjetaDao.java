@@ -8,6 +8,7 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import upv.etsinf.cognispatium.domain.Presupuesto;
 import upv.etsinf.cognispatium.domain.Tarjeta;
 
 @Repository(value = "TarjetaDao")
@@ -33,5 +34,10 @@ public class JPATarjetaDao implements TarjetaDao {
 		em.merge(tarjeta);
 
 	}
+
+    @Override
+    public Tarjeta getTarjetaById(int tarjetaId) {
+        return em.find(Tarjeta.class,tarjetaId);
+    }
 
 }

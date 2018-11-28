@@ -99,7 +99,7 @@ public class HistorialController {
 					.sorted(Comparator.comparing(Solicitud::getId).reversed())
 					.filter(sol -> sol.getEstado() == EstadoSolicitud.resuelta)
 					.collect(Collectors.toList());
-			if (reqPar.get("servicio") != null) {
+			if (reqPar.get("servicio") != null && !reqPar.get("servicio").equals("")) {
 				Integer servicioObtenido = Integer.parseInt(reqPar.get("servicio"));
 				if (servicioObtenido != null) {
 					listaSolicitud = listaSolicitud.stream()
