@@ -249,6 +249,9 @@
 							<li class="nav-item"><a class="nav-link" href="perfil.htm">Perfil</a></li>						
 							<li class="nav-item"><a class="nav-link" href="logout.htm">Log Out</a></li>
 						</c:if>
+						<li class="nav-item">
+							<a class="nav-link" href="guiaDeUso.htm">Manual de uso</a>
+						</li>
 						
 					</ul>
 			</div>
