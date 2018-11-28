@@ -21,6 +21,7 @@ import upv.etsinf.cognispatium.domain.Usuario;
 import upv.etsinf.cognispatium.domain.Valoracion;
 import upv.etsinf.cognispatium.service.SimpleClienteManager;
 import upv.etsinf.cognispatium.service.SimpleProfesionalManager;
+import upv.etsinf.cognispatium.service.SimpleServicioManager;
 import upv.etsinf.cognispatium.service.SimpleValoracionManager;
 
 @Controller
@@ -34,6 +35,9 @@ public class VotarProfesionalController {
 	
 	@Autowired
 	private SimpleClienteManager clienteManager;
+	
+	@Autowired
+	private SimpleServicioManager servicioManager;
 	
 	private Profesional profesional;
 	private Cliente cliente;
@@ -59,6 +63,9 @@ public class VotarProfesionalController {
 
 				mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
 			});
+			
+			
+			mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
 			return mav;
 		}
 		else {
@@ -68,6 +75,8 @@ public class VotarProfesionalController {
 
 				mav2.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
 			});
+			
+			mav2.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
 			return mav2;
 		   
 		}
@@ -87,6 +96,8 @@ public class VotarProfesionalController {
 
 			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
 		});
+		
+		mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
 		return mav;
 	}
 }

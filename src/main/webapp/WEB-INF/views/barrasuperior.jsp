@@ -26,6 +26,54 @@
 	href="https://static.pingendo.com/bootstrap/bootstrap-4.1.3.css"
 	integrity="">
 <style>
+
+.dropbtn {
+    background-color: rgba(0,0,0,0);
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+    background-color: rgba(255,255,255,0.5);
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown a:hover {background-color: #ddd;}
+
+.show {display: block;}
+
+
+
+
+
+
+
+
 .dropdown-submenu {
 	position: relative;
 }
@@ -82,61 +130,99 @@
 	<link rel="stylesheet"
 		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
 		type="text/css">
-	<link rel="stylesheet"
-		href="https://static.pingendo.com/bootstrap/bootstrap-4.1.3.css"
-		style="">
+	<link rel="stylesheet" href="https://static.pingendo.com/bootstrap/bootstrap-4.1.3.css" style="">
 	<nav class="navbar navbar-expand-md navbar-dark bg-dark" style="">
 		<div class="container">
 			<button class="navbar-toggler navbar-toggler-right border-0"
 				type="button" data-toggle="collapse" data-target="#navbar13">
 				<span class="navbar-toggler-icon"></span>
 			</button>
+			
+			
+			
+			
+			
 			<div class="collapse navbar-collapse" id="navbar13">
 				<a class="navbar-brand d-none d-md-block" href="hello.htm"> <a
-					href="hello.htm"><img src="https://i.imgur.com/xmZULKf.png"
-						width=200 title="source: imgur.com" /></a>
-					<div class="btn-group">
-						<div class="dropdown">
-							<a id="dLabel" role="button" data-toggle="dropdown"
-								class="btn btn-primary" data-target="#"> Profesionales <span
-								class="caret"></span>
-							</a>
-							<ul class="dropdown-menu multi-level" role="menu"
-								aria-labelledby="dropdownMenu">
-								<c:forEach items="${serviciosPorAmbito}" var="ambito">
-									<li class="dropdown-submenu"><a tabindex="-1">${ambito.key}</a>
-										<ul class="dropdown-menu">
-											<c:forEach items="${ambito.value}" var="servicio">
-												<li class="nav-item"><a class="nav-link"
-													href="listProf.htm?serviceId=${servicio.id}">${servicio.nombre}</a></li>
-											</c:forEach>
-										</ul></li>
-								</c:forEach>
-							</ul>
-						</div>
-					</div>
-					<div class="btn-group">
-						<div class="dropdown">
-							<a id="dLabel" role="button" data-toggle="dropdown"
-								class="btn btn-primary" data-target="#"> Consultas <span
-								class="caret"></span>
-							</a>
-							<ul class="dropdown-menu multi-level" role="menu"
-								aria-labelledby="dropdownMenu">
-								<c:forEach items="${serviciosPorAmbito}" var="ambito">
-									<li class="dropdown-submenu"><a tabindex="-1">${ambito.key}</a>
-										<ul class="dropdown-menu">
-											<c:forEach items="${ambito.value}" var="servicio">
-												<li class="nav-item"><a class="nav-link"
-													href="listProf.htm?serviceIdC=${servicio.id}">${servicio.nombre}</a></li>
-											</c:forEach>
+					href="hello.htm"><img src="https://i.imgur.com/xmZULKf.png" width=200 title="source: imgur.com" /></a>
+					
+					
+					
+					<div class="dropdown">
+					  <button id="btnConsultas" onclick="myFunction()" class="dropbtn">Consultas</button>
+					  <ul id="myDropdown" class="dropdown-menu multi-level">
+					  	<c:forEach items="${serviciosXAmbito}" var="ambito">
+							<li class="dropdown-submenu"><a tabindex="-1">${ambito.key}</a>
+								<ul class="dropdown-menu">
+									<c:forEach items="${ambito.value}" var="servicio">
+										<a class="nav-link" style="color:black;" href="listProf.htm?serviceIdC=${servicio.id}">${servicio.nombre}</a>
+									</c:forEach>
 
-										</ul></li>
-								</c:forEach>
-							</ul>
-						</div>
+								</ul></li>
+						</c:forEach>
+					  </ul>
 					</div>
+					
+					
+					
+					<div class="dropdown">
+					  <button id="btnProfesionales" onclick="myFunction2()" class="dropbtn">Profesionales</button>
+					  <ul id="myDropdown2" class="dropdown-menu multi-level">
+					  	<c:forEach items="${serviciosXAmbito}" var="ambito">
+							<li class="dropdown-submenu"><a tabindex="-1">${ambito.key}</a>
+								<ul class="dropdown-menu">
+									<c:forEach items="${ambito.value}" var="servicio">
+										<a class="nav-link" style="color:black;" href="ranking.htm?serviceId=${servicio.id}">${servicio.nombre}</a>
+									</c:forEach>
 
+								</ul></li>
+						</c:forEach>
+					  </ul>
+					</div>
+					
+					<script>
+					/* When the user clicks on the button, 
+					toggle between hiding and showing the dropdown content */
+					function myFunction() {
+					    //document.getElementById("myDropdown").classList.toggle("show");
+					    
+					    var x = document.getElementById("myDropdown");
+					    if (x.style.display === "none") {
+					        x.style.display = "block";
+					    } else {
+					        x.style.display = "none";
+					    }
+
+					    document.getElementById("myDropdown2").style.display = "none";
+					     
+					}
+					
+					function myFunction2() {
+					    //document.getElementById("myDropdown2").classList.toggle("show");
+					    var x = document.getElementById("myDropdown2");
+					    if (x.style.display === "none") {
+					        x.style.display = "block";
+					    } else {
+					        x.style.display = "none";
+					    }
+					    
+					    document.getElementById("myDropdown").style.display = "none";
+					     
+					}
+					
+					// Close the dropdown if the user clicks outside of it
+					window.onclick = function(event) {
+
+					  if (event.target.id.localeCompare("btnProfesionales") != 0
+						  && event.target.id.localeCompare("btnConsultas") != 0) {
+						  
+						  
+						  document.getElementById("myDropdown").style.display = "none";
+						  document.getElementById("myDropdown2").style.display = "none";
+					  }
+					}
+					</script>
+					
 					<ul class="navbar-nav">
 						<li class="nav-item" style=""><a class="nav-link" href="#">&nbsp;
 								&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
@@ -145,33 +231,22 @@
 						<c:if test="${usR.apellidos == null}">
 							<li class="nav-item"><a class="nav-link"
 								href="usersignup.htm">Sign up </a></li>
-							<li class="nav-item"><a class="nav-link" href="login.htm">Log
-									In </a></li>
+							<li class="nav-item"><a class="nav-link" href="login.htm">Log In </a></li>
 						</c:if>
 						<c:if test="${usR.apellidos != null}">
 							<c:if test="${(usR.DTYPE).toString().length()==7}">
-								<li class="nav-item"><a class="nav-link"
-									href="crearconsultaurgente.htm">Publicar CU</a></li>
-								<li class="nav-item"><a class="nav-link"
-									href="crearsolicitudpresupuesto.htm">Pedir Presupuesto</a></li>
-								<li class="nav-item"><a class="nav-link"
-									href="misSolicitudes.htm">Mis Solicitudes</a></li>
+								<li class="nav-item"><a class="nav-link" href="crearconsultaurgente.htm">Publicar CU</a></li>
+								<li class="nav-item"><a class="nav-link" href="crearsolicitudpresupuesto.htm">Pedir Presupuesto</a></li>
+								<li class="nav-item"><a class="nav-link" href="misSolicitudes.htm">Mis Solicitudes</a></li>
 							</c:if>
 							<c:if test="${(usR.DTYPE).toString().length()==11}">
-								<li class="nav-item"><a class="nav-link"
-									href="listadosolicitudes.htm">Solicitudes</a></li>
-								<li class="nav-item"><a class="nav-link"
-									href="listadoconsultas.htm">Consultas</a></li>
-									<li class="nav-item"><a class="nav-link"
-									href="listadoPresupuestos.htm">Presupuestos</a></li>
+								<li class="nav-item"><a class="nav-link" href="listadosolicitudes.htm">Solicitudes</a></li>
+								<li class="nav-item"><a class="nav-link" href="listadoconsultas.htm">Consultas</a></li>
+								<li class="nav-item"><a class="nav-link" href="listadoPresupuestos.htm">Presupuestos</a></li>
 							</c:if>
-							<li class="nav-item"><a class="nav-link"
-								href="historial.htm">Historial</a></li>
-							<li class="nav-item"><a class="nav-link"
-								href="bandejamensajes.htm">Bandeja de Mensajes</a></li>
-
-							<li class="nav-item"><a class="nav-link" href="perfil.htm">Perfil</a></li>
-							
+							<li class="nav-item"><a class="nav-link" href="historial.htm">Historial</a></li>
+							<li class="nav-item"><a class="nav-link" href="bandejamensajes.htm">Bandeja de Mensajes</a></li>
+							<li class="nav-item"><a class="nav-link" href="perfil.htm">Perfil</a></li>						
 							<li class="nav-item"><a class="nav-link" href="logout.htm">Log Out</a></li>
 						</c:if>
 						

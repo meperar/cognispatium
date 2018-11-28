@@ -108,6 +108,8 @@ public class ListadoSolicitudesController {
 
 			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
 		});
+		
+		mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
 		return mav;
 
 	}
@@ -122,8 +124,8 @@ public class ListadoSolicitudesController {
 		List<Solicitud> listaSolicitudes = new ArrayList<Solicitud>();
 		Map<String, Object> servicios = new HashMap<String, Object>();
 		
-		 servicioObtenido = reqPar.get("servicio");
-		 if(servicioObtenido == "") { servicioObtenido = null;}
+		servicioObtenido = reqPar.get("servicio");
+		if(servicioObtenido == "") { servicioObtenido = null;}
 		 
 		estadoObtenido =  reqPar.get("estado");
 		if(estadoObtenido == "") { estadoObtenido = null; }
@@ -197,6 +199,8 @@ public class ListadoSolicitudesController {
 
 			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
 		});*/
+		
+		mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
 		return mav;
 	}
 
@@ -228,6 +232,8 @@ public class ListadoSolicitudesController {
 
 			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
 		});
+		
+		mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
 		return mav;
 	}
 	
@@ -283,6 +289,9 @@ public class ListadoSolicitudesController {
 
 			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
 		});
+		
+		
+		mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
 		return mav;
 
 		

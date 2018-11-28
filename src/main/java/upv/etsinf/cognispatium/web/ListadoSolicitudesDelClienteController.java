@@ -89,6 +89,9 @@ public class ListadoSolicitudesDelClienteController {
 
 			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
 		});
+		
+		
+		mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
 		return mav;
 
 	}
@@ -110,6 +113,8 @@ public class ListadoSolicitudesDelClienteController {
 
 				mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
 			});
+			
+			mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
 			return mav;
 			//return new ModelAndView("redirect:/hello.htm");
 		}
@@ -148,6 +153,8 @@ public class ListadoSolicitudesDelClienteController {
 
 			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
 		});
+		
+		mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
 		return mav;
 		
 	
@@ -187,6 +194,9 @@ public class ListadoSolicitudesDelClienteController {
 
 				mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
 			});
+			
+			
+			mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
 			return mav;
 			
 		}
@@ -201,6 +211,9 @@ public class ListadoSolicitudesDelClienteController {
 
 			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
 		});
+		
+		
+		mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
 		return mav;
 	}
 	
@@ -220,6 +233,9 @@ public class ListadoSolicitudesDelClienteController {
 
 			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
 		});
+		
+		
+		mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
 		return mav;
 		
 		}
@@ -242,6 +258,8 @@ public class ListadoSolicitudesDelClienteController {
 
 			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
 		});
+		
+		mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
 		return mav;
 
 		
@@ -262,6 +280,8 @@ public class ListadoSolicitudesDelClienteController {
 
 			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
 		});
+		
+		mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
 		return mav;
 	}
 	
@@ -274,6 +294,8 @@ public class ListadoSolicitudesDelClienteController {
 
 			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
 		});
+		
+		mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
 		return mav;
 
 	}

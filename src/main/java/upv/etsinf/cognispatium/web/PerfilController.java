@@ -129,6 +129,8 @@ public class PerfilController {
 		mav.addObject("intModel", intModel);
 		mav.addObject("boolModel", boolModel);
 
+		
+		mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
 		return mav;
 
 	}
@@ -241,6 +243,8 @@ public class PerfilController {
 			mav.addObject("usR", userAux);
 			
 			WebServiceController.usuarioRegistrado = userAux;
+			
+			mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
 			return mav;
 
 		} else if (reqPar.get("desacId") != null) { //DESACTIVAR USUARIO
@@ -280,6 +284,7 @@ public class PerfilController {
 			userAux.setNombre("Usuario no registrado");
 			mav.addObject("usR", userAux);
 
+			mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
 			return mav;
 
 		} else if (reqPar.get("quitarServicio") != null) { ///////QUITAR SERVICIO////////
@@ -361,6 +366,8 @@ public class PerfilController {
 			mav.addObject("intModel", intModel);
 			mav.addObject("boolModel", boolModel);
 
+			
+			mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
 			return mav;
 
 		} else if (reqPar.get("addSid") != null) { ///////AÑADIR SERVICIO (POR QUÉ PARECE QUE ESTEMOS GRITANDO EKISDE)////////
@@ -425,6 +432,8 @@ public class PerfilController {
 			mav.addObject("intModel", intModel);
 			mav.addObject("boolModel", boolModel);
 
+			
+			mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
 			return mav;
 			
 			
@@ -501,6 +510,8 @@ public class PerfilController {
 			mav.addObject("intModel", intModel);
 			mav.addObject("boolModel", boolModel);
 
+			
+			mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
 			return mav;
 		}
 	}

@@ -136,6 +136,8 @@ public class HistorialController {
 		// FIN BARRA SUPERIOR
 		// Datos del filtro por servicio
 
+		
+		mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(simpleServicioManager));
 		// Devolvemos vista con modelo
 		return mav;
 
@@ -169,6 +171,8 @@ public class HistorialController {
 
 			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
 		});
+		
+		mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(simpleServicioManager));
 		return mav;
 	}
 

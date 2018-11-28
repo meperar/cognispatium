@@ -63,6 +63,7 @@ public class ConoceEquipoController {
 
 		ModelAndView mav = new ModelAndView("conoceEquipo", "model", myModel);
 		
+		mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
 		return mav;
 
 	}
@@ -73,6 +74,7 @@ public class ConoceEquipoController {
 
 		ModelAndView mav = new ModelAndView("conoceEquipo", "model", myModel);
 		
+		mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
 		return mav;
 		
 	}

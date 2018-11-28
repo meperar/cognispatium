@@ -2,6 +2,7 @@ package upv.etsinf.cognispatium.web;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -70,9 +71,9 @@ public class WebServiceController {
 
 		List<String> listaAmbitosAux = servicioManager.getAmbitos();
 		List<Servicio> listaServicios = servicioManager.getServicios();
-		 Map<String, Object> serviciosPorAmbitoAux = new HashMap<String, Object>();
+		Map<String, Object> serviciosPorAmbitoAux = new HashMap<String, Object>();
 
-		 listaAmbitosAux.forEach(ambito -> {
+		listaAmbitosAux.forEach(ambito -> {
 			String amb = ambito;
 			List<Servicio> lista = new ArrayList<Servicio>();
 			listaServicios.forEach(serv -> {
@@ -119,6 +120,9 @@ public class WebServiceController {
 
 			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
 		});
+		
+		
+		mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
 		return mav;
 
 	}
@@ -135,13 +139,16 @@ public class WebServiceController {
 
 			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
 		});
+		
+		mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
 		return mav;
 
 	}
 
 	@GetMapping("/listProf.htm")
 	protected ModelAndView listarProf(@RequestParam Map<String, String> reqPar) throws Exception {
-
+		
+		
 		List<Profesional> miProfesional = null;
 		List<Consulta> miConsulta = null;
 		Servicio miServicio = null;
@@ -154,6 +161,7 @@ public class WebServiceController {
 		listaAmbitos.forEach(ambito -> {
 			String amb = ambito;
 			List<Servicio> lista = new ArrayList<Servicio>();
+			
 			listaServicios.forEach(serv -> {
 				if (serv.getAmbito().equals(amb)) {
 					lista.add(serv);
@@ -167,10 +175,15 @@ public class WebServiceController {
 		Map<String, Object> servicio = new HashMap<String, Object>();
 
 		if (reqPar.get("serviceId") != null) {
+
 			miServicio = servicioManager.getServiciobyId(Integer.parseInt(reqPar.get("serviceId")));
 			//Hibernate.initialize(miServicio.getProfesionales());
 			miProfesional = miServicio.getProfesionales();
+			
+			Collections.sort(miProfesional, (a, b) -> a.getValoracionMedia() < b.getValoracionMedia() ? 1 : a.getValoracionMedia() == b.getValoracionMedia() ? 0 : -1);
+			
 			myModel.put("profesional", miProfesional);
+			myModel.put("servicios", servicioManager.getServicios());
 
 			servicio.put("servicio", miServicio);
 			mav.setViewName("listaprofesionales");
@@ -212,9 +225,7 @@ public class WebServiceController {
 				userAux.setNombre("Usuario no registrado");
 				mav.addObject("usR", userAux);
 
-			}
-
-			else {
+			}else {
 
 				mav.addObject("usR", usuarioRegistrado);
 
@@ -236,10 +247,15 @@ public class WebServiceController {
 
 			mav.addObject("usR", usuarioRegistrado);
 		}
+		
 		WebServiceController.listaAmbitos.forEach(a -> {
 
 			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
 		});
+		
+		
+		
+		mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
 		return mav;
 	}
 
@@ -310,6 +326,8 @@ public class WebServiceController {
 
 					mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
 				});
+				
+				mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
 				return mav;
 
 			}
@@ -344,6 +362,8 @@ public class WebServiceController {
 
 			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
 		});
+		
+		mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
 		return mav;
 	}
 
