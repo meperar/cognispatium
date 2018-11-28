@@ -26,6 +26,56 @@
 	href="https://static.pingendo.com/bootstrap/bootstrap-4.1.3.css"
 	integrity="">
 <style>
+
+.dropbtn {
+    background-color: rgba(0,0,0,0);
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+    background-color: rgba(255,255,255,0.5);
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown a:hover {background-color: #ddd;}
+
+.show {display: block;}
+
+
+
+
+
+
+
+
+
+
 .dropdown-submenu {
 	position: relative;
 }
@@ -89,48 +139,93 @@
 				type="button" data-toggle="collapse" data-target="#navbar13">
 				<span class="navbar-toggler-icon"></span>
 			</button>
+			
+			
+			
+			
+			
 			<div class="collapse navbar-collapse" id="navbar13">
 				<a class="navbar-brand d-none d-md-block" href="hello.htm"> <a
 					href="hello.htm"><img src="https://i.imgur.com/xmZULKf.png" width=200 title="source: imgur.com" /></a>
-					<div class="btn-group">
-						<div class="dropdown">
-							<a id="dLabel" role="button" data-toggle="dropdown" class="btn btn-primary" data-target="#"> Profesionales <span class="caret"></span>
-							</a>
-							<ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
-							<li></li>
-								<c:forEach items="${serviciosXAmbito}" var="ambito">
-									<li class="dropdown-submenu"><a tabindex="-1">${ambito.key}</a>
-										<ul class="dropdown-menu">
-											<c:forEach items="${ambito.value}" var="servicio">
-												<li class="nav-item"><a class="nav-link" href="ranking.htm?serviceId=${servicio.id}">${servicio.nombre}</a></li>
-											</c:forEach>
-										</ul></li>
-								</c:forEach>
-							</ul>
-						</div>
-					</div>
-					<div class="btn-group">
-						<div class="dropdown">
-							<a id="dLabel" role="button" data-toggle="dropdown"
-								class="btn btn-primary" data-target="#"> Consultas <span
-								class="caret"></span>
-							</a>
-							<ul class="dropdown-menu multi-level" role="menu"
-								aria-labelledby="dropdownMenu">
-								<c:forEach items="${serviciosXAmbito}" var="ambito">
-									<li class="dropdown-submenu"><a tabindex="-1">${ambito.key}</a>
-										<ul class="dropdown-menu">
-											<c:forEach items="${ambito.value}" var="servicio">
-												<li class="nav-item"><a class="nav-link"
-													href="listProf.htm?serviceIdC=${servicio.id}">${servicio.nombre}</a></li>
-											</c:forEach>
+					
+					
+					
+					<div class="dropdown">
+					  <button onclick="myFunction()" class="dropbtn">Consultas</button>
+					  <ul id="myDropdown" class="dropdown-menu multi-level">
+					  	<c:forEach items="${serviciosXAmbito}" var="ambito">
+							<li class="dropdown-submenu"><a tabindex="-1">${ambito.key}</a>
+								<ul class="dropdown-menu">
+									<c:forEach items="${ambito.value}" var="servicio">
+										<a href="listProf.htm?serviceIdC=${servicio.id}">${servicio.nombre}</a>
+									</c:forEach>
 
-										</ul></li>
-								</c:forEach>
-							</ul>
-						</div>
+								</ul></li>
+						</c:forEach>
+					  </ul>
 					</div>
+					
+					
+					
+					<div class="dropdown">
+					  <button onclick="myFunction2()" class="dropbtn">Profesionales</button>
+					  <ul id="myDropdown2" class="dropdown-menu multi-level">
+					  	<c:forEach items="${serviciosXAmbito}" var="ambito">
+							<li class="dropdown-submenu"><a tabindex="-1">${ambito.key}</a>
+								<ul class="dropdown-menu">
+									<c:forEach items="${ambito.value}" var="servicio">
+										<a class="nav-link" href="ranking.htm?serviceId=${servicio.id}">${servicio.nombre}</a>
+									</c:forEach>
 
+								</ul></li>
+						</c:forEach>
+					  </ul>
+					</div>
+					
+					<script>
+					/* When the user clicks on the button, 
+					toggle between hiding and showing the dropdown content */
+					function myFunction() {
+					    //document.getElementById("myDropdown").classList.toggle("show");
+					    
+					    var x = document.getElementById("myDropdown");
+					    if (x.style.display === "none") {
+					        x.style.display = "block";
+					    } else {
+					        x.style.display = "none";
+					    }
+
+					    var y = document.getElementById("myDropdown2");
+					    if (y.style.display === "block") {
+					        y.style.display = "none";
+					    } 
+					}
+					
+					function myFunction2() {
+					    //document.getElementById("myDropdown2").classList.toggle("show");
+					    var x = document.getElementById("myDropdown2");
+					    if (x.style.display === "none") {
+					        x.style.display = "block";
+					    } else {
+					        x.style.display = "none";
+					    }
+					    
+					    var y = document.getElementById("myDropdown");
+					    if (y.style.display === "block") {
+					        y.style.display = "none";
+					    } 
+					}
+					
+					// Close the dropdown if the user clicks outside of it
+					window.onclick = function(event) {
+					  if (!event.target.matches('.dropbtn')) {
+					
+					    myFunction();
+					    myFunction2();
+					  }
+					}
+					</script>
+					
 					<ul class="navbar-nav">
 						<li class="nav-item" style=""><a class="nav-link" href="#">&nbsp;
 								&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
