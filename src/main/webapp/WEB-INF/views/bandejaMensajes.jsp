@@ -20,14 +20,15 @@
 </head>
 <body>
 	<jsp:include page="barrasuperior.jsp" flush="true" />
-	<nav class="navbar navbar-light"></nav>
-	<nav class="navbar navbar-dark bg-dark">
-		<div class="container d-flex justify-content-center">
-			<a class="navbar-brand" href="#"> <b> Correo Interno:
-					${mensajeTipo}</b>
-			</a>
-		</div>
-	</nav>
+	
+	<br>
+	<div style="text-align: center;">
+		<a><b style="font-size: 20px"> Correo Interno: ${mensajeTipo}</b></a>
+		<hr style="border-top: 2px solid #000000;">
+	</div>
+	<br>
+	<br>
+	<br>
 	<div class="row">
 		<div class="col-md-2">
 			<ul class="list-group">
