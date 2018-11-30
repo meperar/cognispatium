@@ -22,6 +22,7 @@ import upv.etsinf.cognispatium.domain.EstadoConsulta;
 import upv.etsinf.cognispatium.domain.Profesional;
 import upv.etsinf.cognispatium.domain.Servicio;
 import upv.etsinf.cognispatium.domain.Usuario;
+import upv.etsinf.cognispatium.service.SimpleConsultaManager;
 import upv.etsinf.cognispatium.service.SimpleConsultaUrgenteManager;
 import upv.etsinf.cognispatium.service.SimpleProfesionalManager;
 import upv.etsinf.cognispatium.service.SimpleServicioManager;
@@ -38,6 +39,9 @@ public class ListadoConsultasController {
 	@Autowired
 	private SimpleConsultaUrgenteManager consultaUManager;
 	
+	@Autowired
+	private SimpleConsultaManager SCM;
+	
 
 	/** Logger for this class and subclasses */
 	protected final Log logger = LogFactory.getLog(getClass());
@@ -48,14 +52,23 @@ public class ListadoConsultasController {
 		Profesional prof = simpleProfesionalManager.getProfesionalById(WebServiceController.usuarioRegistrado.getId());
 		List<Servicio> listaServicios = prof.getServicios();
 		
-		List<ConsultaUrgente> listaConsultas = new ArrayList<ConsultaUrgente>();
-		
+		List<Consulta> listaConsultas = new ArrayList<Consulta>();
+		List<Consulta> listaConsultasAux = new ArrayList<Consulta>();
 		Map<String, Object> Mymodel = new HashMap<String, Object>();
 		
 		if (reqPar.get("servicio") != null) {
 			Integer ServiceId = Integer.parseInt(reqPar.get("servicio"));
 			Servicio servicioConsulta = servicioManager.getServiciobyId(ServiceId);
-			listaConsultas =consultaUManager.getConsultasbyService(servicioConsulta)
+			
+			listaConsultasAux = SCM.getConsultasbyServicio(servicioConsulta.getId());
+			int i = 0;
+			for(Consulta c : listaConsultasAux) {
+				if(c.getEstado() == EstadoConsulta.creada || c.getEstado() == EstadoConsulta.respondida ) listaConsultas.add(listaConsultasAux.get(i));
+				
+				i++;
+			}
+			
+			listaConsultas
 			        .stream().sorted(Comparator.comparing(Consulta::getId).reversed())
                     .filter(sol -> (sol.getEstado()!=EstadoConsulta.cerrada))
                     .collect(Collectors.toList());
@@ -65,7 +78,18 @@ public class ListadoConsultasController {
 		} else {
 			
 			for(Servicio s : listaServicios) {
-	 			listaConsultas.addAll(consultaUManager.getConsultasbyService(s));
+				
+				listaConsultasAux = SCM.getConsultasbyServicio(s.getId());
+				int i = 0;
+				for(Consulta c : listaConsultasAux) {
+					if(c.getEstado() == EstadoConsulta.creada || c.getEstado() == EstadoConsulta.respondida) {
+						listaConsultas.add(listaConsultasAux.get(i));
+					}
+					
+					i++;
+				}
+				
+	 			//listaConsultas.addAll(consultaUManager.getConsultasbyService(s));
 	 		}
 			
 			/*listaConsultas
