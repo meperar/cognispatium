@@ -15,17 +15,14 @@
 
 <body>
 	<jsp:include page="barrasuperior.jsp" flush="true" />
-	<nav class="navbar navbar-light border-dark">
-		<div class="container d-flex justify-content-center">
-			<a class="navbar-brand text-primary" href="#"> <i
-				class="fa d-inline fa-lg fa-circle-o text-dark"></i> <b
-				class="text-dark"> MIS PRESUPUESTOS</b>
-			</a>
-		</div>
-	</nav>
-	<nav class="navbar navbar-dark bg-dark border-light">
-		<div class="container"></div>
-	</nav>
+	<br>
+	<div style="text-align: center;">
+		<a><b style="font-size: 20px"> MIS PRESUPUESTOS</b></a>
+		<hr style="border-top: 2px solid #000000;">
+	</div>
+	<br>
+	<br>
+	<br>
 	<div class="row">
 		<div class="col-md-12">
 			<div class="form-group"></div>

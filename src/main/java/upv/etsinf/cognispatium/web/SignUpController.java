@@ -99,6 +99,10 @@ public class SignUpController {
 				if(!file.isEmpty()) {
 					nuevoCliente.setImagen(file.getBytes());
 				}
+				nuevoCliente.setPais(reqPar.get("country"));
+				nuevoCliente.setProvincia(reqPar.get("province"));
+				nuevoCliente.setCiudad(reqPar.get("city"));
+
 
 				nuevoRegistro.setUsuario(nuevoCliente);
 				
@@ -113,6 +117,9 @@ public class SignUpController {
 				if(!file.isEmpty()) {
 					nuevoProf.setImagen(file.getBytes());
 				}
+				nuevoProf.setPais(reqPar.get("country"));
+				nuevoProf.setProvincia(reqPar.get("province"));
+				nuevoProf.setCiudad(reqPar.get("city"));
 				
 				nuevoRegistro.setUsuario(nuevoProf);
 			}

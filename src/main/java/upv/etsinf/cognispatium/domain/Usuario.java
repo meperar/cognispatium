@@ -34,6 +34,9 @@ public class Usuario implements Serializable {
 	private int telefono;
 	private int edad;
 	private int desactivado;
+	private String pais;
+	private String provincia;
+	private String ciudad;
 	
 	
 	 @Column
@@ -131,6 +134,28 @@ public class Usuario implements Serializable {
 		buffer.append("Surname: " + apellidos);
 		return buffer.toString();
 	}
-	
-	
+
+	public String getPais() {
+		return pais;
+	}
+
+	public void setPais(String pais) {
+		this.pais = pais;
+	}
+
+	public String getProvincia() {
+		return provincia;
+	}
+
+	public void setProvincia(String provincia) {
+		this.provincia = provincia;
+	}
+
+	public String getCiudad() {
+		return ciudad;
+	}
+
+	public void setCiudad(String ciudad) {
+		this.ciudad = ciudad;
+	}
 }

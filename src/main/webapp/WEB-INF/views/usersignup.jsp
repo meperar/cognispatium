@@ -69,15 +69,39 @@
 							title="número de teléfono móvil o fijo de 9 cifras" maxlength="9"
 							required />
 					</div>
-
 					<div class="form-group">
-						<label for="form16">DNI/NIF</label> <input type="text"
-							name="dninif" class="form-control" id="dninif"
-							placeholder="Introduzca su DNI/NIF"
-							pattern="(([X-Z]{1})([-]?)(\d{7})([-]?)([A-Z]{1}))|((\d{8})([-]?)([A-Z]{1}))"
-							title="12345678A, o X-1234567-B si tiene NIE" maxlength="13"
-							required />
-					</div>
+							<label for="form16">DNI/NIF</label> <input type="text"
+								name="dninif" class="form-control" id="dninif"
+								placeholder="Introduzca su DNI/NIF" 
+								pattern="(([X-Z]{1})([-]?)(\d{7})([-]?)([A-Z]{1}))|((\d{8})([-]?)([A-Z]{1}))"
+								title = "12345678A, o X-1234567-B si tiene NIE"
+								maxlength="13"
+								required />
+						</div>	
+							
+			<div class="form-group">
+							<label for="form16">Pais</label> <input type="text"
+								name="country" class="form-control" id="UN"
+								placeholder="Escriba el nombre del país donde reside " 								
+								maxlength="10"
+								required  /> 
+						</div>
+						
+			<div class="form-group">
+							<label for="form16">Provincia</label> <input type="text"
+								name="province" class="form-control" id="UN"
+								placeholder="Escriba el nombre de la provincia donde reside " 								
+								maxlength="10"
+								required  /> 
+						</div>
+						
+			<div class="form-group">
+							<label for="form16">Ciudad</label> <input type="text"
+								name="city" class="form-control" id="UN"
+								placeholder="Escriba el nombre de la ciudad donde reside " 								
+								maxlength="10"
+								required  /> 
+						</div>
 					<div class="form-group">
 						<label for="form16">Imagen de perfil</label> <input type="file"
 							name="file" accept="image/png, image/jpeg">
