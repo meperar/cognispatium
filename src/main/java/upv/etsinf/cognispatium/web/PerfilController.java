@@ -142,33 +142,35 @@ public class PerfilController {
 			/*Profesional profE = new Profesional();
 			Cliente cliE = new Cliente();
 
-			List<Consulta> listaCe = new ArrayList<Consulta>();
-			List<Consulta> listaTodasE = new ArrayList<Consulta>();
+			
+			
 
 			List<Respuesta> listaRe = new ArrayList<Respuesta>();
-			List<Respuesta> listaTodasRe = new ArrayList<Respuesta>();
+			
 
 			List<Presupuesto> listaPe = new ArrayList<Presupuesto>();
 			List<Presupuesto> listaTodasPe = new ArrayList<Presupuesto>();
 			
 			*/
-
+			List<Consulta> listaCe = new ArrayList<Consulta>();
+			List<Respuesta> listaTodasRe = new ArrayList<Respuesta>();
+			List<Consulta> listaTodasE = new ArrayList<Consulta>();
 			Usuario usuEl = usuarioManager.getUsuariobyId(Integer.parseInt(reqPar.get("usridE")));
 			
 			Registro regEl = registroManager.getRegistrobyUsuario(usuEl.getId()).get(0);
 
-			/*Boolean esPe = usuEl instanceof Profesional;
+			Boolean esPe = usuEl instanceof Profesional;
 			listaTodasE = consultaManager.getConsultas();
-			listaTodasRe = resManager.getRespuestas();
+			//listaTodasRe = resManager.getRespuestas();
 			int valoracion = 0;
 
 			if (esPe) {
-				valoracion = ((Profesional) usuEl).getValoracion();
+				//valoracion = ((Profesional) usuEl).getValoracion();
 
-				profE.setValoracion(valoracion);
-				profE.setId(usuEl.getId());
+				//profE.setValoracion(valoracion);
+				//profE.setId(usuEl.getId());
 			} else {
-				cliE.setId(usuEl.getId());
+				//cliE.setId(usuEl.getId());
 			}
 
 			// Obtener consultas urgentes no resueltas
@@ -179,15 +181,18 @@ public class PerfilController {
 					String dniClienteConsulta = consulta.getClienteOrigen().getDni();
 					String dniUsuario = usuEl.getDni();
 
-					if (esUr && ((ConsultaUrgente) consulta).getEstado() != EstadoConsulta.resuelta) {
-						if (dniClienteConsulta.equals(dniUsuario))
-							listaCe.add(consulta);
+					if (esUr) {
+						if(((ConsultaUrgente) consulta).getEstado() == EstadoConsulta.creada || ((ConsultaUrgente) consulta).getEstado() == EstadoConsulta.respondida) {
+							if (dniClienteConsulta.equals(dniUsuario))
+								consulta.setEstado(EstadoConsulta.no_resuelta);
+								listaCe.add(consulta);
+						}
 					}
 				}
 
 			}
 
-			// Obtener respuestas a consultas urgentes no resueltas
+			/*// Obtener respuestas a consultas urgentes no resueltas
 			for (Respuesta respuesta : listaTodasRe) {
 				if (esPe) {
 					Consulta CR = respuesta.getConsultaOrigen();
@@ -211,11 +216,11 @@ public class PerfilController {
 						listaPe.add(presupuesto);
 				}
 			}
-
+*/
 			// Eliminar el registro, el usuario, la información de profesional si esPe (la
 			// de cliente si no) y las consultas de este.
 			if (esPe) {
-				for (Respuesta respuesta : listaRe) {
+				/*for (Respuesta respuesta : listaRe) {
 					resManager.dropRes(respuesta);
 				}
 
@@ -223,15 +228,15 @@ public class PerfilController {
 					preManager.dropPres(presupuesto);
 				}
 
-				profManager.dropProf(profE);
+				profManager.dropProf(profE);*/
 			} else {
 				for (Consulta consulta : listaCe) {
-					consultaManager.dropCons(consulta);
+					consultaManager.addConsulta(consulta);
 				}
 
-				cliManager.dropCli(cliE);
+				//cliManager.dropCli(cliE);
 			}
-			*/
+			
 			registroManager.dropReg(regEl);
 			//usuarioManager.dropUser(usuEl);
 
