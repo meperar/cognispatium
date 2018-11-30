@@ -95,6 +95,9 @@ public class SignUpController {
 				nuevoCliente.setTelefono(Integer.parseInt(reqPar.get("tlf")));
 				nuevoCliente.setDTYPE(reqPar.get("rol"));
 				nuevoCliente.setDesactivado(0);
+				nuevoCliente.setPais(reqPar.get("country"));
+				nuevoCliente.setProvincia(reqPar.get("province"));
+				nuevoCliente.setCiudad(reqPar.get("city"));
 
 				nuevoRegistro.setUsuario(nuevoCliente);
 				
@@ -106,6 +109,9 @@ public class SignUpController {
 				nuevoProf.setTelefono(Integer.parseInt(reqPar.get("tlf")));
 				nuevoProf.setDTYPE(reqPar.get("rol"));
 				nuevoProf.setDesactivado(0);
+				nuevoProf.setPais(reqPar.get("country"));
+				nuevoProf.setProvincia(reqPar.get("province"));
+				nuevoProf.setCiudad(reqPar.get("city"));
 				
 				nuevoRegistro.setUsuario(nuevoProf);
 			}

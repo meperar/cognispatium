@@ -87,7 +87,31 @@
 								title = "12345678A, o X-1234567-B si tiene NIE"
 								maxlength="13"
 								required />
-						</div>		
+						</div>	
+							
+			<div class="form-group">
+							<label for="form16">Pais</label> <input type="text"
+								name="country" class="form-control" id="UN"
+								placeholder="Escriba el nombre del país donde reside " 								
+								maxlength="10"
+								required  /> 
+						</div>
+						
+			<div class="form-group">
+							<label for="form16">Provincia</label> <input type="text"
+								name="province" class="form-control" id="UN"
+								placeholder="Escriba el nombre de la provincia donde reside " 								
+								maxlength="10"
+								required  /> 
+						</div>
+						
+			<div class="form-group">
+							<label for="form16">Ciudad</label> <input type="text"
+								name="city" class="form-control" id="UN"
+								placeholder="Escriba el nombre de la ciudad donde reside " 								
+								maxlength="10"
+								required  /> 
+						</div>
 			
 			<input type="radio" name="rol" value="cliente" checked>   Cuenta Cliente &nbsp; &nbsp;  
 			<input type="radio" name="rol" value="profesional">   Cuenta Profesional<br> 
