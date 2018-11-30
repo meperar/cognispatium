@@ -60,19 +60,22 @@
 							<tr>
 								<td style="border: 0px"> &emsp; </td>
 								<td>
-									<h4><img src="https://i.imgur.com/4omBc9u.png" width = 128 title="source: imgur.com" />&emsp; ${profs.nombre} ${profs.apellidos}</h4>
+									<h4>
+									<c:if test="${profs.getFotos() == null}"><img src="https://i.imgur.com/Yiay52m.png" width = 128 title="source: imgur.com" /><br></c:if>
+									<c:if test="${profs.getFotos() != null}"><img src='data:image/png;base64,${profs.getFotos()}' alt="\" height="115" width="128"><br></c:if>
+									 ${profs.getNombre()} ${profs.getApellidos()}</h4>
 									<c:choose>
-									<c:when test="${profs.getValoracionMediaRedondeada() >= 0}">
+									<c:when test="${profs.getValoracionMedia() >= 0}">
 										<h4>&nbsp;
-											<c:forEach begin="1" end="${profs.getValoracionMediaRedondeada()}" varStatus="loop">
+											<c:forEach begin="1" end="${profs.getValoracionMedia()}" varStatus="loop">
 		   										<img src="https://i.imgur.com/rhSk7m7.png" width = 18 title="source: imgur.com" />
 											</c:forEach>
-											<c:forEach begin="1" end="${5 - profs.getValoracionMediaRedondeada()}" varStatus="loop">
+											<c:forEach begin="1" end="${5 - profs.getValoracionMedia()}" varStatus="loop">
 		   										<img src="https://i.imgur.com/hYfF8io.png" width = 18 title="source: imgur.com" />
 											</c:forEach>
 										</h4>
 									</c:when>
-									<c:when test="${profs.getValoracionMediaRedondeada() == 0}">
+									<c:when test="${profs.getValoracionMedia() == 0}">
 										Sin valoración
 									</c:when>
 									</c:choose>

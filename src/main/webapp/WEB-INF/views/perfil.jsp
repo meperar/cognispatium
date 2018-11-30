@@ -176,7 +176,6 @@
 }
 </style>
 </head>
-
 <body>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -200,7 +199,8 @@
 									<td width="12%"></td>
 								</c:if>
 								<td>
-									<img src="https://i.imgur.com/Yiay52m.png" width = 256 title="source: imgur.com" /><br>
+									<c:if test="${!model.tieneFoto}"><img src="https://i.imgur.com/Yiay52m.png" width = 256 title="source: imgur.com" /><br></c:if>
+									<c:if test="${model.tieneFoto}"><img src='${model.foto}' alt="\" height="230" width="256"><br></c:if>
 									<c:if test="${boolModel.esProfesional}">
 										<a>&emsp;&emsp;&emsp;&emsp;&emsp;
 											<c:forEach begin="1" end="${intModel.valoracion}" varStatus="loop">
@@ -227,7 +227,7 @@
 									<button class="open-button" onclick="openFormDesac()">Desactivar Perfil</button>
 									
 									<div class="form-popup" id="myFormAddS">
-										<form action="#" method="post" class="form-container">
+										<form action="<c:url value="/addServicio.htm" />" method="post" class="form-container">
 											<input type="hidden" id="addSid" name="addSid" value="${model.usuario.id}">
 											
 											<div style="text-align: center">Seleccione un servicio a añadir</div>
@@ -270,7 +270,7 @@
 									</div>
 									
 									<div class="form-popup" id="myFormQuitarServicio">
-										<form action="#" method="post" class="form-container">
+										<form action="<c:url value="/quitarServicio.htm" />" method="post" class="form-container">
 											<input type="hidden" id="quitarServicio" name="quitarServicio" value="${model.usuario.id}">
 											
 											<div style="text-align: center">Seleccione un servicio a eliminar</div>
@@ -312,7 +312,7 @@
 									</div>
 									
 									<div class="form-popup" id="myForme">
-										<form action="#" method="post" class="form-container">
+										<form action="<c:url value="/eliminarUsuario.htm" />"method="post" class="form-container">
 											<input type="hidden" id="usridE" name="usridE" value="${model.usuario.id}">
 											<div style="text-align: center">No podrás recuperar tus datos, ¿proceder?</div>
 											<div style="display: inline-block;">
@@ -323,7 +323,7 @@
 									</div>
 									
 									<div class="form-popup" id="myFormDesac">
-										<form action="#" method="post" class="form-container">
+										<form action="<c:url value="/desactivarPerfil.htm" />" method="post" class="form-container" >
 											<input type="hidden" id="desacId" name="desacId" value="${model.usuario.id}">
 											<div style="text-align: center">Se procederá a desactivar la cuenta, ¿está seguro de esto?</div>
 											<div style="display: inline-block;">
@@ -337,41 +337,101 @@
 									
 									
 									<div class="form-popup" id="myForm">
-									  	<form action="#" onsubmit="return validarCampos();" method="post" class="form-container">
-										    <div style="text-align: center"><h1>Editar Perfil</h1></div>
+										<form action="<c:url value="/perfil.htm" />" onsubmit="return validarCampos();"
+											method="post" class="form-container"
+											enctype="multipart/form-data">
+											<div style="text-align: center">
+												<h1>Editar Perfil</h1>
+											</div>
 											<table class="perfil">
-												<tbody>	
+												<tbody>
 													<tr>
-														<td><div class="rightAlign"><b>Nombre:</b></div></td>  <td><input type="text" value="${model.usuario.nombre}" name="nombre" id="nombre" required></td>
+														<td><div class="rightAlign">
+																<b>Nombre:</b>
+															</div></td>
+														<td><input type="text"
+															value="${model.usuario.nombre}" name="nombre" id="nombre"
+															required></td>
 													</tr>
 													<tr>
-														<td><div class="rightAlign"><b>Apellidos:</b></div></td>  <td><input type="text" value="${model.usuario.apellidos}" name="apellidos" id="apellidos" required></td>
+														<td><div class="rightAlign">
+																<b>Apellidos:</b>
+															</div></td>
+														<td><input type="text"
+															value="${model.usuario.apellidos}" name="apellidos"
+															id="apellidos" required></td>
 													</tr>
 													<tr>
-														<td><div class="rightAlign"><b>Apodo:</b></div></td>  <td><input type="text" value="${model.registro.username}" name="apodo" id="apodo" required></td>
+														<td><div class="rightAlign">
+																<b>Apodo:</b>
+															</div></td>
+														<td><input type="text"
+															value="${model.registro.username}" name="apodo"
+															id="apodo" required></td>
 													</tr>
 													<tr>
-														<td><div class="rightAlign"><b>Edad:</b></div></td>  <td><input type="text" value="${model.usuario.edad}" name="edad" id="edad" required><a id="errorEdad" style="color: red;"></a></td>
+														<td><div class="rightAlign">
+																<b>Edad:</b>
+															</div></td>
+														<td><input type="text" value="${model.usuario.edad}"
+															name="edad" id="edad" required><a id="errorEdad"
+															style="color: red;"></a></td>
 													</tr>
 													<tr>
-														<td><div class="rightAlign"><b>DNI:</b></div></td>  <td><input type="text" value="${model.usuario.dni}" name="dni" id="dni" required><a id="errorDni" style="color: red;"></a></td>
+														<td><div class="rightAlign">
+																<b>DNI:</b>
+															</div></td>
+														<td><input type="text" value="${model.usuario.dni}"
+															name="dni" id="dni" required><a id="errorDni"
+															style="color: red;"></a></td>
 													</tr>
 													<tr>
-														<td><div class="rightAlign"><b>E-mail:</b></div></td>  <td><input type="text" value="${model.usuario.email}" name="email" id="email" required><a id="errorEmail" style="color: red;"></a></td>
+														<td><div class="rightAlign">
+																<b>E-mail:</b>
+															</div></td>
+														<td><input type="text" value="${model.usuario.email}"
+															name="email" id="email" required><a
+															id="errorEmail" style="color: red;"></a></td>
 													</tr>
 													<tr>
-														<td><div class="rightAlign"><b>Teléfono:</b></div></td>  <td><input type="text" value="${model.usuario.telefono}" name="telefono" id="telefono" required><a id="errorTele" style="color: red;"></a></td>
+														<td><div class="rightAlign">
+																<b>Teléfono:</b>
+															</div></td>
+														<td><input type="text"
+															value="${model.usuario.telefono}" name="telefono"
+															id="telefono" required><a id="errorTele"
+															style="color: red;"></a></td>
 													</tr>
 													<tr>
-														<td><div class="rightAlign"><b>Contraseña:</b></div></td>  <td><input type="text" value="${model.registro.contraseña}" name="contrasena" id="contrasena" required></td>
+														<td><div class="rightAlign">
+																<b>Contraseña:</b>
+															</div></td>
+														<td><input type="text"
+															value="${model.registro.contraseña}" name="contrasena"
+															id="contrasena" required></td>
+													</tr>
+
+													<tr>
+														<td><div class="rightAlign">
+																<b>Imagen Perfil:</b>
+															</div></td>
+														<td><div class="form-group">
+																<input id="foto" type="file" name="file"
+																	accept="image/png, image/jpeg"><br />
+															</div>
+															<a id="errorFoto"
+															style="color: red;"></a></td>
 													</tr>
 												</tbody>
 											</table>
-											
-											<div style="display: inline-block;"><button type="submit" class="btn">Guardar</button> <button type="button" class="btn cancel" onclick="closeForm()">Cancelar</button></div>
-									  	</form>
+
+											<div style="display: inline-block;">
+												<button type="submit" class="btn">Guardar</button>
+												<button type="button" class="btn cancel"
+													onclick="closeForm()">Cancelar</button>
+											</div>
+										</form>
 									</div>
-									
 									<script>
 									function openFormAddS() {
 									    document.getElementById("myFormAddS").style.display = "block";
@@ -424,6 +484,7 @@
 										var campoEmail = document.getElementById("email");
 										var campoTelefono = document.getElementById("telefono");
 										var campoContrasena = document.getElementById("contrasena");
+										var input = document.getElementById("foto");
 										
 										var errorEdad = document.getElementById("errorEdad");
 										var errorDni = document.getElementById("errorDni");
@@ -435,6 +496,11 @@
 										var email = campoEmail.value;
 										var telefono = campoTelefono.value;
 										var contrasena = campoContrasena.value;
+										var file = input.files[0];
+										if(file.size > 200000){
+											valido = false;
+											errorFoto.innerHTML = "El tamaño maximo de la foto es 200KB.";
+										}
 										
 
 										if(isNaN(edad)){

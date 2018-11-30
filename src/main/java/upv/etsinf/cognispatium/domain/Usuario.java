@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 @Entity
@@ -33,6 +34,11 @@ public class Usuario implements Serializable {
 	private int telefono;
 	private int edad;
 	private int desactivado;
+	
+	
+	 @Column
+	 @Lob
+	private byte[] imagen;
 	
 	
 
@@ -110,10 +116,21 @@ public class Usuario implements Serializable {
 		this.edad = edad;
 	}
 
+	
+	public byte[] getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(byte[] imagen) {
+		this.imagen = imagen;
+	}
+
 	public String toString() {
 		StringBuffer buffer = new StringBuffer();
 		buffer.append("Name: " + nombre + ";");
 		buffer.append("Surname: " + apellidos);
 		return buffer.toString();
 	}
+	
+	
 }
