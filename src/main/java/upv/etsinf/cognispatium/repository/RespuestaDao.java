@@ -11,5 +11,7 @@ public interface RespuestaDao {
     public void saveRespuesta(Respuesta respuesta);
     
     public void dropRespuesta(Respuesta respuesta);
+    
+    public Respuesta getRespuestabyId(Integer respuestaId);
 
 }
