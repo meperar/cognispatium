@@ -51,7 +51,7 @@ public class ListadoSolicitudesDelClienteController {
 	@Autowired
 	private SimplePresupuestoManager simplePresupuestoManager;
 
-	private  Presupuesto presupuestoAceptado;
+
 
 	/** Logger for this class and subclasses */
 	protected final Log logger = LogFactory.getLog(getClass());
@@ -101,13 +101,14 @@ public class ListadoSolicitudesDelClienteController {
 	protected ModelAndView verSolicitud(@RequestParam Map<String, String> reqPar,HttpServletRequest request) throws Exception {
 
 		this.miSolicitud = servicioSolicitudManager.getSolicitudbyId(Integer.parseInt(reqPar.get("solicitudId")));
-		presupuestoAceptado = simplePresupuestoManager.getPresupuestoAceptadoBySolicitud(miSolicitud);
+		
+		System.out.println(miSolicitud.getDescripcion()+ "\n");
 		boolean info = WebUtils.hasSubmitParameter(request, "info");
 		
 		if(WebUtils.hasSubmitParameter(request, "valorarProfesional")) {
-			int solicitudId = Integer.parseInt(reqPar.get("solicitudId"));
-			Solicitud solicitud = servicioSolicitudManager.getSolicitudbyId(solicitudId);
-			int profesionalId = presupuestoAceptado.getProfesionalOrigen().getId();
+		    Presupuesto presupuesto = simplePresupuestoManager.getPresupuestoAceptadoBySolicitud(miSolicitud);
+	        System.out.println("presupuesto: "+ presupuesto.getDescripcion() + " estado:" + presupuesto.getEstado());
+			int profesionalId = presupuesto.getProfesionalOrigen().getId();
 			ModelAndView mav = new ModelAndView("redirect:/votarProfesional.htm?profesionalId=" + profesionalId);
 			WebServiceController.listaAmbitos.forEach(a -> {
 
@@ -120,7 +121,8 @@ public class ListadoSolicitudesDelClienteController {
 		}
 		
 		else if (info) {
-
+		    Presupuesto presupuesto = simplePresupuestoManager.getPresupuestoAceptadoBySolicitud(miSolicitud);
+	        System.out.println("presupuesto: "+ presupuesto.getDescripcion() + " estado:" + presupuesto.getEstado());
 		Map<String, Object> myModel = new HashMap<String, Object>();
 		
 		ModelAndView mav = new ModelAndView("diferentesPresupuestos");
@@ -145,7 +147,7 @@ public class ListadoSolicitudesDelClienteController {
 		}
 		
 		else {
-			
+		    
 			mav.addObject("usR", WebServiceController.usuarioRegistrado);
 			
 		}
@@ -161,7 +163,8 @@ public class ListadoSolicitudesDelClienteController {
 		}
 		
 		else {
-		    
+		    Presupuesto presupuesto = simplePresupuestoManager.getPresupuestoAceptadoBySolicitud(miSolicitud);
+            System.out.println("presupuesto: "+ presupuesto.getDescripcion() + " estado:" + presupuesto.getEstado());
 		
 		    if (WebUtils.hasSubmitParameter(request, "borrar")) {
 			
@@ -171,18 +174,18 @@ public class ListadoSolicitudesDelClienteController {
 		    }
 		    
 		    else {
-	           
+		        
 	           if(miSolicitud.getEstado()==EstadoSolicitud.adjudicada) {
 	               miSolicitud.setEstado(EstadoSolicitud.aceptado_cliente);
-	               presupuestoAceptado.setEstado(EstadoPresupuesto.aceptado_cliente);
+	               presupuesto.setEstado(EstadoPresupuesto.aceptado_cliente);
 	           }
 	           else if(miSolicitud.getEstado()==EstadoSolicitud.aceptado_profesional) {
 	               miSolicitud.setEstado(EstadoSolicitud.resuelta);
-	               presupuestoAceptado.setEstado(EstadoPresupuesto.resuelto);
+	               presupuesto.setEstado(EstadoPresupuesto.resuelto);
 	           }
 	           
 	           servicioSolicitudManager.addSolicitud(miSolicitud);
-	           simplePresupuestoManager.addPresupuesto(presupuestoAceptado);
+	           simplePresupuestoManager.addPresupuesto(presupuesto);
 	       
 	          
 	        }
