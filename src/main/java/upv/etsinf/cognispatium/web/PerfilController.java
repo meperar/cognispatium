@@ -65,6 +65,9 @@ public class PerfilController {
 
 	@Autowired
 	private SimpleConsultaManager consultaManager;
+	
+	@Autowired
+	private SimpleSolicitudManager solicitudManager;
 
 	@Autowired
 	private SimpleProfesionalManager profManager;
@@ -414,12 +417,100 @@ public class PerfilController {
 
 	@PostMapping("/eliminarUsuario.htm")
 	public ModelAndView eliminarUsuario(@RequestParam Map<String, String> reqPar) {
-		Usuario usuEl = usuarioManager.getUsuariobyId(Integer.parseInt(reqPar.get("usridE")));
+		List<Consulta> listaCe = new ArrayList<Consulta>();
+        List<Consulta> listaTodasE = new ArrayList<Consulta>();
+        List<Solicitud> listaSe = new ArrayList<Solicitud>();
+        List<Solicitud> listaTodasSE = new ArrayList<Solicitud>();
+        List<Presupuesto> listaTodosPE = new ArrayList<Presupuesto>();
+        List<Presupuesto> listaPe = new ArrayList<Presupuesto>();
+        Usuario usuEl = usuarioManager.getUsuariobyId(Integer.parseInt(reqPar.get("usridE")));
 
-		Registro regEl = registroManager.getRegistrobyUsuario(usuEl.getId()).get(0);
+        Registro regEl = registroManager.getRegistrobyUsuario(usuEl.getId()).get(0);
+
+        Boolean esPe = usuEl instanceof Profesional;
+        listaTodasE = consultaManager.getConsultas();
+        listaTodasSE = solicitudManager.getSolicituds();
+        listaTodosPE = presupuestoManager.getPresupuestos();
+        
+        // Obtener consultas urgentes no resueltas
+        for (Consulta consulta : listaTodasE) {
+            if (!esPe) {
+                Boolean esUr = consulta instanceof ConsultaUrgente;
+
+                String dniClienteConsulta = consulta.getClienteOrigen().getDni();
+                String dniUsuario = usuEl.getDni();
+
+                if (esUr) {
+                    if(((ConsultaUrgente) consulta).getEstado() == EstadoConsulta.creada || ((ConsultaUrgente) consulta).getEstado() == EstadoConsulta.respondida) {
+                        if (dniClienteConsulta.equals(dniUsuario))
+                            consulta.setEstado(EstadoConsulta.no_resuelta);
+                            listaCe.add(consulta);
+                    }
+                }
+            }
+
+        }
+        //Obtener solicitudes no resueltas
+        for (Solicitud solicitud : listaTodasSE) {
+            if (!esPe) {
+              
+
+                String dniClienteSolicitud = solicitud.getClienteOrigen().getDni();
+                String dniUsuario = usuEl.getDni();
+
+                
+                    if(solicitud.getEstado() == EstadoSolicitud.creada || solicitud.getEstado() == EstadoSolicitud.respondida) {
+                        if (dniClienteSolicitud.equals(dniUsuario))
+                            solicitud.setEstado(EstadoSolicitud.eliminada);
+                            listaSe.add(solicitud);
+                    }
+                
+            }
+
+        }
+        
+        //Obtener presupuestos no aceptados
+        for (Presupuesto presupuesto : listaTodosPE) {
+            if (esPe) {
+              
+
+                String dniProfPresupuesto = presupuesto.getProfesionalOrigen().getDni();
+                String dniUsuario = usuEl.getDni();
+
+                
+                    if(presupuesto.getEstado() == EstadoPresupuesto.propuesto) {
+                        if (dniProfPresupuesto.equals(dniUsuario))
+                            presupuesto.setEstado(EstadoPresupuesto.noAceptado);
+                            listaPe.add(presupuesto);
+                    }
+                
+            }
+
+        }
+        
+        //Actualizar presupuestos 
+        if (esPe) {
+          
+
+            for (Presupuesto presupuesto : listaPe) {
+                preManager.addPresupuesto(presupuesto);
+            }
+
+        } else {
+        	//Actualizar consultas
+            for (Consulta consulta : listaCe) {
+                consultaManager.addConsulta(consulta);
+            }
+            //Actualizar solicitudes
+            for (Solicitud solicitud : listaSe) {
+            	
+            	solicitudManager.addSolicitud(solicitud);
+            }
+
+        }
 
 		registroManager.dropReg(regEl);
-		// usuarioManager.dropUser(usuEl);
+
 
 		ModelAndView mav = new ModelAndView("hello");
 
