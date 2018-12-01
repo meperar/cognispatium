@@ -7,5 +7,7 @@ public enum EstadoPresupuesto {
     rechazado,
     noAceptado,
     cerrado,
+    aceptado_cliente,
+    aceptado_profesional,
     resuelto
 }

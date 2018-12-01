@@ -51,6 +51,12 @@
 											alt="Information button free icon"
 											title="Ver datos de mi presupuesto" height="20" width="20">
 									</button>
+									<c:if test="${presupuesto.getEstado() == 'aceptado' || presupuesto.getEstado() == 'aceptado_cliente'}">
+									<button class="bg-primary" name="resolverPresupuesto">
+										<img src="https://image.flaticon.com/icons/svg/64/64886.svg" alt="resolver presupuesto" title="resolver presupuesto"
+										height="20" width="20">
+									</button>
+									</c:if>
 									</td>	
 							</form>							
 							</tr>						

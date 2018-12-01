@@ -51,6 +51,7 @@ public class ListadoSolicitudesDelClienteController {
 	@Autowired
 	private SimplePresupuestoManager simplePresupuestoManager;
 
+	private  Presupuesto presupuestoAceptado;
 
 	/** Logger for this class and subclasses */
 	protected final Log logger = LogFactory.getLog(getClass());
@@ -100,14 +101,13 @@ public class ListadoSolicitudesDelClienteController {
 	protected ModelAndView verSolicitud(@RequestParam Map<String, String> reqPar,HttpServletRequest request) throws Exception {
 
 		this.miSolicitud = servicioSolicitudManager.getSolicitudbyId(Integer.parseInt(reqPar.get("solicitudId")));
-		
+		presupuestoAceptado = simplePresupuestoManager.getPresupuestoAceptadoBySolicitud(miSolicitud);
 		boolean info = WebUtils.hasSubmitParameter(request, "info");
 		
 		if(WebUtils.hasSubmitParameter(request, "valorarProfesional")) {
 			int solicitudId = Integer.parseInt(reqPar.get("solicitudId"));
 			Solicitud solicitud = servicioSolicitudManager.getSolicitudbyId(solicitudId);
-			Presupuesto presupuesto = simplePresupuestoManager.getPresupuestoAceptadoBySolicitud(solicitud);
-			int profesionalId = presupuesto.getProfesionalOrigen().getId();
+			int profesionalId = presupuestoAceptado.getProfesionalOrigen().getId();
 			ModelAndView mav = new ModelAndView("redirect:/votarProfesional.htm?profesionalId=" + profesionalId);
 			WebServiceController.listaAmbitos.forEach(a -> {
 
@@ -119,7 +119,7 @@ public class ListadoSolicitudesDelClienteController {
 			//return new ModelAndView("redirect:/hello.htm");
 		}
 		
-		if (info) {
+		else if (info) {
 
 		Map<String, Object> myModel = new HashMap<String, Object>();
 		
@@ -159,47 +159,70 @@ public class ListadoSolicitudesDelClienteController {
 		
 	
 		}
+		
 		else {
+		    
+		
+		    if (WebUtils.hasSubmitParameter(request, "borrar")) {
 			
 			miSolicitud.setEstado(EstadoSolicitud.eliminada);
 			servicioSolicitudManager.addSolicitud(miSolicitud);
 			servicioManager.eliminarPresupuestos(miSolicitud);
-			ModelAndView mav = new ModelAndView("misSolicitudes");
-			Map<String, Object> myModel = new HashMap<String, Object>();
+		    }
+		    
+		    else {
+	           
+	           if(miSolicitud.getEstado()==EstadoSolicitud.adjudicada) {
+	               miSolicitud.setEstado(EstadoSolicitud.aceptado_cliente);
+	               presupuestoAceptado.setEstado(EstadoPresupuesto.aceptado_cliente);
+	           }
+	           else if(miSolicitud.getEstado()==EstadoSolicitud.aceptado_profesional) {
+	               miSolicitud.setEstado(EstadoSolicitud.resuelta);
+	               presupuestoAceptado.setEstado(EstadoPresupuesto.resuelto);
+	           }
+	           
+	           servicioSolicitudManager.addSolicitud(miSolicitud);
+	           simplePresupuestoManager.addPresupuesto(presupuestoAceptado);
+	       
+	          
+	        }
+		
+		 ModelAndView mav = new ModelAndView("misSolicitudes");
+         Map<String, Object> myModel = new HashMap<String, Object>();
 
-			Cliente clienteSimulado = simpleClienteManager.getClientebyId(WebServiceController.usuarioRegistrado.getId());
+         Cliente clienteSimulado = simpleClienteManager.getClientebyId(WebServiceController.usuarioRegistrado.getId());
 
-			List<Solicitud> listaSolicitudes = clienteSimulado.getSolicitudes()
-					.stream().sorted(Comparator.comparing(Solicitud::getId).reversed())
-				    .filter(sol -> !(sol.getEstado()==EstadoSolicitud.eliminada))
-				    .collect(Collectors.toList());
-			myModel.put("solicitudes", listaSolicitudes);
+         List<Solicitud> listaSolicitudes = clienteSimulado.getSolicitudes()
+                 .stream().sorted(Comparator.comparing(Solicitud::getId).reversed())
+                 .filter(sol -> !(sol.getEstado()==EstadoSolicitud.eliminada))
+                 .collect(Collectors.toList());
+         myModel.put("solicitudes", listaSolicitudes);
 
-			mav.addObject("model", myModel);
-			
-			if(WebServiceController.usuarioRegistrado == null) {
-				Usuario userAux = new Usuario();
-				
-				userAux.setNombre("Usuario no registrado");
-				mav.addObject("usR", userAux);
-				
-			}
-			
-			else {
-				
-				mav.addObject("usR", WebServiceController.usuarioRegistrado);
-				
-			}
-			WebServiceController.listaAmbitos.forEach(a -> {
+         mav.addObject("model", myModel);
+         
+         if(WebServiceController.usuarioRegistrado == null) {
+             Usuario userAux = new Usuario();
+             
+             userAux.setNombre("Usuario no registrado");
+             mav.addObject("usR", userAux);
+             
+         }
+         
+         else {
+             
+             mav.addObject("usR", WebServiceController.usuarioRegistrado);
+             
+         }
+         WebServiceController.listaAmbitos.forEach(a -> {
 
-				mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
-			});
-			
-			
-			mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
-			return mav;
-			
+             mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+         });
+         
+         
+         mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
+         return mav;
 		}
+		
 	}
 	
 	@RequestMapping(value="/valorarProfesional", method=RequestMethod.POST, params="valorarProfesional")
