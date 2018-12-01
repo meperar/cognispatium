@@ -6,5 +6,6 @@ public enum EstadoConsulta {
     respondida,
     resuelta,
     no_respondida,
-    cerrada
+    cerrada,
+    no_resuelta
 }
