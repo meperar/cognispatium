@@ -60,8 +60,8 @@ public class AsynchronousService {
 			consultaUManager.addConsultaUrgente(c);	
 			//Notificar al cliente
 			Mensaje mensaje = new Mensaje();
-			mensaje.setDescripcion("Consulta No Resuelta: " + c.getTitulo());
-			mensaje.setAsunto("Estimado Usuario le notificamos que la consulta no"+
+			mensaje.setAsunto("Consulta No Resuelta: " + c.getTitulo());
+			mensaje.setDescripcion("Estimado Usuario le notificamos que la consulta no"+
 			" ha sido resuelta en el plazo solicitado"+
 			", por lo que procedemos a realizar un reembolso del importe pagado por la consulta (2 EUROS), "+
 					"que se reembolsará en su cuenta en el plazo de 72 horas."+
