@@ -27,8 +27,18 @@ public class ProfesionalDto {
 	 
 	private Long valoracionMedia;
 	
+	private int id;
 	
 	
+	
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public ProfesionalDto(String nombre, String apellidos, String fotos, Long valoracionMedia) {
 		this.nombre = nombre;
