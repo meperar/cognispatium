@@ -1,9 +1,20 @@
 package upv.etsinf.cognispatium.web;
 
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
+import java.util.Base64;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
+import javax.imageio.ImageReadParam;
+import javax.imageio.ImageReader;
+import javax.imageio.stream.ImageInputStream;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +32,7 @@ import upv.etsinf.cognispatium.domain.Usuario;
 import upv.etsinf.cognispatium.domain.Valoracion;
 import upv.etsinf.cognispatium.service.SimpleClienteManager;
 import upv.etsinf.cognispatium.service.SimpleProfesionalManager;
+import upv.etsinf.cognispatium.service.SimpleServicioManager;
 import upv.etsinf.cognispatium.service.SimpleValoracionManager;
 
 @Controller
@@ -35,19 +47,34 @@ public class VotarProfesionalController {
 	@Autowired
 	private SimpleClienteManager clienteManager;
 	
+	@Autowired
+	private SimpleServicioManager servicioManager;
+	
 	private Profesional profesional;
 	private Cliente cliente;
 	
 	@GetMapping("/votarProfesional.htm")
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response, @RequestParam Map<String, String> reqPar)
 			throws ServletException, IOException {
-
-		ModelAndView mav = new ModelAndView("votarProfesional");
-		Map<String, Object> myModel = new HashMap<String, Object>();
-		mav.addObject("model", myModel);
-		
 		Integer profesionalId = Integer.parseInt(reqPar.get("profesionalId"));
 		profesional = profesionalManager.getProfesionalById(profesionalId);
+		ModelAndView mav = new ModelAndView("votarProfesional");
+		Map<String, Object> myModel = new HashMap<String, Object>();
+		//AÑADIMOS IMAGEN AL MAV
+		
+		if(profesional.getImagen() != null) {
+			Base64.Encoder encoder = Base64.getEncoder();
+	        String encoding = "data:image/png;base64," + encoder.encodeToString(profesional.getImagen());
+	        myModel.put("foto", encoding);
+	        myModel.put("tieneFoto", true);
+			}else {
+			myModel.put("tieneFoto", false);
+			}
+        
+		//FIN AÑADIR IMAGEN
+		mav.addObject("model", myModel);
+		
+		
 		mav.addObject("profesional", profesional);
 		
 		Usuario user = WebServiceController.usuarioRegistrado;
@@ -59,6 +86,9 @@ public class VotarProfesionalController {
 
 				mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
 			});
+			
+			
+			mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
 			return mav;
 		}
 		else {
@@ -68,6 +98,8 @@ public class VotarProfesionalController {
 
 				mav2.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
 			});
+			
+			mav2.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
 			return mav2;
 		   
 		}
@@ -87,6 +119,8 @@ public class VotarProfesionalController {
 
 			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
 		});
+		
+		mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
 		return mav;
 	}
 }

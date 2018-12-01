@@ -6,11 +6,9 @@
 <head>
 <link rel="icon" href="https://i.imgur.com/CjvIMZT.png">
 <style>
-
 .col-md-6 {
-  margin: 0 auto;
+	margin: 0 auto;
 }
-
 </style>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,62 +22,54 @@
 	crossorigin="anonymous">
 </head>
 <body>
-<jsp:include page="barrasuperior.jsp" flush="true" />
-<div class="py-5">
-		<div class="container">		
-		 <div class="col-md-6">
-          <h2 style="text-align: center;">Introduzca sus datos</h2>
-          <form action="#" method="post" class="text-center">
-           <div class="form-group">
-							<label for="form16">Nombre de usuario</label> <input type="text"
-								name="username" class="form-control" id="UN"
-								placeholder="Elija un nombre de usuario, p. ej. 'usuario123' " 								
-								maxlength="10"
-								required  /> ${err.err}
-						</div>
-			
-			<div class="form-group">
-							<label for="form16">Contraseña</label> <input type="password"
-								name="password" class="form-control" id="PSW"								
-								maxlength="10"
-								required  />
-						</div>
-						
-			<div class="form-group">
-							<label for="form16">Nombre</label> <input type="text"
-								name="nombre" class="form-control" id="nombre"
-								placeholder="Introduzca su nombre real"
-								maxlength="20"
-								required />
-						</div>
-						
-			<div class="form-group">
-							<label for="form16">Apellido</label> <input type="text"
-								name="apellido" class="form-control" id="apellido"
-								placeholder="Introduzca su apellido real" 
-								maxlength="20"
-								required  />
-						</div>			
-						
-			<div class="form-group">
-							<label for="form16">Email</label> <input type="email"
-								name="email" class="form-control" id="email"
-								placeholder="Introduzca su correo electrónico" 
-								required 
-								maxlength="25" />
-						</div>			
-			
-			<div class="form-group">
-							<label for="form16">Teléfono</label> <input type="text"
-								name="tlf" class="form-control" id="tlf"
-								placeholder="Introduzca su número de teléfono móvil/fijo)"
-								pattern = "[69][0-9]{8}"
-								title = "número de teléfono móvil o fijo de 9 cifras"
-								maxlength="9"
-								required  />
-						</div>
-						
-			<div class="form-group">
+	<jsp:include page="barrasuperior.jsp" flush="true" />
+	<div class="py-5">
+		<div class="container">
+			<div class="col-md-6">
+				<h2 style="text-align: center;">Introduzca sus datos</h2>
+				<form action="#" method="post" class="text-center"
+					enctype="multipart/form-data">
+					<div class="form-group">
+						<label for="form16">Nombre de usuario</label> <input type="text"
+							name="username" class="form-control" id="UN"
+							placeholder="Elija un nombre de usuario, p. ej. 'usuario123' "
+							maxlength="10" required /> ${err.err}
+					</div>
+
+					<div class="form-group">
+						<label for="form16">Contraseña</label> <input type="password"
+							name="password" class="form-control" id="PSW" maxlength="10"
+							required />
+					</div>
+
+					<div class="form-group">
+						<label for="form16">Nombre</label> <input type="text"
+							name="nombre" class="form-control" id="nombre"
+							placeholder="Introduzca su nombre real" maxlength="20" required />
+					</div>
+
+					<div class="form-group">
+						<label for="form16">Apellido</label> <input type="text"
+							name="apellido" class="form-control" id="apellido"
+							placeholder="Introduzca su apellido real" maxlength="20" required />
+					</div>
+
+					<div class="form-group">
+						<label for="form16">Email</label> <input type="email" name="email"
+							class="form-control" id="email"
+							placeholder="Introduzca su correo electrónico" required
+							maxlength="25" />
+					</div>
+
+					<div class="form-group">
+						<label for="form16">Teléfono</label> <input type="text" name="tlf"
+							class="form-control" id="tlf"
+							placeholder="Introduzca su número de teléfono móvil/fijo)"
+							pattern="[69][0-9]{8}"
+							title="número de teléfono móvil o fijo de 9 cifras" maxlength="9"
+							required />
+					</div>
+					<div class="form-group">
 							<label for="form16">DNI/NIF</label> <input type="text"
 								name="dninif" class="form-control" id="dninif"
 								placeholder="Introduzca su DNI/NIF" 
@@ -87,24 +77,52 @@
 								title = "12345678A, o X-1234567-B si tiene NIE"
 								maxlength="13"
 								required />
-						</div>		
-			
-			<input type="radio" name="rol" value="cliente" checked>   Cuenta Cliente &nbsp; &nbsp;  
-			<input type="radio" name="rol" value="profesional">   Cuenta Profesional<br> 
-			
-			<div class="row">
-				<div class="col-md-6"> 
-					<a class="nav-link" href="hello.htm">Cancelar</a>
-		    	</div>
-		    	
-				<div class="col-md-6">
-           			<button type="submit" class="btn btn-primary m-2">Registrarse</button>
-            	</div>
+						</div>	
+							
+			<div class="form-group">
+							<label for="form16">Pais</label> <input type="text"
+								name="country" class="form-control" id="UN"
+								placeholder="Escriba el nombre del país donde reside " 								
+								maxlength="10"
+								required  /> 
+						</div>
+						
+			<div class="form-group">
+							<label for="form16">Provincia</label> <input type="text"
+								name="province" class="form-control" id="UN"
+								placeholder="Escriba el nombre de la provincia donde reside " 								
+								maxlength="10"
+								required  /> 
+						</div>
+						
+			<div class="form-group">
+							<label for="form16">Ciudad</label> <input type="text"
+								name="city" class="form-control" id="UN"
+								placeholder="Escriba el nombre de la ciudad donde reside " 								
+								maxlength="10"
+								required  /> 
+						</div>
+					<div class="form-group">
+						<label for="form16">Imagen de perfil</label> <input type="file"
+							name="file" accept="image/png, image/jpeg">
+					</div>
+					<input type="radio" name="rol" value="cliente" checked>
+					Cuenta Cliente &nbsp; &nbsp; <input type="radio" name="rol"
+						value="profesional"> Cuenta Profesional<br>
+
+					<div class="row">
+						<div class="col-md-6">
+							<a class="nav-link" href="hello.htm">Cancelar</a>
+						</div>
+
+						<div class="col-md-6">
+							<button type="submit" class="btn btn-primary m-2">Registrarse</button>
+						</div>
+					</div>
+				</form>
+
 			</div>
-			</form>	
-           
-            </div>
-        </div>
-      </div>
+		</div>
+	</div>
 </body>
 </html>

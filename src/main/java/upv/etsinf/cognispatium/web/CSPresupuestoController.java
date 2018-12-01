@@ -91,7 +91,9 @@ public class CSPresupuestoController {
 
 			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
 		});
-		return mav;
+       
+       mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
+       return mav;
 		
 	}
 	
@@ -129,6 +131,8 @@ public class CSPresupuestoController {
 
 			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
 		});
+		
+		mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
 		return mav;
 	}
 	

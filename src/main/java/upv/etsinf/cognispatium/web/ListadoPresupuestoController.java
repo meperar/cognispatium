@@ -19,13 +19,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.util.WebUtils;
 
+import upv.etsinf.cognispatium.domain.EstadoPresupuesto;
+import upv.etsinf.cognispatium.domain.EstadoSolicitud;
 import upv.etsinf.cognispatium.domain.Presupuesto;
 import upv.etsinf.cognispatium.domain.Profesional;
 import upv.etsinf.cognispatium.domain.Solicitud;
 import upv.etsinf.cognispatium.domain.Usuario;
 import upv.etsinf.cognispatium.service.SimplePresupuestoManager;
 import upv.etsinf.cognispatium.service.SimpleProfesionalManager;
+import upv.etsinf.cognispatium.service.SimpleServicioManager;
+import upv.etsinf.cognispatium.service.SimpleSolicitudManager;
 
 @Controller
 public class ListadoPresupuestoController {
@@ -35,6 +40,12 @@ public class ListadoPresupuestoController {
     
     @Autowired
     private SimpleProfesionalManager simpleProfesionalManager;
+    
+    @Autowired
+	private SimpleServicioManager servicioManager;
+    
+    @Autowired
+    private SimpleSolicitudManager solicitudManager;
 
     /** Logger for this class and subclasses */
     protected final Log logger = LogFactory.getLog(getClass());
@@ -67,20 +78,24 @@ public class ListadoPresupuestoController {
 
 			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
 		});
+        
+        mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
         return mav;
 
     }
     @PostMapping("/listadoPresupuestos.htm")
-    protected ModelAndView crearPresupueusto(@RequestParam Map<String, String> reqPar) throws Exception {
+    protected ModelAndView crearPresupueusto(@RequestParam Map<String, String> reqPar,HttpServletRequest request) throws Exception {
 
         Map<String, Object> myModel = new HashMap<String, Object>();
-        
         Presupuesto miPresupuesto = presupuestoManager.getPresupuestobyId(Integer.parseInt(reqPar.get("presupuestoId")));
         Solicitud solicitudOrigen = miPresupuesto.getSolicitudOrigen();
         
+        if(WebUtils.hasSubmitParameter(request, "info")) {
         ModelAndView mav = new ModelAndView("presupuestoDelProfesional", "model", myModel);
         myModel.put("presupuesto", miPresupuesto);
         myModel.put("solicitud", solicitudOrigen);
+        
+     // Gestion usuario registrado y barra superior
         if(WebServiceController.usuarioRegistrado == null) {
             Usuario userAux = new Usuario();
             
@@ -96,9 +111,63 @@ public class ListadoPresupuestoController {
         }
         WebServiceController.listaAmbitos.forEach(a -> {
 
-			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
-		});
+            mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+        });
+        
+        mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
         return mav;
+        
+        
+        }
+        
+ /* pulso el boton de resolver presupuesto */
+        else {
+            
+            if (miPresupuesto.getEstado() == EstadoPresupuesto.aceptado) {
+                miPresupuesto.setEstado(EstadoPresupuesto.aceptado_profesional);
+                solicitudOrigen.setEstado(EstadoSolicitud.aceptado_profesional);
+            }
+            else if(miPresupuesto.getEstado() == EstadoPresupuesto.aceptado_cliente) {
+                miPresupuesto.setEstado(EstadoPresupuesto.resuelto);
+                solicitudOrigen.setEstado(EstadoSolicitud.resuelta);
+            }
+            presupuestoManager.addPresupuesto(miPresupuesto);
+            solicitudManager.addSolicitud(solicitudOrigen);
+ /* Fin funcionalidad resolver presupuesto*/
+            
+            ModelAndView mav = new ModelAndView("listadoPresupuestos");
+
+            Profesional profesional_resgistrado = simpleProfesionalManager.getProfesionalById(WebServiceController.usuarioRegistrado.getId());
+            List<Presupuesto> listaPresupuestos = profesional_resgistrado.getPresupuestos()
+                    .stream().sorted(Comparator.comparing(Presupuesto::getId).reversed())
+                    .collect(Collectors.toList());
+            myModel.put("presupuestos", listaPresupuestos);
+            mav.addObject("model", myModel);
+            
+         // Gestion usuario registrado y barra superior
+            if(WebServiceController.usuarioRegistrado == null) {
+                Usuario userAux = new Usuario();
+                
+                userAux.setNombre("Usuario no registrado");
+                mav.addObject("usR", userAux);
+                
+            }
+            
+            else {
+                
+                mav.addObject("usR", WebServiceController.usuarioRegistrado);
+                
+            }
+            WebServiceController.listaAmbitos.forEach(a -> {
+
+                mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+            });
+            
+            mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
+            return mav;
+        }
+ 
+        
     }
   
 }

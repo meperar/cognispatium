@@ -19,6 +19,7 @@ import upv.etsinf.cognispatium.domain.EstadoMensaje;
 import upv.etsinf.cognispatium.domain.Mensaje;
 import upv.etsinf.cognispatium.domain.Usuario;
 import upv.etsinf.cognispatium.service.SimpleMensajeManager;
+import upv.etsinf.cognispatium.service.SimpleServicioManager;
 
 @Controller
 public class BandejaMensajesController {
@@ -26,6 +27,9 @@ public class BandejaMensajesController {
 
 	@Autowired
 	private SimpleMensajeManager mensajeManager;
+	
+	@Autowired
+	private SimpleServicioManager servicioManager;
 
 
 	/** Logger for this class and subclasses */
@@ -60,7 +64,9 @@ public class BandejaMensajesController {
 
 			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
 		});
-
+		
+		
+		mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
 		return mav;
 	}
 
@@ -80,7 +86,9 @@ public class BandejaMensajesController {
 
 			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
 		});
-
+		
+		
+		mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
 		return mav;
 	}
 
@@ -101,6 +109,7 @@ public class BandejaMensajesController {
 			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
 		});
 
+		mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
 		return mav;
 	}
 
@@ -121,6 +130,7 @@ public class BandejaMensajesController {
 			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
 		});
 
+		mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
 		return mav;
 	}
 
@@ -141,6 +151,7 @@ public class BandejaMensajesController {
 			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
 		});
 
+		mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
 		return mav;
 	}
 
@@ -164,6 +175,8 @@ public class BandejaMensajesController {
 
 				mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
 			});
+			
+			mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
 			return mav;
 		} else {			
 			miMensaje.setEstado(EstadoMensaje.eliminado);
@@ -179,6 +192,8 @@ public class BandejaMensajesController {
 
 				mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
 			});
+			
+			mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
 			return mav;
 		}
 	}
@@ -226,6 +241,7 @@ public class BandejaMensajesController {
 			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
 		});
 
+		mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
 		return mav;
 
 	}

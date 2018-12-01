@@ -29,6 +29,7 @@ import upv.etsinf.cognispatium.service.SimpleConsultaUrgenteManager;
 import upv.etsinf.cognispatium.service.SimpleMensajeManager;
 import upv.etsinf.cognispatium.service.SimpleProfesionalManager;
 import upv.etsinf.cognispatium.service.SimpleRespuestaManager;
+import upv.etsinf.cognispatium.service.SimpleServicioManager;
 
 
 @Controller
@@ -40,6 +41,8 @@ public class RCUrgenteController {
     @Autowired
     private SimpleConsultaUrgenteManager simpleConsultaUrgenteManager;
     
+    @Autowired
+	private SimpleServicioManager servicioManager;
     
     @Autowired
 	private SimpleRespuestaManager respuestaManager;
@@ -80,6 +83,9 @@ public class RCUrgenteController {
 
 			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
 		});
+        
+        
+        mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
 		return mav;
     }
 
@@ -126,6 +132,9 @@ public class RCUrgenteController {
 
 			mav2.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
 		});
+		
+		
+		mav2.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
 		return mav2;
 
 	}

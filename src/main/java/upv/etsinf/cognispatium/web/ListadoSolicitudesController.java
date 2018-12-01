@@ -108,6 +108,8 @@ public class ListadoSolicitudesController {
 
 			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
 		});
+		
+		mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
 		return mav;
 
 	}
@@ -120,10 +122,11 @@ public class ListadoSolicitudesController {
 	    
 
 		List<Solicitud> listaSolicitudes = new ArrayList<Solicitud>();
+		List<Solicitud> listaSolicitudesAux = new ArrayList<Solicitud>();
 		Map<String, Object> servicios = new HashMap<String, Object>();
 		
-		 servicioObtenido = reqPar.get("servicio");
-		 if(servicioObtenido == "") { servicioObtenido = null;}
+		servicioObtenido = reqPar.get("servicio");
+		if(servicioObtenido == "") { servicioObtenido = null;}
 		 
 		estadoObtenido =  reqPar.get("estado");
 		if(estadoObtenido == "") { estadoObtenido = null; }
@@ -137,7 +140,11 @@ public class ListadoSolicitudesController {
              Servicio servicioConsulta = servicioManager.getServiciobyId(ServiceId);
              
 		      if( estadoObtenido != null ) {
-		         listaSolicitudes = servicioSolicitudManager.getSolicitudsbyService(servicioConsulta)
+		    	 listaSolicitudesAux = servicioSolicitudManager.getSolicitudsbyService(servicioConsulta);
+		    	 for(Solicitud s : listaSolicitudesAux) {
+		    		 if(s.getEstado() != EstadoSolicitud.resuelta && s.getEstado() != EstadoSolicitud.eliminada) listaSolicitudes.add(s);
+		    	 }
+		         listaSolicitudes // = servicioSolicitudManager.getSolicitudsbyService(servicioConsulta)
 					.stream().sorted(Comparator.comparing(Solicitud::getId).reversed())
 				    .filter(sol -> (sol.getEstado()==EstadoSolicitud.valueOf(estadoObtenido)))
 				    .collect(Collectors.toList());
@@ -145,7 +152,11 @@ public class ListadoSolicitudesController {
 		        
 		     }
 		      else {
-	               listaSolicitudes = servicioSolicitudManager.getSolicitudsbyService(servicioConsulta)
+		    	  listaSolicitudesAux = servicioSolicitudManager.getSolicitudsbyService(servicioConsulta);
+			    	 for(Solicitud s : listaSolicitudesAux) {
+			    		 if(s.getEstado() != EstadoSolicitud.resuelta && s.getEstado() != EstadoSolicitud.eliminada) listaSolicitudes.add(s);
+			    	 }
+	               listaSolicitudes // = servicioSolicitudManager.getSolicitudsbyService(servicioConsulta)
 	                      .stream().sorted(Comparator.comparing(Solicitud::getId).reversed())
 	                      .filter(sol -> !(sol.getEstado()==EstadoSolicitud.eliminada) && !(sol.getEstado()==EstadoSolicitud.adjudicada) )
 	                      .collect(Collectors.toList());
@@ -155,7 +166,12 @@ public class ListadoSolicitudesController {
 		 else {
 		     if( estadoObtenido != null ) {
 		    	 for(Servicio s : listaServicios) {
-		 			listaSolicitudes.addAll(servicioSolicitudManager.getSolicitudsbyService(s));
+		    		 listaSolicitudesAux = servicioSolicitudManager.getSolicitudsbyService(s);
+			    	 for(Solicitud s2 : listaSolicitudesAux) {
+			    		 if(s2.getEstado() != EstadoSolicitud.resuelta && s2.getEstado() != EstadoSolicitud.eliminada) listaSolicitudes.add(s2);
+			    	 }
+			    	 
+		 			//listaSolicitudes.addAll(servicioSolicitudManager.getSolicitudsbyService(s));
 		 		}
                 listaSolicitudes.stream().sorted(Comparator.comparing(Solicitud::getId).reversed())
                     .filter(sol -> (sol.getEstado()==EstadoSolicitud.valueOf(estadoObtenido)))
@@ -163,7 +179,11 @@ public class ListadoSolicitudesController {
              }	     
 		     else {
 		    	 for(Servicio s : listaServicios) {
-			 			listaSolicitudes.addAll(servicioSolicitudManager.getSolicitudsbyService(s));
+		    		 listaSolicitudesAux = servicioSolicitudManager.getSolicitudsbyService(s);
+			    	 for(Solicitud s2 : listaSolicitudesAux) {
+			    		 if(s2.getEstado() != EstadoSolicitud.resuelta && s2.getEstado() != EstadoSolicitud.eliminada) listaSolicitudes.add(s2);
+			    	 }
+			 			//listaSolicitudes.addAll(servicioSolicitudManager.getSolicitudsbyService(s));
 			 		}
 		         listaSolicitudes 
 					.stream().sorted(Comparator.comparing(Solicitud::getId).reversed())
@@ -197,6 +217,8 @@ public class ListadoSolicitudesController {
 
 			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
 		});*/
+		
+		mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
 		return mav;
 	}
 
@@ -228,6 +250,8 @@ public class ListadoSolicitudesController {
 
 			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
 		});
+		
+		mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
 		return mav;
 	}
 	
@@ -283,6 +307,9 @@ public class ListadoSolicitudesController {
 
 			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
 		});
+		
+		
+		mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
 		return mav;
 
 		

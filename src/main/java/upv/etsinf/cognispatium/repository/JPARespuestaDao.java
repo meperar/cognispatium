@@ -8,6 +8,7 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import upv.etsinf.cognispatium.domain.Respuesta;
+import upv.etsinf.cognispatium.domain.Servicio;
 
 @Repository(value = "RespuestaDao")
 public class JPARespuestaDao implements RespuestaDao {
@@ -31,6 +32,12 @@ public class JPARespuestaDao implements RespuestaDao {
 	public void saveRespuesta(Respuesta respuesta) {
 		em.merge(respuesta);
 
+	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public Respuesta getRespuestabyId(Integer respuestaId) {
+		return em.find(Respuesta.class, respuestaId);
 	}
 	
 	@Override

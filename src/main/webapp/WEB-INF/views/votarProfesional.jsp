@@ -208,7 +208,8 @@ label.star:before {
 	<link rel="stylesheet" href="https://static.pingendo.com/bootstrap/bootstrap-4.1.3.css" style="">
 <jsp:include page="barrasuperior.jsp" flush="true" />
 	<div class="center">
-		<img src="https://i.imgur.com/Yiay52m.png" width = 256 title="source: imgur.com"/>
+		<c:if test="${!model.tieneFoto}"><img src="https://i.imgur.com/Yiay52m.png" width = 256 title="source: imgur.com" /><br></c:if>
+		<c:if test="${model.tieneFoto}"><img src='${model.foto}' alt="\" height="230" width="256"><br></c:if>
 		<h4>${profesional.nombre} ${profesional.apellidos}</h4>
 	</div>
 	<form action="#"  method="post" class="text-left center">

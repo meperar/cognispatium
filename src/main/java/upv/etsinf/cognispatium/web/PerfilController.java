@@ -1,7 +1,10 @@
 package upv.etsinf.cognispatium.web;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +20,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.itextpdf.io.source.ByteArrayOutputStream;
 
 import upv.etsinf.cognispatium.domain.Cliente;
 import upv.etsinf.cognispatium.domain.Consulta;
@@ -59,6 +65,9 @@ public class PerfilController {
 
 	@Autowired
 	private SimpleConsultaManager consultaManager;
+	
+	@Autowired
+	private SimpleSolicitudManager solicitudManager;
 
 	@Autowired
 	private SimpleProfesionalManager profManager;
@@ -93,8 +102,6 @@ public class PerfilController {
 
 		Boolean esProfesional = profManager.getProfesionalById(usuario.getId()) != null;
 
-		
-
 		int valoracion = 0;
 
 		if (esProfesional) {
@@ -102,10 +109,19 @@ public class PerfilController {
 			valoracion = profesional.getValoracion();
 			listaServicios = profesional.getServicios();
 		}
-		
+
 		List<Servicio> allServices = servicioManager.getServicios();
-		
-		
+		// Añadir foto
+		if (usuario.getImagen() != null) {
+			Base64.Encoder encoder = Base64.getEncoder();
+			String encoding = "data:image/png;base64," + encoder.encodeToString(usuario.getImagen());
+			myModel.put("foto", encoding);
+			myModel.put("tieneFoto", true);
+		} else {
+			myModel.put("tieneFoto", false);
+		}
+		// Fin añadir foto
+
 		myModel.put("allServices", allServices);
 		myModel.put("usuario", usuario);
 		myModel.put("registro", registro);
@@ -129,389 +145,433 @@ public class PerfilController {
 		mav.addObject("intModel", intModel);
 		mav.addObject("boolModel", boolModel);
 
+		mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
 		return mav;
 
 	}
 
 	@PostMapping("/perfil.htm")
-	protected ModelAndView editar(@RequestParam Map<String, String> reqPar) throws Exception {
-		if (reqPar.get("usridE") != null) { //ELIMINAR USUARIO
+	protected ModelAndView editar(@RequestParam Map<String, String> reqPar, @RequestParam("file") MultipartFile file)
+			throws Exception {
+		// EDITAR PERFIL
 
-			/*Profesional profE = new Profesional();
-			Cliente cliE = new Cliente();
+		Usuario usuario = WebServiceController.usuarioRegistrado;
+		Registro registro = registroManager.getRegistrobyUsuario(usuario.getId()).get(0);
+		Boolean errorUsername = false;
 
-			List<Consulta> listaCe = new ArrayList<Consulta>();
-			List<Consulta> listaTodasE = new ArrayList<Consulta>();
+		List<Registro> registrosBD = registroManager.getRegistrobyUN(reqPar.get("apodo"));
 
-			List<Respuesta> listaRe = new ArrayList<Respuesta>();
-			List<Respuesta> listaTodasRe = new ArrayList<Respuesta>();
+		if (registrosBD.size() == 0 || registro.getUsername().equals(reqPar.get("apodo"))) {
 
-			List<Presupuesto> listaPe = new ArrayList<Presupuesto>();
-			List<Presupuesto> listaTodasPe = new ArrayList<Presupuesto>();
-			
-			*/
+			usuario = WebServiceController.usuarioRegistrado;
 
-			Usuario usuEl = usuarioManager.getUsuariobyId(Integer.parseInt(reqPar.get("usridE")));
-			
-			Registro regEl = registroManager.getRegistrobyUsuario(usuEl.getId()).get(0);
+			usuario.setNombre(reqPar.get("nombre"));
+			usuario.setApellidos(reqPar.get("apellidos"));
+			usuario.setEdad(Integer.parseInt(reqPar.get("edad")));
+			usuario.setDni(reqPar.get("dni"));
+			usuario.setEmail(reqPar.get("email"));
+			usuario.setTelefono(Integer.parseInt(reqPar.get("telefono")));
+			// Foto
 
-			/*Boolean esPe = usuEl instanceof Profesional;
-			listaTodasE = consultaManager.getConsultas();
-			listaTodasRe = resManager.getRespuestas();
-			int valoracion = 0;
-
-			if (esPe) {
-				valoracion = ((Profesional) usuEl).getValoracion();
-
-				profE.setValoracion(valoracion);
-				profE.setId(usuEl.getId());
-			} else {
-				cliE.setId(usuEl.getId());
+			if (!file.isEmpty()) {
+				usuario.setImagen(file.getBytes());
 			}
+			// Fin foto
 
-			// Obtener consultas urgentes no resueltas
-			for (Consulta consulta : listaTodasE) {
-				if (!esPe) {
-					Boolean esUr = consulta instanceof ConsultaUrgente;
+			usuarioManager.addUsuario(usuario);
 
-					String dniClienteConsulta = consulta.getClienteOrigen().getDni();
-					String dniUsuario = usuEl.getDni();
+			registro = registroManager.getRegistrobyUsuario(usuario.getId()).get(0);
 
-					if (esUr && ((ConsultaUrgente) consulta).getEstado() != EstadoConsulta.resuelta) {
-						if (dniClienteConsulta.equals(dniUsuario))
-							listaCe.add(consulta);
-					}
-				}
+			registro.setUsername(reqPar.get("apodo"));
+			registro.setContraseña(reqPar.get("contrasena"));
 
-			}
+			registroManager.addRegistro(registro);
 
-			// Obtener respuestas a consultas urgentes no resueltas
-			for (Respuesta respuesta : listaTodasRe) {
-				if (esPe) {
-					Consulta CR = respuesta.getConsultaOrigen();
-					Boolean esRUR = CR instanceof ConsultaUrgente;
-					int idProf = respuesta.getProfesionalOrigen().getId();
-					int idUsu = usuEl.getId();
-					if (esRUR && ((ConsultaUrgente) CR).getEstado() != EstadoConsulta.resuelta) {
-						if (idProf == (idUsu))
-							listaRe.add(respuesta);
-					}
-				}
-
-			}
-
-			// Obtener presupuestos a solicitudes
-			for (Presupuesto presupuesto : listaTodasPe) {
-				if (esPe) {
-					int idProff = presupuesto.getProfesionalOrigen().getId();
-					int idUsuu = usuEl.getId();
-					if (idProff == idUsuu)
-						listaPe.add(presupuesto);
-				}
-			}
-
-			// Eliminar el registro, el usuario, la información de profesional si esPe (la
-			// de cliente si no) y las consultas de este.
-			if (esPe) {
-				for (Respuesta respuesta : listaRe) {
-					resManager.dropRes(respuesta);
-				}
-
-				for (Presupuesto presupuesto : listaPe) {
-					preManager.dropPres(presupuesto);
-				}
-
-				profManager.dropProf(profE);
-			} else {
-				for (Consulta consulta : listaCe) {
-					consultaManager.dropCons(consulta);
-				}
-
-				cliManager.dropCli(cliE);
-			}
-			*/
-			registroManager.dropReg(regEl);
-			//usuarioManager.dropUser(usuEl);
-
-			ModelAndView mav = new ModelAndView("hello");
-
-			Usuario userAux = new Usuario();
-
-			userAux.setNombre("Usuario no registrado");
-			mav.addObject("usR", userAux);
-			
-			WebServiceController.usuarioRegistrado = userAux;
-			return mav;
-
-		} else if (reqPar.get("desacId") != null) { //DESACTIVAR USUARIO
-
-			Usuario usuEl = usuarioManager.getUsuariobyId(Integer.parseInt(reqPar.get("desacId")));
-			usuEl.setDesactivado(1);
-			usuarioManager.addUsuario(usuEl);
-
-			if (WebServiceController.usuarioRegistrado.getDTYPE().toString().length() == 7) {
-				List<Solicitud> solicitudes = SManager.getSolicitudByCli(usuEl.getId());
-				for (Solicitud s : solicitudes) {
-					s.setEstado(EstadoSolicitud.eliminada);
-					SManager.addSolicitud(s);
-				}
-
-				List<Consulta> consultas = consultaManager.getConsultasByCli(usuEl.getId());
-				for (Consulta c : consultas) {
-					c.setEstado(EstadoConsulta.cerrada);
-					consultaManager.addConsulta(c);
-				}
-
-			}
-
-			else {
-
-				List<Presupuesto> presupuestos = presupuestoManager.getPresupuestosByProf(usuEl.getId());
-				for (Presupuesto p : presupuestos) {
-					p.setEstado(EstadoPresupuesto.rechazado);
-					presupuestoManager.addPresupuesto(p);
-				}
-
-			}
-			ModelAndView mav = new ModelAndView("hello");
-
-			Usuario userAux = new Usuario();
-
-			userAux.setNombre("Usuario no registrado");
-			mav.addObject("usR", userAux);
-
-			return mav;
-
-		} else if (reqPar.get("quitarServicio") != null) { ///////QUITAR SERVICIO////////
-
-			Map<String, Object> myModel = new HashMap<String, Object>();
-			Map<String, Integer> intModel = new HashMap<String, Integer>();
-			Map<String, Boolean> boolModel = new HashMap<String, Boolean>();
-
-			List<Servicio> listaServicios = new ArrayList<Servicio>();
-
-			Usuario usuario = WebServiceController.usuarioRegistrado;
-			Registro registro = registroManager.getRegistrobyUsuario(usuario.getId()).get(0);
-
-			Boolean esProfesional = profManager.getProfesionalById(usuario.getId()) != null;
-
-			int valoracion = 0;
-
-			Profesional profesional = profManager.getProfesionalById(usuario.getId());
-			valoracion = profesional.getValoracion();
-			listaServicios = profesional.getServicios();
-
-			// Quitamos el servicio
-			Integer idServicio = Integer.parseInt(reqPar.get("servicioAQuitar"));
-			Servicio servicio = servicioManager.getServiciobyId(idServicio);
-
-			System.out.println("Servicio eliminado: " + servicio.getNombre() + servicio.getId());
-			
-			for (Servicio servicioAuxiliar : listaServicios) {
-				System.out.print(" , " + servicioAuxiliar.getNombre() + servicioAuxiliar.getId() + "/" + idServicio);
-				if (servicioAuxiliar.getId() == idServicio) {
-					servicio = servicioAuxiliar;
-				}
-			}
-			
-			System.out.println("Servicio eliminado: " + servicio.getNombre() + servicio.getId());
-
-			listaServicios.remove(servicio);
-			System.out.println("Servicio eliminado: " + servicio.getNombre());
-			
-			// rechazo los presupuestos activos asociados al servicio que quito
-			List<Presupuesto> presupuestos = profesional.getPresupuestos();
-			for(Presupuesto p: presupuestos) {
-			    System.out.println(p.getSolicitudOrigen().getServicioOrigen().getNombre());
-			    if(p.getSolicitudOrigen().getServicioOrigen().getNombre().equals(servicio.getNombre())) {
-			        System.out.println(p.getDescripcion() +" "+ p.getEstado());
-			        p.setEstado(EstadoPresupuesto.rechazado);
-			        System.out.println("Ahora he cambiado el estado: " + p.getEstado());
-                    presupuestoManager.addPresupuesto(p);
-			    }
-			}
-			
-			profesional.setPresupuestos(presupuestos);
-			profesional.setServicios(listaServicios);
-			profManager.addProfesional(profesional);
-			// Fin quitar servicio
-			
-			
-			List<Servicio> allServices = servicioManager.getServicios();
-			myModel.put("allServices", allServices);
-			myModel.put("usuario", usuario);
-			myModel.put("registro", registro);
-			boolModel.put("esProfesional", esProfesional);
-			boolModel.put("errorUsername", false);
-			myModel.put("servicios", listaServicios);
-			intModel.put("valoracion", valoracion);
-
-			ModelAndView mav = new ModelAndView("perfil", "model", myModel);
-			if (WebServiceController.usuarioRegistrado == null) {
-				Usuario userAux = new Usuario();
-
-				userAux.setNombre("Usuario no registrado");
-				mav.addObject("usR", userAux);
-
-			} else {
-
-				mav.addObject("usR", WebServiceController.usuarioRegistrado);
-
-			}
-			mav.addObject("intModel", intModel);
-			mav.addObject("boolModel", boolModel);
-
-			return mav;
-
-		} else if (reqPar.get("addSid") != null) { ///////AÑADIR SERVICIO (POR QUÉ PARECE QUE ESTEMOS GRITANDO EKISDE)////////
-			
-			boolean check = false;
-			Servicio serviceToAdd = null;
-			
-			if (reqPar.get("servicio") != null) {
-				Integer ServiceId = Integer.parseInt(reqPar.get("servicio"));
-				serviceToAdd = servicioManager.getServiciobyId(ServiceId);
-			}
-			
-			Map<String, Object> myModel = new HashMap<String, Object>();
-			Map<String, Integer> intModel = new HashMap<String, Integer>();
-			Map<String, Boolean> boolModel = new HashMap<String, Boolean>();
-
-			List<Servicio> listaServicios = new ArrayList<Servicio>();
-
-			Usuario usuario = WebServiceController.usuarioRegistrado;
-			Registro registro = registroManager.getRegistrobyUsuario(usuario.getId()).get(0);
-
-			Boolean esProfesional = profManager.getProfesionalById(usuario.getId()) != null;
-
-			int valoracion = 0;
-
-			Profesional profesional = profManager.getProfesionalById(usuario.getId());
-			valoracion = profesional.getValoracion();
-			listaServicios = profesional.getServicios();
-			
-			for(Servicio s : listaServicios) {
-				if(s.getId() == serviceToAdd.getId()) check = true;
-			}
-			
-			if(serviceToAdd != null && check == false ) {
-				listaServicios.add(serviceToAdd);
-				profesional.setServicios(listaServicios);
-				profManager.addProfesional(profesional);
-			}
-			
-			
-			List<Servicio> allServices = servicioManager.getServicios();			
-			myModel.put("allServices", allServices);
-			myModel.put("usuario", usuario);
-			myModel.put("registro", registro);
-			boolModel.put("esProfesional", esProfesional);
-			boolModel.put("errorUsername", false);
-			myModel.put("servicios", listaServicios);
-			intModel.put("valoracion", valoracion);
-
-			ModelAndView mav = new ModelAndView("perfil", "model", myModel);
-			if (WebServiceController.usuarioRegistrado == null) {
-				Usuario userAux = new Usuario();
-
-				userAux.setNombre("Usuario no registrado");
-				mav.addObject("usR", userAux);
-
-			} else {
-
-				mav.addObject("usR", WebServiceController.usuarioRegistrado);
-
-			}
-			mav.addObject("intModel", intModel);
-			mav.addObject("boolModel", boolModel);
-
-			return mav;
-			
-			
-			
-		} else { //EDITAR PERFIL
-
-			Usuario usuario = WebServiceController.usuarioRegistrado;
-			Registro registro = registroManager.getRegistrobyUsuario(usuario.getId()).get(0);
-			Boolean errorUsername = false;
-
-			List<Registro> registrosBD = registroManager.getRegistrobyUN(reqPar.get("apodo"));
-
-			if (registrosBD.size() == 0 || registro.getUsername().equals(reqPar.get("apodo"))) {
-
-				usuario = WebServiceController.usuarioRegistrado;
-
-				usuario.setNombre(reqPar.get("nombre"));
-				usuario.setApellidos(reqPar.get("apellidos"));
-				usuario.setEdad(Integer.parseInt(reqPar.get("edad")));
-				usuario.setDni(reqPar.get("dni"));
-				usuario.setEmail(reqPar.get("email"));
-				usuario.setTelefono(Integer.parseInt(reqPar.get("telefono")));
-
-				usuarioManager.addUsuario(usuario);
-
-				registro = registroManager.getRegistrobyUsuario(usuario.getId()).get(0);
-
-				registro.setUsername(reqPar.get("apodo"));
-				registro.setContraseña(reqPar.get("contrasena"));
-
-				registroManager.addRegistro(registro);
-
-			} else {
-				errorUsername = true;
-			}
-
-			Map<String, Object> myModel = new HashMap<String, Object>();
-			Map<String, Integer> intModel = new HashMap<String, Integer>();
-			Map<String, Boolean> boolModel = new HashMap<String, Boolean>();
-
-			List<Servicio> listaServicios = new ArrayList<Servicio>();
-
-			Boolean esProfesional = profManager.getProfesionalById(usuario.getId()) != null;
-
-			int valoracion = 0;
-
-			if (esProfesional) {
-				Profesional profesional = profManager.getProfesionalById(usuario.getId());
-				valoracion = profesional.getValoracion();
-				listaServicios = profesional.getServicios();
-			}
-			
-			List<Servicio> allServices = servicioManager.getServicios();			
-			myModel.put("allServices", allServices);
-			myModel.put("usuario", usuario);
-			myModel.put("registro", registro);
-			boolModel.put("esProfesional", esProfesional);
-			boolModel.put("errorUsername", errorUsername);
-			myModel.put("servicios", listaServicios);
-			intModel.put("valoracion", valoracion);
-
-			ModelAndView mav = new ModelAndView("perfil", "model", myModel);
-			if (WebServiceController.usuarioRegistrado == null) {
-				Usuario userAux = new Usuario();
-
-				userAux.setNombre("Usuario no registrado");
-				mav.addObject("usR", userAux);
-
-			} else {
-
-				mav.addObject("usR", WebServiceController.usuarioRegistrado);
-
-			}
-			mav.addObject("intModel", intModel);
-			mav.addObject("boolModel", boolModel);
-
-			return mav;
+		} else {
+			errorUsername = true;
 		}
+
+		Map<String, Object> myModel = new HashMap<String, Object>();
+		Map<String, Integer> intModel = new HashMap<String, Integer>();
+		Map<String, Boolean> boolModel = new HashMap<String, Boolean>();
+
+		List<Servicio> listaServicios = new ArrayList<Servicio>();
+
+		Boolean esProfesional = profManager.getProfesionalById(usuario.getId()) != null;
+
+		int valoracion = 0;
+
+		if (esProfesional) {
+			Profesional profesional = profManager.getProfesionalById(usuario.getId());
+			valoracion = profesional.getValoracion();
+			listaServicios = profesional.getServicios();
+		}
+
+		List<Servicio> allServices = servicioManager.getServicios();
+		myModel.put("allServices", allServices);
+		myModel.put("usuario", usuario);
+		myModel.put("registro", registro);
+		boolModel.put("esProfesional", esProfesional);
+		boolModel.put("errorUsername", errorUsername);
+		myModel.put("servicios", listaServicios);
+		intModel.put("valoracion", valoracion);
+		// Añadir foto
+		if (usuario.getImagen() != null) {
+			Base64.Encoder encoder = Base64.getEncoder();
+			String encoding = "data:image/png;base64," + encoder.encodeToString(usuario.getImagen());
+			myModel.put("foto", encoding);
+			myModel.put("tieneFoto", true);
+		} else {
+			myModel.put("tieneFoto", false);
+		}
+		// Fin añadir foto
+
+		ModelAndView mav = new ModelAndView("perfil", "model", myModel);
+		if (WebServiceController.usuarioRegistrado == null) {
+			Usuario userAux = new Usuario();
+
+			userAux.setNombre("Usuario no registrado");
+			mav.addObject("usR", userAux);
+
+		} else {
+
+			mav.addObject("usR", WebServiceController.usuarioRegistrado);
+
+		}
+		mav.addObject("intModel", intModel);
+		mav.addObject("boolModel", boolModel);
+
+		mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
+		return mav;
+
 	}
 
-	public void deleteServicioManager() {
+	@PostMapping("/addServicio.htm")
+	public ModelAndView añadirServicio(@RequestParam Map<String, String> reqPar) {
+
+		boolean check = false;
+		Servicio serviceToAdd = null;
+
+		if (reqPar.get("servicio") != null) {
+			Integer ServiceId = Integer.parseInt(reqPar.get("servicio"));
+			serviceToAdd = servicioManager.getServiciobyId(ServiceId);
+		}
+
+		Map<String, Object> myModel = new HashMap<String, Object>();
+		Map<String, Integer> intModel = new HashMap<String, Integer>();
+		Map<String, Boolean> boolModel = new HashMap<String, Boolean>();
+
+		List<Servicio> listaServicios = new ArrayList<Servicio>();
+
+		Usuario usuario = WebServiceController.usuarioRegistrado;
+		Registro registro = registroManager.getRegistrobyUsuario(usuario.getId()).get(0);
+
+		Boolean esProfesional = profManager.getProfesionalById(usuario.getId()) != null;
+
+		int valoracion = 0;
+
+		Profesional profesional = profManager.getProfesionalById(usuario.getId());
+		valoracion = profesional.getValoracion();
+		listaServicios = profesional.getServicios();
+
+		for (Servicio s : listaServicios) {
+			if (s.getId() == serviceToAdd.getId())
+				check = true;
+		}
+
+		if (serviceToAdd != null && check == false) {
+			listaServicios.add(serviceToAdd);
+			profesional.setServicios(listaServicios);
+			profManager.addProfesional(profesional);
+		}
+
+		List<Servicio> allServices = servicioManager.getServicios();
+		myModel.put("allServices", allServices);
+		myModel.put("usuario", usuario);
+		myModel.put("registro", registro);
+		// Añadir foto
+				if (usuario.getImagen() != null) {
+					Base64.Encoder encoder = Base64.getEncoder();
+					String encoding = "data:image/png;base64," + encoder.encodeToString(usuario.getImagen());
+					myModel.put("foto", encoding);
+					myModel.put("tieneFoto", true);
+				} else {
+					myModel.put("tieneFoto", false);
+				}
+				// Fin añadir foto
+		boolModel.put("esProfesional", esProfesional);
+		boolModel.put("errorUsername", false);
+		myModel.put("servicios", listaServicios);
+		intModel.put("valoracion", valoracion);
+
+		ModelAndView mav = new ModelAndView("perfil", "model", myModel);
+		if (WebServiceController.usuarioRegistrado == null) {
+			Usuario userAux = new Usuario();
+
+			userAux.setNombre("Usuario no registrado");
+			mav.addObject("usR", userAux);
+
+		} else {
+
+			mav.addObject("usR", WebServiceController.usuarioRegistrado);
+
+		}
+		mav.addObject("intModel", intModel);
+		mav.addObject("boolModel", boolModel);
+
+		mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
+		return mav;
+
+	}
+
+	@PostMapping("/quitarServicio.htm")
+	public ModelAndView quitarServicio(@RequestParam Map<String, String> reqPar) {
+		Map<String, Object> myModel = new HashMap<String, Object>();
+		Map<String, Integer> intModel = new HashMap<String, Integer>();
+		Map<String, Boolean> boolModel = new HashMap<String, Boolean>();
+
+		List<Servicio> listaServicios = new ArrayList<Servicio>();
+
+		Usuario usuario = WebServiceController.usuarioRegistrado;
+		Registro registro = registroManager.getRegistrobyUsuario(usuario.getId()).get(0);
+
+		Boolean esProfesional = profManager.getProfesionalById(usuario.getId()) != null;
+
+		int valoracion = 0;
+
+		Profesional profesional = profManager.getProfesionalById(usuario.getId());
+		valoracion = profesional.getValoracion();
+		listaServicios = profesional.getServicios();
+
+		// Quitamos el servicio
+		Integer idServicio = Integer.parseInt(reqPar.get("servicioAQuitar"));
+		Servicio servicio = servicioManager.getServiciobyId(idServicio);
+
+		for (Servicio servicioAuxiliar : listaServicios) {
+			System.out.print(" , " + servicioAuxiliar.getNombre() + servicioAuxiliar.getId() + "/" + idServicio);
+			if (servicioAuxiliar.getId() == idServicio) {
+				servicio = servicioAuxiliar;
+			}
+		}
+
+		System.out.println("Servicio eliminado: " + servicio.getNombre() + servicio.getId());
+
+		listaServicios.remove(servicio);
+		System.out.println("Servicio eliminado: " + servicio.getNombre());
+
+		// rechazo los presupuestos activos asociados al servicio que quito
+		List<Presupuesto> presupuestos = profesional.getPresupuestos();
+		for (Presupuesto p : presupuestos) {
+			System.out.println(p.getSolicitudOrigen().getServicioOrigen().getNombre());
+			if (p.getSolicitudOrigen().getServicioOrigen().getNombre().equals(servicio.getNombre())) {
+				System.out.println(p.getDescripcion() + " " + p.getEstado());
+				p.setEstado(EstadoPresupuesto.rechazado);
+				System.out.println("Ahora he cambiado el estado: " + p.getEstado());
+				presupuestoManager.addPresupuesto(p);
+			}
+		}
+
+		profesional.setPresupuestos(presupuestos);
+		profesional.setServicios(listaServicios);
+		profManager.addProfesional(profesional);
+		// Fin quitar servicio
+
+		List<Servicio> allServices = servicioManager.getServicios();
+		myModel.put("allServices", allServices);
+		myModel.put("usuario", usuario);
+		myModel.put("registro", registro);
+		// Añadir foto
+				if (usuario.getImagen() != null) {
+					Base64.Encoder encoder = Base64.getEncoder();
+					String encoding = "data:image/png;base64," + encoder.encodeToString(usuario.getImagen());
+					myModel.put("foto", encoding);
+					myModel.put("tieneFoto", true);
+				} else {
+					myModel.put("tieneFoto", false);
+				}
+				// Fin añadir foto
+		boolModel.put("esProfesional", esProfesional);
+		boolModel.put("errorUsername", false);
+		myModel.put("servicios", listaServicios);
+		intModel.put("valoracion", valoracion);
+
+		ModelAndView mav = new ModelAndView("perfil", "model", myModel);
+		if (WebServiceController.usuarioRegistrado == null) {
+			Usuario userAux = new Usuario();
+
+			userAux.setNombre("Usuario no registrado");
+			mav.addObject("usR", userAux);
+
+		} else {
+
+			mav.addObject("usR", WebServiceController.usuarioRegistrado);
+
+		}
+		mav.addObject("intModel", intModel);
+		mav.addObject("boolModel", boolModel);
+
+		mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
+		return mav;
+
+	}
+
+	@PostMapping("/eliminarUsuario.htm")
+	public ModelAndView eliminarUsuario(@RequestParam Map<String, String> reqPar) {
+		List<Consulta> listaCe = new ArrayList<Consulta>();
+        List<Consulta> listaTodasE = new ArrayList<Consulta>();
+        List<Solicitud> listaSe = new ArrayList<Solicitud>();
+        List<Solicitud> listaTodasSE = new ArrayList<Solicitud>();
+        List<Presupuesto> listaTodosPE = new ArrayList<Presupuesto>();
+        List<Presupuesto> listaPe = new ArrayList<Presupuesto>();
+        Usuario usuEl = usuarioManager.getUsuariobyId(Integer.parseInt(reqPar.get("usridE")));
+
+        Registro regEl = registroManager.getRegistrobyUsuario(usuEl.getId()).get(0);
+
+        Boolean esPe = usuEl instanceof Profesional;
+        listaTodasE = consultaManager.getConsultas();
+        listaTodasSE = solicitudManager.getSolicituds();
+        listaTodosPE = presupuestoManager.getPresupuestos();
+        
+        // Obtener consultas urgentes no resueltas
+        for (Consulta consulta : listaTodasE) {
+            if (!esPe) {
+                Boolean esUr = consulta instanceof ConsultaUrgente;
+
+                String dniClienteConsulta = consulta.getClienteOrigen().getDni();
+                String dniUsuario = usuEl.getDni();
+
+                if (esUr) {
+                    if(((ConsultaUrgente) consulta).getEstado() == EstadoConsulta.creada || ((ConsultaUrgente) consulta).getEstado() == EstadoConsulta.respondida) {
+                        if (dniClienteConsulta.equals(dniUsuario))
+                            consulta.setEstado(EstadoConsulta.no_resuelta);
+                            listaCe.add(consulta);
+                    }
+                }
+            }
+
+        }
+        //Obtener solicitudes no resueltas
+        for (Solicitud solicitud : listaTodasSE) {
+            if (!esPe) {
+              
+
+                String dniClienteSolicitud = solicitud.getClienteOrigen().getDni();
+                String dniUsuario = usuEl.getDni();
+
+                
+                    if(solicitud.getEstado() == EstadoSolicitud.creada || solicitud.getEstado() == EstadoSolicitud.respondida) {
+                        if (dniClienteSolicitud.equals(dniUsuario))
+                            solicitud.setEstado(EstadoSolicitud.eliminada);
+                            listaSe.add(solicitud);
+                    }
+                
+            }
+
+        }
+        
+        //Obtener presupuestos no aceptados
+        for (Presupuesto presupuesto : listaTodosPE) {
+            if (esPe) {
+              
+
+                String dniProfPresupuesto = presupuesto.getProfesionalOrigen().getDni();
+                String dniUsuario = usuEl.getDni();
+
+                
+                    if(presupuesto.getEstado() == EstadoPresupuesto.propuesto) {
+                        if (dniProfPresupuesto.equals(dniUsuario))
+                            presupuesto.setEstado(EstadoPresupuesto.noAceptado);
+                            listaPe.add(presupuesto);
+                    }
+                
+            }
+
+        }
+        
+        //Actualizar presupuestos 
+        if (esPe) {
+          
+
+            for (Presupuesto presupuesto : listaPe) {
+                preManager.addPresupuesto(presupuesto);
+            }
+
+        } else {
+        	//Actualizar consultas
+            for (Consulta consulta : listaCe) {
+                consultaManager.addConsulta(consulta);
+            }
+            //Actualizar solicitudes
+            for (Solicitud solicitud : listaSe) {
+            	
+            	solicitudManager.addSolicitud(solicitud);
+            }
+
+        }
+
+		registroManager.dropReg(regEl);
+
+
+		ModelAndView mav = new ModelAndView("hello");
+
+		Usuario userAux = new Usuario();
+
+		userAux.setNombre("Usuario no registrado");
+		mav.addObject("usR", userAux);
+
+		WebServiceController.usuarioRegistrado = userAux;
+
+		mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
+		return mav;
+	}
+
+	@PostMapping("/desactivarPerfil.htm")
+	public ModelAndView desactivarPerfil(@RequestParam Map<String, String> reqPar) {
+
+		// DESACTIVAR USUARIO
+
+		Usuario usuEl = usuarioManager.getUsuariobyId(Integer.parseInt(reqPar.get("desacId")));
+		usuEl.setDesactivado(1);
+		usuarioManager.addUsuario(usuEl);
+
+		if (WebServiceController.usuarioRegistrado.getDTYPE().toString().length() == 7) {
+			List<Solicitud> solicitudes = SManager.getSolicitudByCli(usuEl.getId());
+			for (Solicitud s : solicitudes) {
+				s.setEstado(EstadoSolicitud.eliminada);
+				SManager.addSolicitud(s);
+			}
+
+			List<Consulta> consultas = consultaManager.getConsultasByCli(usuEl.getId());
+			for (Consulta c : consultas) {
+				c.setEstado(EstadoConsulta.cerrada);
+				consultaManager.addConsulta(c);
+			}
+
+		}
+
+		else {
+
+			List<Presupuesto> presupuestos = presupuestoManager.getPresupuestosByProf(usuEl.getId());
+			for (Presupuesto p : presupuestos) {
+				p.setEstado(EstadoPresupuesto.rechazado);
+				presupuestoManager.addPresupuesto(p);
+			}
+
+		}
+		ModelAndView mav = new ModelAndView("hello");
+
+		Usuario userAux = new Usuario();
+
+		userAux.setNombre("Usuario no registrado");
+		mav.addObject("usR", userAux);
+
+		mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
+		return mav;
 
 	}
 
 	public void setServicioManager(SimpleServicioManager servicioManager) {
 		this.servicioManager = servicioManager;
 	}
-	
 
 }

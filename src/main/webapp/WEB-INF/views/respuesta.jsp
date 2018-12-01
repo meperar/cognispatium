@@ -4,67 +4,44 @@
 <html>
 
 <head>
-<link rel="icon" href="https://i.imgur.com/CjvIMZT.png">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
 	type="text/css">
-<link rel="stylesheet" href="misSolicitud.css">
+<link rel="stylesheet" href="theme.css">
 </head>
 
 <body>
 	<jsp:include page="barrasuperior.jsp" flush="true" />
-	<br>
-	<div style="text-align: center;">
-		<a><b style="font-size: 20px"> MIS PRESUPUESTOS</b></a>
-		<hr style="border-top: 2px solid #000000;">
-	</div>
-	<br>
-	<br>
-	<br>
-	<div class="row">
-		<div class="col-md-12">
-			<div class="form-group"></div>
-			<table class="table">
-				<thead>
-					<tr>
-						<th>Solicitud</th>
-						<th>Estado</th>
-						<th>Fecha creación</th>
-						<th>Accion</th>
-					</tr>
-				</thead>
-
-				<tbody>
-					<c:forEach items="${model.presupuestos}" var="presupuesto">
-						
-							<tr>
-							<form action="#" method="post" class="text-left">
-								<td style="max-width: 500px; word-wrap: break-word;"><input
-									type="hidden" id="presupuestoId" name="presupuestoId"
-									value="${presupuesto.id}"> ${presupuesto.getSolicitudOrigen().getTitulo()}</td>
-								<td style="max-width: 500px; word-wrap: break-word;">${presupuesto.estado}</td>
-								<td>${presupuesto.fechaCreacion}</td>
-								<td><button class="bg-primary" name="info">
-										<img src="https://image.flaticon.com/icons/svg/1/1176.svg"
-											alt="Information button free icon"
-											title="Ver datos de mi presupuesto" height="20" width="20">
-									</button>
-									<c:if test="${presupuesto.getEstado() == 'aceptado' || presupuesto.getEstado() == 'aceptado_cliente'}">
-									<button class="bg-primary" name="resolverPresupuesto">
-										<img src="https://image.flaticon.com/icons/svg/64/64886.svg" alt="resolver presupuesto" title="resolver presupuesto"
-										height="20" width="20">
-									</button>
-									</c:if>
-									</td>	
-							</form>							
-							</tr>						
-					</c:forEach>
-				</tbody>
-			</table>
+	<nav class="navbar navbar-light border-dark">
+		<div class="container d-flex justify-content-center">
+			<a class="navbar-brand text-primary" href="#"> <i
+				class="fa d-inline fa-lg fa-circle-o text-dark"></i> <b
+				class="text-dark"> RESPUESTA</b>
+			</a>
+		</div>
+	</nav>
+	<nav class="navbar navbar-dark bg-dark border-light">
+		<div class="container"></div>
+	</nav>
+	<div class="form-group"></div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-3" style="">
+				<div class="form-group">
+					<label>DESCRIPCION:</label>
+				</div>
+			</div>
+			<div class="col-md-6" style="">
+				<div class="form-group">
+					<label contenteditable="true">${model.respuesta.descripcion}</label>
+				</div>
+			</div>
 		</div>
 	</div>
+
+	<div class="form-group"></div>
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
 		crossorigin="anonymous"></script>
@@ -83,12 +60,12 @@
 					<img src="https://i.imgur.com/xmZULKf.png" width="200"
 						title="source: imgur.com">
 				</p>
-				<p>
+				<p class="text-dark">
 					<a href="https://goo.gl/maps/Bu1VZj2Eew42" target="_blank">
 						UPV, ETSINF <br>VLC, Spain
 					</a>
 				</p>
-				<p class="mb-0">
+				<p class="mb-0 text-dark">
 					<a href="mailto:info@cognispatium.com">info@cognispatium.com</a>
 				</p>
 			</div>

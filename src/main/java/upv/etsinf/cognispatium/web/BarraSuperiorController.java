@@ -1,7 +1,9 @@
 package upv.etsinf.cognispatium.web;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -12,9 +14,11 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import upv.etsinf.cognispatium.domain.Servicio;
 import upv.etsinf.cognispatium.service.SimpleServicioManager;
 
 @Controller
@@ -22,11 +26,12 @@ public class BarraSuperiorController {
 
 	@Autowired
 	private SimpleServicioManager servicioManager;
+	
 
 	/** Logger for this class and subclasses */
 	protected final Log logger = LogFactory.getLog(getClass());
 
-	@RequestMapping("/barrasuperior.htm")
+	@GetMapping("/barrasuperior.htm")
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -38,10 +43,29 @@ public class BarraSuperiorController {
 		
 		ModelAndView mav = new ModelAndView("barrasuperior","model",myModel);
 		
-		WebServiceController.listaAmbitos.forEach(a -> {
+		
+		List<String> listaAmbitosAux = servicioManager.getAmbitos();
+		List<Servicio> listaServicios = servicioManager.getServicios();
+		Map<String, Object> serviciosPorAmbitoAux = new HashMap<String, Object>();
+		
+
+		for(String a : listaAmbitosAux) {
+			List<Servicio> lista = new ArrayList<Servicio>();
+			
+			for(Servicio s : listaServicios) {
+				if(s.getAmbito().equals(a)) {
+					lista.add(s);
+				}
+			}
+			serviciosPorAmbitoAux.put(a, lista);
+		}
+		
+		mav.addObject("serviciosXAmbito", serviciosPorAmbitoAux);
+		
+		/*WebServiceController.listaAmbitos.forEach(a -> {
 
 			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
-		});
+		});*/
 		
 		return mav;
 
@@ -88,4 +112,37 @@ public class BarraSuperiorController {
 
 		
 	}*/
+	
+	public static Map<String,Object> barraSuperior(SimpleServicioManager servicioManager){
+		//Map<String, Object> myModel = new HashMap<String, Object>();
+		
+		/*myModel.put("serviMed", this.servicioManager.getServiciosbyAmbito("Medicina"));
+		String hello = "hola";
+		myModel.put("hi", hello);*/
+		
+		//ModelAndView mav = new ModelAndView("barrasuperior","model",myModel);
+		
+		
+		List<String> listaAmbitosAux = servicioManager.getAmbitos();
+		List<Servicio> listaServicios = servicioManager.getServicios();
+		Map<String, Object> serviciosPorAmbitoAux = new HashMap<String, Object>();
+		
+
+
+		for(String a : listaAmbitosAux) {
+			List<Servicio> lista = new ArrayList<Servicio>();
+			
+			for(Servicio s : listaServicios) {
+				if(s.getAmbito().equals(a)) {
+					lista.add(s);
+				}
+			}
+			serviciosPorAmbitoAux.put(a, lista);
+		}
+		
+		
+		//mav.addObject("serviciosXAmbito", serviciosPorAmbitoAux);
+		
+		return serviciosPorAmbitoAux;
+	}
 }

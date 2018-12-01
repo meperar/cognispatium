@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import upv.etsinf.cognispatium.domain.Consulta;
+import upv.etsinf.cognispatium.domain.Solicitud;
 import upv.etsinf.cognispatium.repository.ConsultaDao;
 
 @Component
@@ -42,4 +43,10 @@ public class SimpleConsultaManager implements Serializable {
     public List<Consulta> getConsultasByCli(int cliId){
     	return consultaDao.getConsultasByCli(cliId);
     }
+    
+	public Consulta getConsultabyId(int consultaId) {
+		
+		return consultaDao.getConsultabyId(consultaId);
+	
+	}
 }
