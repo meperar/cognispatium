@@ -250,7 +250,9 @@
 							<li class="nav-item"><a class="nav-link" href="logout.htm">Log Out</a></li>
 						</c:if>
 						<li class="nav-item">
-							<a class="nav-link" href="guiaDeUso.htm">Manual de uso</a>
+							<!-- <a class="nav-link" href="guiaDeUso.htm">Manual de uso</a>-->
+							<!--<a class="nav-link" href="https://historiaybiografias.com/Titanic%202012.pdf">Manula de uso PDF</a>-->
+							<a href="guiaDeUso.htm">Guia uso PDF local</a>
 						</li>
 						
 					</ul>

@@ -1,6 +1,7 @@
 package upv.etsinf.cognispatium.web;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -12,11 +13,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -367,5 +371,16 @@ public class WebServiceController {
 		return mav;
 	}
 
-
+	 @GetMapping(value = "/guiaDeUso.htm")
+	    public void getFile(HttpServletResponse response) {
+	        try {
+	            DefaultResourceLoader loader = new DefaultResourceLoader();
+	            InputStream is = loader.getResource("classpath:META-INF/resources/guia_de_uso.pdf").getInputStream();
+	            IOUtils.copy(is, response.getOutputStream());
+	            response.setHeader("Content-Disposition", "attachment; filename=Accepted.pdf");
+	            response.flushBuffer();
+	        } catch (IOException ex) {
+	            throw new RuntimeException("IOError writing file to output stream");
+	        }
+	    }
 }
