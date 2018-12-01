@@ -46,7 +46,8 @@ public class SimplePresupuestoManager implements Serializable {
     	Presupuesto res = null;
     	while(presupuestos.hasNext()) {
     		Presupuesto presupuesto = presupuestos.next();
-    		if (presupuesto.getSolicitudOrigen().equals(solicitud) && presupuesto.getEstado()==EstadoPresupuesto.aceptado) {
+    		if (presupuesto.getSolicitudOrigen().equals(solicitud) && (presupuesto.getEstado()==EstadoPresupuesto.aceptado || presupuesto.getEstado()==EstadoPresupuesto.aceptado_cliente 
+    		                    ||presupuesto.getEstado()==EstadoPresupuesto.aceptado_profesional )) {
     			res = presupuesto;
     		}
     	}
