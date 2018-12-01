@@ -1,9 +1,20 @@
 package upv.etsinf.cognispatium.web;
 
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
+import java.util.Base64;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
+import javax.imageio.ImageReadParam;
+import javax.imageio.ImageReader;
+import javax.imageio.stream.ImageInputStream;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -45,13 +56,25 @@ public class VotarProfesionalController {
 	@GetMapping("/votarProfesional.htm")
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response, @RequestParam Map<String, String> reqPar)
 			throws ServletException, IOException {
-
-		ModelAndView mav = new ModelAndView("votarProfesional");
-		Map<String, Object> myModel = new HashMap<String, Object>();
-		mav.addObject("model", myModel);
-		
 		Integer profesionalId = Integer.parseInt(reqPar.get("profesionalId"));
 		profesional = profesionalManager.getProfesionalById(profesionalId);
+		ModelAndView mav = new ModelAndView("votarProfesional");
+		Map<String, Object> myModel = new HashMap<String, Object>();
+		//AÑADIMOS IMAGEN AL MAV
+		
+		if(profesional.getImagen() != null) {
+			Base64.Encoder encoder = Base64.getEncoder();
+	        String encoding = "data:image/png;base64," + encoder.encodeToString(profesional.getImagen());
+	        myModel.put("foto", encoding);
+	        myModel.put("tieneFoto", true);
+			}else {
+			myModel.put("tieneFoto", false);
+			}
+        
+		//FIN AÑADIR IMAGEN
+		mav.addObject("model", myModel);
+		
+		
 		mav.addObject("profesional", profesional);
 		
 		Usuario user = WebServiceController.usuarioRegistrado;

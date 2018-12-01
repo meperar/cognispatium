@@ -1,6 +1,7 @@
 package upv.etsinf.cognispatium.web;
 
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -26,6 +27,7 @@ import upv.etsinf.cognispatium.domain.Usuario;
 import upv.etsinf.cognispatium.service.SimpleConsultaUrgenteManager;
 import upv.etsinf.cognispatium.service.SimpleProfesionalManager;
 import upv.etsinf.cognispatium.service.SimpleServicioManager;
+import upv.etsinf.cognispatium.web.dto.ProfesionalDto;
 
 @Controller
 public class RankingController {
@@ -84,8 +86,17 @@ public class RankingController {
 		Map<String, Object> myModel = new HashMap<String, Object>();
 		ModelAndView mav = new ModelAndView("ranking", "model", myModel);
 		
-		Mymodel.put("profesionales", listaProfesional);
 		Mymodel.put("servicios", listaServicios);
+		String encoding = "data:image/png;base64,";
+		Base64.Encoder encoder = Base64.getEncoder();
+		myModel.put("encoding", encoding);
+		myModel.put("encoder", Base64.getEncoder());
+		List<ProfesionalDto> profesionales = new ArrayList<ProfesionalDto>(); 
+				listaProfesional.forEach(p->{
+					ProfesionalDto prof= new ProfesionalDto(p.getNombre(),p.getApellidos(),p.getImagen()!=null?encoder.encodeToString(p.getImagen()):null, p.getValoracionMediaRedondeada());
+					profesionales.add(prof);
+				});
+		Mymodel.put("profesionales", profesionales);
 		mav.addObject("model", Mymodel);
 		if(WebServiceController.usuarioRegistrado == null) {
 			Usuario userAux = new Usuario();
@@ -108,38 +119,5 @@ public class RankingController {
 		mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
 		return mav;
 	}
-
-	
-	/*@PostMapping("/ranking.htm")
-	protected ModelAndView crearPresupueusto(@RequestParam Map<String, String> reqPar) throws Exception {
-
-		Map<String, Object> myModel = new HashMap<String, Object>();
-		
-		ConsultaUrgente miconsultaUrgente = consultaUManager.getConsultaUrgentebyId(Integer.parseInt(reqPar.get("consultaId")));
-		
-		ModelAndView mav = new ModelAndView("crearrespuestaaSolicitud", "model", myModel);
-		
-		
-		myModel.put("consulta", miconsultaUrgente);
-		
-		if(WebServiceController.usuarioRegistrado == null) {
-			Usuario userAux = new Usuario();
-			
-			userAux.setNombre("Usuario no registrado");
-			mav.addObject("usR", userAux);
-			
-		}
-		
-		else {
-			
-			mav.addObject("usR", WebServiceController.usuarioRegistrado);
-			
-		}
-		WebServiceController.listaAmbitos.forEach(a -> {
-
-			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
-		});
-		return mav;
-	}*/
 
 }

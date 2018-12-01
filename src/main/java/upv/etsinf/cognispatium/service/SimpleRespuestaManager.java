@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import upv.etsinf.cognispatium.domain.Respuesta;
+import upv.etsinf.cognispatium.domain.Servicio;
 import upv.etsinf.cognispatium.repository.RespuestaDao;
 
 @Component
@@ -23,6 +24,12 @@ public class SimpleRespuestaManager implements Serializable {
 		
 		return respuestaDao.getRespuestaList();
 	}
+	
+	public Respuesta getRespuestabyId(Integer respuestaId) {
+		
+		return  respuestaDao.getRespuestabyId(respuestaId);
+	}
+	
 	
 	public void setRespuestaDao(RespuestaDao respuestaDao) {
         this.respuestaDao = respuestaDao;

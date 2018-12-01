@@ -1,4 +1,4 @@
-package upv.etsinf.cognispatium.web.message;
+package upv.etsinf.cognispatium.web.dto;
  
 public class Response {
 	private String status;
