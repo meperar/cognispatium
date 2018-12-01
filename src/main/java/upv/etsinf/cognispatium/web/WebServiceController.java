@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,6 +29,7 @@ import upv.etsinf.cognispatium.domain.Profesional;
 import upv.etsinf.cognispatium.domain.Registro;
 import upv.etsinf.cognispatium.domain.Servicio;
 import upv.etsinf.cognispatium.domain.Usuario;
+import upv.etsinf.cognispatium.service.AsynchronousService;
 import upv.etsinf.cognispatium.service.SimpleConsultaManager;
 import upv.etsinf.cognispatium.service.SimpleRegistroManager;
 import upv.etsinf.cognispatium.service.SimpleServicioManager;
@@ -53,7 +55,8 @@ public class WebServiceController {
 	@Autowired
 	private SimpleConsultaManager consultaManager;
 	
-
+	@Autowired
+	private AsynchronousService asynchronousService;
 
 	@Autowired
 	private SimpleRegistroManager simpleRegistroManager;
@@ -61,10 +64,12 @@ public class WebServiceController {
 	public static Usuario usuarioRegistrado = null;
 
 	public boolean registradoB = false;
+	
+	public static boolean arranque = false;
 
 	@RequestMapping(value = "/hello.htm")
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+			throws ServletException, IOException, InterruptedException {
 
 		String now = (new Date()).toString();
 		logger.info("Returning hello view with " + now);
@@ -72,7 +77,10 @@ public class WebServiceController {
 		List<String> listaAmbitosAux = servicioManager.getAmbitos();
 		List<Servicio> listaServicios = servicioManager.getServicios();
 		Map<String, Object> serviciosPorAmbitoAux = new HashMap<String, Object>();
-
+		if(!arranque) {
+		asynchronousService.checkCU();
+		arranque = !arranque;
+		}
 		listaAmbitosAux.forEach(ambito -> {
 			String amb = ambito;
 			List<Servicio> lista = new ArrayList<Servicio>();

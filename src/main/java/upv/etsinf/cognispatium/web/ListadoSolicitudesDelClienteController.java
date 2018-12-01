@@ -122,7 +122,7 @@ public class ListadoSolicitudesDelClienteController {
 		
 		else if (info) {
 		    Presupuesto presupuesto = simplePresupuestoManager.getPresupuestoAceptadoBySolicitud(miSolicitud);
-	        System.out.println("presupuesto: "+ presupuesto.getDescripcion() + " estado:" + presupuesto.getEstado());
+	        //System.out.println("presupuesto: "+ presupuesto.getDescripcion() + " estado:" + presupuesto.getEstado());
 		Map<String, Object> myModel = new HashMap<String, Object>();
 		
 		ModelAndView mav = new ModelAndView("diferentesPresupuestos");
