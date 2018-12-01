@@ -162,6 +162,17 @@
 			<artifactId>jackson-mapper-asl</artifactId>
 			<version>1.9.13</version>
 		</dependency>
+
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.3.1</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.4</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>cognispatium</finalName>
@@ -171,5 +182,5 @@
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<itext.version>RELEASE</itext.version>
 	</properties>
-	
+
 </project>

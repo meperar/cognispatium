@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import upv.etsinf.cognispatium.domain.Cliente;
@@ -77,7 +78,7 @@ public class SignUpController {
 	}
 	
 	@PostMapping("/usersignup.htm")
-	protected ModelAndView Registrarse(@RequestParam Map<String, String> reqPar) throws Exception {
+	protected ModelAndView Registrarse(@RequestParam Map<String, String> reqPar,@RequestParam("file") MultipartFile file) throws Exception {
 		String err = "";
 		if(regMng.getRegistrobyUN(reqPar.get("username")).size() == 0) {
 			nuevoCliente = new Cliente();
@@ -95,9 +96,13 @@ public class SignUpController {
 				nuevoCliente.setTelefono(Integer.parseInt(reqPar.get("tlf")));
 				nuevoCliente.setDTYPE(reqPar.get("rol"));
 				nuevoCliente.setDesactivado(0);
+				if(!file.isEmpty()) {
+					nuevoCliente.setImagen(file.getBytes());
+				}
 				nuevoCliente.setPais(reqPar.get("country"));
 				nuevoCliente.setProvincia(reqPar.get("province"));
 				nuevoCliente.setCiudad(reqPar.get("city"));
+
 
 				nuevoRegistro.setUsuario(nuevoCliente);
 				
@@ -109,6 +114,9 @@ public class SignUpController {
 				nuevoProf.setTelefono(Integer.parseInt(reqPar.get("tlf")));
 				nuevoProf.setDTYPE(reqPar.get("rol"));
 				nuevoProf.setDesactivado(0);
+				if(!file.isEmpty()) {
+					nuevoProf.setImagen(file.getBytes());
+				}
 				nuevoProf.setPais(reqPar.get("country"));
 				nuevoProf.setProvincia(reqPar.get("province"));
 				nuevoProf.setCiudad(reqPar.get("city"));
