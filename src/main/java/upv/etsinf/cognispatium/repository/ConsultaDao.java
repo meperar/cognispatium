@@ -15,6 +15,8 @@ public interface ConsultaDao {
     public List<Consulta> getConsultasbyServicio(Integer serviceId);
         
     public List<Consulta> getConsultasByCli(int cliId);
+    
+    public Consulta getConsultabyId(int consultaId);
      
 
 }

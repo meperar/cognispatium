@@ -7,5 +7,7 @@ public enum EstadoSolicitud {
     adjudicada,
     resuelta,
     cerrada,
+    aceptado_cliente,
+    aceptado_profesional,
     eliminada
 }

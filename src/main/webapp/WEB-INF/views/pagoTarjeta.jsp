@@ -14,27 +14,7 @@
 <link rel="stylesheet"
 	href="https://static.pingendo.com/bootstrap/bootstrap-4.1.3.css">
 
-<script>
-	function myFunction() {
-		var checkBox = document.getElementById("myCheck");
-		var header = document.getElementById("header");
-		if (checkBox.checked == false) {
-			header.style.display = "none";
-			document.getElementById("titular").required = false;
-			document.getElementById("numTarjeta").required = false;
-			document.getElementById("cvv").required = false;
-			document.getElementById("mes").required = false;
-			document.getElementById("anyo").required = false;
-		} else {
-			header.style.display = "block";
-			document.getElementById("titular").required = true;
-			document.getElementById("numTarjeta").required = true;
-			document.getElementById("cvv").required = true;
-			document.getElementById("mes").required = true;
-			document.getElementById("anyo").required = true;
-		}
-	}
-</script>
+
 <script>
 	$(document).ready(function() {
 		$('input:checkbox').click(function() {
@@ -97,6 +77,27 @@
 									</div>
 								</div>
 							</div>
+							<script>
+							function myFunction() {
+								var checkBox = document.getElementById("myCheck");
+								var header = document.getElementById("header");
+								if (checkBox.checked == false) {
+									header.style.display = "none";
+									document.getElementById("titular").required = false;
+									document.getElementById("numTarjeta").required = false;
+									document.getElementById("cvv").required = false;
+									document.getElementById("mes").required = false;
+									document.getElementById("anyo").required = false;
+								} else {
+									header.style.display = "block";
+									document.getElementById("titular").required = true;
+									document.getElementById("numTarjeta").required = true;
+									document.getElementById("cvv").required = true;
+									document.getElementById("mes").required = true;
+									document.getElementById("anyo").required = true;
+								}
+							}
+							</script>
 							<div class="col-md-6" style="display: none" id="header">
 								<div class="col-md-12 p-5" style="">
 									<h3 class="mb-3">Nueva Tarjeta</h3>

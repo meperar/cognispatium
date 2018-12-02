@@ -103,6 +103,8 @@
 		<a style="font-size: 13px; color: white;" href="conoceEquipo.htm">Conoce al equipo</a>
 		&emsp; &emsp; 
 		<a style="font-size: 13px; color: white;" href="acercaDe.htm">Acerca de</a>
+		&emsp; &emsp; 
+		<a style="font-size: 13px; color: white;" href="politicaDePrivacidad.htm">Políticas de Privacidad</a>
 	  	<br>
 	  	<br>
 	  	<br>

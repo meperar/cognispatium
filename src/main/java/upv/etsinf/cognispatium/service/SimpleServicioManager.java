@@ -6,9 +6,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import upv.etsinf.cognispatium.domain.Consulta;
 import upv.etsinf.cognispatium.domain.EstadoPresupuesto;
 import upv.etsinf.cognispatium.domain.Presupuesto;
 import upv.etsinf.cognispatium.domain.Profesional;
+import upv.etsinf.cognispatium.domain.Respuesta;
 import upv.etsinf.cognispatium.domain.Servicio;
 import upv.etsinf.cognispatium.domain.Solicitud;
 import upv.etsinf.cognispatium.repository.ServicioDao;
@@ -72,6 +74,8 @@ public class SimpleServicioManager implements Serializable {
 		});
 		
 	}
+	
+	
 	
 	
 	public List<Profesional> getProfesionales(Integer servicioId){

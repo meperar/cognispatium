@@ -12,12 +12,12 @@
 	type="text/css">
 <link rel="stylesheet" href="misSolicitud.css">
 </head>
-
 <body>
 	<jsp:include page="barrasuperior.jsp" flush="true" />
+	
 	<br>
 	<div style="text-align: center;">
-		<a><b style="font-size: 20px"> MIS PRESUPUESTOS</b></a>
+		<a><b style="font-size: 20px"> MIS CONSULTAS</b></a>
 		<hr style="border-top: 2px solid #000000;">
 	</div>
 	<br>
@@ -29,37 +29,41 @@
 			<table class="table">
 				<thead>
 					<tr>
-						<th>Solicitud</th>
+						<th>Titulo</th>
+						<th>Descripcion</th>
 						<th>Estado</th>
-						<th>Fecha creación</th>
+						<th>Fecha fin</th>
 						<th>Accion</th>
 					</tr>
 				</thead>
 
 				<tbody>
-					<c:forEach items="${model.presupuestos}" var="presupuesto">
+					<c:forEach items="${model.consultas}" var="consulta">
 						
 							<tr>
 							<form action="#" method="post" class="text-left">
 								<td style="max-width: 500px; word-wrap: break-word;"><input
-									type="hidden" id="presupuestoId" name="presupuestoId"
-									value="${presupuesto.id}"> ${presupuesto.getSolicitudOrigen().getTitulo()}</td>
-								<td style="max-width: 500px; word-wrap: break-word;">${presupuesto.estado}</td>
-								<td>${presupuesto.fechaCreacion}</td>
+									type="hidden" id="consultaId" name="consultaId"
+									value="${consulta.id}"> ${consulta.titulo}</td>
+								<td style="max-width: 500px; word-wrap: break-word;">${consulta.descripcion}</td>
+								<td>${consulta.estado}</td>
+								<td>${consulta.getFechaFin()} </td>
+								
 								<td><button class="bg-primary" name="info">
 										<img src="https://image.flaticon.com/icons/svg/1/1176.svg"
 											alt="Information button free icon"
-											title="Ver datos de mi presupuesto" height="20" width="20">
+											title="Ver datos de mi solicitud" height="20" width="20">
 									</button>
-									<c:if test="${presupuesto.getEstado() == 'aceptado' || presupuesto.getEstado() == 'aceptado_cliente'}">
-									<button class="bg-primary" name="resolverPresupuesto">
-										<img src="https://image.flaticon.com/icons/svg/64/64886.svg" alt="resolver presupuesto" title="resolver presupuesto"
+									<button class="bg-primary" name="borrar">
+									<img src="https://image.flaticon.com/icons/svg/121/121116.svg"
+										alt="Eliminar solicitud" title="Eliminar solicitud"
 										height="20" width="20">
-									</button>
-									</c:if>
-									</td>	
-							</form>							
-							</tr>						
+								</button>
+								
+								</td>
+									
+							</tr>
+						</form>
 					</c:forEach>
 				</tbody>
 			</table>
@@ -118,5 +122,4 @@
 		</div>
 	</div>
 </body>
-
 </html>
