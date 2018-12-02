@@ -47,7 +47,7 @@
 									value="${consulta.id}"> ${consulta.titulo}</td>
 								<td style="max-width: 500px; word-wrap: break-word;">${consulta.descripcion}</td>
 								<td>${consulta.estado}</td>
-								<td>${consulta.getFechaFin()} </td>
+								<td>${consulta.getFechaFinFormateada("MM/dd/yyyy HH:mm:ss")} </td>
 								
 								<td><button class="bg-primary" name="info">
 										<img src="https://image.flaticon.com/icons/svg/1/1176.svg"

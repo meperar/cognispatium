@@ -67,8 +67,8 @@ public class ConsultaUrgente extends Consulta implements Serializable {
 	}
 	
 	public String getFechaFinFormateada(String format) {
-		DateTime dt = new DateTime();
+		//DateTime dt = new DateTime();
 		DateTimeFormatter fmt = DateTimeFormat.forPattern(format);
-		return fmt.print(dt);
+		return fmt.print(fechaFin);
 	}
 }
