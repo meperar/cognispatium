@@ -217,6 +217,9 @@
 									<a><font size="+1">Apodo: ${model.registro.username}</font></a><br>
 									<a><font size="+1">Edad: ${model.usuario.edad}</font></a><br>
 									<a><font size="+1">DNI: ${model.usuario.dni}</font></a><br>
+									<a><font size="+1">Pais: ${model.usuario.pais}</font></a><br>
+									<a><font size="+1">Provincia: ${model.usuario.provincia}</font></a><br>
+									<a><font size="+1">Ciudad: ${model.usuario.ciudad}</font></a><br>
 									<a><font size="+1">E-mail: ${model.usuario.email}</font></a><br>
 									<a><font size="+1">Teléfono: ${model.usuario.telefono}</font></a><br>
 									<br>
@@ -387,6 +390,30 @@
 													</tr>
 													<tr>
 														<td><div class="rightAlign">
+																<b>Pais:</b>
+															</div></td>
+														<td><input type="text" value="${model.usuario.pais}"
+															name="pais" id="pais" required><a id="errorPais"
+															style="color: red;"></a></td>
+													</tr>
+													<tr>
+														<td><div class="rightAlign">
+																<b>Provincia:</b>
+															</div></td>
+														<td><input type="text" value="${model.usuario.provincia}"
+															name="prov" id="prov" required><a id="errorProv"
+															style="color: red;"></a></td>
+													</tr>
+													<tr>
+														<td><div class="rightAlign">
+																<b>Ciudad:</b>
+															</div></td>
+														<td><input type="text" value="${model.usuario.ciudad}"
+															name="ciudad" id="ciudad" required><a id="errorCiu"
+															style="color: red;"></a></td>
+													</tr>
+													<tr>
+														<td><div class="rightAlign">
 																<b>E-mail:</b>
 															</div></td>
 														<td><input type="text" value="${model.usuario.email}"
@@ -481,6 +508,9 @@
 
 										var campoEdad = document.getElementById("edad");
 										var campoDni = document.getElementById("dni");
+										var campoPais = document.getElementById("pais");
+										var campoProv = document.getElementById("prov");
+										var campoCiu = document.getElementById("ciudad");
 										var campoEmail = document.getElementById("email");
 										var campoTelefono = document.getElementById("telefono");
 										var campoContrasena = document.getElementById("contrasena");
@@ -488,11 +518,17 @@
 										
 										var errorEdad = document.getElementById("errorEdad");
 										var errorDni = document.getElementById("errorDni");
+										var errorPais = document.getElementById("errorPais");
+										var errorProv = document.getElementById("errorProv");
+										var errorCiu = document.getElementById("errorCiu");
 										var errorEmail = document.getElementById("errorEmail");
 										var errorTele = document.getElementById("errorTele");
 
 										var edad = campoEdad.value;
 										var dni = campoDni.value;
+										var pais = campoPais.value;
+										var prov = campoProv.value;
+										var ciu = campoCiu.value;
 										var email = campoEmail.value;
 										var telefono = campoTelefono.value;
 										var contrasena = campoContrasena.value;
@@ -520,6 +556,18 @@
 										}else{
 											campoDni.style.border = "none";
 											errorDni.innerHTML = "";
+										}
+										if(pais.length < 1){
+											valido = false;
+											errorPais.innerHTML = "El campo 'Pais' no puede ir vacío";
+										}
+										if(prov.length < 1){
+											valido = false;
+											errorProv.innerHTML = "El campo 'Provincia' no puede ir vacío";
+										}
+										if(ciu.length < 1){
+											valido = false;
+											errorCiu.innerHTML = "El campo 'Ciudad' no puede ir vacío";
 										}
 										
 
