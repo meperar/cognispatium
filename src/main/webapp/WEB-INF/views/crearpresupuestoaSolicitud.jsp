@@ -25,6 +25,12 @@
         <div class="col-md-5 p-4">
           <h3>Datos solicitud</h3>
           <p>${model.solicitud.clienteOrigen.getNombre()} ${model.solicitud.clienteOrigen.getApellidos()}</p>
+          <p class="lead mt-3"> <b>Pais</b></p>
+          <p> ${model.solicitud.clienteOrigen.getPais()} </p>
+          <p class="lead mt-3"> <b>Provincia</b></p>
+          <p> ${model.solicitud.clienteOrigen.getProvincia()} </p>
+          <p class="lead mt-3"> <b>Ciudad</b></p>
+          <p> ${model.solicitud.clienteOrigen.getCiudad()} </p>
           <p class="lead mt-3"> <b>Titulo</b></p>
           <p> ${model.solicitud.titulo} </p>
           <p class="lead mt-3"> <b>Descripcion</b></p>

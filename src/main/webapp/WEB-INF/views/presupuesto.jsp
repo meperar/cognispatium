@@ -42,6 +42,54 @@
 		<div class="row">
 			<div class="col-md-3" style="">
 				<div class="form-group">
+					<label>PROFESIONAL:</label>
+				</div>
+			</div>
+			<div class="col-md-6" style="">
+				<div class="form-group">
+					<label contenteditable="true">${model.presupuesto.profesionalOrigen.nombre} ${model.presupuesto.profesionalOrigen.apellidos}</label>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-3" style="">
+				<div class="form-group">
+					<label>PAIS:</label>
+				</div>
+			</div>
+			<div class="col-md-6" style="">
+				<div class="form-group">
+					<label contenteditable="true">${model.presupuesto.profesionalOrigen.getPais()}</label>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-3" style="">
+				<div class="form-group">
+					<label>PROVINCIA:</label>
+				</div>
+			</div>
+			<div class="col-md-6" style="">
+				<div class="form-group">
+					<label contenteditable="true">${model.presupuesto.profesionalOrigen.getProvincia()}</label>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-3" style="">
+				<div class="form-group">
+					<label>CIUDAD:</label>
+				</div>
+			</div>
+			<div class="col-md-6" style="">
+				<div class="form-group">
+					<label contenteditable="true">${model.presupuesto.profesionalOrigen.getCiudad()}</label>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-3" style="">
+				<div class="form-group">
 					<label>PRECIO:</label>
 				</div>
 			</div>

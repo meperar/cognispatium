@@ -194,6 +194,7 @@ public class ListadoConsultasDelClienteController {
 			
 			mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
 			
+			
 			return mav;
 			
 		}

@@ -169,6 +169,9 @@ public class PerfilController {
 			usuario.setApellidos(reqPar.get("apellidos"));
 			usuario.setEdad(Integer.parseInt(reqPar.get("edad")));
 			usuario.setDni(reqPar.get("dni"));
+			usuario.setPais(reqPar.get("pais"));
+			usuario.setProvincia(reqPar.get("prov"));
+			usuario.setCiudad(reqPar.get("ciudad"));
 			usuario.setEmail(reqPar.get("email"));
 			usuario.setTelefono(Integer.parseInt(reqPar.get("telefono")));
 			// Foto

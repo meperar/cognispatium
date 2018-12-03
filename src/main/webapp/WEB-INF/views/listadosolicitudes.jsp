@@ -91,6 +91,9 @@
 								<th>Titulo</th>
 								<th>Descripcion</th>
 								<th>Cliente</th>
+								<th>Pais</th>
+								<th>Provincia</th>
+								<th>Ciudad</th>
 								<th>Estado</th>
 								<th>Accion</th>
 							</tr>
@@ -105,6 +108,9 @@
 										<td style="max-width: 500px;word-wrap:break-word;">${solicitud.descripcion}</td>
 										<td>${solicitud.clienteOrigen.nombre}
 											${solicitud.clienteOrigen.apellidos}</td>
+										<td>${solicitud.clienteOrigen.getPais()}</td>
+										<td>${solicitud.clienteOrigen.getProvincia()}</td>
+										<td>${solicitud.clienteOrigen.getCiudad()}</td>
 										<td>${solicitud.estado}</td>
 										<td><button class="bg-primary">
 												<i class="fas fa-plus-square"></i>

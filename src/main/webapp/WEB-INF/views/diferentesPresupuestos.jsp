@@ -65,6 +65,9 @@
 			<thead>
 				<tr>
 					<th>Presupuestos</th>
+					<th>Pais</th>
+					<th>Provincia</th>
+					<th>Ciudad</th>
 					<th>Accion</th>
 				</tr>
 			</thead>
@@ -75,6 +78,9 @@
 							<td style="max-width: 500px; word-wrap: break-word;"><input
 								type="hidden" id="presupuestoId" name="presupuestoId"
 								value="${presupuesto.id}"> ${presupuesto.profesionalOrigen.nombre} ${presupuesto.profesionalOrigen.apellidos}</td>
+							<td>${presupuesto.profesionalOrigen.getPais()}</td> 
+							<td>${presupuesto.profesionalOrigen.getProvincia()}</td> 
+							<td>${presupuesto.profesionalOrigen.getCiudad()}</td> 	
 							<td><button class="bg-primary">
 									<img src="https://image.flaticon.com/icons/svg/159/159604.svg"
 										width="20" height="20" alt="Eye free icon"
