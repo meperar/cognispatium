@@ -105,6 +105,8 @@
 		<a style="font-size: 13px; color: white;" href="acercaDe.htm">Acerca de</a>
 		&emsp; &emsp; 
 		<a style="font-size: 13px; color: white;" href="politicaDePrivacidad.htm">Políticas de Privacidad</a>
+		&emsp; &emsp; 
+		<a style="font-size: 13px; color: white;" href="guiaDeUso.htm">Guía uso</a>
 	  	<br>
 	  	<br>
 	  	<br>
