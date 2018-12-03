@@ -64,22 +64,30 @@
 		<table class="table">
 			<thead>
 				<tr>
+					<th>Profesional</th>
 					<th>Respuestas</th>
-					<th>Accion</th>
+					<th>Validar respuesta</th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach items="${model.respuestas}" var="respuesta">
 					<form action="<c:url value="/validarRespuesta.htm" />" method="post" >
 						<tr>
-							<td style="max-width: 500px; word-wrap: break-word;"><input
+							<td style="max-width: 350px; word-wrap: break-word;"><input
 								type="hidden" id="respuestaId" name="respuestaId"
 								value="${respuesta.id}"> ${respuesta.profesionalOrigen.nombre} ${respuesta.profesionalOrigen.apellidos}</td>
-							<td><button class="bg-primary">
-									<img src="https://image.flaticon.com/icons/svg/159/159604.svg"
+							<td style="max-width: 500px; word-wrap: break-word;">
+							 ${respuesta.getDescripcion()}</td>
+								
+							<td>
+							
+							<button class="bg-primary" >
+									<img src="https://image.flaticon.com/icons/svg/69/69881.svg"
 										width="20" height="20" alt="Eye free icon"
-										title="Eye free icon">
-								</button></td>
+										title="Validar respuesta ">
+								</button>
+								
+								</td>
 						</tr>
 					</form>
 				</c:forEach>

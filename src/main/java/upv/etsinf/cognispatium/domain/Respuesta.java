@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,6 +28,10 @@ public class Respuesta implements Serializable {
 
 	@Column
 	private String descripcion;
+	
+	@Column(name = "estado", nullable = false, length = 20)
+    @Enumerated(value = EnumType.STRING)
+    private EstadoRespuesta estado;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="profesional")
@@ -69,6 +75,14 @@ public class Respuesta implements Serializable {
 	public void setConsultaOrigen(Consulta consultaOrigen) {
 		this.consultaOrigen = consultaOrigen;
 	}
+
+    public EstadoRespuesta getEstado() {
+        return estado;
+    }
+
+    public void setEstado(EstadoRespuesta estado) {
+        this.estado = estado;
+    }
 
 
 

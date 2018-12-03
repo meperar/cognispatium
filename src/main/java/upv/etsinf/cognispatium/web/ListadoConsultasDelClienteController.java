@@ -29,6 +29,7 @@ import upv.etsinf.cognispatium.domain.Consulta;
 import upv.etsinf.cognispatium.domain.ConsultaUrgente;
 import upv.etsinf.cognispatium.domain.EstadoConsulta;
 import upv.etsinf.cognispatium.domain.EstadoPresupuesto;
+import upv.etsinf.cognispatium.domain.EstadoRespuesta;
 import upv.etsinf.cognispatium.domain.EstadoSolicitud;
 import upv.etsinf.cognispatium.domain.Presupuesto;
 import upv.etsinf.cognispatium.domain.Respuesta;
@@ -279,34 +280,62 @@ public class ListadoConsultasDelClienteController {
 	@PostMapping("/validarRespuesta.htm")
 	protected ModelAndView validaRespuesta(@RequestParam Map<String, String> reqPar) throws Exception {
 		System.out.println("validaRespuesta()");
-		Map<String, Object> myModel = new HashMap<String, Object>();
+		
+		miConsulta.setEstado(EstadoConsulta.resuelta);
 		
 		Respuesta respuesta = simpleRespuestaManager.getRespuestabyId(Integer.parseInt(reqPar.get("respuestaId")));
-		
-		
-		myModel.put("respuesta", respuesta);
+		System.out.println("respuesta: "+respuesta.getId() +" " +respuesta.getDescripcion());
+		//pongo las respuestas a malas
+		List<Respuesta> respuestaList = miConsulta.getRespuestas();
+        for (Respuesta r: respuestaList ) {
+            System.out.println("respuesta:" + r.getId() + " " + r.getEstado());
+            simpleRespuestaManager.addRespuesta(r);
+        }
+        respuesta.setEstado(EstadoRespuesta.buena);     
+        simpleRespuestaManager.addRespuesta(respuesta);
+        
+        miConsulta.setRespuestas(respuestaList);
+        simpleConsultaManager.addConsulta(miConsulta);
 
-		ModelAndView mav = new ModelAndView("respuesta", "model", myModel);
-		WebServiceController.listaAmbitos.forEach(a -> {
+        ModelAndView mav = new ModelAndView("misConsultas");
+        Map<String, Object> myModel = new HashMap<String, Object>();
 
-			mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
-		});
-		
-		mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
-		if (WebServiceController.usuarioRegistrado == null) {
+        Cliente clienteSimulado = simpleClienteManager.getClientebyId(WebServiceController.usuarioRegistrado.getId());
+
+        List<Consulta> listaConsultas = clienteSimulado.getConsultas();
+        List<Consulta> listaAux = new ArrayList<Consulta>();
+        for(Consulta x : listaConsultas) {
+            if(x instanceof ConsultaUrgente) listaAux.add(x);
+        }
+        
+        myModel.put("consultas", listaConsultas);
+        myModel.put("consultasUrg", listaAux);
+
+        mav.addObject("model", myModel);
+        
+        if(WebServiceController.usuarioRegistrado == null) {
             Usuario userAux = new Usuario();
-
+            
             userAux.setNombre("Usuario no registrado");
             mav.addObject("usR", userAux);
-
+            
         }
-
+        
         else {
-
+            
             mav.addObject("usR", WebServiceController.usuarioRegistrado);
-
+            
         }
-		return mav;
+        WebServiceController.listaAmbitos.forEach(a -> {
+
+            mav.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
+        });
+        
+        
+        mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
+        return mav;
+		
+		
 	}
 	
 	@GetMapping("/eliminarConsulta.htm")
@@ -343,6 +372,14 @@ public class ListadoConsultasDelClienteController {
 		boolean info = WebUtils.hasSubmitParameter(request, "elimina");
 		if (info) {
 			miConsulta.setEstado(EstadoConsulta.cerrada);
+			//cambio estado de respuestas.
+			List<Respuesta> respuestaList = miConsulta.getRespuestas();
+			for (Respuesta r: respuestaList ) {
+			    r.setEstado(EstadoRespuesta.cerrada);
+			    simpleRespuestaManager.addRespuesta(r);
+			}
+			miConsulta.setRespuestas(respuestaList); // fin cambio de estado respuestas
+			
 			simpleConsultaManager.addConsulta(miConsulta);
 		}
 	}

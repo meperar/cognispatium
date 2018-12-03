@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import upv.etsinf.cognispatium.domain.ConsultaUrgente;
+import upv.etsinf.cognispatium.domain.EstadoConsulta;
 import upv.etsinf.cognispatium.domain.EstadoMensaje;
+import upv.etsinf.cognispatium.domain.EstadoRespuesta;
 import upv.etsinf.cognispatium.domain.Mensaje;
 //import net.bytebuddy.agent.builder.AgentBuilder.Default.Transformation.Simple;  /*Si quitas el comentario da error*/
 import upv.etsinf.cognispatium.domain.Respuesta;
@@ -95,15 +97,21 @@ public class RCUrgenteController {
 		Respuesta respuesta = new Respuesta();
 		Integer consultaId = Integer.parseInt(reqPar.get("consultaId"));
 		ConsultaUrgente consultaUrgente = simpleConsultaUrgenteManager.getConsultaUrgentebyId(consultaId);
+		if (consultaUrgente.getEstado() == EstadoConsulta.creada) consultaUrgente.setEstado(EstadoConsulta.respondida); // cambio el estado solo la primera vez
+		simpleConsultaUrgenteManager.addConsultaUrgente(consultaUrgente);
 		respuesta.setDescripcion(reqPar.get("respuesta"));	
 		respuesta.setConsultaOrigen(consultaUrgente);
 		respuesta.setProfesionalOrigen(simpleProfesionalManager.getProfesionalById(WebServiceController.usuarioRegistrado.getId()));
+		respuesta.setEstado(EstadoRespuesta.creada);
+		
+		
 		respuestaManager.addRespuesta(respuesta);
 		
 		Mensaje mensaje = new Mensaje();
 		mensaje.setDescripcion(reqPar.get("respuesta"));
 		mensaje.setAsunto("Respuesta a su Consulta urgente:" + consultaUrgente.getTitulo() );
 		mensaje.setUsuarioOrigen(simpleProfesionalManager.getProfesionalById(WebServiceController.usuarioRegistrado.getId()));
+		
 		mensaje.setUsuarioDestino(consultaUrgente.getClienteOrigen());
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		long millis=System.currentTimeMillis();
@@ -127,6 +135,7 @@ public class RCUrgenteController {
 			mav.addObject("usR", WebServiceController.usuarioRegistrado);
 			
 		}
+		
 		ModelAndView mav2 =  new ModelAndView("hello");
 		WebServiceController.listaAmbitos.forEach(a -> {
 
