@@ -288,13 +288,13 @@ public class ListadoConsultasDelClienteController {
 		//pongo las respuestas a malas
 		List<Respuesta> respuestaList = miConsulta.getRespuestas();
         for (Respuesta r: respuestaList ) {
+            r.setEstado(EstadoRespuesta.mala);
             System.out.println("respuesta:" + r.getId() + " " + r.getEstado());
             simpleRespuestaManager.addRespuesta(r);
         }
         respuesta.setEstado(EstadoRespuesta.buena);     
         simpleRespuestaManager.addRespuesta(respuesta);
         
-        miConsulta.setRespuestas(respuestaList);
         simpleConsultaManager.addConsulta(miConsulta);
 
         //cargo la vista
@@ -370,7 +370,7 @@ public class ListadoConsultasDelClienteController {
 			    r.setEstado(EstadoRespuesta.cerrada);
 			    simpleRespuestaManager.addRespuesta(r);
 			}
-			miConsulta.setRespuestas(respuestaList); // fin cambio de estado respuestas
+			// fin cambio de estado respuestas
 			
 			simpleConsultaManager.addConsulta(miConsulta);
 		}
