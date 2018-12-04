@@ -80,12 +80,16 @@
 							 ${respuesta.getDescripcion()}</td>
 								
 							<td>
-							
+							<c:if test="${model.consulta.getEstado() == 'creada' || model.consulta.getEstado() == 'respondida'}">
 							<button class="bg-primary" >
 									<img src="https://image.flaticon.com/icons/svg/69/69881.svg"
 										width="20" height="20" alt="Eye free icon"
 										title="Validar respuesta ">
-								</button>
+							</button>
+							</c:if >
+							<c:if test="${model.consulta.getEstado() == 'resuelta' && respuesta.getEstado()== 'buena'}">
+							Respuesta dada como buena.
+							</c:if>
 								
 								</td>
 						</tr>

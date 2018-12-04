@@ -297,20 +297,12 @@ public class ListadoConsultasDelClienteController {
         miConsulta.setRespuestas(respuestaList);
         simpleConsultaManager.addConsulta(miConsulta);
 
-        ModelAndView mav = new ModelAndView("misConsultas");
+        //cargo la vista
         Map<String, Object> myModel = new HashMap<String, Object>();
-
-        Cliente clienteSimulado = simpleClienteManager.getClientebyId(WebServiceController.usuarioRegistrado.getId());
-
-        List<Consulta> listaConsultas = clienteSimulado.getConsultas();
-        List<Consulta> listaAux = new ArrayList<Consulta>();
-        for(Consulta x : listaConsultas) {
-            if(x instanceof ConsultaUrgente) listaAux.add(x);
-        }
-        
-        myModel.put("consultas", listaConsultas);
-        myModel.put("consultasUrg", listaAux);
-
+        ModelAndView mav = new ModelAndView("diferentesRespuestas");
+        List<Respuesta> respuestas = miConsulta.getRespuestas();
+        myModel.put("consulta", miConsulta);
+        myModel.put("respuestas", respuestas);
         mav.addObject("model", myModel);
         
         if(WebServiceController.usuarioRegistrado == null) {
