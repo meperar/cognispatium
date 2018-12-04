@@ -121,22 +121,22 @@ public class RCUrgenteController {
 		mensaje.setEstado(EstadoMensaje.noLeido);
 		mensajeManager.addMensaje(mensaje);
 		
-		ModelAndView mav = new ModelAndView("hello");
+		ModelAndView mav2 = new ModelAndView("hello");
 		if(WebServiceController.usuarioRegistrado == null) {
 			Usuario userAux = new Usuario();
 			
 			userAux.setNombre("Usuario no registrado");
-			mav.addObject("usR", userAux);
+			mav2.addObject("usR", userAux);
 			
 		}
 		
 		else {
 			
-			mav.addObject("usR", WebServiceController.usuarioRegistrado);
+			mav2.addObject("usR", WebServiceController.usuarioRegistrado);
 			
 		}
 		
-		ModelAndView mav2 =  new ModelAndView("hello");
+
 		WebServiceController.listaAmbitos.forEach(a -> {
 
 			mav2.addObject(a, WebServiceController.serviciosPorAmbito.get(a));
