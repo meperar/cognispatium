@@ -26,7 +26,13 @@
        	 <form action=""  method=""> <div class="col-md-12 p-4" style="">
               <h2>Datos solicitud:</h2>
               <h2> <b>Cliente:</b></h2>
-              <p>${model.solicitud.clienteOrigen.getNombre()} ${model.solicitud.clienteOrigen.getApellidos()}</p>
+              <p>${model.solicitud.clienteOrigen.getNombre()}</p>
+              <h2> <b>Pais:</b></h2>
+              <p>${model.solicitud.clienteOrigen.getPais()} </p>
+              <h2> <b>Provincia:</b></h2>
+              <p>${model.solicitud.clienteOrigen.getProvincia()}</p>
+              <h2> <b>Ciudad:</b></h2>
+              <p>${model.solicitud.clienteOrigen.getCiudad()} </p>
               <h2> <b>Fecha creacion:</b></h2>
               <p> ${model.solicitud.getFechaCreacion()}</p>
               <h2> <b>Servicio:</b></h2>
@@ -41,6 +47,12 @@
               <h2>Datos del presupuesto:</h2>
               <h2> <b>Profesional:</b></h2>
               <p>${model.presupuesto.getProfesionalOrigen().getNombre()} ${model.presupuesto.getProfesionalOrigen().getApellidos()}</p>
+              <h2> <b>Pais:</b></h2>
+              <p>${model.presupuesto.getProfesionalOrigen().getPais()}</p>
+              <h2> <b>Provincia:</b></h2>
+              <p>${model.presupuesto.getProfesionalOrigen().getProvincia()} </p>
+              <h2> <b>Ciudad:</b></h2>
+              <p>${model.presupuesto.getProfesionalOrigen().getCiudad()} </p>
               <h2> <b>Precio:</b></h2>
               <p>${model.presupuesto.getPrecio()}</p>
               <p> </p>

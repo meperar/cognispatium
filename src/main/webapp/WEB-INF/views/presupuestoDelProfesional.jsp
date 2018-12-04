@@ -27,6 +27,12 @@
               <h2>Datos solicitud:</h2>
               <h2> <b>Cliente:</b></h2>
               <p>${model.solicitud.clienteOrigen.getNombre()} ${model.solicitud.clienteOrigen.getApellidos()}</p>
+              <h2> <b>Pais:</b></h2>
+              <p>${model.solicitud.clienteOrigen.getPais()}</p>
+              <h2> <b>Provincia:</b></h2>
+              <p>${model.solicitud.clienteOrigen.getProvincia()} </p>
+              <h2> <b>Ciudad:</b></h2>
+              <p>${model.solicitud.clienteOrigen.getCiudad()}</p>
               <h2> <b>Fecha creacion:</b></h2>
               <p> ${model.solicitud.getFechaCreacion()}</p>
               <h2> <b>Servicio:</b></h2>

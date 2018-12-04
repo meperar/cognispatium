@@ -31,6 +31,10 @@
 					<tr>
 						<th>Solicitud</th>
 						<th>Estado</th>
+						<th>Cliente</th>
+						<th>Pais</th>
+						<th>Provincia</th>
+						<th>Ciudad</th>
 						<th>Fecha creación</th>
 						<th>Accion</th>
 					</tr>
@@ -45,6 +49,10 @@
 									type="hidden" id="presupuestoId" name="presupuestoId"
 									value="${presupuesto.id}"> ${presupuesto.getSolicitudOrigen().getTitulo()}</td>
 								<td style="max-width: 500px; word-wrap: break-word;">${presupuesto.estado}</td>
+								<td>${presupuesto.getSolicitudOrigen().clienteOrigen.getNombre()} ${presupuesto.getSolicitudOrigen().clienteOrigen.getApellidos()}</td>
+								<td>${presupuesto.getSolicitudOrigen().clienteOrigen.getPais()}</td>
+								<td>${presupuesto.getSolicitudOrigen().clienteOrigen.getProvincia()}</td>
+								<td>${presupuesto.getSolicitudOrigen().clienteOrigen.getCiudad()}</td>
 								<td>${presupuesto.fechaCreacion}</td>
 								<td><button class="bg-primary" name="info">
 										<img src="https://image.flaticon.com/icons/svg/1/1176.svg"
