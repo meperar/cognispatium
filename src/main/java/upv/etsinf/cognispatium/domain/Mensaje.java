@@ -1,6 +1,8 @@
 package upv.etsinf.cognispatium.domain;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -91,6 +93,11 @@ public class Mensaje implements Serializable {
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
+	public String getFechaFormat() {
+    	DateFormat outputFormatter = new SimpleDateFormat("MM/dd/yyyy");
+    	String output = outputFormatter.format(fecha);
+        return output;
+    }
 	public EstadoMensaje getEstado() {
 		return estado;
 	}

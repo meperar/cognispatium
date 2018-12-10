@@ -108,7 +108,7 @@
 					<div class="col-md-12 text-center">
 						<input type="hidden" id="presupuestoId" name="presupuestoId"
 							value="${model.presupuesto.id}">
-						<button class="btn btn-primary text-center w-25">Pagar</button>
+						<button class="btn btn-primary text-center">Pagar</button>
 					</div>
 				</form>
 			</div>

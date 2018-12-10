@@ -1,6 +1,8 @@
 package upv.etsinf.cognispatium.domain;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -92,11 +94,20 @@ public class Presupuesto implements Serializable {
 		this.estado = estado;
 	}
     public Date getFechaCreacion() {
+    	
         return fechaCreacion;
     }
     public void setFechaCreacion(Date localDate) {
         this.fechaCreacion = localDate;
     }
+    
+    public String getFechaCreacionFormat() {
+    	DateFormat outputFormatter = new SimpleDateFormat("MM/dd/yyyy");
+    	String output = outputFormatter.format(fechaCreacion);
+        return output;
+    }
+    
+    
 	
 	
 	

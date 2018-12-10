@@ -86,7 +86,7 @@
 													<td  class="a1" style="max-width: 500px; word-wrap: break-word;"><B>${mensaje.descripcion}</B></td>
 													<td class="a1"><B>${mensaje.usuarioOrigen.nombre}
 														${mensaje.usuarioOrigen.apellidos}</B></td>
-													<td class="a1"><B>${mensaje.fecha}</B></td>
+													<td class="a1"><B>${mensaje.getFechaFormat()}</B></td>
 													<c:if test="${mensajeTipo != 'Eliminados'}">
 														<td><button name="action" value="Ver"
 																class="bg-primary">

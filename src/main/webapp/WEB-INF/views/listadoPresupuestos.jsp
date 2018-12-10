@@ -53,7 +53,7 @@
 								<td>${presupuesto.getSolicitudOrigen().clienteOrigen.getPais()}</td>
 								<td>${presupuesto.getSolicitudOrigen().clienteOrigen.getProvincia()}</td>
 								<td>${presupuesto.getSolicitudOrigen().clienteOrigen.getCiudad()}</td>
-								<td>${presupuesto.fechaCreacion}</td>
+								<td>${presupuesto.getFechaCreacionFormat()}</td>
 								<td><button class="bg-primary" name="info">
 										<img src="https://image.flaticon.com/icons/svg/1/1176.svg"
 											alt="Information button free icon"
