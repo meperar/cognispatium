@@ -34,26 +34,26 @@
 			<ul class="list-group">
 				<li
 					class=" border-0 list-group-item d-flex justify-content-between align-items-center">
-					<a href="getTodos.htm"">Todos <i
-						class="fa fa-list fa-lg text-dark"></i></a>
+					<a href="getTodos.htm""> <i
+						class="fa fa-list fa-lg text-dark">&nbsp;</i><i>Todos</i></a>
 				</li>
 				<li
 					class=" border-0 list-group-item d-flex justify-content-between align-items-center">
-					<a href="getNoLeidos.htm">No leidos <i><img
+					<a href="getNoLeidos.htm"><i><img
 							src="https://image.flaticon.com/icons/svg/25/25236.svg"
-							width="20" height="20"></i></a>
+							width="15" height="15">&nbsp;</i><i>No leidos </i></a>
 				</li>
 				<li
 					class=" border-0 list-group-item d-flex justify-content-between align-items-center">
-					<a href="getLeidos.htm">Leidos <i><img
+					<a href="getLeidos.htm"> <i><img
 							src="https://image.flaticon.com/icons/svg/66/66159.svg"
-							width="20" height="20"></i></a>
+							width="15" height="15">&nbsp;</i><i>Leidos</i></a>
 				</li>
 				<li
 					class=" border-0 list-group-item d-flex justify-content-between align-items-center">
-					<a href="getEliminados.htm">Eliminado <i><img
+					<a href="getEliminados.htm"> <i><img
 							src="https://image.flaticon.com/icons/svg/95/95327.svg"
-							width="20" height="20"></i></a>
+							width="15" height="15">&nbsp;</i><i>Eliminados</i></a>
 				</li>
 			</ul>
 		</div>

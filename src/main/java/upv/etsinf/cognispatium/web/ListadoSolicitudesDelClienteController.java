@@ -107,7 +107,6 @@ public class ListadoSolicitudesDelClienteController {
 		
 		if(WebUtils.hasSubmitParameter(request, "valorarProfesional")) {
 		    Presupuesto presupuesto = simplePresupuestoManager.getPresupuestoAceptadoBySolicitud(miSolicitud);
-	        System.out.println("presupuesto: "+ presupuesto.getDescripcion() + " estado:" + presupuesto.getEstado());
 			int profesionalId = presupuesto.getProfesionalOrigen().getId();
 			ModelAndView mav = new ModelAndView("redirect:/votarProfesional.htm?profesionalId=" + profesionalId);
 			WebServiceController.listaAmbitos.forEach(a -> {
