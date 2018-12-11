@@ -66,22 +66,28 @@ public class HistorialController {
 		// Creamos el mav y el modelo donde añadiremos la información
 		ModelAndView mav = new ModelAndView("listadohistorial");
 		Map<String, Object> myModel = new HashMap<String, Object>();
+		
+		
+		// Ordenamos los servicios por ambito
 		Map<String, Object> servicios = new HashMap<String, Object>();
-		
-		
-	    Map< String, Object > serviciosPorAmbito = new HashMap<String, Object>();
-		List<String> listaAmbitos = servicioManager.getAmbitos();
-		List<Servicio> listaServicios = servicioManager.getServicios();
-		
-			
-			listaAmbitos.forEach(ambito-> {
-				String amb = ambito;
-				List<Servicio> lista = new ArrayList<Servicio>();
-				listaServicios.forEach(serv->{
-					if(serv.getAmbito().equals(amb)) {
-						lista.add(serv);
-					}
-				});
+		Map<String, Object> serviciosPorAmbito = new HashMap<String, Object>();
+        List<String> listaAmbitos = servicioManager.getAmbitos();
+        List<Servicio> listaServicios = servicioManager.getServicios();
+
+        listaAmbitos.forEach(ambito -> {
+            String amb = ambito;
+            List<Servicio> lista = new ArrayList<Servicio>();
+            listaServicios.forEach(serv -> {
+                if (serv.getAmbito().equals(amb)) {
+                    lista.add(serv);
+                }
+            });
+            serviciosPorAmbito.put(ambito, lista);
+        });
+
+        servicios.put("ambitos", listaAmbitos);
+        servicios.put("serviciosxambitos", serviciosPorAmbito);
+        mav.addObject("servicios", servicios); // Fin ordenacion por ámbito
 		
 	       
 	       
