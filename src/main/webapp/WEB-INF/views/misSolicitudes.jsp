@@ -51,12 +51,14 @@
 											alt="Information button free icon"
 											title="Ver datos de mi solicitud" height="20" width="20">
 									</button>
+									<c:if test="${solicitud.getEstado() == 'respondida' || solicitud.getEstado() == 'creada'}">
 									<button class="bg-primary" name="borrar">
 									<img src="https://image.flaticon.com/icons/svg/121/121116.svg"
 										alt="Eliminar solicitud" title="Eliminar solicitud"
 										height="20" width="20">
 								</button>
-								<c:if test="${solicitud.getEstado() == 'adjudicada' || solicitud.getEstado() == 'aceptado_profesional' || solicitud.getEstado() == 'aceptado_cliente'|| solicitud.getEstado() == 'resuelta'}">
+								</c:if>
+								<c:if test="${solicitud.getEstado() == 'aceptado_profesional' || solicitud.getEstado() == 'aceptado_cliente'|| solicitud.getEstado() == 'resuelta'}">
 								<button class="bg-primary" name="valorarProfesional">
 								<img src="https://image.flaticon.com/icons/svg/1087/1087916.svg" alt="Valorar profesional" title="Valorar profesional"
 										height="20" width="20">

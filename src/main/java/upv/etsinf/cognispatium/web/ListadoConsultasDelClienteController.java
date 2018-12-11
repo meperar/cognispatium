@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
@@ -84,8 +85,8 @@ public class ListadoConsultasDelClienteController {
 			if(x instanceof ConsultaUrgente) listaAux.add(x);
 		}
 		
-		myModel.put("consultas", listaConsultas);
-		myModel.put("consultasUrg", listaAux);
+		myModel.put("consultas", listaConsultas.stream().filter(c->c.getEstado()!= EstadoConsulta.cerrada).collect(Collectors.toList()));
+		myModel.put("consultasUrg", listaAux.stream().filter(c->c.getEstado()!= EstadoConsulta.cerrada).collect(Collectors.toList()));
 
 		mav.addObject("model", myModel);
 		
@@ -170,7 +171,7 @@ public class ListadoConsultasDelClienteController {
 			Cliente clienteSimulado = simpleClienteManager.getClientebyId(WebServiceController.usuarioRegistrado.getId());
 
 			List<Consulta> listaConsultas = clienteSimulado.getConsultas();
-			myModel.put("consultas", listaConsultas);
+			myModel.put("consultas", listaConsultas.stream().filter(c->c.getEstado()!= EstadoConsulta.cerrada).collect(Collectors.toList()));
 
 			mav.addObject("model", myModel);
 			
