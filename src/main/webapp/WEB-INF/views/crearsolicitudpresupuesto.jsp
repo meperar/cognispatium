@@ -44,7 +44,7 @@
 										placeholder="Resumen de la consulta" required="required" maxlength="80"/>
 							</div>
 						<div class="form-group">
-							<label for="form18">Descripcionn</label>
+							<label for="form18">Descripcion</label>
 							<textarea class="form-control" id="form26" rows="3"
 								placeholder="Your message" required ="required" name = "descripcion" maxlength="500"></textarea>
 						</div>

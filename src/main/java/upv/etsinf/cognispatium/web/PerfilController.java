@@ -30,6 +30,7 @@ import upv.etsinf.cognispatium.domain.Consulta;
 import upv.etsinf.cognispatium.domain.ConsultaUrgente;
 import upv.etsinf.cognispatium.domain.EstadoConsulta;
 import upv.etsinf.cognispatium.domain.EstadoPresupuesto;
+import upv.etsinf.cognispatium.domain.EstadoRespuesta;
 import upv.etsinf.cognispatium.domain.EstadoSolicitud;
 import upv.etsinf.cognispatium.domain.Presupuesto;
 import upv.etsinf.cognispatium.domain.Profesional;
@@ -83,6 +84,8 @@ public class PerfilController {
 
 	@Autowired
 	private SimpleSolicitudManager SManager;
+	
+	boolean isOk;
 
 	/** Logger for this class and subclasses */
 	protected final Log logger = LogFactory.getLog(getClass());
@@ -101,6 +104,8 @@ public class PerfilController {
 		Registro registro = registroManager.getRegistrobyUsuario(usuario.getId()).get(0);
 
 		Boolean esProfesional = profManager.getProfesionalById(usuario.getId()) != null;
+		Boolean desactivado = usuario.getDesactivado()!=0;
+		System.out.println(desactivado);
 
 		int valoracion = 0;
 
@@ -125,6 +130,7 @@ public class PerfilController {
 		myModel.put("allServices", allServices);
 		myModel.put("usuario", usuario);
 		myModel.put("registro", registro);
+		boolModel.put("desactivado", desactivado);
 		boolModel.put("esProfesional", esProfesional);
 		boolModel.put("errorUsername", false);
 		myModel.put("servicios", listaServicios);
@@ -374,9 +380,26 @@ public class PerfilController {
 			}
 		}
 
+		
+		isOk = true;
+		for(Presupuesto a : profesional.getPresupuestos()) {
+			isOk = true;
+			for(Presupuesto ab : a.getSolicitudOrigen().getPresupuestos()) {
+				if(ab.getEstado() == EstadoPresupuesto.propuesto ) isOk = false;
+				
+			}
+			if(isOk && a.getSolicitudOrigen().getEstado() == EstadoSolicitud.respondida) {
+				a.getSolicitudOrigen().setEstado(EstadoSolicitud.creada);
+				solicitudManager.addSolicitud(a.getSolicitudOrigen());
+			}
+		}
+		
 		profesional.setPresupuestos(presupuestos);
 		profesional.setServicios(listaServicios);
 		profManager.addProfesional(profesional);
+		for(Presupuesto ab : profesional.getPresupuestos()) {
+			System.out.println("AAA" + ab.getEstado());
+		}
 		// Fin quitar servicio
 
 		List<Servicio> allServices = servicioManager.getServicios();
@@ -426,6 +449,8 @@ public class PerfilController {
         List<Solicitud> listaTodasSE = new ArrayList<Solicitud>();
         List<Presupuesto> listaTodosPE = new ArrayList<Presupuesto>();
         List<Presupuesto> listaPe = new ArrayList<Presupuesto>();
+        List<Respuesta> listaTodasR = new ArrayList<Respuesta>();
+        List<Respuesta> listaR = new ArrayList<Respuesta>();
         Usuario usuEl = usuarioManager.getUsuariobyId(Integer.parseInt(reqPar.get("usridE")));
 
         Registro regEl = registroManager.getRegistrobyUsuario(usuEl.getId()).get(0);
@@ -434,6 +459,7 @@ public class PerfilController {
         listaTodasE = consultaManager.getConsultas();
         listaTodasSE = solicitudManager.getSolicituds();
         listaTodosPE = presupuestoManager.getPresupuestos();
+        listaTodasR = resManager.getRespuestas();
         
         // Obtener consultas urgentes no resueltas
         for (Consulta consulta : listaTodasE) {
@@ -451,8 +477,26 @@ public class PerfilController {
                     }
                 }
             }
-
         }
+        
+        // Obtener respuestas de consultas no resueltas
+        if (esPe) {
+        	for (Respuesta respuesta : listaTodasR) {
+        		
+        		Boolean consultaNoSolucionada = respuesta.getConsultaOrigen().getEstado() == EstadoConsulta.creada || respuesta.getConsultaOrigen().getEstado() == EstadoConsulta.respondida;
+        		
+        		//System.out.println(respuesta.getDescripcion() + "/" + consultaNoSolucionada + "/" + respuesta.getProfesionalOrigen().getId() == usuEl.getId() + "============================");
+        		System.out.println(respuesta.getProfesionalOrigen().getId() + "/" +  usuEl.getId() + (respuesta.getProfesionalOrigen().getId() == usuEl.getId()) + "=============");
+        		
+        		if(respuesta.getProfesionalOrigen().getId().equals(usuEl.getId()) && consultaNoSolucionada) {
+        			System.out.println(respuesta.getDescripcion() + "OOOOOOOOOOOOOOOOOOOOO");
+        			respuesta.setEstado(EstadoRespuesta.cerrada);
+        			listaR.add(respuesta);
+        		}
+        	}
+        	
+        }
+        
         //Obtener solicitudes no resueltas
         for (Solicitud solicitud : listaTodasSE) {
             if (!esPe) {
@@ -491,13 +535,31 @@ public class PerfilController {
 
         }
         
-        //Actualizar presupuestos 
+        
         if (esPe) {
-          
-
+        	isOk = true;
+        	//Actualizar respuestas
+        	for (Respuesta respuesta : listaR) {
+        		resManager.addRespuesta(respuesta);
+        	}
+        	//Actualizar presupuestos 
             for (Presupuesto presupuesto : listaPe) {
                 preManager.addPresupuesto(presupuesto);
             }
+            
+            isOk = true;
+			Profesional profesional = profManager.getProfesionalById(usuEl.getId());
+			for(Presupuesto a : profesional.getPresupuestos()) {
+				isOk = true;
+				for(Presupuesto ab : a.getSolicitudOrigen().getPresupuestos()) {
+					if(ab.getEstado() == EstadoPresupuesto.propuesto ) isOk = false;
+					
+				}
+				if(isOk && a.getSolicitudOrigen().getEstado() == EstadoSolicitud.respondida) {
+					a.getSolicitudOrigen().setEstado(EstadoSolicitud.creada);
+					solicitudManager.addSolicitud(a.getSolicitudOrigen());
+				}
+			}
 
         } else {
         	//Actualizar consultas
@@ -554,11 +616,28 @@ public class PerfilController {
 
 		else {
 
+			
 			List<Presupuesto> presupuestos = presupuestoManager.getPresupuestosByProf(usuEl.getId());
 			for (Presupuesto p : presupuestos) {
+	            	
 				p.setEstado(EstadoPresupuesto.rechazado);
 				presupuestoManager.addPresupuesto(p);
+				
 			}
+			isOk = true;
+			Profesional profesional = profManager.getProfesionalById(usuEl.getId());
+			for(Presupuesto a : profesional.getPresupuestos()) {
+				isOk = true;
+				for(Presupuesto ab : a.getSolicitudOrigen().getPresupuestos()) {
+					if(ab.getEstado() == EstadoPresupuesto.propuesto ) isOk = false;
+					
+				}
+				if(isOk && a.getSolicitudOrigen().getEstado() == EstadoSolicitud.respondida) {
+					a.getSolicitudOrigen().setEstado(EstadoSolicitud.creada);
+					solicitudManager.addSolicitud(a.getSolicitudOrigen());
+				}
+			}
+			
 
 		}
 		ModelAndView mav = new ModelAndView("hello");
@@ -570,6 +649,19 @@ public class PerfilController {
 
 		mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
 		return mav;
+
+	}
+	
+	@PostMapping("/activarPerfil.htm")
+	public ModelAndView activarPerfil(@RequestParam Map<String, String> reqPar) {
+
+		// ACTIVAR USUARIO
+		
+		Usuario usuEl = usuarioManager.getUsuariobyId(Integer.parseInt(reqPar.get("activarId")));
+		usuEl.setDesactivado(0);
+		usuarioManager.addUsuario(usuEl);
+
+		return new ModelAndView("redirect:/logout.htm");
 
 	}
 

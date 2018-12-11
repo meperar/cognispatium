@@ -227,7 +227,14 @@
 									<br>
 									<button class="open-button" onclick="openForme()">Eliminar Perfil</button>
 									<br>
-									<button class="open-button" onclick="openFormDesac()">Desactivar Perfil</button>
+									<c:choose>
+										<c:when test="${!boolModel.desactivado}">
+											<button class="open-button" onclick="openFormDesac()">Desactivar Perfil</button>
+										</c:when>
+										<c:otherwise>
+											<button class="open-button" onclick="openFormActivar()">Activar Perfil</button>
+										</c:otherwise>
+									</c:choose>
 									
 									<div class="form-popup" id="myFormAddS">
 										<form action="<c:url value="/addServicio.htm" />" method="post" class="form-container">
@@ -337,6 +344,18 @@
 									</div>
 									
 									
+									<div class="form-popup" id="myFormActivar">
+										<form action="<c:url value="/activarPerfil.htm" />" method="post" class="form-container" >
+											<input type="hidden" id="activarId" name="activarId" value="${model.usuario.id}">
+											<div style="text-align: center">Se procederá a activar la cuenta, ¿está seguro de esto?</div>
+											<div style="display: inline-block;">
+												<button type="submit" class="btn">Aceptar</button> 
+												<button type="button" class="btn cancel" onclick="closeFormActivar()">Cancelar</button>
+											</div>
+										</form>
+									</div>
+									
+									
 									
 									
 									<div class="form-popup" id="myForm">
@@ -354,6 +373,7 @@
 															</div></td>
 														<td><input type="text"
 															value="${model.usuario.nombre}" name="nombre" id="nombre"
+															maxlength="20"
 															required></td>
 													</tr>
 													<tr>
@@ -362,6 +382,7 @@
 															</div></td>
 														<td><input type="text"
 															value="${model.usuario.apellidos}" name="apellidos"
+															maxlength="20"
 															id="apellidos" required></td>
 													</tr>
 													<tr>
@@ -370,14 +391,27 @@
 															</div></td>
 														<td><input type="text"
 															value="${model.registro.username}" name="apodo"
+															maxlength="10"
 															id="apodo" required></td>
+													</tr>
+													<tr>
+														<td><div class="rightAlign">
+																<b>Contraseña:</b>
+															</div></td>
+														<td><input type="password"
+															value="${model.registro.contraseña}" name="contrasena"
+															id="contrasena" required></td>
 													</tr>
 													<tr>
 														<td><div class="rightAlign">
 																<b>Edad:</b>
 															</div></td>
 														<td><input type="text" value="${model.usuario.edad}"
-															name="edad" id="edad" required><a id="errorEdad"
+															name="edad" id="edad" 
+															pattern="^\d{1,3}$"
+															title="número de edad adecuado"
+															maxlength="3"
+															required><a id="errorEdad"
 															style="color: red;"></a></td>
 													</tr>
 													<tr>
@@ -385,7 +419,11 @@
 																<b>DNI:</b>
 															</div></td>
 														<td><input type="text" value="${model.usuario.dni}"
-															name="dni" id="dni" required><a id="errorDni"
+															name="dni" id="dni" 
+															pattern="(([X-Z]{1})([-]?)(\d{7})([-]?)([A-Z]{1}))|((\d{8})([-]?)([A-Z]{1}))"
+															title = "12345678A, o X-1234567-B si tiene NIE"
+															maxlength="13"
+															required><a id="errorDni"
 															style="color: red;"></a></td>
 													</tr>
 													<tr>
@@ -393,7 +431,9 @@
 																<b>Pais:</b>
 															</div></td>
 														<td><input type="text" value="${model.usuario.pais}"
-															name="pais" id="pais" required><a id="errorPais"
+															name="pais" id="pais" 
+															maxlength="10"
+															required><a id="errorPais"
 															style="color: red;"></a></td>
 													</tr>
 													<tr>
@@ -401,7 +441,9 @@
 																<b>Provincia:</b>
 															</div></td>
 														<td><input type="text" value="${model.usuario.provincia}"
-															name="prov" id="prov" required><a id="errorProv"
+															name="prov" id="prov" 
+															maxlength="10"
+															required><a id="errorProv"
 															style="color: red;"></a></td>
 													</tr>
 													<tr>
@@ -409,7 +451,9 @@
 																<b>Ciudad:</b>
 															</div></td>
 														<td><input type="text" value="${model.usuario.ciudad}"
-															name="ciudad" id="ciudad" required><a id="errorCiu"
+															name="ciudad" id="ciudad"
+															maxlength="10"
+															required><a id="errorCiu"
 															style="color: red;"></a></td>
 													</tr>
 													<tr>
@@ -417,7 +461,9 @@
 																<b>E-mail:</b>
 															</div></td>
 														<td><input type="text" value="${model.usuario.email}"
-															name="email" id="email" required><a
+															name="email" id="email" 
+															maxlength="25"
+															required><a
 															id="errorEmail" style="color: red;"></a></td>
 													</tr>
 													<tr>
@@ -426,18 +472,13 @@
 															</div></td>
 														<td><input type="text"
 															value="${model.usuario.telefono}" name="telefono"
-															id="telefono" required><a id="errorTele"
+															id="telefono" 
+															pattern="[69][0-9]{8}"
+															title="número de teléfono móvil o fijo de 9 cifras" maxlength="9"
+															required><a id="errorTele"
 															style="color: red;"></a></td>
 													</tr>
-													<tr>
-														<td><div class="rightAlign">
-																<b>Contraseña:</b>
-															</div></td>
-														<td><input type="text"
-															value="${model.registro.contraseña}" name="contrasena"
-															id="contrasena" required></td>
-													</tr>
-
+													
 													<tr>
 														<td><div class="rightAlign">
 																<b>Imagen Perfil:</b>
@@ -491,6 +532,14 @@
 
 									function closeFormDesac() {
 									    document.getElementById("myFormDesac").style.display = "none";
+									}
+									
+									function openFormActivar(){
+										document.getElementById("myFormActivar").style.display = "block";
+									}
+
+									function closeFormActivar() {
+									    document.getElementById("myFormActivar").style.display = "none";
 									}
 									
 									function openFormQuitarServicio(){
