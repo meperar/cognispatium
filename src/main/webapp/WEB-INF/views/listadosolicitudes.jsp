@@ -19,6 +19,11 @@
 
 <body>
 	<jsp:include page="barrasuperior.jsp" flush="true" />
+	<br>
+	<div style="text-align: center;">
+		<a><b style="font-size: 20px">SOLICITUDES</b></a>
+		<hr style="border-top: 2px solid #000000;">
+	</div>
 	
 	<div class="py-5">
 		<div class="container">
