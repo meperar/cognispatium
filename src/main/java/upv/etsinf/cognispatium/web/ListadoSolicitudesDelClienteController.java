@@ -164,7 +164,7 @@ public class ListadoSolicitudesDelClienteController {
 		
 		else {
 		    Presupuesto presupuesto = simplePresupuestoManager.getPresupuestoAceptadoBySolicitud(miSolicitud);
-            System.out.println("presupuesto: "+ presupuesto.getDescripcion() + " estado:" + presupuesto.getEstado());
+            //System.out.println("presupuesto: "+ presupuesto.getDescripcion() + " estado:" + presupuesto.getEstado());
 		
 		    if (WebUtils.hasSubmitParameter(request, "borrar")) {
 			
