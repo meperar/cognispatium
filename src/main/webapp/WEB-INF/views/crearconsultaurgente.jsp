@@ -25,9 +25,9 @@
 					<form action="<c:url value="/pagoTarjeta.htm" />" method="GET"
 						class="text-left">
 						<div class="form-group">
-							<label for="form16">Servicio</label> <br> <select
-								name='servicio' required="required">
-								<option disabled selected >--</option>
+							<label for="form16">Servicio</label> <br> 
+							<select name='servicio' required>
+								<option value="" disabled selected >--</option>
 								<c:forEach items="${servicios.ambitos}" var="ambito">
 									<optgroup label="${ambito}">
 										<c:forEach items="${servicios.serviciosxambitos.get(ambito)}"
@@ -41,8 +41,8 @@
 						
 						 <div class="form-group" >
 						    <label for="form16">Tiempo maximo de espera (HH:MM)</label> <br>             				
-                  				<select name="tiempoEspera"  required ="required">
-                  					<option disabled selected>--</option>
+                  				<select name="tiempoEspera"  required>
+                  					<option value="" disabled selected>--</option>
                     				<option value="01:00">01:00</option>
                     				<option value="01:30">01:30</option>      
                     				<option value="02:00">02:00</option>

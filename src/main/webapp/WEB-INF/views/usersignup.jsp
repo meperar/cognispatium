@@ -53,6 +53,15 @@
 							name="apellido" class="form-control" id="apellido"
 							placeholder="Introduzca su apellido real" maxlength="20" required />
 					</div>
+					
+					<div class="form-group">
+						<label for="form16">Edad</label> <input type="text"
+							name="edad" class="form-control" id="edad"
+							placeholder="Introduzca su edad real" 
+							pattern="^\d{1,3}$"
+							title="número de edad adecuado"
+							maxlength="3" required />
+					</div>
 
 					<div class="form-group">
 						<label for="form16">Email</label> <input type="email" name="email"
@@ -112,7 +121,7 @@
 
 					<div class="row">
 						<div class="col-md-6">
-							<a class="nav-link" href="hello.htm">Cancelar</a>
+							<a class="btn btn-primary m-2" href="hello.htm">Cancelar</a>
 						</div>
 
 						<div class="col-md-6">

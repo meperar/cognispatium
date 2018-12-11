@@ -61,8 +61,6 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <p class="text-monospace text-right">${usR.nombre}</p>
-          <p class="text-monospace text-right">${usRe.nombre}</p>
         </div>
       </div>
     </div>

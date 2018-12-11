@@ -30,6 +30,7 @@ import upv.etsinf.cognispatium.domain.Consulta;
 import upv.etsinf.cognispatium.domain.ConsultaUrgente;
 import upv.etsinf.cognispatium.domain.EstadoConsulta;
 import upv.etsinf.cognispatium.domain.EstadoPresupuesto;
+import upv.etsinf.cognispatium.domain.EstadoRespuesta;
 import upv.etsinf.cognispatium.domain.EstadoSolicitud;
 import upv.etsinf.cognispatium.domain.Presupuesto;
 import upv.etsinf.cognispatium.domain.Profesional;
@@ -83,6 +84,8 @@ public class PerfilController {
 
 	@Autowired
 	private SimpleSolicitudManager SManager;
+	
+	boolean isOk;
 
 	/** Logger for this class and subclasses */
 	protected final Log logger = LogFactory.getLog(getClass());
@@ -374,9 +377,26 @@ public class PerfilController {
 			}
 		}
 
+		
+		isOk = true;
+		for(Presupuesto a : profesional.getPresupuestos()) {
+			isOk = true;
+			for(Presupuesto ab : a.getSolicitudOrigen().getPresupuestos()) {
+				if(ab.getEstado() == EstadoPresupuesto.propuesto ) isOk = false;
+				
+			}
+			if(isOk && a.getSolicitudOrigen().getEstado() == EstadoSolicitud.respondida) {
+				a.getSolicitudOrigen().setEstado(EstadoSolicitud.creada);
+				solicitudManager.addSolicitud(a.getSolicitudOrigen());
+			}
+		}
+		
 		profesional.setPresupuestos(presupuestos);
 		profesional.setServicios(listaServicios);
 		profManager.addProfesional(profesional);
+		for(Presupuesto ab : profesional.getPresupuestos()) {
+			System.out.println("AAA" + ab.getEstado());
+		}
 		// Fin quitar servicio
 
 		List<Servicio> allServices = servicioManager.getServicios();
@@ -454,14 +474,20 @@ public class PerfilController {
                     }
                 }
             }
-
         }
         
         // Obtener respuestas de consultas no resueltas
         if (esPe) {
         	for (Respuesta respuesta : listaTodasR) {
+        		
         		Boolean consultaNoSolucionada = respuesta.getConsultaOrigen().getEstado() == EstadoConsulta.creada || respuesta.getConsultaOrigen().getEstado() == EstadoConsulta.respondida;
-        		if(respuesta.getProfesionalOrigen().getId() == usuEl.getId() && consultaNoSolucionada) {
+        		
+        		//System.out.println(respuesta.getDescripcion() + "/" + consultaNoSolucionada + "/" + respuesta.getProfesionalOrigen().getId() == usuEl.getId() + "============================");
+        		System.out.println(respuesta.getProfesionalOrigen().getId() + "/" +  usuEl.getId() + (respuesta.getProfesionalOrigen().getId() == usuEl.getId()) + "=============");
+        		
+        		if(respuesta.getProfesionalOrigen().getId().equals(usuEl.getId()) && consultaNoSolucionada) {
+        			System.out.println(respuesta.getDescripcion() + "OOOOOOOOOOOOOOOOOOOOO");
+        			respuesta.setEstado(EstadoRespuesta.cerrada);
         			listaR.add(respuesta);
         		}
         	}
@@ -508,14 +534,29 @@ public class PerfilController {
         
         
         if (esPe) {
-        	//Eliminar respuestas
+        	isOk = true;
+        	//Actualizar respuestas
         	for (Respuesta respuesta : listaR) {
-        		resManager.dropRes(respuesta);
+        		resManager.addRespuesta(respuesta);
         	}
         	//Actualizar presupuestos 
             for (Presupuesto presupuesto : listaPe) {
                 preManager.addPresupuesto(presupuesto);
             }
+            
+            isOk = true;
+			Profesional profesional = profManager.getProfesionalById(usuEl.getId());
+			for(Presupuesto a : profesional.getPresupuestos()) {
+				isOk = true;
+				for(Presupuesto ab : a.getSolicitudOrigen().getPresupuestos()) {
+					if(ab.getEstado() == EstadoPresupuesto.propuesto ) isOk = false;
+					
+				}
+				if(isOk && a.getSolicitudOrigen().getEstado() == EstadoSolicitud.respondida) {
+					a.getSolicitudOrigen().setEstado(EstadoSolicitud.creada);
+					solicitudManager.addSolicitud(a.getSolicitudOrigen());
+				}
+			}
 
         } else {
         	//Actualizar consultas
@@ -572,11 +613,28 @@ public class PerfilController {
 
 		else {
 
+			
 			List<Presupuesto> presupuestos = presupuestoManager.getPresupuestosByProf(usuEl.getId());
 			for (Presupuesto p : presupuestos) {
+	            	
 				p.setEstado(EstadoPresupuesto.rechazado);
 				presupuestoManager.addPresupuesto(p);
+				
 			}
+			isOk = true;
+			Profesional profesional = profManager.getProfesionalById(usuEl.getId());
+			for(Presupuesto a : profesional.getPresupuestos()) {
+				isOk = true;
+				for(Presupuesto ab : a.getSolicitudOrigen().getPresupuestos()) {
+					if(ab.getEstado() == EstadoPresupuesto.propuesto ) isOk = false;
+					
+				}
+				if(isOk && a.getSolicitudOrigen().getEstado() == EstadoSolicitud.respondida) {
+					a.getSolicitudOrigen().setEstado(EstadoSolicitud.creada);
+					solicitudManager.addSolicitud(a.getSolicitudOrigen());
+				}
+			}
+			
 
 		}
 		ModelAndView mav = new ModelAndView("hello");
