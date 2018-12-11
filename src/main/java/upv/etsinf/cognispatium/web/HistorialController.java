@@ -1,6 +1,7 @@
 package upv.etsinf.cognispatium.web;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -38,6 +39,9 @@ import upv.etsinf.cognispatium.service.SimpleServicioManager;
 public class HistorialController {
 
 	@Autowired
+	private SimpleServicioManager servicioManager;
+	
+	@Autowired
 	private SimplePresupuestoManager presupuestoManager;
 
 	@Autowired
@@ -62,8 +66,32 @@ public class HistorialController {
 		// Creamos el mav y el modelo donde añadiremos la información
 		ModelAndView mav = new ModelAndView("listadohistorial");
 		Map<String, Object> myModel = new HashMap<String, Object>();
+		
+		
+		// Ordenamos los servicios por ambito
 		Map<String, Object> servicios = new HashMap<String, Object>();
+		Map<String, Object> serviciosPorAmbito = new HashMap<String, Object>();
+        List<String> listaAmbitos = servicioManager.getAmbitos();
+        List<Servicio> listaServicios = servicioManager.getServicios();
 
+        listaAmbitos.forEach(ambito -> {
+            String amb = ambito;
+            List<Servicio> lista = new ArrayList<Servicio>();
+            listaServicios.forEach(serv -> {
+                if (serv.getAmbito().equals(amb)) {
+                    lista.add(serv);
+                }
+            });
+            serviciosPorAmbito.put(ambito, lista);
+        });
+
+        servicios.put("ambitos", listaAmbitos);
+        servicios.put("serviciosxambitos", serviciosPorAmbito);
+        mav.addObject("servicios", servicios); // Fin ordenacion por ámbito
+		
+	       
+	       
+		
 		// Comprobamos de que tipo es el usuario registrado
 		String tipoUsuario = WebServiceController.usuarioRegistrado.getDTYPE();
 		// Si es un profesional se añadirán al mav sus presupuestos finalizados
@@ -85,7 +113,7 @@ public class HistorialController {
 			myModel.put("historial", listaPresupuestos);
 			mav.addObject("model", myModel);
 			// Añadir servicios del filtro
-			List<Servicio> listaServicios = profesional_resgistrado.getServicios();
+			//List<Servicio> listaServicios = profesional_resgistrado.getServicios();
 
 			servicios.put("servicios", listaServicios);
 
@@ -111,8 +139,8 @@ public class HistorialController {
 			myModel.put("historial", listaSolicitud);
 			mav.addObject("model", myModel);
 			// Añadir servicios del filtro
-			List<Servicio> listaServicios = simpleServicioManager.getServicios();
-
+			//List<Servicio> listaServicios = simpleServicioManager.getServicios();
+			
 			servicios.put("servicios", listaServicios);
 			mav.addObject("servicios", servicios);
 		}
@@ -135,7 +163,6 @@ public class HistorialController {
 		});
 		// FIN BARRA SUPERIOR
 		// Datos del filtro por servicio
-
 		
 		mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(simpleServicioManager));
 		// Devolvemos vista con modelo
