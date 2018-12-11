@@ -227,7 +227,14 @@
 									<br>
 									<button class="open-button" onclick="openForme()">Eliminar Perfil</button>
 									<br>
-									<button class="open-button" onclick="openFormDesac()">Desactivar Perfil</button>
+									<c:choose>
+										<c:when test="${model.usuario.desactivado!=0}">
+											<button class="open-button" onclick="openFormDesac()">Desactivar Perfil</button>
+										</c:when>
+										<c:otherwise>
+											<button class="open-button" onclick="openFormActivar()">Activar Perfil</button>
+										</c:otherwise>
+									</c:choose>
 									
 									<div class="form-popup" id="myFormAddS">
 										<form action="<c:url value="/addServicio.htm" />" method="post" class="form-container">
@@ -332,6 +339,18 @@
 											<div style="display: inline-block;">
 												<button type="submit" class="btn">Aceptar</button> 
 												<button type="button" class="btn cancel" onclick="closeFormDesac()">Cancelar</button>
+											</div>
+										</form>
+									</div>
+									
+									
+									<div class="form-popup" id="myFormActivar">
+										<form action="<c:url value="/activarPerfil.htm" />" method="post" class="form-container" >
+											<input type="hidden" id="activarId" name="activarId" value="${model.usuario.id}">
+											<div style="text-align: center">Se procederá a activar la cuenta, ¿está seguro de esto?</div>
+											<div style="display: inline-block;">
+												<button type="submit" class="btn">Aceptar</button> 
+												<button type="button" class="btn cancel" onclick="closeFormActivar()">Cancelar</button>
 											</div>
 										</form>
 									</div>
@@ -491,6 +510,14 @@
 
 									function closeFormDesac() {
 									    document.getElementById("myFormDesac").style.display = "none";
+									}
+									
+									function openFormActivar(){
+										document.getElementById("myFormActivar").style.display = "block";
+									}
+
+									function closeFormActivar() {
+									    document.getElementById("myFormActivar").style.display = "none";
 									}
 									
 									function openFormQuitarServicio(){
