@@ -101,6 +101,8 @@ public class PerfilController {
 		Registro registro = registroManager.getRegistrobyUsuario(usuario.getId()).get(0);
 
 		Boolean esProfesional = profManager.getProfesionalById(usuario.getId()) != null;
+		Boolean desactivado = usuario.getDesactivado()!=0;
+		System.out.println(desactivado);
 
 		int valoracion = 0;
 
@@ -125,6 +127,7 @@ public class PerfilController {
 		myModel.put("allServices", allServices);
 		myModel.put("usuario", usuario);
 		myModel.put("registro", registro);
+		boolModel.put("desactivado", desactivado);
 		boolModel.put("esProfesional", esProfesional);
 		boolModel.put("errorUsername", false);
 		myModel.put("servicios", listaServicios);
@@ -570,6 +573,19 @@ public class PerfilController {
 
 		mav.addObject("serviciosXAmbito", BarraSuperiorController.barraSuperior(servicioManager));
 		return mav;
+
+	}
+	
+	@PostMapping("/activarPerfil.htm")
+	public ModelAndView activarPerfil(@RequestParam Map<String, String> reqPar) {
+
+		// ACTIVAR USUARIO
+		
+		Usuario usuEl = usuarioManager.getUsuariobyId(Integer.parseInt(reqPar.get("activarId")));
+		usuEl.setDesactivado(0);
+		usuarioManager.addUsuario(usuEl);
+
+		return new ModelAndView("redirect:/logout.htm");
 
 	}
 

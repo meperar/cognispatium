@@ -356,7 +356,7 @@ public class WebServiceController {
 
 			}
 			usuarioRegistrado = registros.get(0).getUsuario();
-			usuarioRegistrado.setDesactivado(0);
+			//usuarioRegistrado.setDesactivado(0);
 			
 			simpleUsuarioManager.addUsuario(usuarioRegistrado);
 			

@@ -228,7 +228,7 @@
 									<button class="open-button" onclick="openForme()">Eliminar Perfil</button>
 									<br>
 									<c:choose>
-										<c:when test="${model.usuario.desactivado!=0}">
+										<c:when test="${!boolModel.desactivado}">
 											<button class="open-button" onclick="openFormDesac()">Desactivar Perfil</button>
 										</c:when>
 										<c:otherwise>
