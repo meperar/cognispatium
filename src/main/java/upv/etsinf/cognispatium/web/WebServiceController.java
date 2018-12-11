@@ -4,10 +4,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -32,9 +34,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import upv.etsinf.cognispatium.domain.Consulta;
 import upv.etsinf.cognispatium.domain.EstadoConsulta;
+import upv.etsinf.cognispatium.domain.EstadoSolicitud;
 import upv.etsinf.cognispatium.domain.Profesional;
 import upv.etsinf.cognispatium.domain.Registro;
 import upv.etsinf.cognispatium.domain.Servicio;
+import upv.etsinf.cognispatium.domain.Solicitud;
 import upv.etsinf.cognispatium.domain.Usuario;
 import upv.etsinf.cognispatium.service.AsynchronousService;
 import upv.etsinf.cognispatium.service.SimpleConsultaManager;
@@ -221,15 +225,20 @@ public class WebServiceController {
 
 		} else if (reqPar.get("serviceIdC") != null) {
 			miServicio = servicioManager.getServiciobyId(Integer.parseInt(reqPar.get("serviceIdC")));
-
+			servicio.put("servicio", miServicio);
+			
 			miConsulta = consultaManager.getConsultasbyServicio(Integer.parseInt(reqPar.get("serviceIdC")));
+			/*
 			for(Consulta con : miConsulta) {
 				if(con.getEstado() == EstadoConsulta.cerrada) miConsulta.remove(con);
 			}
-			
+			*/
+			miConsulta.stream()
+			.filter(sol -> (sol.getEstado()!= EstadoConsulta.cerrada))
+            .collect(Collectors.toList());  
 			myModel.put("consulta", miConsulta);
 
-			servicio.put("servicio", miServicio);
+			
 
 			mav.setViewName("listaconsultas");
 			mav.addObject("model", myModel);
