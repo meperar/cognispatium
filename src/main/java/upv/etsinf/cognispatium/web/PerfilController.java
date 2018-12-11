@@ -426,6 +426,8 @@ public class PerfilController {
         List<Solicitud> listaTodasSE = new ArrayList<Solicitud>();
         List<Presupuesto> listaTodosPE = new ArrayList<Presupuesto>();
         List<Presupuesto> listaPe = new ArrayList<Presupuesto>();
+        List<Respuesta> listaTodasR = new ArrayList<Respuesta>();
+        List<Respuesta> listaR = new ArrayList<Respuesta>();
         Usuario usuEl = usuarioManager.getUsuariobyId(Integer.parseInt(reqPar.get("usridE")));
 
         Registro regEl = registroManager.getRegistrobyUsuario(usuEl.getId()).get(0);
@@ -434,6 +436,7 @@ public class PerfilController {
         listaTodasE = consultaManager.getConsultas();
         listaTodasSE = solicitudManager.getSolicituds();
         listaTodosPE = presupuestoManager.getPresupuestos();
+        listaTodasR = resManager.getRespuestas();
         
         // Obtener consultas urgentes no resueltas
         for (Consulta consulta : listaTodasE) {
@@ -453,6 +456,18 @@ public class PerfilController {
             }
 
         }
+        
+        // Obtener respuestas de consultas no resueltas
+        if (esPe) {
+        	for (Respuesta respuesta : listaTodasR) {
+        		Boolean consultaNoSolucionada = respuesta.getConsultaOrigen().getEstado() == EstadoConsulta.creada || respuesta.getConsultaOrigen().getEstado() == EstadoConsulta.respondida;
+        		if(respuesta.getProfesionalOrigen().getId() == usuEl.getId() && consultaNoSolucionada) {
+        			listaR.add(respuesta);
+        		}
+        	}
+        	
+        }
+        
         //Obtener solicitudes no resueltas
         for (Solicitud solicitud : listaTodasSE) {
             if (!esPe) {
@@ -491,10 +506,13 @@ public class PerfilController {
 
         }
         
-        //Actualizar presupuestos 
+        
         if (esPe) {
-          
-
+        	//Eliminar respuestas
+        	for (Respuesta respuesta : listaR) {
+        		resManager.dropRes(respuesta);
+        	}
+        	//Actualizar presupuestos 
             for (Presupuesto presupuesto : listaPe) {
                 preManager.addPresupuesto(presupuesto);
             }

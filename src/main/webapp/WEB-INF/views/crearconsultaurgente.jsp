@@ -21,8 +21,7 @@
 			<div class="row" style="">
 				<div class="mx-auto col-lg-6 col-10">
 					<h1>Crear una consulta urgente</h1>
-					<p class="mb-3">En esta pantalla podra introducir los datos
-						para crear su consulta urgente.</p>
+					<p class="mb-3">En esta pantalla podra introducir los datos para crear su consulta urgente.</p>
 					<form action="<c:url value="/pagoTarjeta.htm" />" method="GET"
 						class="text-left">
 						<div class="form-group">
@@ -67,8 +66,7 @@
 							<label for="form18">El precio a pagar por la consulta es de 2.00 EUROS. </label>
 						</div>
 						
-						<button type="submit" class="btn btn-primary">
-							Crear consulta<br>
+						<button type="submit" class="btn btn-primary"> Crear consulta<br>
 						</button>
 					</form>
 				</div>
