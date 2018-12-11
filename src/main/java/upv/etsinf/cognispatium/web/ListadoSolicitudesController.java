@@ -144,7 +144,7 @@ public class ListadoSolicitudesController {
 		    	 for(Solicitud s : listaSolicitudesAux) {
 		    		 if(s.getEstado() != EstadoSolicitud.resuelta && s.getEstado() != EstadoSolicitud.eliminada) listaSolicitudes.add(s);
 		    	 }
-		         listaSolicitudes // = servicioSolicitudManager.getSolicitudsbyService(servicioConsulta)
+		    	 listaSolicitudes = listaSolicitudes // = servicioSolicitudManager.getSolicitudsbyService(servicioConsulta)
 					.stream().sorted(Comparator.comparing(Solicitud::getId).reversed())
 				    .filter(sol -> (sol.getEstado()==EstadoSolicitud.valueOf(estadoObtenido)))
 				    .collect(Collectors.toList());
@@ -156,7 +156,7 @@ public class ListadoSolicitudesController {
 			    	 for(Solicitud s : listaSolicitudesAux) {
 			    		 if(s.getEstado() != EstadoSolicitud.resuelta && s.getEstado() != EstadoSolicitud.eliminada) listaSolicitudes.add(s);
 			    	 }
-	               listaSolicitudes // = servicioSolicitudManager.getSolicitudsbyService(servicioConsulta)
+			    	 listaSolicitudes = listaSolicitudes // = servicioSolicitudManager.getSolicitudsbyService(servicioConsulta)
 	                      .stream().sorted(Comparator.comparing(Solicitud::getId).reversed())
 	                      .filter(sol -> !(sol.getEstado()==EstadoSolicitud.eliminada) && !(sol.getEstado()==EstadoSolicitud.adjudicada) )
 	                      .collect(Collectors.toList());
@@ -173,7 +173,7 @@ public class ListadoSolicitudesController {
 			    	 
 		 			//listaSolicitudes.addAll(servicioSolicitudManager.getSolicitudsbyService(s));
 		 		}
-                listaSolicitudes.stream().sorted(Comparator.comparing(Solicitud::getId).reversed())
+                listaSolicitudes = listaSolicitudes.stream().sorted(Comparator.comparing(Solicitud::getId).reversed())
                     .filter(sol -> (sol.getEstado()==EstadoSolicitud.valueOf(estadoObtenido)))
                     .collect(Collectors.toList());               
              }	     
@@ -185,7 +185,7 @@ public class ListadoSolicitudesController {
 			    	 }
 			 			//listaSolicitudes.addAll(servicioSolicitudManager.getSolicitudsbyService(s));
 			 		}
-		         listaSolicitudes 
+		    	 listaSolicitudes= listaSolicitudes 
 					.stream().sorted(Comparator.comparing(Solicitud::getId).reversed())
 				    .filter(sol -> !(sol.getEstado()==EstadoSolicitud.eliminada) && !(sol.getEstado()==EstadoSolicitud.adjudicada))
 				    .collect(Collectors.toList());
@@ -201,7 +201,9 @@ public class ListadoSolicitudesController {
 		mav.addObject("servicios", servicios);
 
 		Map<String, Object> solicitudes = new HashMap<String, Object>();
-		solicitudes.put("solicitudes", listaSolicitudes);
+		solicitudes.put("solicitudes", listaSolicitudes.stream()
+				.filter(s->s.getEstado()!= EstadoSolicitud.aceptado_cliente && s.getEstado()!= EstadoSolicitud.aceptado_profesional)
+				.collect(Collectors.toList()));
 		mav.addObject("solicitudes", solicitudes);
 
 		if(WebServiceController.usuarioRegistrado == null) {

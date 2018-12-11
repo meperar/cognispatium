@@ -613,7 +613,7 @@
 											<h1><b>Servicios</b></h1>
 										</div>
 										<br>
-										<div style="height:400px; width:100px">
+										<div style="height:400px; width:300px">
 											<ul style="list-style-type: none;">
 
 										        <c:forEach items="${model.servicios}" var="ser">	
