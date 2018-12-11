@@ -43,9 +43,9 @@
           <form action="<c:url value="/crearpresupuestoaSolicitud.htm" />" method="post" >
           <input type="hidden" id="solicitudId" name="solicitudId" value="${model.solicitud.id}">
             <div class="form-row">
-              <div class="form-group col-md-12"> <input type="number" class="form-control" id="form36" placeholder="Precio total estimado (€)" required="required" name="precio"> </div>
+              <div class="form-group col-md-12"> <input type="number" class="form-control" id="form36" placeholder="Precio total estimado (euros)" required="required" name="precio"> </div>
             </div>
-            <div class="form-group"> <textarea maxlength="1000" class="form-control" id="form43" rows="3" placeholder="Descripciónn del presupuesto"  required="required" name="descripcion"></textarea> </div> <button type="submit" class="btn btn-primary">Send</button>
+            <div class="form-group"> <textarea maxlength="1000" class="form-control" id="form43" rows="3" placeholder="Descripci�n del presupuesto"  required="required" name="descripcion"></textarea> </div> <button type="submit" class="btn btn-primary">Send</button>
           </form>
         </div>
       </div>
