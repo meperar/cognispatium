@@ -92,6 +92,7 @@ public class SignUpController {
 				nuevoCliente.setNombre(reqPar.get("nombre"));
 				nuevoCliente.setEmail(reqPar.get("email"));
 				nuevoCliente.setApellidos(reqPar.get("apellido"));
+				nuevoCliente.setEdad(Integer.parseInt(reqPar.get("edad")));
 				nuevoCliente.setDni(reqPar.get("dninif"));
 				nuevoCliente.setTelefono(Integer.parseInt(reqPar.get("tlf")));
 				nuevoCliente.setDTYPE(reqPar.get("rol"));
@@ -110,6 +111,7 @@ public class SignUpController {
 				nuevoProf.setNombre(reqPar.get("nombre"));
 				nuevoProf.setEmail(reqPar.get("email"));
 				nuevoProf.setApellidos(reqPar.get("apellido"));
+				nuevoProf.setEdad(Integer.parseInt(reqPar.get("edad")));
 				nuevoProf.setDni(reqPar.get("dninif"));
 				nuevoProf.setTelefono(Integer.parseInt(reqPar.get("tlf")));
 				nuevoProf.setDTYPE(reqPar.get("rol"));
