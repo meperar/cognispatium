@@ -83,6 +83,8 @@ public class PerfilController {
 
 	@Autowired
 	private SimpleSolicitudManager SManager;
+	
+	boolean isOk;
 
 	/** Logger for this class and subclasses */
 	protected final Log logger = LogFactory.getLog(getClass());
@@ -377,9 +379,26 @@ public class PerfilController {
 			}
 		}
 
+		
+		isOk = true;
+		for(Presupuesto a : profesional.getPresupuestos()) {
+			isOk = true;
+			for(Presupuesto ab : a.getSolicitudOrigen().getPresupuestos()) {
+				if(ab.getEstado() == EstadoPresupuesto.propuesto ) isOk = false;
+				
+			}
+			if(isOk && a.getSolicitudOrigen().getEstado() == EstadoSolicitud.respondida) {
+				a.getSolicitudOrigen().setEstado(EstadoSolicitud.creada);
+				solicitudManager.addSolicitud(a.getSolicitudOrigen());
+			}
+		}
+		
 		profesional.setPresupuestos(presupuestos);
 		profesional.setServicios(listaServicios);
 		profManager.addProfesional(profesional);
+		for(Presupuesto ab : profesional.getPresupuestos()) {
+			System.out.println("AAA" + ab.getEstado());
+		}
 		// Fin quitar servicio
 
 		List<Servicio> allServices = servicioManager.getServicios();
@@ -489,18 +508,34 @@ public class PerfilController {
                             presupuesto.setEstado(EstadoPresupuesto.noAceptado);
                             listaPe.add(presupuesto);
                     }
+                    
                 
             }
 
         }
         
+        
         //Actualizar presupuestos 
         if (esPe) {
           
-
+        	isOk = true;
             for (Presupuesto presupuesto : listaPe) {
                 preManager.addPresupuesto(presupuesto);
             }
+            
+            isOk = true;
+			Profesional profesional = profManager.getProfesionalById(usuEl.getId());
+			for(Presupuesto a : profesional.getPresupuestos()) {
+				isOk = true;
+				for(Presupuesto ab : a.getSolicitudOrigen().getPresupuestos()) {
+					if(ab.getEstado() == EstadoPresupuesto.propuesto ) isOk = false;
+					
+				}
+				if(isOk && a.getSolicitudOrigen().getEstado() == EstadoSolicitud.respondida) {
+					a.getSolicitudOrigen().setEstado(EstadoSolicitud.creada);
+					solicitudManager.addSolicitud(a.getSolicitudOrigen());
+				}
+			}
 
         } else {
         	//Actualizar consultas
@@ -557,11 +592,28 @@ public class PerfilController {
 
 		else {
 
+			
 			List<Presupuesto> presupuestos = presupuestoManager.getPresupuestosByProf(usuEl.getId());
 			for (Presupuesto p : presupuestos) {
+	            	
 				p.setEstado(EstadoPresupuesto.rechazado);
 				presupuestoManager.addPresupuesto(p);
+				
 			}
+			isOk = true;
+			Profesional profesional = profManager.getProfesionalById(usuEl.getId());
+			for(Presupuesto a : profesional.getPresupuestos()) {
+				isOk = true;
+				for(Presupuesto ab : a.getSolicitudOrigen().getPresupuestos()) {
+					if(ab.getEstado() == EstadoPresupuesto.propuesto ) isOk = false;
+					
+				}
+				if(isOk && a.getSolicitudOrigen().getEstado() == EstadoSolicitud.respondida) {
+					a.getSolicitudOrigen().setEstado(EstadoSolicitud.creada);
+					solicitudManager.addSolicitud(a.getSolicitudOrigen());
+				}
+			}
+			
 
 		}
 		ModelAndView mav = new ModelAndView("hello");

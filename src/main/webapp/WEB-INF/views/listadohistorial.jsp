@@ -19,7 +19,11 @@
 
 <body>
 	<jsp:include page="barrasuperior.jsp" flush="true" />
-	
+	<br>
+	<div style="text-align: center;">
+		<a><b style="font-size: 20px"> HISTORIAL DE SOLICITUDES</b></a>
+		<hr style="border-top: 2px solid #000000;">
+	</div>
 	<div class="py-5">
 		<div class="container">
 			<div class="row">
@@ -27,31 +31,24 @@
 					method="GET">
 					<div class="col-md-12" >
 					<label for="form16">Servicio</label> <br>
-					 <select name='servicio'>
-						<c:set var="servId" value="${servicios.serviciId}" />
-						<c:if test="${servId == null}" >
-						<option disabled selected> -- Seleccione un servicio -- </option>
-						</c:if>
-						<option  value="" > -- sin filtro  -- </option>
-						<c:forEach items="${servicios.servicios}" var="servicio">
-							<c:choose>
-								<c:when test="${servId == null}">
-								<option value="${servicio.id}" label="${servicio.nombre}"></option>
-								</c:when>
-								<c:otherwise>
-									<c:choose>
-										<c:when test="${servId == servicio.id}">
-										<option value="${servicio.id}" label="${servicio.nombre}"
-										selected></option>
-										</c:when>
-										<c:otherwise>
-										<option value="${servicio.id}" label="${servicio.nombre}"></option>
-										</c:otherwise>
-									</c:choose>
-								</c:otherwise>
-							</c:choose>
-						</c:forEach>
-					</select>
+					
+					
+					 <select name='servicio' >
+							<option disabled selected value>--</option>
+								<c:forEach items="${servicios.ambitos}" var="ambito">
+									<optgroup label="${ambito}">
+										<c:forEach items="${servicios.serviciosxambitos.get(ambito)}"
+											var="servicio">
+											<option value="${servicio.id}" label="${servicio.nombre}"></option>
+										</c:forEach>
+									</optgroup>
+								</c:forEach>
+							 </select>
+					
+					
+					
+					
+					
 					</div>
 					<div class="col-md-12" >
 					 </div>
