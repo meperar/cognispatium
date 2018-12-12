@@ -227,14 +227,9 @@
 									<br>
 									<button class="open-button" onclick="openForme()">Eliminar Perfil</button>
 									<br>
-									<c:choose>
-										<c:when test="${!boolModel.desactivado}">
+								
 											<button class="open-button" onclick="openFormDesac()">Desactivar Perfil</button>
-										</c:when>
-										<c:otherwise>
-											<button class="open-button" onclick="openFormActivar()">Activar Perfil</button>
-										</c:otherwise>
-									</c:choose>
+										
 									
 									<div class="form-popup" id="myFormAddS">
 										<form action="<c:url value="/addServicio.htm" />" method="post" class="form-container">
