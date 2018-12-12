@@ -83,8 +83,8 @@
 							<td>${presupuesto.profesionalOrigen.getCiudad()}</td> 	
 							<td><button class="bg-primary">
 									<img src="https://image.flaticon.com/icons/svg/159/159604.svg"
-										width="20" height="20" alt="Eye free icon"
-										title="Eye free icon">
+										width="20" height="20" alt="Ver información"
+										title="Ver información">
 								</button></td>
 						</tr>
 					</form>

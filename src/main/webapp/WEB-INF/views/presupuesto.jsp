@@ -108,7 +108,10 @@
 					<div class="col-md-12 text-center">
 						<input type="hidden" id="presupuestoId" name="presupuestoId"
 							value="${model.presupuesto.id}">
-						<button class="btn btn-primary text-center">Pagar</button>
+							<c:if test = "${model.presupuesto.getEstado() != 'aceptado' && model.presupuesto.getEstado() != 'aceptado_cliente'&& model.presupuesto.getEstado() != 'aceptado_profesional'}">
+							<button class="btn btn-primary text-center">Pagar</button>
+							</c:if>
+						
 					</div>
 				</form>
 			</div>

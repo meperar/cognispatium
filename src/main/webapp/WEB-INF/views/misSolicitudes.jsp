@@ -48,7 +48,7 @@
 								<td>${solicitud.estado}</td>
 								<td><button class="bg-primary" name="info">
 										<img src="https://image.flaticon.com/icons/svg/1/1176.svg"
-											alt="Information button free icon"
+											alt="Ver datos de mi solicitud"
 											title="Ver datos de mi solicitud" height="20" width="20">
 									</button>
 									<c:if test="${solicitud.getEstado() == 'respondida' || solicitud.getEstado() == 'creada'}">

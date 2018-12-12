@@ -3,6 +3,8 @@ package upv.etsinf.cognispatium.service;
 import java.io.Serializable;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -42,15 +44,11 @@ public class SimplePresupuestoManager implements Serializable {
 		return  presupuestoDao.getPresupuestoById(presupuestoId);
 	}
     public Presupuesto getPresupuestoAceptadoBySolicitud(Solicitud solicitud) {
-    	Iterator<Presupuesto> presupuestos = this.getPresupuestos().iterator();
-    	Presupuesto res = null;
-    	while(presupuestos.hasNext()) {
-    		Presupuesto presupuesto = presupuestos.next();
-    		if (presupuesto.getSolicitudOrigen().equals(solicitud) && (presupuesto.getEstado()==EstadoPresupuesto.aceptado || presupuesto.getEstado()==EstadoPresupuesto.aceptado_cliente 
-    		                    ||presupuesto.getEstado()==EstadoPresupuesto.aceptado_profesional )) {
-    			res = presupuesto;
-    		}
-    	}
+    	List<Presupuesto> presupuestos = solicitud.getPresupuestos();
+    	Presupuesto res = presupuestos.stream()
+    			.filter(p->p.getEstado()==EstadoPresupuesto.resuelto)
+    			.collect(Collectors.toList()).get(0);
+    	
     	return res;
     }
     
